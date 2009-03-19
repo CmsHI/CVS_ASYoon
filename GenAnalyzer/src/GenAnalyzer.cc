@@ -13,7 +13,7 @@
 //
 // Original Author:  Sungho Yoon
 //         Created:  Wed Mar 18 15:10:26 EDT 2009
-// $Id$
+// $Id: GenAnalyzer.cc,v 1.1 2009/03/18 22:13:45 sungho Exp $
 //
 //
 
@@ -150,9 +150,10 @@ GenAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
       }
 
       if(gen.mother(0) == 0){
-	 if(abs(gen.eta())<2.5 && charge!=0){
+	 if(abs(gen.eta())<2.5){
 
-	    hpt_all->Fill(gen.pt());
+            if(charge!=0 && abs(pdgId)!=11 && abs(pdgId)!=13 && abs(pdgId)!=15) //charged hadrons
+	      hpt_all->Fill(gen.pt());
 
 	    if(pdgId ==   211) hpt_pip->Fill(gen.pt());
 	    if(pdgId ==  -211) hpt_pim->Fill(gen.pt());
