@@ -13,7 +13,7 @@
 //
 // Original Author:  Sungho Yoon
 //         Created:  Wed Mar 18 15:10:26 EDT 2009
-// $Id: GenAnalyzer.cc,v 1.2 2009/03/19 12:49:25 edwenger Exp $
+// $Id: GenAnalyzer.cc,v 1.3 2009/03/19 17:37:47 edwenger Exp $
 //
 //
 
@@ -193,17 +193,17 @@ GenAnalyzer::beginJob(const edm::EventSetup&)
       nt_auxiliary = fs->make<TNtuple>("nt_auxiliary","","nMom:nDau:status:pdgId:charge");
    }
 
-   hpt_all       = fs->make<TH1D>("hpt_all",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_pip       = fs->make<TH1D>("hpt_pip",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_pim       = fs->make<TH1D>("hpt_pim",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_kp        = fs->make<TH1D>("hpt_kp",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_km        = fs->make<TH1D>("hpt_km",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_p         = fs->make<TH1D>("hpt_p",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_pbar      = fs->make<TH1D>("hpt_pbar",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_lambda    = fs->make<TH1D>("hpt_lambda",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_lambdabar = fs->make<TH1D>("hpt_lambdabar",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_k0s       = fs->make<TH1D>("hpt_k0s",";p_{T} (GeV/c);",100,0.0,10.);
-   hpt_d0        = fs->make<TH1D>("hpt_d0",";p_{T} (GeV/c);",100,0.0,10.);
+   hpt_all       = fs->make<TH1D>("hpt_all",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_pip       = fs->make<TH1D>("hpt_pip",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_pim       = fs->make<TH1D>("hpt_pim",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_kp        = fs->make<TH1D>("hpt_kp",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_km        = fs->make<TH1D>("hpt_km",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_p         = fs->make<TH1D>("hpt_p",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_pbar      = fs->make<TH1D>("hpt_pbar",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_lambda    = fs->make<TH1D>("hpt_lambda",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_lambdabar = fs->make<TH1D>("hpt_lambdabar",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_k0s       = fs->make<TH1D>("hpt_k0s",";p_{T} (GeV/c);",100,0.0,100.);
+   hpt_d0        = fs->make<TH1D>("hpt_d0",";p_{T} (GeV/c);",100,0.0,100.);
 
 }
 
