@@ -1,0 +1,15 @@
+<use name=FWCore/Framework>
+<use name=FWCore/PluginManager>
+<use name=FWCore/ParameterSet>
+<use name=PhysicsTools/UtilAlgos>
+<use name=DataFormats/HepMCCandidate>
+<use name=SimGeneral/HepPDTRecord>
+<use name=RecoJets/JetAlgorithms>
+<use name=DataFormats/JetReco>
+<use name=SpectraAna/GenJetSpectraAnalyzer>
+<library file="*.cc" name=GenJetSpectraAnalyzerPlugins>
+<flags EDM_PLUGIN=1>
+</library>
+
+
+
