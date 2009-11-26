@@ -204,7 +204,7 @@ else:
         psets      = " --psets -maxEvents,-options"
 
 
-        myGet = "edmConfigFromDB --cff --" + menuConfigDB + " --configName " + menuConfigName + edsources + essources + esmodules + modules + services + paths + psets + " > " + menuOutName
+        myGet = "edmConfigFromDB --cff --" + menuConfigDB + " --configName " + menuConfigName + edsources + essources + esmodules + modules + services + paths + psets + " --orcoff " + " > " + menuOutName
         os.system(myGet)
 
         # FIXME - this should be done by edmConfigFromDB - remove the definition of streams and primary datasets from the dump
@@ -243,7 +243,7 @@ else:
 
         paths      = " --paths -OfflineOutput"
 
-        myGet = "edmConfigFromDB --" + menuConfigDB + " --configName " + menuConfigName + edsources + essources + esmodules + modules + services + paths + psets + " > " + menuOutName
+        myGet = "edmConfigFromDB --" + menuConfigDB + " --configName " + menuConfigName + edsources + essources + esmodules + modules + services + paths + psets + " --orcoff " + " > " + menuOutName
         os.system(myGet)
 
         # FIXME - this should be done by edmConfigFromDB - remove the definition of streams and primary datasets from the dump

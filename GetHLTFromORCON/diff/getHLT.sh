@@ -1,9 +1,12 @@
 #! /bin/bash
 
 # ConfDB configurations to use
-MASTER="/dev/CMSSW_3_3_1/HLT"                   # no explicit version, take te most recent 
-TARGET="/dev/CMSSW_3_3_1/\$TABLE"               # no explicit version, take te most recent 
-TABLES="8E29 1E31 GRun HIon"                    # $TABLE in the above variable will be expanded to these TABLES
+#MASTER="/dev/CMSSW_3_3_1/HLT"                   # no explicit version, take te most recent 
+#TARGET="/dev/CMSSW_3_3_1/\$TABLE"               # no explicit version, take te most recent 
+#TABLES="8E29 1E31 GRun HIon"                    # $TABLE in the above variable will be expanded to these TABLES
+
+# fine a  menu name in ORCOFF in  http://cms-project-confdb-hltdev.web.cern.ch/cms-project-confdb-hltdev/browser/ 
+MASTER="/cdaq/special/CirculatingBeam09/v2.0/HLT" 
 
 # getHLT.py
 PACKAGE="HLTrigger/Configuration"
@@ -33,7 +36,7 @@ function getConfigForCVS() {
   # for things in CMSSW CVS
   local CONFIG="$1"
   local NAME="$2"
-  $GETHLT $CONFIG $NAME GEN-HLT
+  $GETHLT $CONFIG $NAME --data GEN-HLT
 }
 
 function getContentForCVS() {
@@ -47,7 +50,7 @@ function getConfigForOnline() {
   # for things NOT in CMSSW CVS:
   local CONFIG="$1"
   local NAME="$2"
-  $GETHLT $CONFIG $NAME
+  $GETHLT $CONFIG $NAME --data
 }
 
 # make sure we're using *this* working area
@@ -58,19 +61,22 @@ hash -r
 echo "Extracting CVS python dumps"
 rm -f HLT*_cff.py
 getConfigForCVS  $MASTER FULL
-getContentForCVS $MASTER
-for TABLE in $TABLES; do
-  getConfigForCVS $(eval echo $TARGET) $TABLE
-done
-ls -l HLT_*_cff.py HLTrigger_EventContent_cff.py
-mv -f HLT_*_cff.py HLTrigger_EventContent_cff.py ../python
+#getContentForCVS $MASTER
+#for TABLE in $TABLES; do
+#  getConfigForCVS $(eval echo $TARGET) $TABLE
+#done
+#ls -l HLT_*_cff.py HLTrigger_EventContent_cff.py
+ls -l HLT_*_cff.py
+#mv -f HLT_*_cff.py HLTrigger_EventContent_cff.py ../python
+mv -f HLT_*_cff.py ../python 
 echo
 
 # for things now also in CMSSW CVS:
 echo "Extracting full configurations"
 rm -f OnLine_HLT_*.py
-for TABLE in $TABLES; do
-  getConfigForOnline $(eval echo $TARGET) $TABLE
-done
+getConfigForOnline  $MASTER FULL
+#for TABLE in $TABLES; do
+#  getConfigForOnline $(eval echo $TARGET) $TABLE
+#done
 ls -l OnLine_HLT_*.py
 echo
