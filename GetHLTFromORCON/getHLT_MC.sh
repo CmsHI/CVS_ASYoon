@@ -1,0 +1,82 @@
+#! /bin/bash
+
+# ConfDB configurations to use
+#MASTER="/dev/CMSSW_3_3_1/HLT"                   # no explicit version, take te most recent 
+#TARGET="/dev/CMSSW_3_3_1/\$TABLE"               # no explicit version, take te most recent 
+#TABLES="8E29 1E31 GRun HIon"                    # $TABLE in the above variable will be expanded to these TABLES
+
+# fine a  menu name in ORCOFF in  http://cms-project-confdb-hltdev.web.cern.ch/cms-project-confdb-hltdev/browser/ 
+MASTER="/cdaq/special/CirculatingBeam09/v2.0/HLT" 
+
+# getHLT.py
+PACKAGE="HLTrigger/Configuration"
+if [ -f "./getHLT.py" ]; then
+  GETHLT="./getHLT.py"
+elif [ -f "$CMSSW_BASE/src/$PACKAGE/test/getHLT.py" ]; then
+  GETHLT="$CMSSW_BASE/src/$PACKAGE/test/getHLT.py"
+elif [ -f "$CMSSW_RELEASE_BASE/src/$PACKAGE/test/getHLT.py" ]; then
+  GETHLT="$CMSSW_RELEASE_BASE/src/$PACKAGE/test/getHLT.py"
+else
+  echo "cannot find getHLT.py, aborting"
+  exit 1
+fi
+
+if [ -f "./getEventContent.py" ]; then
+  GETCONTENT="./getEventContent.py"
+elif [ -f "$CMSSW_BASE/src/$PACKAGE/test/getEventContent.py" ]; then
+  GETCONTENT="$CMSSW_BASE/src/$PACKAGE/test/getEventContent.py"
+elif [ -f "$CMSSW_RELEASE_BASE/src/$PACKAGE/test/getEventContent.py" ]; then
+  GETCONTENT="$CMSSW_RELEASE_BASE/src/$PACKAGE/test/getEventContent.py"
+else
+  echo "cannot find getEventContent.py, aborting"
+  exit 1
+fi
+
+function getConfigForCVS() {
+  # for things in CMSSW CVS
+  local CONFIG="$1"
+  local NAME="$2"
+  $GETHLT $CONFIG $NAME GEN-HLT
+}
+
+function getContentForCVS() {
+  local CONFIG="$1"
+
+  $GETCONTENT $CONFIG
+  rm -f hltOutput*_cff.py*
+}
+
+function getConfigForOnline() {
+  # for things NOT in CMSSW CVS:
+  local CONFIG="$1"
+  local NAME="$2"
+  $GETHLT $CONFIG $NAME 
+}
+
+# make sure we're using *this* working area
+eval `scramv1 runtime -sh`
+hash -r
+
+# for things in CMSSW CVS
+echo "Extracting CVS python dumps"
+rm -f HLT*_cff.py
+getConfigForCVS  $MASTER FULL
+#getContentForCVS $MASTER
+#for TABLE in $TABLES; do
+#  getConfigForCVS $(eval echo $TARGET) $TABLE
+#done
+#ls -l HLT_*_cff.py HLTrigger_EventContent_cff.py
+ls -l HLT_*_cff.py
+#mv -f HLT_*_cff.py HLTrigger_EventContent_cff.py ../python
+mv -f HLT_*_cff.py ../python 
+echo
+
+# for things now also in CMSSW CVS:
+echo "Extracting full configurations"
+rm -f OnLine_HLT_*.py
+getConfigForOnline  $MASTER FULL
+#for TABLE in $TABLES; do
+#  getConfigForOnline $(eval echo $TARGET) $TABLE
+#done
+ls -l OnLine_HLT_*.py
+echo
