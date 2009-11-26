@@ -2,6 +2,8 @@ import FWCore.ParameterSet.Config as cms
 
 pythiaUESettingsBlock = cms.PSet(
     pythiaUESettings = cms.vstring(
+
+# P0
         'MSTU(21)=1     ! Check on possible errors during program execution', 
         'MSTJ(22)=2     ! Decay those unstable particles', 
         'PARJ(71)=10.   ! for which ctau  10 mm', 
