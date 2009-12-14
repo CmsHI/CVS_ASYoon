@@ -1,0 +1,4 @@
+// Andre S. Yoon (Dec 14 2009)
+
+The macros in this directory are used for plots in paper.
+One macro has to be compiled  (root dNdEta_ThreeMethodsCombined_v2_BU_Compile.C+) 
