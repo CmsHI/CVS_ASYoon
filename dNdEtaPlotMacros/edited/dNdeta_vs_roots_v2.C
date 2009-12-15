@@ -85,7 +85,7 @@
   ua5nsd->SetMarkerStyle(20);
   //if(bw)ua5nsd->SetMarkerStyle(25);
   //if(bw)ua5nsd->SetMarkerStyle(23);
-  if(bw)ua5nsd->SetMarkerStyle(19);
+  if(bw)ua5nsd->SetMarkerStyle(25);
   ua5nsd->SetMarkerSize(msize);
   ua5nsd->SetLineColor(kBlue);
   if(bw)ua5nsd->SetLineColor(kBlue);
@@ -220,8 +220,8 @@
   aliceinel->Draw("PZsame");
 
 
-  /*
-  // ---- CMS INEL ---
+ /*
+// ---- CMS INEL ---
   Double_t x7[2] =  { 900,  900 }; 
 //  Double_t y7[2] =  {  2.36, 3.80 };  // from Yen-Jie PAS (PYTHIA)
   Double_t y7[2] =  {  2.93, 2.93 };  // guesstimate!!
@@ -308,9 +308,10 @@
 //    t_sys.Draw();
 
 //   c->Print("Fig.eps");
+/*
     c->Print("dNdeta_vs_roots.eps");
     c->Print("dNdeta_vs_roots.pdf");
     c->Print("dNdeta_vs_roots.gif");
-
+*/
 }
 
