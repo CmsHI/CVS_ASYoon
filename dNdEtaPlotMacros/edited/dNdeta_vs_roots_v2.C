@@ -3,11 +3,11 @@
   gROOT->ProcessLine(".x dndeta_rootlogon.C");
 
 
-//****************************************************
+  //****************************************************
   Bool_t bw = 1;       // 1: BLACK AND WHITE, 0: COLOR
   Float_t msize = 1.2; // MARKER SIZE
   if(bw) msize = 1.5;
-//****************************************************
+  //****************************************************
   
   //TCanvas *c = new TCanvas("c","c",600,600);
   TCanvas *c = new TCanvas("c","c",650,500);
@@ -72,7 +72,7 @@
   fitISR->Draw("same");
 
 // ---- UA5 NSD ---
-  Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
+Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t y2[4] =  {  1.982, 2.474, 3.047, 3.478 };
   Double_t exl2[4]= { 0, 0, 0, 0 };
   Double_t exh2[4]= { 0, 0, 0, 0 };
@@ -220,6 +220,24 @@
   aliceinel->Draw("PZsame");
 
 
+  // ---- STAR NSD ------
+  Double_t x6[2] = {  200,  200 };
+  Double_t y6[2] = {  2.98, 2.98 };
+  Double_t exl6[2]= {  0.34, 0.34 };
+  Double_t exh6[2]= { 0.34, 0.34 };
+  Double_t eyl6[2]= { 0.34, 0.34 };
+  Double_t eyh6[2]= { 0.34, 0.34 };
+
+  TGraphAsymmErrors *starnsd=new TGraphAsymmErrors(2,x6,y6,exl6,exh6,eyl6,eyh6);
+  starnsd->SetMarkerColor(kBlack);
+  starnsd->SetMarkerStyle(28);
+  starnsd->SetMarkerSize(msize);
+  starnsd->SetLineColor(kBlack);
+  starnsd->Draw("PZsame");
+
+
+
+
  /*
 // ---- CMS INEL ---
   Double_t x7[2] =  { 900,  900 }; 
@@ -264,6 +282,7 @@
     leg.AddEntry(ua5inel,"UA5 inel.","p");
     leg.AddEntry(aliceinel,"ALICE inel.","p");
     leg.AddEntry(ua5nsd,"UA5 NSD","p");
+    leg.AddEntry(starnsd,"STAR NSD","p");
     leg.AddEntry(cdf,"CDF NSD","p");
     leg.AddEntry(alicensd,"ALICE NSD","p");
     leg.AddEntry(cmsnsd,"CMS NSD","p");
