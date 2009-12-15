@@ -219,6 +219,20 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   aliceinel->SetLineColor(kBlack);
   aliceinel->Draw("PZsame");
 
+  // ---- Phobos INEL ------
+  Double_t x10[1] =  { 200 };
+  Double_t y10[1] =  {  2.32 };
+  Double_t exl10[1]= { 0 };
+  Double_t exh10[1]= { 0 };
+  Double_t eyl10[1]= { 0.20};
+  Double_t eyh10[1]= { 0.20};
+
+  TGraphAsymmErrors *phobosinel=new TGraphAsymmErrors(1,x10,y10,exl10,exh10,eyl10,eyh10);
+  phobosinel->SetMarkerColor(kBlack);
+  phobosinel->SetMarkerStyle(22);
+  phobosinel->SetMarkerSize(msize);
+  phobosinel->SetLineColor(kBlack);
+  phobosinel->Draw("PZsame");
 
   // ---- STAR NSD ------
   Double_t x6[2] = {  200,  200 };
@@ -281,6 +295,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     leg.AddEntry(isr,"ISR inel.","p");
     leg.AddEntry(ua5inel,"UA5 inel.","p");
     leg.AddEntry(aliceinel,"ALICE inel.","p");
+    leg.AddEntry(phobosinel,"PHOBOS inel.","p");
     leg.AddEntry(ua5nsd,"UA5 NSD","p");
     leg.AddEntry(starnsd,"STAR NSD","p");
     leg.AddEntry(cdf,"CDF NSD","p");
@@ -318,19 +333,17 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     t_sys.SetTextAlign(32);
 
 
-    TLatex *tex = new TLatex(4008,5.96,"CMS");
-    tex->SetTextSize(0.04);
-    tex->SetLineWidth(2);
-    tex->Draw();
+//    TLatex *tex = new TLatex(4008,5.96,"CMS");
+//    tex->SetTextSize(0.04);
+//    tex->SetLineWidth(2);
+//    tex->Draw();
 
     c->Print("Fig.eps");
 //    t_sys.Draw();
 
 //   c->Print("Fig.eps");
-/*
     c->Print("dNdeta_vs_roots.eps");
-    c->Print("dNdeta_vs_roots.pdf");
+//    c->Print("dNdeta_vs_roots.pdf"); // don't print, use eps2pdf
     c->Print("dNdeta_vs_roots.gif");
-*/
 }
 
