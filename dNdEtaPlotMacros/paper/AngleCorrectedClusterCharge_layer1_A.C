@@ -399,7 +399,7 @@
    tex->Draw();
 
 
-   double height = hChargeDist->GetMaximum() * 0.926;
+   double height = 0.043;
 
    TLatex *tex = new TLatex(68.61,height,"CMS");
    tex->SetTextSize(0.04);
