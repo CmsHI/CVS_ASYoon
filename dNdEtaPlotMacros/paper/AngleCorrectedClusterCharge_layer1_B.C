@@ -7,7 +7,7 @@
 
    //gStyle->SetPadRightMargin(0.065);
 
-   char* label = "(b)";
+   char* label = "(a)";
 
    TCanvas *c1 = new TCanvas("c1", "c1",1,23,550,600);
 
@@ -398,7 +398,8 @@
    tex->SetLineWidth(2);
    tex->Draw();
 
-double height = 0.043;
+
+   double height = hChargeDist->GetMaximum() * 0.926;
 
    TLatex *tex = new TLatex(68.61,height,"CMS");
    tex->SetTextSize(0.04);
@@ -410,9 +411,9 @@ double height = 0.043;
    tex->SetLineWidth(2);
    tex->Draw();
 
-   c1->Print("landau_B.eps");
-   c1->Print("landau_B.pdf");
-   c1->Print("landau_B.gif");
+   c1->Print("landau_A.eps");
+   c1->Print("landau_A.pdf");
+   c1->Print("landau_A.gif");
 
 
    /*
