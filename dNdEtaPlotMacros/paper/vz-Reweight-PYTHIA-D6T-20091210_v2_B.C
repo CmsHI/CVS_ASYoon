@@ -1,7 +1,7 @@
 {
 //=========Macro generated from canvas: c1/c1
-//=========  (Wed Dec 16 14:04:18 2009) by ROOT version5.22/00a
-   TCanvas *c1 = new TCanvas("c1", "c1",3,70,550,600);
+//=========  (Wed Dec 16 14:42:52 2009) by ROOT version5.22/00a
+   TCanvas *c1 = new TCanvas("c1", "c1",212,97,599,601);
    gStyle->SetOptFit(1);
    gStyle->SetOptStat(0);
    c1->Range(-30.08,-0.01801242,17.92,0.1062112);
@@ -210,7 +210,7 @@
    h2vz->GetZaxis()->SetLabelSize(0.059);
    h2vz->Draw("same");
    
-   TLegend *leg = new TLegend(0.1831502,0.6993007,0.5824176,0.8391608,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.6554622,0.7696335,1,0.8708551,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -238,15 +238,14 @@
    tex->SetLineWidth(2);
    tex->Draw();
 tex = new TLatex(-18,0.092,"(b)");
-tex->SetTextSize(0.04);
-tex->SetLineWidth(2);
-tex->Draw();
-
+   tex->SetTextSize(0.04);
+   tex->SetLineWidth(2);
+   tex->Draw();
    c1->Modified();
    c1->cd();
    c1->SetSelected(c1);
 
-c1->SaveAs("vz-Reweight-PYTHIA-D6T-20091210_v2_B.eps");
 c1->SaveAs("vz-Reweight-PYTHIA-D6T-20091210_v2_B.gif");
+c1->SaveAs("vz-Reweight-PYTHIA-D6T-20091210_v2_B.eps");
 
 }
