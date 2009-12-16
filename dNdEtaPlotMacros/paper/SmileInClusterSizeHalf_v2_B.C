@@ -2450,9 +2450,9 @@ tex->SetTextSize(0.04);
 tex->SetLineWidth(2);
 tex->Draw();
 
-   MyCanvas->Print("SmileInClusterSize_v2_B.eps");
-   MyCanvas->Print("SmileInClusterSize_v2_B.gif");
-   MyCanvas->Print("SmileInClusterSize_v2_B.pdf");
+   MyCanvas->Print("SmileInClusterSizeHalf_v2_B.eps");
+   MyCanvas->Print("SmileInClusterSizeHalf_v2_B.gif");
+
 
 
 }

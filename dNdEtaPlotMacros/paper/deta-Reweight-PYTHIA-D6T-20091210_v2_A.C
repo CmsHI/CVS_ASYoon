@@ -1,7 +1,7 @@
 {
 //=========Macro generated from canvas: c1/c1
-//=========  (Wed Dec 16 13:58:08 2009) by ROOT version5.22/00a
-   TCanvas *c1 = new TCanvas("c1", "c1",3,70,550,600);
+//=========  (Wed Dec 16 14:58:03 2009) by ROOT version5.22/00a
+   TCanvas *c1 = new TCanvas("c1", "c1",70,93,550,600);
    gStyle->SetOptFit(1);
    gStyle->SetOptStat(0);
    c1->Range(-0.312,-3.4094,0.2213333,-0.3004863);
@@ -268,10 +268,10 @@
    h2deta->GetZaxis()->SetLabelSize(0.059);
    h2deta->Draw("same");
    
-   TLegend *leg = new TLegend(0.2216117,0.6503497,0.6208791,0.7902098,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.6794872,0.7727273,1,0.8793706,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
-   leg->SetLineColor(2);
+   leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
@@ -295,7 +295,7 @@
    tex->SetTextSize(0.04);
    tex->SetLineWidth(2);
    tex->Draw();
-tex = new TLatex(-.19,0.23,"(a)");
+tex = new TLatex(-.18,0.23,"(a)");
 tex->SetTextSize(0.04);
 tex->SetLineWidth(2);
 tex->Draw();
@@ -303,9 +303,7 @@ tex->Draw();
    c1->Modified();
    c1->cd();
    c1->SetSelected(c1);
-
 c1->SaveAs("deta-Reweight-PYTHIA-D6T-20091210_v2_A.eps");
 c1->SaveAs("deta-Reweight-PYTHIA-D6T-20091210_v2_A.gif");
-
 
 }

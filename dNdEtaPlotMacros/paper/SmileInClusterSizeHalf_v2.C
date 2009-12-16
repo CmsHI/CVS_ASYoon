@@ -2446,9 +2446,8 @@
    tex->Draw();
 
 
-   MyCanvas->Print("SmileInClusterSize_v2.eps");
-   MyCanvas->Print("SmileInClusterSize_v2.gif");
-   MyCanvas->Print("SmileInClusterSize_v2.pdf");
+   MyCanvas->Print("SmileInClusterSizeHalf_v2.eps");
+   MyCanvas->Print("SmileInClusterSizeHalf_v2.gif");
 
 
 }
