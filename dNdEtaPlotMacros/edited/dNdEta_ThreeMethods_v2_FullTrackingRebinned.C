@@ -20,24 +20,25 @@
    TH1 *corr_result_all = new TH1D("corr_result_all","",14,-3.5,3.5);
    corr_result_all->GetXaxis()->SetRange(2,13);
 
+   // ========================= Cluster Counting =======================
    //Three layer averaged (updated with Ed's cut + bit 40)
-   corr_result_all->SetBinContent(4,3.887206);      
-   corr_result_all->SetBinContent(5,3.961184); 
-   corr_result_all->SetBinContent(6,3.729692); 
-   corr_result_all->SetBinContent(7,3.665855333); 
-   corr_result_all->SetBinContent(8,3.607736333); 
-   corr_result_all->SetBinContent(9,3.661427667); 
-   corr_result_all->SetBinContent(10,3.759902); 
-   corr_result_all->SetBinContent(11,3.896477); 
+   corr_result_all->SetBinContent(4,3.801373);      
+   corr_result_all->SetBinContent(5,3.8391785); 
+   corr_result_all->SetBinContent(6,3.630001); 
+   corr_result_all->SetBinContent(7,3.57286667); 
+   corr_result_all->SetBinContent(8,3.52753333); 
+   corr_result_all->SetBinContent(9,3.62393533); 
+   corr_result_all->SetBinContent(10,3.750916); 
+   corr_result_all->SetBinContent(11,3.9227); 
 
-   corr_result_all->SetBinError(4,0.241006772); 
-   corr_result_all->SetBinError(5,0.245593408); 
-   corr_result_all->SetBinError(6,0.231240904); 
-   corr_result_all->SetBinError(7,0.227283031); 
-   corr_result_all->SetBinError(8,0.223679653); 
-   corr_result_all->SetBinError(9,0.227008515); 
-   corr_result_all->SetBinError(10,0.233113924); 
-   corr_result_all->SetBinError(11,0.241581574); 
+   corr_result_all->SetBinError(4,0.17017249); 
+   corr_result_all->SetBinError(5,0.17186489); 
+   corr_result_all->SetBinError(6,0.16250084); 
+   corr_result_all->SetBinError(7,0.15994316); 
+   corr_result_all->SetBinError(8,0.15791376); 
+   corr_result_all->SetBinError(9,0.1622293); 
+   corr_result_all->SetBinError(10,0.16791373); 
+   corr_result_all->SetBinError(11,0.17560382); 
 
    /*
    corr_result_all->SetBinContent(4,3.860561);  
@@ -78,30 +79,31 @@
 
    corr_result_all->Draw("pz");
 
-   //YJ Tracklet three layer combination averaged (updated with dead modules..)
+   // ======= YJ Tracklet three layer combination averaged (updated with dead modules..) ======
+   //                        1     2   3     4   5     6  7    8  9   10 11   12
    Double_t xAxis5[13] = {-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3}; 
    
    TH1 *hMeasuredFinal = new TH1D("hMeasuredFinal","",12, xAxis5);
 
 
-   hMeasuredFinal->SetBinContent(3,3.6108);
-   hMeasuredFinal->SetBinContent(4,3.8509);
-   hMeasuredFinal->SetBinContent(5,3.69058);
-   hMeasuredFinal->SetBinContent(6,3.49282);
-   hMeasuredFinal->SetBinContent(7,3.52254);
-   hMeasuredFinal->SetBinContent(8,3.68352);
-   hMeasuredFinal->SetBinContent(9,3.70197);
-   hMeasuredFinal->SetBinContent(10,3.77515);
+   hMeasuredFinal->SetBinContent(3,3.49038);
+   hMeasuredFinal->SetBinContent(4,3.77519);
+   hMeasuredFinal->SetBinContent(5,3.61123);
+   hMeasuredFinal->SetBinContent(6,3.40686);
+   hMeasuredFinal->SetBinContent(7,3.44304);
+   hMeasuredFinal->SetBinContent(8,3.61126);
+   hMeasuredFinal->SetBinContent(9,3.64045);
+   hMeasuredFinal->SetBinContent(10,3.69915);
 
 
-   hMeasuredFinal->SetBinError(3,0.13721);
-   hMeasuredFinal->SetBinError(4,0.146334);
-   hMeasuredFinal->SetBinError(5,0.140242);
-   hMeasuredFinal->SetBinError(6,0.132727);
-   hMeasuredFinal->SetBinError(7,0.133857);
-   hMeasuredFinal->SetBinError(8,0.139974);
-   hMeasuredFinal->SetBinError(9,0.140675);
-   hMeasuredFinal->SetBinError(10,0.143456);
+   hMeasuredFinal->SetBinError(3,0.132634);
+   hMeasuredFinal->SetBinError(4,0.143457);
+   hMeasuredFinal->SetBinError(5,0.137227);
+   hMeasuredFinal->SetBinError(6,0.129461);
+   hMeasuredFinal->SetBinError(7,0.130835);
+   hMeasuredFinal->SetBinError(8,0.137228);
+   hMeasuredFinal->SetBinError(9,0.138337);
+   hMeasuredFinal->SetBinError(10,0.140568);
 
    hMeasuredFinal->SetMarkerColor(4);   
    hMeasuredFinal->SetLineColor(4);
@@ -112,31 +114,31 @@
    hMeasuredFinal->Draw("pzsame");
 
    /// ==================================================== Ferenc's dN/dEta   (rebinned)
-   Double_t xAxis6[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};
+   Double_t xAxis6[13] = {-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3}; 
    TH1 *hMeasuredFinal2 = new TH1D("hMeasuredFinal2","",12, xAxis6);
    
-   hMeasuredFinal2->SetBinContent(2,3.69453);  // -2.4 to -2.0
-   hMeasuredFinal2->SetBinContent(3,3.708738); //-2 to -1.5
-   hMeasuredFinal2->SetBinContent(4,3.832686);        // -1.5 to -1.0
-   hMeasuredFinal2->SetBinContent(5,3.74842); // -1.0 to -0.5
-   hMeasuredFinal2->SetBinContent(6,3.45884);        // -0.5 to 0
-   hMeasuredFinal2->SetBinContent(7,3.45884); // 0 to 0.5
-   hMeasuredFinal2->SetBinContent(8,3.74842); // 0.5 to 1.0
-   hMeasuredFinal2->SetBinContent(9,3.832686); // 1.0 to 1.5
-   hMeasuredFinal2->SetBinContent(10,3.708738); // 1.5 to 2.0
-   hMeasuredFinal2->SetBinContent(11,3.69453); // 2.0 to 2.4
+   hMeasuredFinal2->SetBinContent(2,3.68115);
+   hMeasuredFinal2->SetBinContent(3,3.71015);
+   hMeasuredFinal2->SetBinContent(4,3.9022);
+   hMeasuredFinal2->SetBinContent(5,3.723);
+   hMeasuredFinal2->SetBinContent(6,3.56699);
+   hMeasuredFinal2->SetBinContent(7,3.4943);
+   hMeasuredFinal2->SetBinContent(8,3.67308);
+   hMeasuredFinal2->SetBinContent(9,3.65335);
+   hMeasuredFinal2->SetBinContent(10,3.7142);
+   hMeasuredFinal2->SetBinContent(11,3.69061);
 
    // Systematic error of 4.6%
-   hMeasuredFinal2->SetBinError(2,0.15910664);
-   hMeasuredFinal2->SetBinError(3,0.17242732);
-   hMeasuredFinal2->SetBinError(4,0.176303556);
-   hMeasuredFinal2->SetBinError(5,0.170601948);
-   hMeasuredFinal2->SetBinError(6,0.16994838);
-   hMeasuredFinal2->SetBinError(7,0.16994838);
-   hMeasuredFinal2->SetBinError(8,0.170601948);
-   hMeasuredFinal2->SetBinError(9,0.176303556);
-   hMeasuredFinal2->SetBinError(10,0.17242732);
-   hMeasuredFinal2->SetBinError(11,0.15910664);
+   hMeasuredFinal2->SetBinError(2,0.112864);
+   hMeasuredFinal2->SetBinError(3,0.0996178);
+   hMeasuredFinal2->SetBinError(4,0.0830812);
+   hMeasuredFinal2->SetBinError(5,0.0954954);
+   hMeasuredFinal2->SetBinError(6,0.0750412);
+   hMeasuredFinal2->SetBinError(7,0.0899691);
+   hMeasuredFinal2->SetBinError(8,0.0769857);
+   hMeasuredFinal2->SetBinError(9,0.0870444);
+   hMeasuredFinal2->SetBinError(10,0.0870007);
+   hMeasuredFinal2->SetBinError(11,0.101766);
    
 
    hMeasuredFinal2->SetMarkerColor(1);
