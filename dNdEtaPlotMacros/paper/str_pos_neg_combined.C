@@ -6,19 +6,11 @@
    gROOT->ProcessLine(".x dndeta_rootlogon.C");
    TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
 
-   /*
-   TH1D *hDist = new TH1D("hDist","hDist",20,1.5,20.5);
-   hDist->SetMinimum(0);
-   hDist->SetMaximum(0.12);
-   hDist->SetLineStyle(0);
-   hDist->Draw("");
-   */
-
    // Pos SIM
    TGraphErrors *gre = new TGraphErrors(30);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
-   gre->SetFillColor(1);
+   gre->SetFillColor(2);
    gre->SetMarkerStyle(20);
    gre->SetPoint(0,0,0.122026);
    gre->SetPointError(0,0.5,0);
@@ -86,30 +78,16 @@
 
    TH1F *Graph5 = new TH1F("Graph5","Graph",21,-0.5,20.5);//-0.5 ~ 0.5, 0.5 ~ 1.5, ...
 
-   Graph5->GetXaxis()->SetTitle("Number of strip hits per track");
-   Graph5->GetYaxis()->SetTitle("Fraction");
-
    for(Int_t i = 0; i<20; i++){
       Graph5->SetBinContent(i+1,ydata[i]);
       Graph5->SetBinError(i+1,yerr[i]);
    }
 
-
-   //Graph5->GetXaxis()->SetRange(3,21);
-   //Graph5->SetMaximum(0.12);
-   //Graph5->Draw("hist");
-
-   /*
-   TH1F *Graph5 = new TH1F("Graph5","Graph",100,-3.5,32.5); 
-   gre->SetHistogram(Graph5);
-   gre->Draw("pz");
-   */
-
    // Neg SIM
    TGraphErrors *gre = new TGraphErrors(30);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
-   gre->SetFillColor(1);
+   gre->SetFillColor(2);
    gre->SetMarkerStyle(20);
    gre->SetPoint(0,0,0.105311);
    gre->SetPointError(0,0.5,0);
@@ -172,12 +150,14 @@
    gre->SetPoint(29,29,0);
    gre->SetPointError(29,0.5,0);
 
-   //TH1F *Graph7 = new TH1F("Graph7","Graph",100,-3.5,32.5);
-
    Double_t *ydata = gre->GetY();
    Double_t *yerr = gre->GetEY();
 
-   TH1F *Graph6 = new TH1F("Graph6","Graph",21,-0.5,20.5);//-0.5 ~ 0.5, 0.5 ~ 1.5, ...                                                                                                     
+   TH1F *Graph6 = new TH1F("Graph6","Graph",21,-0.5,20.5);
+
+   Graph6->SetLineColor(2);
+   Graph6->SetLineWidth(2);
+
    Graph6->GetXaxis()->SetTitle("Number of strip hits on track");
    Graph6->GetYaxis()->SetTitle("Fraction");
    Graph6->GetXaxis()->CenterTitle();
@@ -188,22 +168,14 @@
       Graph6->SetBinError(i+1,yerr[i]);
    }
    
-   /*
-   Graph6->GetXaxis()->SetRange(3,21);
-   Graph6->SetMaximum(0.12); 
-   Graph6->Draw("hist"); 
-   */
-   
    Graph5->Sumw2();
    Graph6->Sumw2();
 
    Graph6->Add(Graph5);
    Graph6->Scale(1./2); //(h+ + h-)/2
 
-   Graph6->SetLineWidth(1.0);
+   Graph6->SetMaximum(0.135);
    Graph6->GetXaxis()->SetRange(3,21); 
-   Graph6->SetMaximum(0.12);  
-   //Graph6->SetMaximum(1);   
    Graph6->Draw("hist");
 
    // Pos DATA
@@ -212,10 +184,8 @@
    gre->SetTitle("Graph");
    gre->SetFillColor(1);
 
-
    Int_t ci;   // for color index setting
-   ci = TColor::GetColor("#000000");
-   gre->SetLineColor(ci);
+   gre->SetLineColor(2);
 
    ci = TColor::GetColor("#000000");
    gre->SetMarkerColor(ci);
@@ -373,70 +343,49 @@
 
    Graph8->Add(Graph7);
    Graph8->Scale(1./2); //(h+ + h-)/2                                                                                                                                                      
+   Graph8->SetMaximum(0.24);
+
    Graph8->SetMarkerStyle(20);
-   Graph8->SetMarkerColor(2);
-   Graph8->SetLineColor(2);
+   Graph8->SetMarkerColor(1);
+   Graph8->SetLineColor(1);
    Graph8->Draw("pzsame");
 
 
-   //TLegend *leg = new TLegend(0.24,0.79,0.55,0.93,NULL,"brNDC");
-   TLegend *leg = new TLegend(0.33,0.76,0.64,0.90,NULL,"brNDC");  
+   TLegend *leg = new TLegend(0.41,0.73,0.72,0.87,NULL,"brNDC");  
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.038);
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
    leg->SetMargin(0.32);
-
+   
    TLegendEntry *entry=leg->AddEntry("","Run 123596","p");
-   entry->SetLineColor(2);
+   entry->SetLineColor(1);
    entry->SetLineWidth(1);
-   entry->SetMarkerColor(2);
+   entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
 
    entry=leg->AddEntry("","PYTHIA D6T","l");
+   entry->SetLineColor(2);
    entry->SetLineWidth(2);
    leg->Draw();
+   
+   double height = Graph6->GetMaximum() * 0.926;
 
-
-   TLatex *tex = new TLatex(17.8,0.11,"CMS");
+   TLatex *tex = new TLatex(17.8,height,"CMS");
    tex->SetTextSize(0.04);
    tex->SetLineWidth(2);
    tex->Draw();
 
-   MyCanvas->Print("strips_pos_neg_v2.eps");
-   MyCanvas->Print("strips_pos_neg_v2.gif");
-   MyCanvas->Print("strips_pos_neg_v2.pdf");
+   //   tex = new TLatex(2.,height,"(a)");
+   tex->SetTextSize(0.04);
+   tex->SetLineWidth(2);
+   tex->Draw();
+
+
+   MyCanvas->Print("strips_pos_neg.eps");
+   MyCanvas->Print("strips_pos_neg.gif");
+   MyCanvas->Print("strips_pos_neg.pdf");
    
 
-   /*
-   TLegend *leg = new TLegend(0.65,0.65,0.95,0.95,NULL,"brNDC");
-   leg->SetBorderSize(0);
-   leg->SetTextFont(62);
-   leg->SetLineColor(1);
-   leg->SetLineStyle(1);
-   leg->SetLineWidth(1);
-   leg->SetFillColor(0);
-   leg->SetFillStyle(0);
-   TLegendEntry *entry=leg->AddEntry("Graph","data","P");
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(1);
-
-   ci = TColor::GetColor("#000000");
-   entry->SetMarkerColor(ci);
-   entry->SetMarkerStyle(24);
-
-   entry=leg->AddEntry("Graph","simulation","L");
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(1);
-   entry->SetMarkerStyle(21);
-
-   leg->Draw();
-   MyCanvas->Modified();
-   MyCanvas->cd();
-   MyCanvas->SetSelected(MyCanvas);
-   */
 }
