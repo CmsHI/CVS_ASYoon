@@ -240,4 +240,8 @@
    c1->Modified();
    c1->cd();
    c1->SetSelected(c1);
+
+c1->SaveAs("vz-Reweight-PYTHIA-D6T-20091210_v2.gif");
+c1->SaveAs("vz-Reweight-PYTHIA-D6T-20091210_v2.eps");
+
 }

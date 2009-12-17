@@ -88,7 +88,7 @@
 
    hvz1->GetYaxis()->SetNdivisions(405);
    
-   hvz1->GetXaxis()->SetTitle("v_{z} (cm)");
+   hvz1->GetXaxis()->SetTitle("z_{vertex} (cm)");
    hvz1->GetYaxis()->SetTitle("Arbitrary normalization");
    hvz1->GetXaxis()->CenterTitle();
    hvz1->GetYaxis()->CenterTitle();
