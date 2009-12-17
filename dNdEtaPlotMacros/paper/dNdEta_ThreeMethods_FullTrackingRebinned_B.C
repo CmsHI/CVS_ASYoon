@@ -285,24 +285,23 @@
    hEta_UA5_NSD->SetMarkerSize(1.0);
    //hEta_UA5_NSD->Draw("psame");
 
-   TLatex *   tex = new TLatex(2.2,4.61,"CMS");
+   TLatex *tex = new TLatex(2.2,4.61,"CMS");
    tex->SetTextSize(0.04);
    tex->SetLineWidth(2);
    tex->Draw();
+
+   TLatex *tex2 = new TLatex(1.25,4.38,"#sqrt{s}=900 GeV");
+   tex2->SetTextSize(0.04);
+   tex2->SetLineWidth(2);
+   tex2->Draw();
+
+
 
    TLatex *   tex = new TLatex(-2.8,4.61,"(b)");
    tex->SetTextSize(0.04);
    tex->SetLineWidth(2);
    tex->Draw();
 
-   TLatex *   tex = new TLatex(0.69,4.344,"#sqrt{s}=900 GeV, NSD");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
-
-   //TLegend *leg = new TLegend(0.27,0.19,0.72,0.50,NULL,"brNDC"); 
-   //TLegend *leg = new TLegend(0.19,0.20,0.51,0.46,NULL,"brNDC");
-   //TLegend *leg = new TLegend(0.21,0.20,0.53,0.46,NULL,"brNDC");
    TLegend *leg = new TLegend(0.29,0.22,0.61,0.42,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);

@@ -9,7 +9,7 @@
    Float_t marker = 1.4;
    Float_t tsize = 0.035;
 
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,625,600);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,625,750);
 
    TH1D *hDist = new TH1D("hDist","hDist",20,0,2);
    hDist->SetMinimum(0);
@@ -14087,6 +14087,10 @@
    tex->SetTextSize(0.04);
    tex->SetLineWidth(2);
    tex->Draw();
+   TLatex *tex2 = new TLatex(1.3,40,"#sqrt{s}=900 GeV");
+   tex2->SetTextSize(0.04);
+   tex2->SetLineWidth(2);
+   tex2->Draw();
 
    tex = new TLatex(0.1,42.43,"(b)");
    tex->SetTextSize(0.04);
@@ -14096,8 +14100,8 @@
 
 
 
-   //TLegend *leg = new TLegend(0.42,0.79,0.69,0.9,NULL,"brNDC");
-   TLegend *leg = new TLegend(0.40,0.83,0.67,0.93,NULL,"brNDC");   
+   TLegend *leg = new TLegend(0.325,0.84,0.60,0.94,NULL,"brNDC");
+
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);

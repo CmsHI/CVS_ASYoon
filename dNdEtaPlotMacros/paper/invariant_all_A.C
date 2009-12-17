@@ -8,7 +8,7 @@
 
   Float_t marker = 1.4;
 
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,600);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
    MyCanvas->SetLogy();
    
    TH1D *hDist = new TH1D("hDist","hDist",20,0,2.8);
@@ -1156,7 +1156,7 @@
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
-   TLegendEntry *entry=leg->AddEntry("Graph","CMS","P");
+   TLegendEntry *entry=leg->AddEntry("Graph","Run 123596","P");
    entry->SetLineColor(1);
    entry->SetLineStyle(1);
    entry->SetLineWidth(1);
@@ -1181,6 +1181,11 @@
    tex->SetTextSize(0.04);
    tex->SetLineWidth(2);
    tex->Draw();
+
+   TLatex *tex2 = new TLatex(1.95,8,"#sqrt{s}=900 GeV");
+   tex2->SetTextSize(0.04);
+   tex2->SetLineWidth(2);
+   tex2->Draw();
 
    tex = new TLatex(0.1,height,"(a)");
    tex->SetTextSize(0.04);

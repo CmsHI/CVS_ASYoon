@@ -294,8 +294,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile_A(){
    tex->SetLineWidth(2);
    tex->Draw();
 
-   //TLatex *tex2 = new TLatex(1.35,4.3,"#sqrt{s}=900 GeV, NSD");
-   TLatex *tex2 = new TLatex(1.35,4.3,"#sqrt{s}=900 GeV");
+   TLatex *tex2 = new TLatex(1.25,4.38,"#sqrt{s}=900 GeV");
    tex2->SetTextSize(0.04);
    tex2->SetLineWidth(2);
    tex2->Draw();
