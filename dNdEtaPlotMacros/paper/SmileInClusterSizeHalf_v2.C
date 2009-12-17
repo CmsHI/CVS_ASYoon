@@ -2337,7 +2337,7 @@
    
    hCorrEtaSizeY->GetYaxis()->SetNdivisions(210);
    hCorrEtaSizeY->GetXaxis()->SetTitle("#eta");
-   hCorrEtaSizeY->GetYaxis()->SetTitle("Cluster length along the beam line");
+   hCorrEtaSizeY->GetYaxis()->SetTitle("pixel cluster length along z [pixel units]");
    hCorrEtaSizeY->GetXaxis()->CenterTitle();
    hCorrEtaSizeY->GetYaxis()->CenterTitle();
    hCorrEtaSizeY->Draw("P");
