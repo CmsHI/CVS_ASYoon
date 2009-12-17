@@ -2452,6 +2452,7 @@ tex->SetLineWidth(2);
 tex->Draw();
 
    MyCanvas->Print("SmileInClusterSizeHalf_A.eps");
+   MyCanvas->Print("SmileInClusterSizeHalf_A.pdf");
    MyCanvas->Print("SmileInClusterSizeHalf_A.gif");
 
 

@@ -2447,6 +2447,7 @@
 
 
    MyCanvas->Print("SmileInClusterSizeHalf.eps");
+   MyCanvas->Print("SmileInClusterSizeHalf.pdf");
    MyCanvas->Print("SmileInClusterSizeHalf.gif");
 
 
