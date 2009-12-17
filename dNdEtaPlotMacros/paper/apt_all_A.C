@@ -3,9 +3,7 @@
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
-
-   gStyle->SetTitleYOffset(1.9);
+   gROOT->ProcessLine(".x rootlogon.C");
 
    double msize = 1.8;
    
@@ -162,7 +160,7 @@
    func->SetLineWidth(1.5);
    func->Draw("same");
    
-   TLegend *leg = new TLegend(0.25,0.49,0.62,0.85,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.25,0.444,0.48,0.70,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);

@@ -31,18 +31,9 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 //=========  (Thu Dec 10 11:52:00 2009) by ROOT version5.22/00d
 
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
-
-   gStyle->SetPadLeftMargin(0.18);
-   gStyle->SetTitleYOffset(1.1);
-   gStyle->SetTitleXOffset(1.1);
-   gStyle->SetTitleXSize(.060);
-   gStyle->SetTitleYSize(.060);
+   gROOT->ProcessLine(".x rootlogon.C");
 
    TCanvas *MyCanvas = new TCanvas("MyCanvas", "Final result",1,360,550,600);
-   
-   MyCanvas->Range(-4.9,-0.8560975,3.85,5.729268);
-   
    /// ==================================================== Weighted mean of all three method!
 
    Double_t xAxis7[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};

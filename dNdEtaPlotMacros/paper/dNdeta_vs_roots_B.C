@@ -1,6 +1,6 @@
 {
   gROOT->Reset();
-  gROOT->ProcessLine(".x dndeta_rootlogon.C");
+  gROOT->ProcessLine(".x rootlogon.C");
 
 
   //****************************************************
@@ -8,14 +8,14 @@
   Float_t msize = 2.; // MARKER SIZE
   //****************************************************
   
-  TCanvas *c = new TCanvas("c","c",540,600);
+  TCanvas *c = new TCanvas("c","c",550,600);
 
-  gStyle->SetTitleYSize(.060);
-  gStyle->SetTitleYOffset(1.);
+  //  gStyle->SetTitleYSize(.060);
+  //  gStyle->SetTitleYOffset(1.);
 
   c->SetLogx();
 
-  c->SetLeftMargin(0.15);
+  //  c->SetLeftMargin(0.15);
 
   TH1F *dummy = new TH1F("dummy","dummy",100,9,10000);
   dummy->SetMaximum(7.5);

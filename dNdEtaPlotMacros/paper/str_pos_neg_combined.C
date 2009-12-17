@@ -3,7 +3,7 @@
 //=========  (Tue Dec 15 18:00:56 2009) by ROOT version5.25/04
 
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
+   gROOT->ProcessLine(".x rootlogon.C");
    TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
 
 
@@ -358,7 +358,7 @@
    Graph82->SetMarkerStyle(0);
    Graph82->Draw("pzsame");
 
-   TLegend *leg = new TLegend(0.41,0.73,0.72,0.87,NULL,"brNDC");  
+   TLegend *leg = new TLegend(0.63,0.73,0.94,0.87,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.038);

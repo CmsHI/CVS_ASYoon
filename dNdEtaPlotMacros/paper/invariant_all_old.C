@@ -1253,14 +1253,14 @@
    tex->SetLineWidth(2);
    tex->Draw();
 
-   tex = new TLatex(0.1,13,"(b)");
+   //   tex = new TLatex(0.1,13,"(a)");
    tex->SetTextSize(0.04);
    tex->SetLineWidth(2);
    tex->Draw();
 
 
-   MyCanvas->Print("invariant_all_B.eps");
-   MyCanvas->Print("invariant_all_B.pdf");
-   MyCanvas->Print("invariant_all_B.gif");
+   MyCanvas->Print("invariant_all.eps");
+   MyCanvas->Print("invariant_all.pdf");
+   MyCanvas->Print("invariant_all.gif");
 
 }

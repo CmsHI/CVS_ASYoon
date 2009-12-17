@@ -3,19 +3,17 @@
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
+   gROOT->ProcessLine(".x rootlogon.C");
 
-   gStyle->SetTitleYOffset(1.9);
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,560,600);
+   //   gStyle->SetTitleYOffset(1.9);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,550,600);
 
    //MyCanvas->Range(0.4,0.2365854,4.15,0.7243902);
    //MyCanvas->SetLogx();
 
    MyCanvas->SetLogx();
 
-
    double msize = 1.8;
-
 
    TH1D *hDist = new TH1D("hDist","hDist",20,9,10000);
    hDist->GetXaxis()->SetRange(1,20);
@@ -90,6 +88,9 @@
    gre->SetHistogram(Graph2);
    gre->Draw("pz");
    
+   TGraph* gre02 = gre->Clone("gre02");
+   gre02->SetMarkerStyle(0);
+   gre02->Draw("pzsame");
 
    // ============================= E735?
    gre = new TGraphErrors(4);
@@ -115,6 +116,10 @@
    gre->SetHistogram(Graph3);
    
    gre->Draw("pz");
+
+   TGraph* gre03 = gre->Clone("gre03");
+   gre03->SetMarkerStyle(0);
+   gre03->Draw("pzsame");
    
    // ============================= CDF
    gre = new TGraphErrors(2);
@@ -136,6 +141,10 @@
    
    gre->Draw("pz");
    
+   TGraph* gre04 = gre->Clone("gre04");
+   gre04->SetMarkerStyle(0);
+   gre04->Draw("pzsame");
+
    // ============================= CMS?
    gre = new TGraphErrors(1);
    gre->SetName("Graph");
@@ -162,6 +171,9 @@
    gre->SetHistogram(Graph5);
    gre->Draw("pz");
    
+   TGraph* gre05 = gre->Clone("gre05");
+   gre05->SetMarkerStyle(0);
+   gre05->Draw("pzsame");
    
    // Fit function
    TF1 *func = new TF1("func","0.40-0.03*log(x)+0.0053*log(x)^2",10,100000);
@@ -169,7 +181,7 @@
    func->SetLineWidth(1.5);
    func->Draw("same");
    
-   TLegend *leg = new TLegend(0.25,0.49,0.62,0.85,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.25,0.444,0.48,0.45,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -178,11 +190,9 @@
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
 
-
    TLegendEntry *entry=leg->AddEntry("Graph1","ISR inel.","P");
    entry->SetMarkerStyle(22);
    entry->SetMarkerSize(msize);
-
    entry=leg->AddEntry("Graph2","UA1 inel.","P");
    entry->SetMarkerStyle(26);   
    entry->SetMarkerSize(msize);   

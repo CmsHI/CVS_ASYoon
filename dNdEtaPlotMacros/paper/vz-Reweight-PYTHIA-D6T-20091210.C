@@ -7,6 +7,7 @@
    MyCanvas->Range(-28.6076,-0.01804519,22.02532,0.1022561);
 
    double msize = 1.5;
+
    int mcColor = 2;
    int dataColor = 1;
 
@@ -87,15 +88,16 @@
 
    hvz1->GetYaxis()->SetNdivisions(405);
    
-   hvz1->GetXaxis()->SetTitle("z_{vertex} (cm)");
-   hvz1->GetYaxis()->SetTitle("Arbitrary normalization");
+   hvz1->GetXaxis()->SetTitle("v_{z} (cm)");
+   hvz1->GetYaxis()->SetTitle("Fraction");
+
    hvz1->GetXaxis()->CenterTitle();
    hvz1->GetYaxis()->CenterTitle();
    hvz1->Draw("pz");
-
    TH1 *hvz11 = hvz1->Clone("hvz11");
    hvz11->SetMarkerStyle(0);
    hvz11->Draw("pzsame");
+
    
    TH1 *h2vz = new TH1F("h2vz","",50,-20,20);
    h2vz->SetBinContent(0,0.03038759);
@@ -188,13 +190,13 @@
 
    h2vz->GetXaxis()->SetTitle("v_z (cm)");
    h2vz->GetYaxis()->SetTitle("Arbitrary normalization");
-   h2vz->Draw("same");
+   h2vz->Draw("same hist");
 
   
 
    //TLegend *leg = new TLegend(0.5782828,0.7473118,0.9772727,0.9462366,NULL,"brNDC");
    //TLegend *leg = new TLegend(0.6,0.77,0.998,0.94,NULL,"brNDC"); 
-   TLegend *leg = new TLegend(0.22,0.80,0.62,0.94,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.64,0.76,1.0,0.88,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -210,7 +212,7 @@
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
 
-   entry=leg->AddEntry("h2vz","PYTHIA D6T","p");
+   entry=leg->AddEntry("h2vz","PYTHIA D6T","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);
@@ -223,14 +225,8 @@
    tex->SetLineWidth(2);
    tex->Draw();
 
-
    MyCanvas->Print("Vz_PYTHIA_Run123596.eps");
    MyCanvas->Print("Vz_PYTHIA_Run123596.pdf");
    MyCanvas->Print("Vz_PYTHIA_Run123596.gif");
 
-   /*
-   c9->Modified();
-   c9->cd();
-   c9->SetSelected(c9);
-   */
 }

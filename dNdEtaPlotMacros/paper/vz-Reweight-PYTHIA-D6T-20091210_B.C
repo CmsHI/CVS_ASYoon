@@ -89,7 +89,8 @@
    hvz1->GetYaxis()->SetNdivisions(405);
    
    hvz1->GetXaxis()->SetTitle("z_{vertex} (cm)");
-   hvz1->GetYaxis()->SetTitle("Arbitrary normalization");
+   hvz1->GetYaxis()->SetTitle("Fraction");
+
    hvz1->GetXaxis()->CenterTitle();
    hvz1->GetYaxis()->CenterTitle();
    hvz1->Draw("pz");
@@ -189,7 +190,7 @@
 
    h2vz->GetXaxis()->SetTitle("v_z (cm)");
    h2vz->GetYaxis()->SetTitle("Arbitrary normalization");
-   h2vz->Draw("same");
+   h2vz->Draw("same hist");
 
   
 
@@ -211,7 +212,7 @@
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
 
-   entry=leg->AddEntry("h2vz","PYTHIA D6T","p");
+   entry=leg->AddEntry("h2vz","PYTHIA D6T","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);

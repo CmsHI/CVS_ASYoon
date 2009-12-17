@@ -3,9 +3,7 @@
 //=========  (Tue Dec 15 17:46:58 2009) by ROOT version5.22/00d
 
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
-
-   //gStyle->SetPadRightMargin(0.065);
+   gROOT->ProcessLine(".x rootlogon.C");
 
    double msize = 1.4;
   TCanvas *c1 = new TCanvas("c1", "c1",1,23,550,600);
@@ -118,7 +116,7 @@
    hChargeDistMC->SetLineStyle(0);
    hChargeDistMC->SetLineWidth(2);
    hChargeDistMC->GetXaxis()->SetTitle("Angle corrected cluster charge (ke^{-}) ");
-   hChargeDistMC->GetYaxis()->SetTitle("Probability");
+   hChargeDistMC->GetYaxis()->SetTitle("Fraction");
    hChargeDistMC->GetXaxis()->SetNdivisions(906);
    //TGaxis tgaxis; 
    //tgaxis->SetMaxDigits(3);    
@@ -363,19 +361,17 @@
    hChargeDist1->SetMarkerStyle(0);
    hChargeDist1->Draw("Psame");
    
-   TLegend *leg = new TLegend(0.52,0.74,0.94,0.88,NULL,"brNDC");   
+   TLegend *leg = new TLegend(0.64,0.76,1.0,0.88,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
-   leg->SetTextSize(0.035);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
-   leg->SetMargin(0.2);
 
    //TLegendEntry *entry=leg->AddEntry("hChargeDist","Data Event selection","P");
-   TLegendEntry *entry=leg->AddEntry("","Data Event selection","P");
+   TLegendEntry *entry=leg->AddEntry("","Run 123596","P");
    entry->SetLineColor(1);
    entry->SetLineStyle(1);
    entry->SetLineWidth(2);
@@ -384,7 +380,7 @@
    entry->SetMarkerSize(msize);
 
    //entry=leg->AddEntry("hChargeDistMC","MC Event selection","L");
-   entry=leg->AddEntry("","MC Event selection","L"); 
+   entry=leg->AddEntry("","PYTHIA D6T","L"); 
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);

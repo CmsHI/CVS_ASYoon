@@ -3,20 +3,9 @@
 //=========  (Thu Dec 10 11:52:00 2009) by ROOT version5.22/00d
 
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
-
-   gStyle->SetPadLeftMargin(0.18);
-   gStyle->SetTitleYOffset(1.1);
-   gStyle->SetTitleXOffset(1.1);
-   gStyle->SetTitleXSize(.060);
-   gStyle->SetTitleYSize(.060);
-   //gStyle->SetErrorX(0); 
-
+   gROOT->ProcessLine(".x rootlogon.C");
 
    TCanvas *MyCanvas = new TCanvas("MyCanvas", "Final result",1,360,550,600); 
-
-   MyCanvas->Range(-4.9,-0.8560975,3.85,5.729268);
-   
    TH1 *corr_result_all = new TH1D("corr_result_all","",14,-3.5,3.5);
    corr_result_all->GetXaxis()->SetRange(2,13);
 

@@ -3,9 +3,7 @@
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
-
-   gStyle->SetTitleYOffset(1.9);
+   gROOT->ProcessLine(".x rootlogon.C");
 
    double msize = 1.8;
    

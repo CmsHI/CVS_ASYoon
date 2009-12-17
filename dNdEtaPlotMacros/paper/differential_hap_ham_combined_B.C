@@ -3,15 +3,13 @@
 //=========  (Tue Dec 15 17:07:39 2009) by ROOT version5.25/04
 
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
-   //gStyle->SetErrorX(0);                                                                                                                                                                                    
+   gROOT->ProcessLine(".x rootlogon.C");
    gStyle->SetPadRightMargin(0.13);
-   gStyle->SetPadLeftMargin(0.18);
 
    Float_t marker = 1.4;
    Float_t tsize = 0.035;
 
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,605,600);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,625,600);
 
    TH1D *hDist = new TH1D("hDist","hDist",20,0,2);
    hDist->SetMinimum(0);
@@ -22,7 +20,6 @@
    hDist->GetXaxis()->CenterTitle();
    hDist->GetYaxis()->CenterTitle();
    hDist->GetXaxis()->SetNdivisions(505);
-   hDist->GetYaxis()->SetTitleOffset(1.65);
 
    hDist->Draw("");
    TLine *line = new TLine(0,0,2,0);
@@ -14126,6 +14123,7 @@
    MyCanvas->Print("differential_hap_ham_combined_B.eps");
    MyCanvas->Print("differential_hap_ham_combined_B.pdf");
    MyCanvas->Print("differential_hap_ham_combined_B.gif");
+
 
 
    /*

@@ -363,7 +363,7 @@
    Graph82->Draw("pzsame");
 
 
-   TLegend *leg = new TLegend(0.41,0.73,0.72,0.87,NULL,"brNDC");  
+   TLegend *leg = new TLegend(0.63,0.73,0.94,0.87,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.038);

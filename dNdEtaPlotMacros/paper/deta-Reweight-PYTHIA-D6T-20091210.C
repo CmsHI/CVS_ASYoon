@@ -3,9 +3,8 @@
 //=========  (Fri Dec 11 00:41:30 2009) by ROOT version5.22/00a
 
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
+   gROOT->ProcessLine(".x rootlogon.C");
    TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
-   MyCanvas->Range(-0.286076,-0.05158595,0.2202532,0.2923204);
    Bool_t logscale = true;
 
    int mcColor = 2;
@@ -137,7 +136,8 @@
 
 
    hdeta->GetXaxis()->SetTitle("#Delta#eta");
-   hdeta->GetYaxis()->SetTitle("Arbitrary normalization");
+   hdeta->GetYaxis()->SetTitle("Fraction");
+
    hdeta->GetXaxis()->CenterTitle();
    hdeta->GetYaxis()->CenterTitle();
    hdeta->GetXaxis()->SetNdivisions(505);
@@ -251,39 +251,135 @@
    h2deta->SetBinError(49,2.664648e-05);
    h2deta->SetBinError(50,2.669606e-05);
    h2deta->SetBinError(51,0.0002305024);
-
+   h2deta->SetLineWidth(2);
+   h2deta->SetLineColor(mcColor);
    h2deta->SetMarkerColor(mcColor);
    h2deta->SetMarkerStyle(25);
    h2deta->SetMarkerSize(msize);
 
+   h2deta->Draw("same hist");
+      
+   TH1 *h = new TH1F("h","",50,-0.2,0.2);
+   h->SetBinContent(0,0.01197719);
+   h->SetBinContent(1,0.0002417578);
+   h->SetBinContent(2,0.0002384731);
+   h->SetBinContent(3,0.0002685286);
+   h->SetBinContent(4,0.0002562107);
+   h->SetBinContent(5,0.0002808464);
+   h->SetBinContent(6,0.0002887298);
+   h->SetBinContent(7,0.0003205919);
+   h->SetBinContent(8,0.0003327455);
+   h->SetBinContent(9,0.0003488408);
+   h->SetBinContent(10,0.0003733122);
+   h->SetBinContent(11,0.0003954842);
+   h->SetBinContent(12,0.0004470549);
+   h->SetBinContent(13,0.0004895924);
+   h->SetBinContent(14,0.0005699046);
+   h->SetBinContent(15,0.0006244315);
+   h->SetBinContent(16,0.0007122987);
+   h->SetBinContent(17,0.0008533788);
+   h->SetBinContent(18,0.001046522);
+   h->SetBinContent(19,0.001351512);
+   h->SetBinContent(20,0.001872473);
+   h->SetBinContent(21,0.00277151);
+   h->SetBinContent(22,0.004777509);
+   h->SetBinContent(23,0.01041546);
+   h->SetBinContent(24,0.04038029);
+   h->SetBinContent(25,0.426512);
+   h->SetBinContent(26,0.4209765);
+   h->SetBinContent(27,0.03808146);
+   h->SetBinContent(28,0.009731573);
+   h->SetBinContent(29,0.004455603);
+   h->SetBinContent(30,0.002593312);
+   h->SetBinContent(31,0.001682286);
+   h->SetBinContent(32,0.001224556);
+   h->SetBinContent(33,0.0009478155);
+   h->SetBinContent(34,0.0007727381);
+   h->SetBinContent(35,0.0006296872);
+   h->SetBinContent(36,0.0005492107);
+   h->SetBinContent(37,0.0004820375);
+   h->SetBinContent(38,0.0004161782);
+   h->SetBinContent(39,0.0003605016);
+   h->SetBinContent(40,0.0003135297);
+   h->SetBinContent(41,0.0002859377);
+   h->SetBinContent(42,0.0002869232);
+   h->SetBinContent(43,0.0002655723);
+   h->SetBinContent(44,0.0002315751);
+   h->SetBinContent(45,0.0002264837);
+   h->SetBinContent(46,0.0002141659);
+   h->SetBinContent(47,0.000199713);
+   h->SetBinContent(48,0.0002010269);
+   h->SetBinContent(49,0.0001862455);
+   h->SetBinContent(50,0.0001811541);
+   h->SetBinContent(51,0.006357475);
+   h->SetEntries(6088738);
+   h->SetFillColor(1);
+   h->SetFillStyle(0);
+   h->SetLineStyle(2);
+   h->SetLineColor(mcColor);
+   h->SetLineWidth(2);
 
-   h2deta->Draw("same");
+   h->SetMarkerStyle(20);
+   h->SetMarkerSize(1.25);
+   h->GetXaxis()->SetTitle("|#Delta#eta|");
+   h->GetXaxis()->SetLabelFont(42);
+   h->GetXaxis()->SetLabelOffset(0.01);
+   h->GetXaxis()->SetLabelSize(0.045);
+   h->GetXaxis()->SetTitleSize(0.055);
+   h->GetXaxis()->SetTitleFont(42);
+   h->GetYaxis()->SetTitle("Fraction");
+   h->GetYaxis()->SetLabelFont(42);
+   h->GetYaxis()->SetLabelOffset(0.01);
+   h->GetYaxis()->SetLabelSize(0.045);
+   h->GetYaxis()->SetTitleSize(0.055);
+   h->GetYaxis()->SetTitleOffset(1.3);
+   h->GetYaxis()->SetTitleFont(42);
+   h->GetZaxis()->SetLabelFont(42);
+   h->GetZaxis()->SetLabelSize(0.045);
+   h->GetZaxis()->SetTitleFont(42);
+   h->Scale(1./1.599);
+   h->Draw("same hist");
+
    
-   //TLegend *leg = new TLegend(0.2146465,0.594086,0.6136364,0.7930108,NULL,"brNDC");
-   //TLegend *leg = new TLegend(0.22,0.79,0.62,0.93,NULL,"brNDC");
-   TLegend *leg = new TLegend(0.22,0.80,0.62,0.94,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.19,0.71,0.53,0.86,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
-   leg->SetLineColor(mcColor);
+   leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
 
    TLegendEntry *entry=leg->AddEntry("hdeta","Run 123596","p");
-
    entry->SetLineColor(1);
-   entry->SetLineWidth(1);
+   entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
 
    entry=leg->AddEntry("h2deta","PYTHIA D6T","p");
    entry->SetLineColor(2);
-   entry->SetLineWidth(1);
+   entry->SetLineWidth(2);
    entry->SetMarkerColor(2);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
+
+   entry=leg->AddEntry("h","PYTHIA D6T","l");
+   entry->SetLineColor(1);
+   entry->SetLineWidth(2);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(2.0);
+
+   entry=leg->AddEntry("h","(Primary Tracklets)","");
+   entry->SetLineColor(1);
+   entry->SetLineWidth(2);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(2.0);
+
+
+
    leg->Draw();
 
    TLatex *tex = new TLatex(0.14,0.37,"CMS");

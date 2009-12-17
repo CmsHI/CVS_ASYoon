@@ -3,14 +3,12 @@
 //=========  (Thu Dec 10 10:46:22 2009) by ROOT version5.25/04
 
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
+   gROOT->ProcessLine(".x rootlogon.C");
    gStyle->SetErrorX(0);
 
-   Float_t marker = 1.5;
+   Float_t marker = 1.4;
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,585,600);
 
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,590,600);
-
-   MyCanvas->Range(-0.56,-4.792683,2.94,1.304878);
    MyCanvas->SetLogy();
    
    TH1D *hDist = new TH1D("hDist","hDist",20,0,2.8);
@@ -22,7 +20,6 @@
    hDist->GetXaxis()->CenterTitle();
    hDist->GetYaxis()->CenterTitle();
    hDist->Draw("");
-
 
    // ============================== Tsallis  ?
    TGraph *graph = new TGraph(1002);
@@ -1090,7 +1087,7 @@
    Graph54->SetMaximum(5.988059);
    gre->SetHistogram(Graph54);
    
-   gre->SetMarkerSize(1.3);
+   gre->SetMarkerSize(marker);
    gre->Draw("pz");
    
    /*
@@ -1242,7 +1239,7 @@
    TLegendEntry *entry=leg->AddEntry("Graph54","CMS NSD","P");
    entry->SetMarkerColor(1.0);
    entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(1.5);
+   entry->SetMarkerSize(marker);
 
    //entry=leg->AddEntry("Graph57","Tsallis fit","L");
    entry=leg->AddEntry("Graph53","Tsallis fit","L"); 
