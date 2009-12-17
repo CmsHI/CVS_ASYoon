@@ -53,47 +53,25 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->SetMinimum(0);
    hMeasuredFinal3->SetMaximum(5.0);
 
-   hMeasuredFinal3->SetBinContent(2,3.69453);  // -2.4 to -2.0 
-   hMeasuredFinal3->SetBinContent(3,3.776349117); //-2 to -1.5 
-   hMeasuredFinal3->SetBinContent(4,3.795637495);        // -1.5 to -1.0 
-   hMeasuredFinal3->SetBinContent(5,3.684385446); // -1.0 to -0.5
-   hMeasuredFinal3->SetBinContent(6,3.468729064);        // -0.5 to 0
+   hMeasuredFinal3->SetBinContent(2,3.6853);  // -2.4 to -2.0 
+   hMeasuredFinal3->SetBinContent(3,3.7034); //-2 to -1.5 
+   hMeasuredFinal3->SetBinContent(4,3.7568);        // -1.5 to -1.0 
+   hMeasuredFinal3->SetBinContent(5,3.6523); // -1.0 to -0.5
+   hMeasuredFinal3->SetBinContent(6,3.4984);        // -0.5 to 0
 
-   hMeasuredFinal3->SetBinContent(7,3.468729064); // 0 to 0.5 
-   hMeasuredFinal3->SetBinContent(8,3.684385446); // 0.5 to 1.0
-   hMeasuredFinal3->SetBinContent(9,3.795637495); // 1.0 to 1.5 
-   hMeasuredFinal3->SetBinContent(10,3.776349117); // 1.5 to 2.0 
-   hMeasuredFinal3->SetBinContent(11,3.69453); // 2.0 to 2.4 
+   hMeasuredFinal3->SetBinContent(7,3.4984); // 0 to 0.5 
+   hMeasuredFinal3->SetBinContent(8,3.6523); // 0.5 to 1.0
+   hMeasuredFinal3->SetBinContent(9,3.7568); // 1.0 to 1.5 
+   hMeasuredFinal3->SetBinContent(10,3.7034); // 1.5 to 2.0 
+   hMeasuredFinal3->SetBinContent(11,3.6853); // 2.0 to 2.4 
 
-   // Systematic error of 6.0%        
-   /*
-   hMeasuredFinal3->SetBinError(2,0.0);
-   hMeasuredFinal3->SetBinError(3,0.0);
-   hMeasuredFinal3->SetBinError(4,0.0);
-   hMeasuredFinal3->SetBinError(5,0.0);
-   hMeasuredFinal3->SetBinError(6,0.0);
+   // Stat error 
+   double statError= 0.01767767;
+   for (int i=2; i<12; ++i) {
+     hMeasuredFinal3->SetBinError(i,hMeasuredFinal3->GetBinContent(i)*statError);
+     cout << "stat error (" << i << "): " << hMeasuredFinal3->GetBinError(i) << endl;
+   }
 
-   hMeasuredFinal3->SetBinError(7,0.0);
-   hMeasuredFinal3->SetBinError(8,0.0);
-   hMeasuredFinal3->SetBinError(9,0.0);
-   hMeasuredFinal3->SetBinError(10,0.0);
-   hMeasuredFinal3->SetBinError(11,0.0);
-   */
-
-   // Systematic error of 6.0% 
-   /*
-   hMeasuredFinal3->SetBinError(2,0.2216718);
-   hMeasuredFinal3->SetBinError(3,0.226580947);
-   hMeasuredFinal3->SetBinError(4,0.22773825);
-   hMeasuredFinal3->SetBinError(5,0.221063127);
-   hMeasuredFinal3->SetBinError(6,0.208123744);
-
-   hMeasuredFinal3->SetBinError(7,0.208123744);
-   hMeasuredFinal3->SetBinError(8,0.221063127);
-   hMeasuredFinal3->SetBinError(9,0.22773825);
-   hMeasuredFinal3->SetBinError(10,0.226580947);
-   hMeasuredFinal3->SetBinError(11,0.2216718);
-   */
    hMeasuredFinal3->GetYaxis()->SetTitle("dN/d#eta");
    hMeasuredFinal3->GetXaxis()->SetTitle("#eta");
    hMeasuredFinal3->GetXaxis()->CenterTitle();
@@ -113,7 +91,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    // Clone above for systematic band!
    /// ==================================================== Weighted mean of all three method! 
    Double_t xAxis8[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};
-   TH1D * hMeasuredFinal4 = (TH1D*)hMeasuredFinal3->Clone();
+   TH1D * hMeasuredFinal4 = (TH1D*)hMeasuredFinal3->Clone("hMeasuredFinal4");
 
    double systematicErrorUp[13] =   
       {0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06};
