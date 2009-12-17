@@ -134,7 +134,7 @@
    hdeta->SetLineColor(dataColor);
 
 
-   hdeta->GetXaxis()->SetTitle("#Delta#eta^{^{Tracklet (1-2)}}_{_{1}}");
+   hdeta->GetXaxis()->SetTitle("#Delta#eta");
    hdeta->GetYaxis()->SetTitle("Arbitrary normalization");
    hdeta->GetXaxis()->CenterTitle();
    hdeta->GetYaxis()->CenterTitle();
