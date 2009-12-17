@@ -96,15 +96,10 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    double systematicErrorUp[13] =   
       {sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError};
-      //{0,0.2216718,0.226580947,0.22773825,0.221063127,0.208123744,0.208123744,0.221063127,0.22773825,0.226580947,0.2216718,0};
    double systematicErrorDown[13] =
       {sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError};
-      //{0,0.2216718,0.226580947,0.22773825,0.221063127,0.208123744,0.208123744,0.221063127,0.22773825,0.226580947,0.2216718,0};
-
-
 
    TGraph *gErrorBand;
-   
    gErrorBand = GetErrorBand((TH1F*)hMeasuredFinal4,systematicErrorUp,systematicErrorDown,0.25); 
 
    //hMeasuredFinal3->Draw("pz");     
@@ -270,67 +265,9 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    entry->SetMarkerStyle(25);
    entry->SetMarkerSize(1.8);
 
-   /*
-   entry=leg->AddEntry("","ALICE NSD","P");
-   entry->SetLineColor(4);
-   entry->SetMarkerColor(4);
-   entry->SetMarkerStyle(24);
-   entry->SetMarkerSize(1.8);
-   */
-   /*
-   entry=leg->AddEntry("","CMS, all three methods combined","P"); 
-   //entry=leg->AddEntry("","CMS NSD","P");
-   entry->SetLineColor(1);               
-   entry->SetMarkerColor(2); 
-   entry->SetMarkerStyle(20); 
-   entry->SetMarkerSize(1.8);            
-   */
    leg->Draw();
-
-   /*
-   entry=leg->AddEntry("","Hit counting, 3 layer averaged","P");
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(2);
-   entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(1.8);
-
-   //entry=leg->AddEntry("corr_result_2_all","Rec. dN/d#eta, 2. layer","P");
-   entry=leg->AddEntry("","Tracklet, 3 combinations averaged","P"); 
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(4);
-   entry->SetMarkerStyle(21);
-   //entry->SetMarkerStyle(25);
-   entry->SetMarkerSize(1.8);
-
-   entry=leg->AddEntry("","Full tracking","P");
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(1);
-   entry->SetMarkerStyle(22);
-   entry->SetMarkerSize(1.8);
-   */
-
-   //leg->Draw();
-
-   //MyCanvas->Print("dNdeta-900GeV_cluster_avg_tracklet_avg.eps");
-   //MyCanvas->Print("dNdeta-900GeV_cluster_avg_tracklet_avg.pdf");
-   //MyCanvas->Print("dNdeta-900GeV_cluster_avg_tracklet_avg.gif");
-
-
-   //MyCanvas->Print("dNdeta_ThreeMethodsCombined_v2.eps");   
-   //MyCanvas->Print("dNdeta_ThreeMethodsCombined_v2.gif");
-   //MyCanvas->Print("dNdeta_ThreeMethodsCombined_v2.vpdf");
-
-
 
    MyCanvas->Print("dNdeta_ThreeMethodsCombined.eps");  
    MyCanvas->Print("dNdeta_ThreeMethodsCombined.gif");                                                                                                                                                   
    MyCanvas->Print("dNdeta_ThreeMethodsCombined.pdf");
-
-
 }
