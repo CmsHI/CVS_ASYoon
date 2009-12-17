@@ -7,12 +7,9 @@
 
    gStyle->SetTitleYOffset(1.9);
 
+   double msize = 1.8;
    
-   //TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,600);
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,650,500);
-
-   //MyCanvas->Range(0.4,0.2365854,4.15,0.7243902);
-   //MyCanvas->SetLogx();
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,550,600);
 
    MyCanvas->SetLogx();
 
@@ -35,7 +32,7 @@
    gre->SetTitle("Graph");
 
    gre->SetMarkerStyle(22);
-   gre->SetMarkerSize(1.5);
+   gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,22.1269,0.36151);
    gre->SetPointError(0,0.00355619,0.00478821);
@@ -62,7 +59,7 @@
 
 
    gre->SetMarkerStyle(26);
-   gre->SetMarkerSize(1.5);
+   gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,201.626,0.391897);
    gre->SetPointError(0,0.0211879,0.00313076);
@@ -93,7 +90,7 @@
    gre->SetTitle("Graph");
 
    gre->SetMarkerStyle(25);
-   gre->SetMarkerSize(1.5);
+   gre->SetMarkerSize(msize);
       
    gre->SetPoint(0,300.629,0.392818);
    gre->SetPointError(0,0.908721,0.00994475);
@@ -118,7 +115,7 @@
    gre->SetTitle("Graph");
 
    gre->SetMarkerStyle(21);
-   gre->SetMarkerSize(1.5);
+   gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,636.31,0.431676);
    gre->SetPointError(0,0.0825999,0.0038674);
@@ -138,7 +135,7 @@
    gre->SetTitle("Graph");
 
    gre->SetMarkerStyle(20);
-   gre->SetMarkerSize(1.5);
+   gre->SetMarkerSize(msize);
    gre->SetMarkerColor(2);
    gre->SetLineColor(2);
 
@@ -198,7 +195,8 @@
 
    leg->Draw();  
 
-   TLegend *leg2 = new TLegend(0.38,0.15,0.93,0.26,NULL,"brNDC");
+   TLegend *leg2 = new TLegend(0.245,0.20,0.55,0.26,NULL,"brNDC");
+
    //TLegend *leg2 = new TLegend(0.411,0.18,0.91,0.33,NULL,"brNDC");     
    leg2->SetBorderSize(0);
    leg2->SetTextFont(62);
@@ -226,6 +224,7 @@
    tex->SetTextSize(0.04);
    tex->SetLineWidth(2);
    tex->Draw();
+
 
    MyCanvas->Print("apt_all_B.eps");
    MyCanvas->Print("apt_all_B.pdf");

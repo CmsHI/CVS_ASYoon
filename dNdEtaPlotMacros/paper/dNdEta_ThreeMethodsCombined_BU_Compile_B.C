@@ -38,7 +38,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile_B(){
    gStyle->SetTitleXSize(.060);
    gStyle->SetTitleYSize(.060);
 
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "Final result",1,360,650,600);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "Final result",1,360,550,600);
    
    MyCanvas->Range(-4.9,-0.8560975,3.85,5.729268);
    
@@ -299,11 +299,8 @@ void dNdEta_ThreeMethodsCombined_BU_Compile_B(){
    tex2->SetLineWidth(2);
    tex2->Draw();
 
-   //TLegend *leg = new TLegend(0.27,0.19,0.72,0.50,NULL,"brNDC"); 
-   //TLegend *leg = new TLegend(0.27,0.23,0.72,0.42,NULL,"brNDC");       
-   //TLegend *leg = new TLegend(0.22,0.22,0.67,0.41,NULL,"brNDC");
-   //TLegend *leg = new TLegend(0.28,0.22,0.73,0.41,NULL,"brNDC");
-   TLegend *leg = new TLegend(0.22,0.215,0.67,0.41,NULL,"brNDC");   
+   TLegend *leg = new TLegend(0.20,0.27,0.53,0.47,NULL,"brNDC");
+
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);

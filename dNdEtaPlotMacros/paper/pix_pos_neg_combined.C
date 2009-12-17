@@ -20,6 +20,8 @@
    TGraphErrors *gre = new TGraphErrors(30);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
+   double msize = 1.2;
+   gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,0,0);
    gre->SetPointError(0,0.5,0);
@@ -55,6 +57,8 @@
    Graph1->SetBinError(4,0);
    Graph1->SetBinError(5,0);
    Graph1->SetBinError(6,0);
+
+
    
    //Negative SIM 
    TGraphErrors *gre = new TGraphErrors(30);
@@ -76,6 +80,9 @@
    gre->SetPoint(6,6,0.000208945);
 
    TH1F *Graph2 = new TH1F("Graph2","Graph",6,xAxis);
+
+   Graph2->SetMarkerSize(msize);
+
 
    Graph2->SetMinimum(0);
    Graph2->SetMaximum(0.12);
@@ -191,6 +198,9 @@
 
    Graph4->SetMarkerColor(1);
    Graph4->SetMarkerStyle(20);
+
+   Graph4->SetMarkerSize(msize);
+
    Graph4->SetLineColor(1);
 
    Graph2->SetLineColor(2);
@@ -232,6 +242,7 @@
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(msize);
 
    entry=leg->AddEntry("","PYTHIA D6T","l");
    entry->SetLineWidth(2);

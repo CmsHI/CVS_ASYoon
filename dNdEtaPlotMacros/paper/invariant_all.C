@@ -8,11 +8,9 @@
 
    Float_t marker = 1.3;
 
-   //TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,650,500);
-   //TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,550,750);
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,560,700);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,580,600);
 
-   MyCanvas->Range(-0.56,-4.792683,2.94,1.304878);
+   //   MyCanvas->Range(-0.56,-4.792683,2.94,1.304878);
 
    MyCanvas->SetLogy();
    

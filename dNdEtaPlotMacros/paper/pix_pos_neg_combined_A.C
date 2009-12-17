@@ -18,6 +18,10 @@
 
    //Postive SIM
    TGraphErrors *gre = new TGraphErrors(30);
+
+   double msize = 1.2;
+   gre->SetMarkerSize(msize);
+
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
@@ -94,16 +98,6 @@
    Graph2->SetBinError(4,0);
    Graph2->SetBinError(5,0);
    Graph2->SetBinError(6,0);
-
-   /*   
-   Graph2->SetMarkerStyle(22);
-   Graph2->SetMarkerSize(2);
-   Graph2->Draw("p");
-
-   Graph1->SetMarkerStyle(20);
-   Graph1->SetMarkerSize(1);
-   Graph1->Draw("psame");
-   */
 
    Graph1->Sumw2();
    Graph2->Sumw2();
@@ -184,6 +178,7 @@
 
 
    TH1F *Graph4 = new TH1F("Graph4","Graph",6,xAxis);
+   Graph4->SetMarkerSize(msize);
 
    Graph4->SetMinimum(0);
    Graph4->SetMaximum(0.12);
@@ -232,6 +227,7 @@
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(msize);
 
    entry=leg->AddEntry("","PYTHIA D6T","l");
    entry->SetLineWidth(2);

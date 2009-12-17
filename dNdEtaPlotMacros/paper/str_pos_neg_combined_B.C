@@ -8,6 +8,9 @@
 
    // Pos SIM
    TGraphErrors *gre = new TGraphErrors(30);
+   double msize = 1.2;
+   gre->SetMarkerSize(msize);
+
    gre->SetName("Graph");
    gre->SetTitle("Graph");
    gre->SetFillColor(2);
@@ -364,6 +367,7 @@
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(msize);
 
    entry=leg->AddEntry("","PYTHIA D6T","l");
    entry->SetLineColor(2);

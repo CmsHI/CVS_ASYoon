@@ -6,6 +6,8 @@
    TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
    MyCanvas->Range(-28.6076,-0.01804519,22.02532,0.1022561);
 
+   double msize = 1.2;
+
    int mcColor = 2;
    int dataColor = 1;
 
@@ -82,7 +84,7 @@
    hvz1->SetLineColor(dataColor);
    hvz1->SetMarkerColor(dataColor);
    hvz1->SetMarkerStyle(20);
-   hvz1->SetMarkerSize(1.3);
+   hvz1->SetMarkerSize(msize);
 
    hvz1->GetYaxis()->SetNdivisions(405);
    
@@ -180,7 +182,7 @@
    h2vz->SetLineStyle(0);
    h2vz->SetMarkerColor(mcColor);
    h2vz->SetMarkerStyle(25);
-   h2vz->SetMarkerSize(1.3);
+   h2vz->SetMarkerSize(msize);
 
    h2vz->GetXaxis()->SetTitle("v_z (cm)");
    h2vz->GetYaxis()->SetTitle("Arbitrary normalization");
@@ -204,14 +206,14 @@
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(2.0);
+   entry->SetMarkerSize(msize);
 
    entry=leg->AddEntry("h2vz","PYTHIA D6T","p");
    entry->SetLineColor(2);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);
    entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(2.0);
+   entry->SetMarkerSize(msize);
    leg->Draw();
 
    TLatex *tex = new TLatex(9.92,0.102,"CMS");

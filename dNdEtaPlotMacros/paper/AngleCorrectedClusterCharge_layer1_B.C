@@ -7,13 +7,12 @@
 
    //gStyle->SetPadRightMargin(0.065);
 
-   char* label = "(a)";
+   char* label = "(b)";
+
+   double msize = 1.2;
 
    TCanvas *c1 = new TCanvas("c1", "c1",1,23,550,600);
 
-   TH1 *hChargeDistMC = new TH1F("hChargeDistMC","hChargeDistMC",100,0,600);
-   
-   //TH1 *hChargeDistMC = new TH1F("hChargeDistMC","hChargeDistMC",100,0,81000);
    TH1 *hChargeDistMC = new TH1F("hChargeDistMC","hChargeDistMC",100,0,81);  
    hChargeDistMC->SetBinContent(1,0.0004313373);
    hChargeDistMC->SetBinContent(2,0.002307654);
@@ -360,11 +359,11 @@
    hChargeDist->GetZaxis()->SetLabelSize(0.05);
    hChargeDist->GetZaxis()->SetTitleSize(0.06);
    hChargeDist->GetZaxis()->SetTitleFont(42);
+   hChargeDist->SetMarkerSize(msize);
+
    hChargeDist->Draw("Psame");
    
-   //TLegend *leg = new TLegend(0.397651,0.8216783,0.9966443,0.9213287,NULL,"brNDC");
-   //TLegend *leg = new TLegend(0.48,0.55,0.90,0.69,NULL,"brNDC");
-   TLegend *leg = new TLegend(0.51,0.55,0.93,0.69,NULL,"brNDC");   
+   TLegend *leg = new TLegend(0.52,0.74,0.94,0.88,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.035);
@@ -382,7 +381,7 @@
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(1);
+   entry->SetMarkerSize(msize);
 
    //entry=leg->AddEntry("hChargeDistMC","MC Event selection","L");
    entry=leg->AddEntry("","MC Event selection","L"); 
@@ -390,7 +389,7 @@
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(21);
-   entry->SetMarkerSize(1);
+   entry->SetMarkerSize(msize);
    leg->Draw();
 
    TLatex *   tex = new TLatex(48360.08,0.033,"Layer 1");
@@ -399,7 +398,7 @@
    tex->Draw();
 
 
-   double height = hChargeDist->GetMaximum() * 0.926;
+   double height = 0.043;
 
    TLatex *tex = new TLatex(68.61,height,"CMS");
    tex->SetTextSize(0.04);
@@ -411,9 +410,9 @@
    tex->SetLineWidth(2);
    tex->Draw();
 
-   c1->Print("landau_A.eps");
-   c1->Print("landau_A.pdf");
-   c1->Print("landau_A.gif");
+   c1->Print("landau_B.eps");
+   c1->Print("landau_B.pdf");
+   c1->Print("landau_B.gif");
 
 
    /*

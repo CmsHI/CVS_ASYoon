@@ -13,7 +13,7 @@
    //gStyle->SetErrorX(0); 
 
    //TCanvas *MyCanvas = new TCanvas("MyCanvas", "Final result",1,360,650,500);
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "Final result",1,360,650,600); 
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "Final result",1,360,550,600); 
 
    MyCanvas->Range(-4.9,-0.8560975,3.85,5.729268);
    

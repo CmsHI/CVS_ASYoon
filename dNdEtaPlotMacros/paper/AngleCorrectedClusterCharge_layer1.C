@@ -7,12 +7,11 @@
 
    //gStyle->SetPadRightMargin(0.065);
 
-   TCanvas *c1 = new TCanvas("c1", "c1",1,23,550,600);
-
-   TH1 *hChargeDistMC = new TH1F("hChargeDistMC","hChargeDistMC",100,0,600);
-   
-   //TH1 *hChargeDistMC = new TH1F("hChargeDistMC","hChargeDistMC",100,0,81000);
+   double msize = 1.2;
+  TCanvas *c1 = new TCanvas("c1", "c1",1,23,550,600);
+  
    TH1 *hChargeDistMC = new TH1F("hChargeDistMC","hChargeDistMC",100,0,81);  
+
    hChargeDistMC->SetBinContent(1,0.0004313373);
    hChargeDistMC->SetBinContent(2,0.002307654);
    hChargeDistMC->SetBinContent(3,0.00254489);
@@ -134,8 +133,8 @@
 
    cout<<" 21's bin center :"<<hChargeDistMC->GetBinCenter(21)<<endl;
    
-   //TH1 *hChargeDist = new TH1F("hChargeDist","hChargeDist",100,0,81000);
    TH1 *hChargeDist = new TH1F("hChargeDist","hChargeDist",100,0,81); 
+   hChargeDist->SetMarkerSize(msize);
    hChargeDist->SetBinContent(1,0.0001288826);
    hChargeDist->SetBinContent(2,0.002677894);
    hChargeDist->SetBinContent(3,0.004066962);
@@ -360,9 +359,7 @@
    hChargeDist->GetZaxis()->SetTitleFont(42);
    hChargeDist->Draw("Psame");
    
-   //TLegend *leg = new TLegend(0.397651,0.8216783,0.9966443,0.9213287,NULL,"brNDC");
-   //TLegend *leg = new TLegend(0.48,0.55,0.90,0.69,NULL,"brNDC");
-   TLegend *leg = new TLegend(0.51,0.55,0.93,0.69,NULL,"brNDC");   
+   TLegend *leg = new TLegend(0.52,0.74,0.94,0.88,NULL,"brNDC");   
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.035);
@@ -380,7 +377,7 @@
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(1);
+   entry->SetMarkerSize(msize);
 
    //entry=leg->AddEntry("hChargeDistMC","MC Event selection","L");
    entry=leg->AddEntry("","MC Event selection","L"); 
@@ -388,7 +385,7 @@
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(21);
-   entry->SetMarkerSize(1);
+   entry->SetMarkerSize(msize);
    leg->Draw();
 
    TLatex *   tex = new TLatex(48360.08,0.033,"Layer 1");

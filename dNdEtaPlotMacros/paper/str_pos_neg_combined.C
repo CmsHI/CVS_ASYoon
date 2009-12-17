@@ -6,8 +6,11 @@
    gROOT->ProcessLine(".x dndeta_rootlogon.C");
    TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
 
+
    // Pos SIM
    TGraphErrors *gre = new TGraphErrors(30);
+   double msize = 1.2;
+   gre->SetMarkerSize(msize);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
    gre->SetFillColor(2);
@@ -362,6 +365,7 @@
    TLegendEntry *entry=leg->AddEntry("","Run 123596","p");
    entry->SetLineColor(1);
    entry->SetLineWidth(1);
+   entry->SetMarkerSize(msize);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
 

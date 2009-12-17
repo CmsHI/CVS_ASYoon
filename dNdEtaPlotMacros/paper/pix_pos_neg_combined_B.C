@@ -20,6 +20,8 @@
    TGraphErrors *gre = new TGraphErrors(30);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
+   double msize = 1.2;
+   gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,0,0);
    gre->SetPointError(0,0.5,0);
@@ -209,6 +211,8 @@
    Graph4->SetBinError(4,0.00478205);
    Graph4->SetBinError(5,0.00128308);
    Graph4->SetBinError(6,0.000160385);                             
+   Graph4->SetMarkerSize(msize);
+
 
    Graph3->Sumw2();
    Graph4->Sumw2();
@@ -232,6 +236,7 @@
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(msize);
 
    entry=leg->AddEntry("","PYTHIA D6T","l");
    entry->SetLineWidth(2);
