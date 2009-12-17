@@ -6,7 +6,7 @@
    gROOT->ProcessLine(".x dndeta_rootlogon.C");
 
    gStyle->SetTitleYOffset(1.9);
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,550,600);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,560,600);
 
    //MyCanvas->Range(0.4,0.2365854,4.15,0.7243902);
    //MyCanvas->SetLogx();
@@ -55,6 +55,9 @@
    gre->SetHistogram(Graph1);
    gre->Draw("pz");
 
+   TGraph* gre01 = gre->Clone("gre01");
+   gre01->SetMarkerStyle(0);
+   gre01->Draw("pzsame");
 
    // ============================= UA1?   
    gre = new TGraphErrors(7);

@@ -6,7 +6,7 @@
    TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
    MyCanvas->Range(-28.6076,-0.01804519,22.02532,0.1022561);
 
-   double msize = 1.2;
+   double msize = 1.5;
    int mcColor = 2;
    int dataColor = 1;
 
@@ -93,6 +93,9 @@
    hvz1->GetYaxis()->CenterTitle();
    hvz1->Draw("pz");
 
+   TH1 *hvz11 = hvz1->Clone("hvz11");
+   hvz11->SetMarkerStyle(0);
+   hvz11->Draw("pzsame");
    
    TH1 *h2vz = new TH1F("h2vz","",50,-20,20);
    h2vz->SetBinContent(0,0.03038759);

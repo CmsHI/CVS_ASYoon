@@ -8,7 +8,7 @@
 
    // Pos SIM
    TGraphErrors *gre = new TGraphErrors(30);
-   double msize = 1.2;
+   double msize = 1.5;
    gre->SetMarkerSize(msize);
 
    gre->SetName("Graph");
@@ -80,7 +80,6 @@
    Double_t *yerr = gre->GetEY();
 
    TH1F *Graph5 = new TH1F("Graph5","Graph",21,-0.5,20.5);//-0.5 ~ 0.5, 0.5 ~ 1.5, ...
-
    for(Int_t i = 0; i<20; i++){
       Graph5->SetBinContent(i+1,ydata[i]);
       Graph5->SetBinError(i+1,yerr[i]);
@@ -153,10 +152,15 @@
    gre->SetPoint(29,29,0);
    gre->SetPointError(29,0.5,0);
 
+   gre->SetMarkerSize(msize);
+
+
    Double_t *ydata = gre->GetY();
    Double_t *yerr = gre->GetEY();
 
    TH1F *Graph6 = new TH1F("Graph6","Graph",21,-0.5,20.5);
+
+   Graph6->SetMarkerSize(msize);
 
    Graph6->SetLineColor(2);
    Graph6->GetXaxis()->SetTitle("Number of strip hits on track");
@@ -336,6 +340,8 @@
 
    TH1F *Graph8 = new TH1F("Graph8","Graph",21,-0.5,20.5);//-0.5 ~ 0.5, 0.5 ~ 1.5, ...
 
+   Graph8->SetMarkerSize(msize);
+
    for(Int_t i = 0; i<20; i++){
       Graph8->SetBinContent(i+1,ydata[i]);
       Graph8->SetBinError(i+1,yerr[i]);
@@ -352,6 +358,9 @@
    Graph8->SetMarkerColor(1);
    Graph8->SetLineColor(1);
    Graph8->Draw("pzsame");
+   TH1F *Graph82 = Graph8->Clone("Graph82");
+   Graph82->SetMarkerStyle(0);
+   Graph82->Draw("pzsame");
 
 
    TLegend *leg = new TLegend(0.41,0.73,0.72,0.87,NULL,"brNDC");  
@@ -361,7 +370,8 @@
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
    leg->SetMargin(0.32);
-   
+  
+
    TLegendEntry *entry=leg->AddEntry("","Run 123596","p");
    entry->SetLineColor(1);
    entry->SetLineWidth(1);

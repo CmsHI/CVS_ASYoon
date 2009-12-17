@@ -6,9 +6,9 @@
    gROOT->ProcessLine(".x dndeta_rootlogon.C");
    gStyle->SetErrorX(0);
 
-   Float_t marker = 1.3;
+   Float_t marker = 1.5;
 
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,580,600);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,590,600);
 
    MyCanvas->Range(-0.56,-4.792683,2.94,1.304878);
    MyCanvas->SetLogy();

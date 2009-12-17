@@ -5,11 +5,10 @@
 
   //****************************************************
   Bool_t bw = 1;       // 1: BLACK AND WHITE, 0: COLOR
-  Float_t msize = 1.8; // MARKER SIZE
-  if(bw) msize = 1.8;
+  Float_t msize = 2.; // MARKER SIZE
   //****************************************************
   
-  TCanvas *c = new TCanvas("c","c",550,600);
+  TCanvas *c = new TCanvas("c","c",540,600);
 
   gStyle->SetTitleYSize(.060);
   gStyle->SetTitleYOffset(1.);
@@ -188,7 +187,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   if(bw)cmsnsd->SetMarkerColor(kRed);
   cmsnsd->SetMarkerStyle(29);
   if(bw)cmsnsd->SetMarkerStyle(29);
-  cmsnsd->SetMarkerSize(msize*1.2);
+  cmsnsd->SetMarkerSize(msize*1.4);
   cmsnsd->SetLineColor(kRed);
   //if(bw)cmsnsd->SetLineColor(kBlack);
   if(bw)cmsnsd->SetLineColor(kRed);

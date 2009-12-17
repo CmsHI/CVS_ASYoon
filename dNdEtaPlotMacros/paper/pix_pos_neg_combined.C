@@ -20,7 +20,7 @@
    TGraphErrors *gre = new TGraphErrors(30);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
-   double msize = 1.2;
+   double msize = 1.8;
    gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,0,0);
@@ -103,7 +103,7 @@
    Graph2->SetBinError(6,0);
 
    /*   
-   Graph2->SetMarkerStyle(22);
+   Graph2->SetMarkerStyle(20);
    Graph2->SetMarkerSize(2);
    Graph2->Draw("p");
 

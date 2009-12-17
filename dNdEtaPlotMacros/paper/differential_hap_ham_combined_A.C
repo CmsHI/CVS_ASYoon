@@ -6,12 +6,12 @@
    gROOT->ProcessLine(".x dndeta_rootlogon.C");
    //gStyle->SetErrorX(0);                                                                                                                                                                                    
    gStyle->SetPadRightMargin(0.13);
-   gStyle->SetPadLeftMargin(0.20);
+   gStyle->SetPadLeftMargin(0.18);
 
-   Float_t marker = 1.3;
+   Float_t marker = 1.4;
    Float_t tsize = 0.035;
 
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,600);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,605,600);
 
    TH1D *hDist = new TH1D("hDist","hDist",20,0,2);
    hDist->SetMinimum(0);

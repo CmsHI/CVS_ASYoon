@@ -7,7 +7,7 @@
 
    //gStyle->SetPadRightMargin(0.065);
 
-   double msize = 1.2;
+   double msize = 1.4;
   TCanvas *c1 = new TCanvas("c1", "c1",1,23,550,600);
   
    TH1 *hChargeDistMC = new TH1F("hChargeDistMC","hChargeDistMC",100,0,81);  
@@ -358,6 +358,10 @@
    hChargeDist->GetZaxis()->SetTitleSize(0.06);
    hChargeDist->GetZaxis()->SetTitleFont(42);
    hChargeDist->Draw("Psame");
+
+   TH1* hChargeDist1 = hChargeDist->Clone("hChargeDist1");
+   hChargeDist1->SetMarkerStyle(0);
+   hChargeDist1->Draw("Psame");
    
    TLegend *leg = new TLegend(0.52,0.74,0.94,0.88,NULL,"brNDC");   
    leg->SetBorderSize(0);

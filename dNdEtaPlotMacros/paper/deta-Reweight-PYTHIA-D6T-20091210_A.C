@@ -10,6 +10,7 @@
 
    int mcColor = 2;
    int dataColor = 1;
+   double msize = 1.5;
    
    if(logscale){
       MyCanvas->SetLogy();  
@@ -129,7 +130,7 @@
    hdeta->SetBinError(50,0.0001792967);
    hdeta->SetBinError(51,0.001494332);
    hdeta->SetMarkerStyle(20);
-   hdeta->SetMarkerSize(1.3);
+   hdeta->SetMarkerSize(msize);
    hdeta->SetMarkerColor(dataColor);
    hdeta->SetLineColor(dataColor);
 
@@ -140,6 +141,8 @@
    hdeta->GetXaxis()->SetNdivisions(505);
    hdeta->Draw("");
 
+   TH1 *hdeta1 = hdeta->Clone("hdeta1");
+   hdeta1->Draw("same");
 
    TH1 *h2deta = new TH1F("h2deta","",50,-0.2,0.2);
    h2deta->SetBinContent(0,0.1074632);
@@ -249,8 +252,7 @@
 
    h2deta->SetMarkerColor(mcColor);
    h2deta->SetMarkerStyle(25);
-   h2deta->SetMarkerSize(1.3);
-
+   h2deta->SetMarkerSize(msize);
 
    h2deta->Draw("same");
    

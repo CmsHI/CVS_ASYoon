@@ -19,7 +19,7 @@
    //Postive SIM
    TGraphErrors *gre = new TGraphErrors(30);
 
-   double msize = 1.2;
+   double msize = 1.8;
    gre->SetMarkerSize(msize);
 
    gre->SetName("Graph");
