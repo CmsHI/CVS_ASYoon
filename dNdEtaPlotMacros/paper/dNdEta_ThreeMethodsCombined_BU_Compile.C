@@ -113,46 +113,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    // Clone above for systematic band!
    /// ==================================================== Weighted mean of all three method! 
    Double_t xAxis8[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};
-   TH1 *hMeasuredFinal4 = new TH1D("hMeasuredFinal4","",12, xAxis8);
-
-   hMeasuredFinal4->SetMinimum(0);
-   hMeasuredFinal4->SetMaximum(5.0);
-
-
-   hMeasuredFinal4->SetBinContent(2,3.69453);  // -2.4 to -2.0 
-   hMeasuredFinal4->SetBinContent(3,3.731267249); //-2 to -1.5 
-   hMeasuredFinal4->SetBinContent(4,3.806498985);        // -1.5 to -1.0
-   hMeasuredFinal4->SetBinContent(5,3.705663267); // -1.0 to -0.5 
-   hMeasuredFinal4->SetBinContent(6,3.516000083);        // -0.5 to 0 
-
-   hMeasuredFinal4->SetBinContent(7,3.516000083); // 0 to 0.5 
-   hMeasuredFinal4->SetBinContent(8,3.705663267); // 0.5 to 1.0
-   hMeasuredFinal4->SetBinContent(9,3.806498985); // 1.0 to 1.5 
-   hMeasuredFinal4->SetBinContent(10,3.731267249); // 1.5 to 2.0 
-   hMeasuredFinal4->SetBinContent(11,3.69453); // 2.0 to 2.4
-
-   // Systematic error of 6.0% 
-   hMeasuredFinal4->SetBinError(2,0.2216718);
-   hMeasuredFinal4->SetBinError(3,0.223876035);
-   hMeasuredFinal4->SetBinError(4,0.228389939);
-   hMeasuredFinal4->SetBinError(5,0.222339796);
-   hMeasuredFinal4->SetBinError(6,0.210960005);
-
-   hMeasuredFinal4->SetBinError(7,0.210960005);
-   hMeasuredFinal4->SetBinError(8,0.222339796);
-   hMeasuredFinal4->SetBinError(9,0.228389939);
-   hMeasuredFinal4->SetBinError(10,0.223876035);
-   hMeasuredFinal4->SetBinError(11,0.2216718);
-   ////////
-
-
-   /*
-   double systematicError900GeV[13] = 
-      {0.129,0.129,0.129,0.088,0.082,0.082,0.079,0.079,0.082,0.082,0.088,0.129,0.129};
-
-   double systematicError10TeV[13] = 
-      {0.129,0.132,0.132,0.093,0.085,0.084,0.083,0.083,0.084,0.085,0.093,0.132,0.132};
-   */
+   TH1D * hMeasuredFinal4 = (TH1D*)hMeasuredFinal3->Clone();
 
    double systematicErrorUp[13] =   
       {0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06};
