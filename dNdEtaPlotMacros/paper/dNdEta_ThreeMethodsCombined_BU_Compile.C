@@ -92,12 +92,13 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    /// ==================================================== Weighted mean of all three method! 
    Double_t xAxis8[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};
    TH1D * hMeasuredFinal4 = (TH1D*)hMeasuredFinal3->Clone("hMeasuredFinal4");
+   double sysError = 0.0603;
 
    double systematicErrorUp[13] =   
-      {0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06};
+      {sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError};
       //{0,0.2216718,0.226580947,0.22773825,0.221063127,0.208123744,0.208123744,0.221063127,0.22773825,0.226580947,0.2216718,0};
    double systematicErrorDown[13] =
-      {0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.06};
+      {sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError};
       //{0,0.2216718,0.226580947,0.22773825,0.221063127,0.208123744,0.208123744,0.221063127,0.22773825,0.226580947,0.2216718,0};
 
 
