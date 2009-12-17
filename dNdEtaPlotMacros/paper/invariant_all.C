@@ -1,29 +1,19 @@
 {
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Thu Dec 17 11:28:52 2009) by ROOT version5.25/04
+
+  gROOT->Reset();
+  gROOT->ProcessLine(".x rootlogon.C");
+  gStyle->SetErrorX(0);
+
+  Float_t marker = 1.4;
+
    TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,600);
-   gStyle->SetOptFit(1);
-   gStyle->SetOptStat(0);
-   gStyle->SetOptTitle(0);
-   MyCanvas->Range(-0.56,-4.792683,2.94,1.304878);
-   MyCanvas->SetFillColor(0);
-   MyCanvas->SetBorderMode(0);
-   MyCanvas->SetBorderSize(2);
    MyCanvas->SetLogy();
-   MyCanvas->SetTickx(1);
-   MyCanvas->SetTicky(1);
-   MyCanvas->SetLeftMargin(0.16);
-   MyCanvas->SetRightMargin(0.04);
-   MyCanvas->SetTopMargin(0.05);
-   MyCanvas->SetBottomMargin(0.13);
-   MyCanvas->SetFrameFillStyle(0);
-   MyCanvas->SetFrameBorderMode(0);
-   MyCanvas->SetFrameFillStyle(0);
-   MyCanvas->SetFrameBorderMode(0);
    
    TH1D *hDist = new TH1D("hDist","hDist",20,0,2.8);
    hDist->SetMinimum(0.0001);
-   hDist->SetMaximum(10);
+   hDist->SetMaximum(30);
    hDist->SetLineStyle(0);
    hDist->GetXaxis()->SetTitle("p_{T} [GeV/c]");
    hDist->GetXaxis()->SetLabelFont(42);
@@ -44,6 +34,9 @@
    hDist->GetZaxis()->SetLabelSize(0.05);
    hDist->GetZaxis()->SetTitleSize(0.06);
    hDist->GetZaxis()->SetTitleFont(42);
+
+   hDist->GetXaxis()->CenterTitle();
+   hDist->GetYaxis()->CenterTitle();
    hDist->Draw("");
    
    TGraph *graph = new TGraph(1002);
@@ -1085,6 +1078,7 @@
    gre->SetTitle("Graph");
    gre->SetFillColor(1);
    gre->SetMarkerStyle(20);
+   gre->SetMarkerSize(marker);
    gre->SetPoint(0,0.15,6.54978);
    gre->SetPointError(0,0.05,0.07957213);
    gre->SetPoint(1,0.25,4.22483);
@@ -1153,7 +1147,8 @@
    
    gre->Draw("zp");
    
-   TLegend *leg = new TLegend(0.65,0.65,0.95,0.95,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.28,0.2,0.61,0.35,NULL,"brNDC");
+
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -1167,18 +1162,25 @@
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(1);
+   entry->SetMarkerSize(marker);
    entry=leg->AddEntry("Graph","Tsallis fit","L");
    entry->SetLineColor(1);
    entry->SetLineStyle(1);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(21);
-   entry->SetMarkerSize(1);
+   entry->SetMarkerSize(marker);
    leg->Draw();
    MyCanvas->Modified();
    MyCanvas->cd();
    MyCanvas->SetSelected(MyCanvas);
+
+   double height = 13;
+
+   TLatex *tex = new TLatex(2.4,height,"CMS");
+   tex->SetTextSize(0.04);
+   tex->SetLineWidth(2);
+   tex->Draw();
 
    MyCanvas->Print("invariant_all.eps");
    MyCanvas->Print("invariant_all.pdf");
