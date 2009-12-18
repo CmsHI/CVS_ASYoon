@@ -1,4 +1,6 @@
-{
+#include "common.h"
+
+void dNdeta_vs_roots() {
   gROOT->Reset();
   gROOT->ProcessLine(".x rootlogon.C");
 
@@ -365,6 +367,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     t_sys.SetTextColor(1);
     t_sys.SetTextAlign(32);
 
+    printFinalCanvases(c,"dNdeta_vs_roots",0,0);
+    /*
     // add some text labels
     double ndcX = 0.2;
     double ndcY = 0.9;
@@ -398,5 +402,6 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     c->Print("dNdeta_vs_roots_B.eps");
     c->Print("dNdeta_vs_roots_B.gif");
     c->Print("dNdeta_vs_roots_B.pdf");
+    */
 }
 
