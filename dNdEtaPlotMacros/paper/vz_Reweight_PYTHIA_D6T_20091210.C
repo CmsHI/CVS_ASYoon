@@ -90,7 +90,7 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
 
    hvz1->GetYaxis()->SetNdivisions(405);
    
-   hvz1->GetXaxis()->SetTitle("v_{z} (cm)");
+   hvz1->GetXaxis()->SetTitle("v_{z} [cm]");
    hvz1->GetYaxis()->SetTitle("Fraction");
 
    hvz1->GetXaxis()->CenterTitle();
@@ -190,7 +190,7 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
    h2vz->SetMarkerStyle(25);
    h2vz->SetMarkerSize(msize);
 
-   h2vz->GetXaxis()->SetTitle("v_z (cm)");
+   h2vz->GetXaxis()->SetTitle("v_z [cm]");
    h2vz->GetYaxis()->SetTitle("Arbitrary normalization");
    h2vz->Draw("same hist");
 
