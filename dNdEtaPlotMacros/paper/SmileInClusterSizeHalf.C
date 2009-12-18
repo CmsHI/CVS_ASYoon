@@ -1,4 +1,5 @@
-{
+#include "common.h"
+void SmileInClusterSizeHalf (){
 //=========Macro generated from canvas: c1/c1
 //=========  (Fri Dec 11 12:23:43 2009) by ROOT version5.22/00d
    
@@ -2440,15 +2441,5 @@
    line->SetLineWidth(width);
    line->Draw();
 
-   TLatex *tex = new TLatex(1.97,18.4,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
-
-
-   MyCanvas->Print("SmileInClusterSizeHalf.eps");
-   MyCanvas->Print("SmileInClusterSizeHalf.pdf");
-   MyCanvas->Print("SmileInClusterSizeHalf.gif");
-
-
+   printFinalCanvases(MyCanvas,"SmileInClusterSizeHalf");
 }
