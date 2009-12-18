@@ -11,7 +11,7 @@
   TCanvas *c = new TCanvas("c","c",550,600);
 
   //  gStyle->SetTitleYSize(.060);
-  //  gStyle->SetTitleYOffset(1.);
+  gStyle->SetTitleYOffset(1.4);
 
   c->SetLogx();
   //  c->SetLeftMargin(0.15);
@@ -167,14 +167,21 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   ua1nsd->Draw("PZsame");
 
   // ---- ALICE NSD ------
-  Double_t x6[2] =  {  900,  900 };
-  Double_t y6[2] =  {  3.51, 3.51 };
-  Double_t exl6[2]= {  0.25, 0.25 };
-  Double_t exh6[2]= { 0.25, 0.25 };
-  Double_t eyl6[2]= { 0.25, 0.25 };
-  Double_t eyh6[2]= { 0.25, 0.25 };
+  Double_t x10[2] =  {  900};
+  Double_t y10[2] =  {  3.51};
+  /*
+  Double_t exl10[2]= {  0.25};
+  Double_t exh10[2]= { 0.25};
+  Double_t eyl10[2]= { 0.25};
+  Double_t eyh10[2]= { 0.25};
+  */
+  // for now we don't show sys error for everyone
+  Double_t exl10[2]= {  0};
+  Double_t exh10[2]= { 0};
+  Double_t eyl10[2]= { 0};
+  Double_t eyh10[2]= { 0};
 
-  TGraphAsymmErrors *alicensd=new TGraphAsymmErrors(2,x6,y6,exl6,exh6,eyl6,eyh6);
+  TGraphAsymmErrors *alicensd=new TGraphAsymmErrors(2,x10,y10,exl10,exh10,eyl10,eyh10);
   alicensd->SetMarkerColor(kBlack);
   alicensd->SetMarkerStyle(24);
   alicensd->SetMarkerSize(msize);
@@ -185,10 +192,17 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t x11[1] =  { 900 }; 
   //Double_t y11[2] =  {  3.3, 3.3 };  // guesstimate!
   Double_t y11[1] =  {  3.4984 };
+  /*
   Double_t exl11[1]= { 0. };
   Double_t exh11[1]= { 0. };
   Double_t eyl11[1]= { 0.2108 };
   Double_t eyh11[1]= { 0.2108 };
+  */
+  // for now we don't show sys error for everyone
+  Double_t exl11[1]= { 0. };
+  Double_t exh11[1]= { 0. };
+  Double_t eyl11[1]= { 0};
+  Double_t eyh11[1]= { 0};
 
   TGraphAsymmErrors *cmsnsd=new TGraphAsymmErrors(1,x11,y11,exl11,exh11,eyl11,eyh11);
   cmsnsd->SetMarkerColor(kRed);
@@ -196,7 +210,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   if(bw)cmsnsd->SetMarkerColor(kRed);
   cmsnsd->SetMarkerStyle(kFullStar);
   if(bw)cmsnsd->SetMarkerStyle(kFullStar);
-  cmsnsd->SetMarkerSize(msize*1.2);
+  cmsnsd->SetMarkerSize(msize*1.3);
   cmsnsd->SetLineColor(kRed);
   //if(bw)cmsnsd->SetLineColor(kBlack);
   if(bw)cmsnsd->SetLineColor(kRed);
@@ -204,14 +218,21 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   cmsnsd->Draw("PEsame");
   
   // ---- ALICE INEL ------
-  Double_t x6[2] =  {  900,  900 };
-  Double_t y6[2] =  {  3.10, 3.10 };
-  Double_t exl6[2]= {  0.22, 0.22 };
-  Double_t exh6[2]= { 0.22, 0.22 };
-  Double_t eyl6[2]= { 0.22, 0.22 };
-  Double_t eyh6[2]= { 0.22, 0.22 };
+  Double_t x12[1] =  {  900};
+  Double_t y12[1] =  {  3.10};
+  /*
+  Double_t exl12[1]= {  0.22};
+  Double_t exh12[1]= { 0.22};
+  Double_t eyl12[1]= { 0.22};
+  Double_t eyh12[1]= { 0.22};
+  */
+  // for now we don't show sys error for everyone
+  Double_t exl12[1]= {  0};
+  Double_t exh12[1]= { 0};
+  Double_t eyl12[1]= { 0};
+  Double_t eyh12[1]= { 0};
 
-  TGraphAsymmErrors *aliceinel=new TGraphAsymmErrors(2,x6,y6,exl6,exh6,eyl6,eyh6);
+  TGraphAsymmErrors *aliceinel=new TGraphAsymmErrors(2,x12,y12,exl12,exh12,eyl12,eyh12);
   aliceinel->SetMarkerColor(kBlack);
   aliceinel->SetMarkerStyle(20);
   aliceinel->SetMarkerSize(msize);
@@ -219,14 +240,14 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   aliceinel->Draw("PZsame");
 
   // ---- Phobos INEL ------
-  Double_t x10[1] =  { 200 };
-  Double_t y10[1] =  {  2.32 };
-  Double_t exl10[1]= { 0 };
-  Double_t exh10[1]= { 0 };
-  Double_t eyl10[1]= { 0.20};
-  Double_t eyh10[1]= { 0.20};
+  Double_t x13[1] =  { 200 };
+  Double_t y13[1] =  {  2.32 };
+  Double_t exl13[1]= { 0 };
+  Double_t exh13[1]= { 0 };
+  Double_t eyl13[1]= { 0.20};
+  Double_t eyh13[1]= { 0.20};
 
-  TGraphAsymmErrors *phobosinel=new TGraphAsymmErrors(1,x10,y10,exl10,exh10,eyl10,eyh10);
+  TGraphAsymmErrors *phobosinel=new TGraphAsymmErrors(1,x13,y13,exl13,exh13,eyl13,eyh13);
   phobosinel->SetMarkerColor(kBlack);
   phobosinel->SetMarkerStyle(22);
   phobosinel->SetMarkerSize(msize);
@@ -234,14 +255,21 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   phobosinel->Draw("PZsame");
 
   // ---- STAR NSD ------
-  Double_t x6[2] = {  200,  200 };
-  Double_t y6[2] = {  2.98, 2.98 };
-  Double_t exl6[2]= {  0.34, 0.34 };
-  Double_t exh6[2]= { 0.34, 0.34 };
-  Double_t eyl6[2]= { 0.34, 0.34 };
-  Double_t eyh6[2]= { 0.34, 0.34 };
+  Double_t x14[1] = {  200};
+  Double_t y14[1] = {  2.98};
+  /*
+  Double_t exl14[1]= {  0.34};
+  Double_t exh14[1]= { 0.34};
+  Double_t eyl14[1]= { 0.34};
+  Double_t eyh14[1]= { 0.34};
+  */
+  // for now we don't show sys error for everyone
+  Double_t exl14[1]= {  0};
+  Double_t exh14[1]= { 0};
+  Double_t eyl14[1]= { 0};
+  Double_t eyh14[1]= { 0};
 
-  TGraphAsymmErrors *starnsd=new TGraphAsymmErrors(2,x6,y6,exl6,exh6,eyl6,eyh6);
+  TGraphAsymmErrors *starnsd=new TGraphAsymmErrors(2,x14,y14,exl14,exh14,eyl14,eyh14);
   starnsd->SetMarkerColor(kBlack);
   starnsd->SetMarkerStyle(30);
   starnsd->SetMarkerSize(msize);
