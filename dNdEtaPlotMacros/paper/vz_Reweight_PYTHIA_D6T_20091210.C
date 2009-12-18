@@ -1,23 +1,21 @@
-{
-//=========Macro generated from canvas: c1/c1
-//=========  (Wed Dec 16 14:42:52 2009) by ROOT version5.22/00a
-   TCanvas *c1 = new TCanvas("c1", "c1",212,97,599,601);
-   gStyle->SetOptFit(1);
-   gStyle->SetOptStat(0);
-   c1->Range(-30.08,-0.01801242,17.92,0.1062112);
-   c1->SetFillColor(0);
-   c1->SetBorderMode(0);
-   c1->SetBorderSize(0);
-   c1->SetTickx(1);
-   c1->SetTicky(1);
-   c1->SetLeftMargin(0.21);
-   c1->SetRightMargin(0.04);
-   c1->SetTopMargin(0.05);
-   c1->SetBottomMargin(0.145);
-   c1->SetFrameLineWidth(2);
-   c1->SetFrameLineWidth(2);
-   
+#include "common.h"
+
+void vz_Reweight_PYTHIA_D6T_20091210(){
+//=========Macro generated from canvas: c9/
+//=========  (Fri Dec 11 00:41:05 2009) by ROOT version5.22/00a
+   gROOT->Reset();
+   gROOT->ProcessLine(".x dndeta_rootlogon.C");
+   TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
+   MyCanvas->Range(-28.6076,-0.01804519,22.02532,0.1022561);
+
+   double msize = 1.5;
+
+   int mcColor = 2;
+   int dataColor = 1;
+
    TH1 *hvz1 = new TH1F("hvz1","",50,-20,20);
+   hvz1->GetXaxis()->SetRange(0,45); // bin range!
+   hvz1->SetMaximum(0.11);
    hvz1->SetBinContent(0,0.01672694);
    hvz1->SetBinContent(6,0.0004520796);
    hvz1->SetBinContent(7,0.0004520796);
@@ -84,28 +82,24 @@
    hvz1->SetBinError(35,0.0004520796);
    hvz1->SetBinError(36,0.0009041591);
    hvz1->SetBinError(38,0.0004520796);
-   hvz1->SetMaximum(0.1);
-   hvz1->SetEntries(33);
+
+   hvz1->SetLineColor(dataColor);
+   hvz1->SetMarkerColor(dataColor);
    hvz1->SetMarkerStyle(20);
-   hvz1->SetMarkerSize(1.3);
-   hvz1->GetXaxis()->SetTitle("v_{z} (cm)");
-   hvz1->GetXaxis()->SetRange(1,45);
-   hvz1->GetXaxis()->CenterTitle(true);
-   hvz1->GetXaxis()->SetLabelFont(42);
-   hvz1->GetXaxis()->SetLabelSize(0.059);
-   hvz1->GetXaxis()->SetTitleSize(0.05);
-   hvz1->GetXaxis()->SetTitleOffset(1.3);
-   hvz1->GetYaxis()->SetTitle("Arbitrary normalization");
-   hvz1->GetYaxis()->CenterTitle(true);
+   hvz1->SetMarkerSize(msize);
+
    hvz1->GetYaxis()->SetNdivisions(405);
-   hvz1->GetYaxis()->SetLabelFont(42);
-   hvz1->GetYaxis()->SetLabelOffset(0.015);
-   hvz1->GetYaxis()->SetLabelSize(0.059);
-   hvz1->GetYaxis()->SetTitleSize(0.05);
-   hvz1->GetYaxis()->SetTitleOffset(2.1);
-   hvz1->GetZaxis()->SetLabelFont(42);
-   hvz1->GetZaxis()->SetLabelSize(0.059);
+   
+   hvz1->GetXaxis()->SetTitle("v_{z} (cm)");
+   hvz1->GetYaxis()->SetTitle("Fraction");
+
+   hvz1->GetXaxis()->CenterTitle();
+   hvz1->GetYaxis()->CenterTitle();
    hvz1->Draw("pz");
+   TH1 *hvz11 = hvz1->Clone("hvz11");
+   hvz11->SetMarkerStyle(0);
+   hvz11->Draw("pzsame");
+
    
    TH1 *h2vz = new TH1F("h2vz","",50,-20,20);
    h2vz->SetBinContent(0,0.03038759);
@@ -188,29 +182,19 @@
    h2vz->SetBinError(39,2.364793e-05);
    h2vz->SetBinError(40,1.762613e-05);
    h2vz->SetBinError(41,1.114774e-05);
-   h2vz->SetEntries(40);
-   h2vz->SetFillColor(1);
-   h2vz->SetLineColor(2);
+
+   h2vz->SetFillColor(mcColor);
+   h2vz->SetLineColor(mcColor);
    h2vz->SetLineStyle(0);
-   h2vz->SetMarkerColor(2);
+   h2vz->SetMarkerColor(mcColor);
    h2vz->SetMarkerStyle(25);
-   h2vz->SetMarkerSize(1.3);
+   h2vz->SetMarkerSize(msize);
+
    h2vz->GetXaxis()->SetTitle("v_z (cm)");
-   h2vz->GetXaxis()->SetLabelFont(42);
-   h2vz->GetXaxis()->SetLabelSize(0.059);
-   h2vz->GetXaxis()->SetTitleSize(0.05);
-   h2vz->GetXaxis()->SetTitleOffset(1.3);
    h2vz->GetYaxis()->SetTitle("Arbitrary normalization");
-   h2vz->GetYaxis()->SetLabelFont(42);
-   h2vz->GetYaxis()->SetLabelOffset(0.015);
-   h2vz->GetYaxis()->SetLabelSize(0.059);
-   h2vz->GetYaxis()->SetTitleSize(0.05);
-   h2vz->GetYaxis()->SetTitleOffset(2.1);
-   h2vz->GetZaxis()->SetLabelFont(42);
-   h2vz->GetZaxis()->SetLabelSize(0.059);
-   h2vz->Draw("same");
-   
-   TLegend *leg = new TLegend(0.6554622,0.7696335,1,0.8708551,NULL,"brNDC");
+   h2vz->Draw("same hist");
+
+   TLegend *leg = new TLegend(0.64,0.76,1.0,0.88,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -218,30 +202,22 @@
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
+
    TLegendEntry *entry=leg->AddEntry("hvz1","Data","p");
    entry->SetLineColor(1);
-   entry->SetLineStyle(1);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(1.3);
-   entry=leg->AddEntry("h2vz","PYTHIA D6T","p");
+   entry->SetMarkerSize(msize);
+
+   entry=leg->AddEntry("h2vz","PYTHIA D6T","l");
    entry->SetLineColor(2);
-   entry->SetLineStyle(1);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);
-   entry->SetMarkerStyle(25);
-   entry->SetMarkerSize(1.3);
+   entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(msize);
    leg->Draw();
-   TLatex *   tex = new TLatex(9.92,0.092,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
-   c1->Modified();
-   c1->cd();
-   c1->SetSelected(c1);
 
-c1->SaveAs("vz-Reweight-PYTHIA-D6T-20091210_v2.gif");
-c1->SaveAs("vz-Reweight-PYTHIA-D6T-20091210_v2.eps");
+   printFinalCanvases(MyCanvas,"Vz_PYTHIA_Run123596");
 
 }

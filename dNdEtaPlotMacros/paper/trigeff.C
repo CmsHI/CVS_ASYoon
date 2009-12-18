@@ -13,7 +13,7 @@ void trigeff(){
 	TH1 *hFrame = new TH2D("hFrame","",1,0,20.5,1,0,1.15);
 	hFrame->SetDirectory(0);
 	hFrame->SetStats(0);
-	hFrame->GetXaxis()->SetTitle("Event multiplicity (|#eta|<2.5)");
+	hFrame->GetXaxis()->SetTitle("Event multiplicity");
 	hFrame->GetYaxis()->SetTitle("Selection efficiency");
 	hFrame->Draw("");
 
@@ -285,6 +285,7 @@ void trigeff(){
 
 	TLegendEntry *entry=leg->AddEntry("a2","NSD efficiency","p");
 	entry=leg->AddEntry("a1","SD efficiency","p");
+        entry=leg->AddEntry("a3","(|#eta|<2.5)","");
 	leg->Draw();
 
 	// add some text labels                                                                                                             
