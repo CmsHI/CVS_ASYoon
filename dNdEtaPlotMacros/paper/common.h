@@ -1,8 +1,9 @@
 #include "TLatex.h"
 
-void printFinalCanvases(TCanvas * MyCanvas, char * name)
+void printFinalCanvases(TCanvas * MyCanvas, const char * name)
 {
   MyCanvas->cd();
+  printf("canvas name: %s\n",name);
 
   // add some text labels
   double ndcX = 0.2;
@@ -21,9 +22,9 @@ void printFinalCanvases(TCanvas * MyCanvas, char * name)
   tex2->Draw();
 
 
-  MyCanvas->Print(Form("%s.eps"),name);
-  MyCanvas->Print(Form("%s.gif"),name);
-  MyCanvas->Print(Form("%s.pdf"),name);
+  MyCanvas->Print(Form("%s.eps",name));
+  MyCanvas->Print(Form("%s.gif",name));
+  MyCanvas->Print(Form("%s.pdf",name));
 
   tex = new TLatex(ndcX,ndcY,"(a)");
   tex->SetTextSize(0.04);
@@ -31,9 +32,9 @@ void printFinalCanvases(TCanvas * MyCanvas, char * name)
   tex->SetNDC();
   tex->Draw();
 
-  MyCanvas->Print(Form("%s_A.eps"),name);
-  MyCanvas->Print(Form("%s_A.gif"),name);
-  MyCanvas->Print(Form("%s_A.pdf"),name);
+  MyCanvas->Print(Form("%s_A.eps",name));
+  MyCanvas->Print(Form("%s_A.gif",name));
+  MyCanvas->Print(Form("%s_A.pdf",name));
 
   tex->Delete();
   tex = new TLatex(ndcX,ndcY,"(b)");
@@ -42,7 +43,7 @@ void printFinalCanvases(TCanvas * MyCanvas, char * name)
   tex->SetNDC();
   tex->Draw();
 
-  MyCanvas->Print(Form("%s_B.eps"),name);
-  MyCanvas->Print(Form("%s_B.gif"),name);
-  MyCanvas->Print(Form("%s_B.pdf"),name);
+  MyCanvas->Print(Form("%s_B.eps",name));
+  MyCanvas->Print(Form("%s_B.gif",name));
+  MyCanvas->Print(Form("%s_B.pdf",name));
 }
