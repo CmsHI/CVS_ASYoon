@@ -357,7 +357,7 @@
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
 
-   entry=leg->AddEntry("h2deta","PYTHIA D6T","p");
+   entry=leg->AddEntry("h2deta","PYTHIA D6T","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(2);
