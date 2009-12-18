@@ -185,8 +185,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t x11[1] =  { 900 }; 
   //Double_t y11[2] =  {  3.3, 3.3 };  // guesstimate!
   Double_t y11[1] =  {  3.4984 };
-  Double_t exl11[1]= { 0.2108 };
-  Double_t exh11[1]= { 0.2108 };
+  Double_t exl11[1]= { 0. };
+  Double_t exh11[1]= { 0. };
   Double_t eyl11[1]= { 0.2108 };
   Double_t eyh11[1]= { 0.2108 };
 
@@ -196,7 +196,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   if(bw)cmsnsd->SetMarkerColor(kRed);
   cmsnsd->SetMarkerStyle(kFullStar);
   if(bw)cmsnsd->SetMarkerStyle(kFullStar);
-  cmsnsd->SetMarkerSize(msize);
+  cmsnsd->SetMarkerSize(msize*1.2);
   cmsnsd->SetLineColor(kRed);
   //if(bw)cmsnsd->SetLineColor(kBlack);
   if(bw)cmsnsd->SetLineColor(kRed);
@@ -322,22 +322,38 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     t_sys.SetTextColor(1);
     t_sys.SetTextAlign(32);
 
-    //    TLatex* tex = new TLatex(12,7.,"(a)");
-    //    tex->SetTextSize(0.04);
-    //    tex->SetLineWidth(2);
-    //    tex->Draw();
-
-    TLatex *tex = new TLatex(3950,6.96,"CMS");
+    // add some text labels
+    double ndcX = 0.2;
+    double ndcY = 0.9;
+    TLatex *tex = new TLatex(0.8,ndcY,"CMS");
     tex->SetTextSize(0.04);
     tex->SetLineWidth(2);
+    tex->SetNDC();
     tex->Draw();
 
-    c->Print("Fig.eps");
-//    t_sys.Draw();
-
-//   c->Print("Fig.eps");
     c->Print("dNdeta_vs_roots.eps");
-//    c->Print("dNdeta_vs_roots.pdf"); // don't print, use eps2pdf
+    c->Print("dNdeta_vs_roots.pdf");
     c->Print("dNdeta_vs_roots.gif");
+
+    tex = new TLatex(ndcX,ndcY,"(a)");
+    tex->SetTextSize(0.04);
+    tex->SetLineWidth(2);
+    tex->SetNDC();
+    tex->Draw();
+
+    c->Print("dNdeta_vs_roots_A.eps");
+    c->Print("dNdeta_vs_roots_A.gif");
+    c->Print("dNdeta_vs_roots_A.pdf");
+
+    tex->Delete();
+    tex = new TLatex(ndcX,ndcY,"(b)");
+    tex->SetTextSize(0.04);
+    tex->SetLineWidth(2);
+    tex->SetNDC();
+    tex->Draw();
+
+    c->Print("dNdeta_vs_roots_B.eps");
+    c->Print("dNdeta_vs_roots_B.gif");
+    c->Print("dNdeta_vs_roots_B.pdf");
 }
 
