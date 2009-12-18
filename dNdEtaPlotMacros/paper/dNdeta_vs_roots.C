@@ -216,6 +216,21 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   if(bw)cmsnsd->SetLineColor(kRed);
   //cmsnsd->Draw("PE");
   cmsnsd->Draw("PEsame");
+
+  TGraphAsymmErrors * cmsnsdSysError = cmsnsd->Clone();
+  cmsnsdSysError->SetPoint(0,6000,6.5);
+  cmsnsdSysError->SetPointError(0,0,0,0.2108,0.2108);
+  cmsnsdSysError->SetMarkerStyle(0);
+  cmsnsdSysError->SetMarkerColor(kGray);
+  cmsnsdSysError->SetLineColor(kGray);
+  cmsnsdSysError->SetLineWidth(10);
+  cmsnsdSysError->Draw("PEsame");
+  TLatex *tex11 = new TLatex(392,6.428,"CMS Sys. Uncertainty");
+  tex11->SetTextSize(0.03);
+  tex11->SetLineWidth(2);
+  //tex11->SetNDC();
+  tex11->Draw();
+
   
   // ---- ALICE INEL ------
   Double_t x12[1] =  {  900};
