@@ -12,7 +12,7 @@
 	hFrame->SetDirectory(0);
 	hFrame->SetStats(0);
 	hFrame->GetXaxis()->SetTitle("Charged multiplicity (|#eta|<2.5)");
-        hFrame->GetYaxis()->SetTitle("Event fraction");
+	hFrame->GetYaxis()->SetTitle("Fraction x 10");
 	hFrame->Draw("");
 
 	hFrame->GetXaxis()->CenterTitle();
@@ -261,15 +261,15 @@
 	hGenNDofNpix->GetXaxis()->SetRange(2,31);
 	hGenNDofNpix->Draw("hist same");
 	
-	TLegend *leg = new TLegend(0.56,0.73,0.98,0.86,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.53,0.65,0.88,0.83,NULL,"brNDC");
 	leg->SetBorderSize(0);
 	leg->SetFillColor(0);
 	leg->SetFillStyle(0);
 
 	TLegendEntry *entry;
         entry=leg->AddEntry(hGenNDofNpix,"PYTHIA D6T","");
-        entry=leg->AddEntry(hGenNDofNpix,"NSD Event fraction","L");
-        entry=leg->AddEntry(hGenSDofNpix,"SD Event fraction","L");
+        entry=leg->AddEntry(hGenNDofNpix,"NSD events","L");
+        entry=leg->AddEntry(hGenSDofNpix,"SD events","L");
 	leg->Draw();
 
 	// add some text labels
