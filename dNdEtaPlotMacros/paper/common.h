@@ -1,26 +1,28 @@
 #include "TLatex.h"
 
-void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0)
+void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0, int doCMS=1)
 {
   MyCanvas->cd();
+  MyCanvas->SetLogy(log);
   printf("canvas name: %s\n",name);
 
   // add some text labels
   double ndcX = 0.2;
   double ndcY = 0.9;
 
-  TLatex *tex = new TLatex(0.85,ndcY,"CMS");
-  tex->SetTextSize(0.04);
-  tex->SetLineWidth(2);
-  tex->SetNDC();
-  tex->Draw();
+  if (doCMS) {
+    TLatex *tex = new TLatex(0.85,ndcY,"CMS");
+    tex->SetTextSize(0.04);
+    tex->SetLineWidth(2);
+    tex->SetNDC();
+    tex->Draw();
 
-  TLatex *tex2 = new TLatex(0.85-0.132,ndcY-0.045,"#sqrt{s}=900 GeV");
-  tex2->SetTextSize(0.04);
-  tex2->SetLineWidth(2);
-  tex2->SetNDC();
-  tex2->Draw();
-
+    TLatex *tex2 = new TLatex(0.85-0.132,ndcY-0.045,"#sqrt{s}=900 GeV");
+    tex2->SetTextSize(0.04);
+    tex2->SetLineWidth(2);
+    tex2->SetNDC();
+    tex2->Draw();
+  }
 
   MyCanvas->Print(Form("%s.eps",name));
   MyCanvas->Print(Form("%s.gif",name));
