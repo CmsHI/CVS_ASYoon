@@ -6,17 +6,38 @@
   gROOT->Reset();
   gROOT->ProcessLine(".x rootlogon.C");
 
-	TCanvas *cEvtSel = new TCanvas("cEvtSel", "EvtSel",550,600);
+	TCanvas *cEvtSel = new TCanvas("cEvtSel", "EvtSel",650,400);
+	cEvtSel->SetRightMargin(0.13);
+        cEvtSel->SetLeftMargin(0.13);
 	
-	TH1 *hFrame = new TH2D("hFrame","",1,0,20.5,1,0,1.05);
+	TH1 *hFrame = new TH2D("hFrame","",1,0,20.5,1,0,1.15);
 	hFrame->SetDirectory(0);
 	hFrame->SetStats(0);
 	hFrame->GetXaxis()->SetTitle("Charged multiplicity (|#eta|<2.5)");
-	hFrame->GetYaxis()->SetTitle("Selection efficiency / Event fraction");
+	hFrame->GetYaxis()->SetTitle("Selection efficiency");
+	hFrame->GetYaxis()->SetTitleOffset(0.91);
 	hFrame->Draw("");
 
 	hFrame->GetXaxis()->CenterTitle();
         hFrame->GetYaxis()->CenterTitle();
+
+	hFrame->GetXaxis()->SetNdivisions(20);
+
+	TF1 *f1=new TF1("f1","x",0);
+
+	TGaxis *A1 = new TGaxis(20.5,0,20.5,1,"f1",5,"+");
+	A1->SetLabelOffset(.04);
+        A1->SetTitle("Event fraction");
+	A1->SetTitleFont(hFrame->GetYaxis()->GetTitleFont());
+        A1->SetTitleSize(hFrame->GetYaxis()->GetTitleSize());
+	A1->SetLabelFont(hFrame->GetYaxis()->GetLabelFont());
+        A1->SetLabelSize(hFrame->GetYaxis()->GetLabelSize());
+	A1->SetTextAngle(180);
+	A1->SetVertical();
+	A1->CenterTitle();
+	A1->SetTextAlign(1);
+
+	A1->Draw();
 	
 	TGraphAsymmErrors *grae = new TGraphAsymmErrors(27);
 	grae->SetName("a1");
@@ -335,7 +356,7 @@
 	hGenSDofNpix->SetLineWidth(3);
 	hGenSDofNpix->GetXaxis()->SetTitle("M");
 	hGenSDofNpix->GetXaxis()->SetRange(2,31);
-	hGenSDofNpix->Draw("hist C same");
+	hGenSDofNpix->Draw("hist same");
 	
 	TH1 *hGenNDofNpix = new TH1D("hGenNDofNpix","Generated processes",250,-0.5,249.5);
 	hGenNDofNpix->SetBinContent(1,0.4944957);
@@ -513,30 +534,21 @@
 	hGenNDofNpix->SetLineWidth(3);
 	hGenNDofNpix->GetXaxis()->SetTitle("M");
 	hGenNDofNpix->GetXaxis()->SetRange(2,31);
-	hGenNDofNpix->Draw("hist C same");
+	hGenNDofNpix->Draw("hist same");
 	
-	TLegend *leg = new TLegend(0.18,0.80,0.61,0.87,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.16,0.73,0.59,0.91,NULL,"brNDC");
 	leg->SetBorderSize(0);
-	leg->SetTextFont(62);
 	leg->SetFillColor(0);
 	leg->SetFillStyle(0);
 
 	TLegendEntry *entry=leg->AddEntry("a2","NSD efficiency","p");
-	//        entry->SetMarkerColor(1);
-	//	entry->SetMarkerStyle(1);
-	//        entry->SetMarkerSize(1.2);
-
 	entry=leg->AddEntry("a1","SD efficiency","p");
-	//	entry->SetLineColor(1);
-	//	entry->SetLineStyle(1);
-	//	entry->SetLineWidth(1);
-	//	entry->SetMarkerColor(1);
-	//	entry->SetMarkerStyle(25);
-	//	entry->SetMarkerSize(1.2);
+        entry=leg->AddEntry(hGenNDofNpix,"NSD Event fraction","L");
+        entry=leg->AddEntry(hGenSDofNpix,"SD Event fraction","L");
 	leg->Draw();
 
-
-        TLegend *leg2 = new TLegend(0.65,0.27,1,0.34,NULL,"brNDC");
+	if(0){
+	TLegend *leg2 = new TLegend(0.65,0.27,1,0.34,NULL,"brNDC");
 	leg2->SetBorderSize(0);
         leg2->SetTextFont(62);
         leg2->SetLineColor(1);
@@ -546,13 +558,6 @@
         leg2->SetFillStyle(0);
 
 	entry=leg2->AddEntry(hGenNDofNpix,"NSD Event fraction","L");
-	//        entry->SetLineColor(1);
-	//        entry->SetLineStyle(1);
-	//        entry->SetLineWidth(1);
-	//        entry->SetMarkerColor(1);
-	//        entry->SetMarkerStyle(25);
-	//        entry->SetMarkerSize(1.2);
-
 	entry=leg2->AddEntry(hGenSDofNpix,"SD Event fraction","L");
         entry->SetLineColor(1);
         entry->SetLineStyle(7);
@@ -562,7 +567,7 @@
         entry->SetMarkerSize(1.2);
 
         leg2->Draw();
-
+	}
 	cEvtSel->Modified();
 	cEvtSel->cd();
 	cEvtSel->SetSelected(cEvtSel);
