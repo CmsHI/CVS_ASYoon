@@ -1,4 +1,7 @@
-{
+#include "common.h"
+
+
+void pix_pos_neg_combined(){
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Tue Dec 15 18:00:56 2009) by ROOT version5.25/04
 
@@ -228,8 +231,7 @@
 
    Graph4->Draw("pzsame");
 
-
-   TLegend *leg = new TLegend(0.63,0.73,0.94,0.87,NULL,"brNDC");   
+   TLegend *leg = new TLegend(0.63,0.71,1.0,0.83,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.038);
@@ -250,15 +252,6 @@
    leg->Draw();
 
 
-   TLatex *tex = new TLatex(4.9,0.92,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
-
-
-
-   MyCanvas->Print("pixels_pos_neg.eps");
-   MyCanvas->Print("pixels_pos_neg.gif");
-
+   printFinalCanvases(MyCanvas,"pixels_pos_neg");
 
 }

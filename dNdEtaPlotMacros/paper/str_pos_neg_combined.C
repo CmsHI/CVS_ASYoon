@@ -1,4 +1,7 @@
-{
+#include "common.h"
+
+
+void str_pos_neg_combined(){
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Tue Dec 15 18:00:56 2009) by ROOT version5.25/04
 
@@ -182,7 +185,7 @@
    Graph82->SetMarkerStyle(0);
    Graph82->Draw("pzsame");
 
-   TLegend *leg = new TLegend(0.63,0.73,0.94,0.87,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.63,0.71,1.0,0.83,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.038);
@@ -194,39 +197,6 @@
    leg->AddEntry(Graph6,"PYTHIA D6T","l");
    leg->Draw();
    
-   double height = Graph6->GetMaximum() * 0.926;
+   printFinalCanvases(MyCanvas,"strips_pos_neg");
 
-   // add some text labels
-   double ndcX = 0.2;
-   double ndcY = 0.9;
-   TLatex *tex = new TLatex(0.85,ndcY,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->SetNDC();
-   tex->Draw();
-
-   MyCanvas->Print("strips_pos_neg.eps");
-   MyCanvas->Print("strips_pos_neg.gif");
-   MyCanvas->Print("strips_pos_neg.pdf");
-   
-   tex = new TLatex(ndcX,ndcY,"(a)");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->SetNDC();
-   tex->Draw();
-
-   MyCanvas->Print("strips_pos_neg_A.eps");
-   MyCanvas->Print("strips_pos_neg_A.gif");
-   MyCanvas->Print("strips_pos_neg_A.pdf");
-
-   tex->Delete();
-   tex = new TLatex(ndcX,ndcY,"(b)");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->SetNDC();
-   tex->Draw();
-
-   MyCanvas->Print("strips_pos_neg_B.eps");
-   MyCanvas->Print("strips_pos_neg_B.gif");
-   MyCanvas->Print("strips_pos_neg_B.pdf");
 }

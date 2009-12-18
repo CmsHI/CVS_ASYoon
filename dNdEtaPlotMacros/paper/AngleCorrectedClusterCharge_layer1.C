@@ -1,4 +1,6 @@
-{
+#include "common.h"
+
+void AngleCorrectedClusterCharge_layer1(){
 //=========Macro generated from canvas: c1/c1
 //=========  (Tue Dec 15 17:46:58 2009) by ROOT version5.22/00d
 
@@ -361,7 +363,7 @@
    hChargeDist1->SetMarkerStyle(0);
    hChargeDist1->Draw("Psame");
    
-   TLegend *leg = new TLegend(0.64,0.76,1.0,0.88,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.63,0.71,1.0,0.83,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -393,19 +395,6 @@
    tex->SetLineWidth(2);
    tex->Draw();
 
-   TLatex *tex = new TLatex(68.61,0.043,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
+   printFinalCanvases(c1,"landau");
 
-   c1->Print("landau.eps");
-   c1->Print("landau.pdf");
-   c1->Print("landau.gif");
-
-
-   /*
-   c1->Modified();
-   c1->cd();
-   c1->SetSelected(c1);
-   */
 }
