@@ -61,7 +61,7 @@ void pix_pos_neg_combined(){
    Graph1->SetBinError(5,0);
    Graph1->SetBinError(6,0);
 
-
+   Graph1->GetXaxis()->SetNdivisions(5);
    
    //Negative SIM 
    TGraphErrors *gre = new TGraphErrors(30);
@@ -126,7 +126,7 @@ void pix_pos_neg_combined(){
    Graph2->GetYaxis()->SetTitle("Fraction");
    Graph2->GetXaxis()->CenterTitle();
    Graph2->GetYaxis()->CenterTitle();
-   Graph2->GetXaxis()->SetNdivisions(505);
+   Graph2->GetXaxis()->SetNdivisions(4);
    Graph2->GetYaxis()->SetDecimals(1);
 
    Graph2->SetMaximum(1);
