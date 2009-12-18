@@ -325,7 +325,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     // add some text labels
     double ndcX = 0.2;
     double ndcY = 0.9;
-    TLatex *tex = new TLatex(0.8,ndcY,"CMS");
+    TLatex *tex = new TLatex(0.85,ndcY,"CMS");
     tex->SetTextSize(0.04);
     tex->SetLineWidth(2);
     tex->SetNDC();
