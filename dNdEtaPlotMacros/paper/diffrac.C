@@ -11,8 +11,8 @@
 	TH1 *hFrame = new TH2D("hFrame","",1,0,20.5,1,0,1.05);
 	hFrame->SetDirectory(0);
 	hFrame->SetStats(0);
-	hFrame->GetXaxis()->SetTitle("Charged multiplicity (|#eta|<2.5)");
-	hFrame->GetYaxis()->SetTitle("Fraction x 10");
+	hFrame->GetXaxis()->SetTitle("Event multiplicity (|#eta|<2.5)");
+	hFrame->GetYaxis()->SetTitle("Fraction #times 10");
 	hFrame->Draw("");
 
 	hFrame->GetXaxis()->CenterTitle();

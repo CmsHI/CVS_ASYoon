@@ -11,9 +11,8 @@
 	TH1 *hFrame = new TH2D("hFrame","",1,0,20.5,1,0,1.15);
 	hFrame->SetDirectory(0);
 	hFrame->SetStats(0);
-	hFrame->GetXaxis()->SetTitle("Charged multiplicity (|#eta|<2.5)");
+	hFrame->GetXaxis()->SetTitle("Event multiplicity (|#eta|<2.5)");
 	hFrame->GetYaxis()->SetTitle("Selection efficiency");
-	hFrame->GetYaxis()->SetTitleOffset(0.91);
 	hFrame->Draw("");
 
 	hFrame->GetXaxis()->CenterTitle();
