@@ -276,7 +276,7 @@
 	
 	grae->Draw("p ");
 	
-	TLegend *leg = new TLegend(0.16,0.73,0.59,0.91,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.16,0.75,0.66,0.88,NULL,"brNDC");
 	leg->SetBorderSize(0);
 	leg->SetFillColor(0);
 	leg->SetFillStyle(0);

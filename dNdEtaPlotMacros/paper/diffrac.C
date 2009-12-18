@@ -261,7 +261,7 @@
 	hGenNDofNpix->GetXaxis()->SetRange(2,31);
 	hGenNDofNpix->Draw("hist same");
 	
-	TLegend *leg = new TLegend(0.53,0.65,0.88,0.83,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.35,0.70,0.98,0.88,NULL,"brNDC");
 	leg->SetBorderSize(0);
 	leg->SetFillColor(0);
 	leg->SetFillStyle(0);
