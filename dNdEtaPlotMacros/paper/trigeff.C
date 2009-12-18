@@ -1,4 +1,6 @@
-{
+#include "common.h"
+
+void trigeff(){
 
 	//=========Macro generated from canvas: cEvtSel/EvtSel
 	//=========  (Thu Dec 17 14:05:21 2009) by ROOT version5.22/00d
@@ -298,28 +300,7 @@
         cEvtSel->cd();
         cEvtSel->SetSelected(cEvtSel);
 
-        cEvtSel->Print("trigeff.gif");
-        cEvtSel->Print("trigeff.eps");
-
-        tex = new TLatex(ndcX,ndcY,"(a)");
-        tex->SetTextSize(0.04);
-        tex->SetLineWidth(2);
-        tex->SetNDC();
-        tex->Draw();
-
-        cEvtSel->Print("trigeff_A.eps");
-        cEvtSel->Print("trigeff_A.gif");
-        cEvtSel->Print("trigeff_A.pdf");
-        tex->Delete();
-        tex = new TLatex(ndcX,ndcY,"(b)");
-        tex->SetTextSize(0.04);
-        tex->SetLineWidth(2);
-        tex->SetNDC();
-        tex->Draw();
-
-        cEvtSel->Print("trigeff_B.eps");
-        cEvtSel->Print("trigeff_B.gif");
-        cEvtSel->Print("trigeff_B.pdf");
+	printFinalCanvases(cEvtSel,"trigeff");
 
 }
 
