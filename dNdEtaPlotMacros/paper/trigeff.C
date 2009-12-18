@@ -20,7 +20,7 @@ void trigeff(){
 	hFrame->GetXaxis()->CenterTitle();
         hFrame->GetYaxis()->CenterTitle();
 
-	hFrame->GetXaxis()->SetNdivisions(20);
+	hFrame->GetXaxis()->SetNdivisions(220);
 
 	TGraphAsymmErrors *grae = new TGraphAsymmErrors(27);
 	grae->SetName("a1");
@@ -278,7 +278,7 @@ void trigeff(){
 	
 	grae->Draw("p ");
 	
-	TLegend *leg = new TLegend(0.16,0.75,0.66,0.88,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.58,0.22,0.96,0.40,NULL,"brNDC");
 	leg->SetBorderSize(0);
 	leg->SetFillColor(0);
 	leg->SetFillStyle(0);
