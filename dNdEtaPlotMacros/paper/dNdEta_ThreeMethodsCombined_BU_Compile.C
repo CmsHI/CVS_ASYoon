@@ -1,5 +1,6 @@
 // For plotting
 #include "GraphErrorsBand.h"
+#include "common.h"
 // Standard library
 #include <math.h>
 #include <iostream.h>
@@ -246,46 +247,5 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    leg->Draw();
 
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined.eps");  
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined.gif"); 
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined.pdf");
-
-   // add some text labels
-   double ndcX = 0.2;
-   double ndcY = 0.9;
-   TLatex *tex = new TLatex(0.85,ndcY,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->SetNDC();
-   tex->Draw();
-   TLatex *tex2 = new TLatex(0.85-0.13,ndcY-0.045,"#sqrt{s}=900 GeV");
-   tex2->SetTextSize(0.04);
-   tex2->SetLineWidth(2);
-   tex2->SetNDC();
-   tex2->Draw();
-
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined.eps");
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined.gif");
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined.pdf");
-   
-   tex = new TLatex(ndcX,ndcY,"(a)");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->SetNDC();
-   tex->Draw();
-
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined_A.eps");
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined_A.gif");
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined_A.pdf");
-
-   tex->Delete();
-   tex = new TLatex(ndcX,ndcY,"(b)");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->SetNDC();
-   tex->Draw();
-
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined_B.eps");
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined_B.gif");
-   MyCanvas->Print("dNdeta_ThreeMethodsCombined_B.pdf");
+   printFinalCanvases(MyCanvas,"dNdeta_ThreeMethodsCombined");
 }

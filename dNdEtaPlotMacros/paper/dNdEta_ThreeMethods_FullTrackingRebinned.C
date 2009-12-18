@@ -1,4 +1,5 @@
-{
+#include "common.h"
+void dNdEta_ThreeMethods_FullTrackingRebinned() {
 //=========Macro generated from canvas: MyCanvas/MyCanvas
 //=========  (Thu Dec 10 11:52:00 2009) by ROOT version5.22/00d
 
@@ -324,42 +325,5 @@
 
    leg->Draw();
 
-   // add some text labels
-   double ndcX = 0.2;
-   double ndcY = 0.9;
-   TLatex *tex = new TLatex(0.85,ndcY,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->SetNDC();
-   tex->Draw();
-   TLatex *tex2 = new TLatex(0.85-0.13,ndcY-0.045,"#sqrt{s}=900 GeV");
-   tex2->SetTextSize(0.04);
-   tex2->SetLineWidth(2);
-   tex2->SetNDC();
-   tex2->Draw();
-
-   MyCanvas->Print("dNdeta_ThreeMethods.eps");   
-   MyCanvas->Print("dNdeta_ThreeMethods.gif");
-   MyCanvas->Print("dNdeta_ThreeMethods.pdf");
-   
-   tex = new TLatex(ndcX,ndcY,"(a)");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->SetNDC();
-   tex->Draw();
-
-   MyCanvas->Print("dNdeta_ThreeMethods_A.eps");
-   MyCanvas->Print("dNdeta_ThreeMethods_A.gif");
-   MyCanvas->Print("dNdeta_ThreeMethods_A.pdf");
-
-   tex->Delete();
-   tex = new TLatex(ndcX,ndcY,"(b)");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->SetNDC();
-   tex->Draw();
-
-   MyCanvas->Print("dNdeta_ThreeMethods_B.eps");
-   MyCanvas->Print("dNdeta_ThreeMethods_B.gif");
-   MyCanvas->Print("dNdeta_ThreeMethods_B.pdf");
+   printFinalCanvases(MyCanvas,"dNdeta_ThreeMethods");
 }
