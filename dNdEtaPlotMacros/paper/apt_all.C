@@ -1,15 +1,14 @@
-{
+#include "common.h"
+
+void apt_all(){
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
    gROOT->Reset();
    gROOT->ProcessLine(".x rootlogon.C");
 
-   //   gStyle->SetTitleYOffset(1.9);
+   gStyle->SetTitleYOffset(1.5);
    TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,550,600);
-
-   //MyCanvas->Range(0.4,0.2365854,4.15,0.7243902);
-   //MyCanvas->SetLogx();
 
    MyCanvas->SetLogx();
 
@@ -181,7 +180,7 @@
    func->SetLineWidth(1.5);
    func->Draw("same");
    
-   TLegend *leg = new TLegend(0.25,0.444,0.48,0.45,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.25,0.69,0.48,0.90,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -229,22 +228,7 @@
    entry->SetMarkerSize(0);
    leg2->Draw();
 
-   TLatex *tex = new TLatex(4364,0.58,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
-
-
-   //   tex = new TLatex(15,0.58,"");
-   //   tex->SetTextSize(0.04);
-   //   tex->SetLineWidth(2);
-   //   tex->Draw();
-
-
-   MyCanvas->Print("apt_all.eps");
-   MyCanvas->Print("apt_all.pdf");
-   MyCanvas->Print("apt_all.gif");
-
+   printFinalCanvases(MyCanvas,"apt_all");
 
 }
 
