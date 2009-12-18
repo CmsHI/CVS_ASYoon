@@ -1,4 +1,6 @@
-{
+#include "common.h"
+
+void invariant_all() {
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Thu Dec 17 11:28:52 2009) by ROOT version5.25/04
 
@@ -9,7 +11,7 @@
   Float_t marker = 1.4;
 
    TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
-   MyCanvas->SetLogy();
+   int doLog=1;
    
    TH1D *hDist = new TH1D("hDist","hDist",20,0,2.8);
    hDist->SetMinimum(0.0001);
@@ -1175,18 +1177,5 @@
    MyCanvas->cd();
    MyCanvas->SetSelected(MyCanvas);
 
-   double height = 13;
-
-   TLatex *tex = new TLatex(2.4,height,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
-
-   TLatex *tex2 = new TLatex(1.95,8,"#sqrt{s}=900 GeV");
-   tex2->SetTextSize(0.04);
-   tex2->SetLineWidth(2);
-   tex2->Draw();
-
-   MyCanvas->Print("invariant_all.eps");
-   MyCanvas->Print("invariant_all.pdf");
+   printFinalCanvases(MyCanvas,"invariant_all",doLog);
 }
