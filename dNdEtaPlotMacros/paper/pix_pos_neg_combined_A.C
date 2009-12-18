@@ -222,7 +222,7 @@
    leg->SetFillStyle(0);
    leg->SetMargin(0.32);
 
-   TLegendEntry *entry=leg->AddEntry("","Run 123596","p");
+   TLegendEntry *entry=leg->AddEntry("","Data","p");
    entry->SetLineColor(1);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);

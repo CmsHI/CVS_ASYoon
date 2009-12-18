@@ -190,7 +190,7 @@
    leg->SetFillStyle(0);
    leg->SetMargin(0.32);
    
-   leg->AddEntry(Graph8,"Run 123596","p");
+   leg->AddEntry(Graph8,"Data","p");
    leg->AddEntry(Graph6,"PYTHIA D6T","l");
    leg->Draw();
    

@@ -14113,7 +14113,7 @@
    leg->SetMargin(0.28);
 
 
-   TLegendEntry *entry=leg->AddEntry("Graph54","Run 123596","P");
+   TLegendEntry *entry=leg->AddEntry("Graph54","Data","P");
    entry->SetMarkerColor(1.0);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(1.3);

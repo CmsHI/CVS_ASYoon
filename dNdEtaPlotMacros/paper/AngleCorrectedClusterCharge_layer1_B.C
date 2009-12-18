@@ -381,7 +381,7 @@
    leg->SetFillStyle(0);
 
    //TLegendEntry *entry=leg->AddEntry("hChargeDist","Data Event selection","P");
-   TLegendEntry *entry=leg->AddEntry("","Run 123596","P");
+   TLegendEntry *entry=leg->AddEntry("","Data","P");
    entry->SetLineColor(1);
    entry->SetLineStyle(1);
    entry->SetLineWidth(2);

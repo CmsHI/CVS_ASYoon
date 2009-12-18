@@ -350,7 +350,7 @@
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
 
-   TLegendEntry *entry=leg->AddEntry("hdeta","Run 123596","p");
+   TLegendEntry *entry=leg->AddEntry("hdeta","Data","p");
    entry->SetLineColor(1);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
