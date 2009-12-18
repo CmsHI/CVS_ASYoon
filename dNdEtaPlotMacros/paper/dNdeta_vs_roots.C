@@ -78,7 +78,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   if(bw)ua5nsd->SetMarkerStyle(25);
   ua5nsd->SetMarkerSize(msize);
   ua5nsd->SetLineColor(kBlue);
-  if(bw)ua5nsd->SetLineColor(kBlue);
+  if(bw)ua5nsd->SetLineColor(kBlack);
   //ua5nsd->Draw("PE");
   ua5nsd->Draw("PZ");  
   
@@ -147,7 +147,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   if(bw)cdf->SetMarkerStyle(27);
   cdf->SetMarkerSize(msize);
   cdf->SetLineColor(kBlue);
-  if(bw)cdf->SetLineColor(kBlue);
+  if(bw)cdf->SetLineColor(kBlack);
   //cdf->Draw("PE");
   cdf->Draw("PZ"); 
 
@@ -166,32 +166,6 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   ua1nsd->SetLineColor(1);
   ua1nsd->Draw("PZsame");
 
-// ---- CMS NSD ---
-  Double_t x6[2] =  { 900,  900 }; 
-  //Double_t y6[2] =  {  3.3, 3.3 };  // guesstimate!
-  Double_t y6[2] =  {  3.52, 3.52 };
-  //Double_t exl6[2]= { 0, 0, };
-  Double_t exl6[2]= {0.211, 0.211 };
-  //Double_t exh6[2]= { 0, 0, };
-  Double_t exh6[2]= { 0.211, 0.211 };  
-  Double_t eyl6[2]= { 0.211, 0.211 };  
-  Double_t eyh6[2]= { 0.211, 0.211 };
-  //Double_t eyl6[2]= { 0.275, 0.275 };
-  //Double_t eyh6[2]= { 0.275, 0.275 };
-
-  TGraphAsymmErrors *cmsnsd=new TGraphAsymmErrors(2,x6,y6,exl6,exh6,eyl6,eyh6);
-  cmsnsd->SetMarkerColor(kRed);
-  //if(bw)cmsnsd->SetMarkerColor(kBlack);
-  if(bw)cmsnsd->SetMarkerColor(kRed);
-  cmsnsd->SetMarkerStyle(29);
-  if(bw)cmsnsd->SetMarkerStyle(29);
-  cmsnsd->SetMarkerSize(msize*1.4);
-  cmsnsd->SetLineColor(kRed);
-  //if(bw)cmsnsd->SetLineColor(kBlack);
-  if(bw)cmsnsd->SetLineColor(kRed);
-  //cmsnsd->Draw("PE");
-  cmsnsd->Draw("PZsame");
-  
   // ---- ALICE NSD ------
   Double_t x6[2] =  {  900,  900 };
   Double_t y6[2] =  {  3.51, 3.51 };
@@ -207,6 +181,28 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   alicensd->SetLineColor(kBlack);
   alicensd->Draw("PZsame");
 
+// ---- CMS NSD ---
+  Double_t x11[1] =  { 900 }; 
+  //Double_t y11[2] =  {  3.3, 3.3 };  // guesstimate!
+  Double_t y11[1] =  {  3.4984 };
+  Double_t exl11[1]= { 0.2108 };
+  Double_t exh11[1]= { 0.2108 };
+  Double_t eyl11[1]= { 0.2108 };
+  Double_t eyh11[1]= { 0.2108 };
+
+  TGraphAsymmErrors *cmsnsd=new TGraphAsymmErrors(1,x11,y11,exl11,exh11,eyl11,eyh11);
+  cmsnsd->SetMarkerColor(kRed);
+  //if(bw)cmsnsd->SetMarkerColor(kBlack);
+  if(bw)cmsnsd->SetMarkerColor(kRed);
+  cmsnsd->SetMarkerStyle(kFullStar);
+  if(bw)cmsnsd->SetMarkerStyle(kFullStar);
+  cmsnsd->SetMarkerSize(msize);
+  cmsnsd->SetLineColor(kRed);
+  //if(bw)cmsnsd->SetLineColor(kBlack);
+  if(bw)cmsnsd->SetLineColor(kRed);
+  //cmsnsd->Draw("PE");
+  cmsnsd->Draw("PEsame");
+  
   // ---- ALICE INEL ------
   Double_t x6[2] =  {  900,  900 };
   Double_t y6[2] =  {  3.10, 3.10 };
