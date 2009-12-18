@@ -1,6 +1,6 @@
 #include "TLatex.h"
 
-void printFinalCanvases(TCanvas * MyCanvas, const char * name)
+void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0)
 {
   MyCanvas->cd();
   printf("canvas name: %s\n",name);
