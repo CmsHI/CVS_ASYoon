@@ -1,4 +1,6 @@
-{
+#include "common.h"
+
+void deta_Reweight_PYTHIA_D6T_20091210() {
 //=========Macro generated from canvas: c62/
 //=========  (Fri Dec 11 00:41:30 2009) by ROOT version5.22/00a
 
@@ -382,25 +384,5 @@
 
    leg->Draw();
 
-   TLatex *tex = new TLatex(0.14,0.37,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
-
-   if(logscale){
-      MyCanvas->Print("Deta_PYTHIA_Run123596.eps");
-      MyCanvas->Print("Deta_PYTHIA_Run123596.gif");
-      MyCanvas->Print("Deta_PYTHIA_Run123596.pdf");
-   }else{
-      MyCanvas->Print("Deta_PYTHIA_Run123596_log.eps");
-      MyCanvas->Print("Deta_PYTHIA_Run123596_log.gif");
-      MyCanvas->Print("Deta_PYTHIA_Run123596_log.pdf");
-   }
-
-
-   /*
-   c62->Modified();
-   c62->cd();
-   c62->SetSelected(c62);
-   */
+   printFinalCanvases(MyCanvas,"Deta_PYTHIA_Run123596",1);
 }
