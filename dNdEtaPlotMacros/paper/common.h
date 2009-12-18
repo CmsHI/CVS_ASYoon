@@ -1,3 +1,5 @@
+#include "TLatex.h"
+
 void printFinalCanvases(TCanvas * MyCanvas, char * name)
 {
   MyCanvas->cd();
