@@ -286,7 +286,7 @@
 
 
 
-   TLegend *leg = new TLegend(0.29,0.22,0.61,0.42,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.20,0.27,0.53,0.47,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -294,8 +294,6 @@
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(1001);
-   //leg->SetTextSize(0.04);
-   //leg->SetTextSize(0.037);  
    leg->SetTextSize(0.035); 
    //leg->SetHeader("   Systematic error (excluding 5 % common error)");
 

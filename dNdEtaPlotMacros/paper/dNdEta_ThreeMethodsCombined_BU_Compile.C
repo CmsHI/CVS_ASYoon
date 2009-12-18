@@ -228,8 +228,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(1001);
-   //leg->SetTextSize(0.04);
-   leg->SetTextSize(0.037);  
+   leg->SetTextSize(0.035);  
    //leg->SetHeader("    Systematic error (6% total)");
    
 
