@@ -1,4 +1,6 @@
-{
+#include "common.h"
+
+void differential_hap_ham_combined() {
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Tue Dec 15 17:07:39 2009) by ROOT version5.25/04
 
@@ -10,7 +12,7 @@
    Float_t marker = 1.4;
    Float_t tsize = 0.035;
 
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,625,750);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
    
    TH1D *hDist = new TH1D("hDist","hDist",20,0,2);
    hDist->SetMinimum(0);
@@ -21,6 +23,7 @@
    hDist->GetXaxis()->CenterTitle();
    hDist->GetYaxis()->CenterTitle();
    hDist->GetXaxis()->SetNdivisions(505);
+   hDist->GetYaxis()->SetTitleOffset(1.3);
 
    hDist->Draw("");
    TLine *line = new TLine(0,0,2,0);
@@ -14123,18 +14126,5 @@
 
    leg->Draw();
 
-
-
-   MyCanvas->Print("differential_hap_ham_combined.eps");
-   MyCanvas->Print("differential_hap_ham_combined.pdf");
-   MyCanvas->Print("differential_hap_ham_combined.gif");
-
-
-
-   /*
-   MyCanvas->Modified();
-   MyCanvas->cd();
-   MyCanvas->SetSelected(MyCanvas);
-   */
-   
+   printFinalCanvases(MyCanvas,"differential_hap_ham_combined",0,0);
 }
