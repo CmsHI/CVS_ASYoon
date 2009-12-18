@@ -9,12 +9,13 @@
    Float_t marker = 1.4;
    Float_t tsize = 0.035;
 
-   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,625,750);
+   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
 
    TH1D *hDist = new TH1D("hDist","hDist",20,0,2);
    hDist->SetMinimum(0);
    hDist->SetMaximum(45);
    hDist->SetLineStyle(0);
+   hDist->GetYaxis()->SetTitleOffset(1.3);
    hDist->GetXaxis()->SetTitle("p_{T} [GeV/c]");
    hDist->GetYaxis()->SetTitle("d^{2} N_{ch} / d#eta dp_{T} [(GeV/c)^{-1}]");
    hDist->GetXaxis()->CenterTitle();
