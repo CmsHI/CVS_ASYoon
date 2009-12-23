@@ -52,13 +52,11 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    */
 
    corr_result_all->SetMinimum(0);    
-   //corr_result_all->SetMaximum(5.4);  
-   corr_result_all->SetMaximum(5.0); 
+   corr_result_all->SetMaximum(5.5); 
    corr_result_all->SetMarkerStyle(20);  
-   corr_result_all->SetMarkerSize(1.5);  
-   corr_result_all->SetMarkerColor(2);
+   //corr_result_all->SetMarkerSize(1.5);  
+   corr_result_all->SetMarkerColor(kRed);
    corr_result_all->SetLineColor(2);
-
 
    corr_result_all->GetYaxis()->SetTitle("dN/d#eta");
    corr_result_all->GetXaxis()->SetTitle("#eta"); 
@@ -95,11 +93,10 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal->SetBinError(9,0.138337);
    hMeasuredFinal->SetBinError(10,0.140568);
 
-   hMeasuredFinal->SetMarkerColor(4);   
+   hMeasuredFinal->SetMarkerColor(kBlue);   
    hMeasuredFinal->SetLineColor(4);
    hMeasuredFinal->SetMarkerStyle(21); 
-   //hMeasuredFinal->SetMarkerStyle(25);  
-   hMeasuredFinal->SetMarkerSize(1.5); 
+   //hMeasuredFinal->SetMarkerSize(1.5); 
 
    hMeasuredFinal->Draw("pzsame");
 
@@ -131,82 +128,43 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal2->SetBinError(11,0.101766);
    
 
-   hMeasuredFinal2->SetMarkerColor(1);
+   hMeasuredFinal2->SetMarkerColor(kBlack);
    hMeasuredFinal2->SetLineColor(1);
    hMeasuredFinal2->SetMarkerStyle(22);
-   hMeasuredFinal2->SetMarkerSize(1.5);
+   //hMeasuredFinal2->SetMarkerSize(1.5);
    hMeasuredFinal2->Draw("pzsame");
 
 
-   /// ==================================================== Ferenc's dN/dEta
-   //TH1D *corr_result_2 = new TH1D("corr_result_2","corr_result_2",24,-2.4,2.4);
 
-   /*
-   corr_result_2->SetBinContent(12,3.34657);
-   corr_result_2->SetBinContent(11,3.48056);
-   corr_result_2->SetBinContent(10,3.63994);
-   corr_result_2->SetBinContent(9,3.54276);
-   corr_result_2->SetBinContent(8,4.00832);
-   corr_result_2->SetBinContent(7,3.74562);
-   corr_result_2->SetBinContent(6,3.98601);
-   corr_result_2->SetBinContent(5,3.70017);
-   corr_result_2->SetBinContent(4,3.76348);
-   corr_result_2->SetBinContent(3,3.65828);
-   corr_result_2->SetBinContent(2,3.87362);
-   corr_result_2->SetBinContent(1,3.51544);
+   /// ==================================================== Yenjie 2.36 TeV
+   //                        1     2   3     4   5     6  7    8  9   10 11   12
+   TH1 *hTracklet236 = new TH1D("hTracklet236","",12, xAxis5);
+
+   hTracklet236->SetBinContent(3,4.39334);
+   hTracklet236->SetBinContent(4,4.41318);
+   hTracklet236->SetBinContent(5,4.40296);
+   hTracklet236->SetBinContent(6,4.24304);
+   hTracklet236->SetBinContent(7,4.22499);
+   hTracklet236->SetBinContent(8,4.31244);
+   hTracklet236->SetBinContent(9,4.39982);
+   hTracklet236->SetBinContent(10,4.25961);
 
 
-   //systematic error of 4.6%
-   corr_result_2->SetBinError(12,0.15394222);       
-   corr_result_2->SetBinError(11,0.16010576); 
-   corr_result_2->SetBinError(10,0.16743724); 
-   corr_result_2->SetBinError(9,0.16296696); 
-   corr_result_2->SetBinError(8,0.18438272); 
-   corr_result_2->SetBinError(7,0.17229852); 
-   corr_result_2->SetBinError(6,0.18335646); 
-   corr_result_2->SetBinError(5,0.17020782); 
-   corr_result_2->SetBinError(4,0.17312008); 
-   corr_result_2->SetBinError(3,0.16828088); 
-   corr_result_2->SetBinError(2,0.17818652); 
-   corr_result_2->SetBinError(1,0.16171024); 
-   
+   hTracklet236->SetBinError(3,0.166947);
+   hTracklet236->SetBinError(4,0.167701);
+   hTracklet236->SetBinError(5,0.167312);
+   hTracklet236->SetBinError(6,0.161236);
+   hTracklet236->SetBinError(7,0.16055);
+   hTracklet236->SetBinError(8,0.163873);
+   hTracklet236->SetBinError(9,0.167193);
+   hTracklet236->SetBinError(10,0.161865);
 
-   corr_result_2->SetBinContent(13,3.34657);
-   corr_result_2->SetBinContent(14,3.48056);
-   corr_result_2->SetBinContent(15,3.63994);
-   corr_result_2->SetBinContent(16,3.54276);
-   corr_result_2->SetBinContent(17,4.00832);
-   corr_result_2->SetBinContent(18,3.74562);
-   corr_result_2->SetBinContent(19,3.98601);
-   corr_result_2->SetBinContent(20,3.70017);
-   corr_result_2->SetBinContent(21,3.76348);
-   corr_result_2->SetBinContent(22,3.65828);
-   corr_result_2->SetBinContent(23,3.87362);
-   corr_result_2->SetBinContent(24,3.51544);
+   hTracklet236->SetMarkerColor(4);   
+   hTracklet236->SetLineColor(4);
+   hTracklet236->SetMarkerStyle(kOpenSquare); 
+   //hTracklet236->SetMarkerSize(1.5); 
 
-   //systematic error of 4.6%                                                                                                                                                                                 
-   corr_result_2->SetBinError(13,0.15394222);
-   corr_result_2->SetBinError(14,0.16010576);
-   corr_result_2->SetBinError(15,0.16743724);
-   corr_result_2->SetBinError(16,0.16296696);
-   corr_result_2->SetBinError(17,0.18438272);
-   corr_result_2->SetBinError(18,0.17229852);
-   corr_result_2->SetBinError(19,0.18335646);
-   corr_result_2->SetBinError(20,0.17020782);
-   corr_result_2->SetBinError(21,0.17312008);
-   corr_result_2->SetBinError(22,0.16828088);
-   corr_result_2->SetBinError(23,0.17818652);
-   corr_result_2->SetBinError(24,0.16171024);
-   */
-
-   /*
-   corr_result_2->SetMarkerColor(1);
-   corr_result_2->SetMarkerStyle(22);
-   //corr_result_2->SetMarkerStyle(26);
-   corr_result_2->SetMarkerSize(1.5);
-
-   corr_result_2->Draw("pzsame");
-   */
+   hTracklet236->Draw("pzsame");
 
    /// ====================================================  UA5 Data
 
@@ -283,7 +241,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(1001);
-   leg->SetTextSize(0.035); 
+   leg->SetTextSize(0.03); 
    //leg->SetHeader("   Systematic error (excluding 5 % common error)");
 
    /*
@@ -296,34 +254,12 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    entry->SetMarkerSize(1.8);
    */
 
-   entry=leg->AddEntry("","Hit counting, 3 layer averaged","P");
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(2);
-   entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(1.8);
-
-   //entry=leg->AddEntry("corr_result_2_all","Rec. dN/d#eta, 2. layer","P");
-   entry=leg->AddEntry("","Tracklet, 3 combinations averaged","P"); 
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(4);
-   entry->SetMarkerStyle(21);
-   //entry->SetMarkerStyle(25);
-   entry->SetMarkerSize(1.8);
-
-   entry=leg->AddEntry("","Global tracking","P");
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(1);
-   entry->SetMarkerStyle(22);
-   entry->SetMarkerSize(1.8);
-
+   leg->AddEntry(hTracklet236,"Tracklet (2.36 TeV), 3 combinations averaged","P"); 
+   leg->AddEntry(corr_result_all,"Hit counting (900 GeV), 3 layer averaged","P");
+   leg->AddEntry(hMeasuredFinal,"Tracklet (900 GeV), 3 combinations averaged","P"); 
+   leg->AddEntry(hMeasuredFinal2,"Global tracking (900 GeV)","P");
 
    leg->Draw();
 
-   printFinalCanvases(MyCanvas,"dNdeta_ThreeMethods");
+   printFinalCanvases(MyCanvas,"dNdeta_ThreeMethods",0,2);
 }
