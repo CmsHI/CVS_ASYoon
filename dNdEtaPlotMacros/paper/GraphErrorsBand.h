@@ -3,8 +3,8 @@
 #include "TH1F.h"
 
 // Standard library
-#include <math.h>
-#include <iostream.h>
+#include <cmath>
+#include <iostream>
 #include <fstream>
 
 // ROOT Library
