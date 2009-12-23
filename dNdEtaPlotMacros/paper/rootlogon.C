@@ -44,7 +44,8 @@
    gStyle->SetEndErrorSize(0);
    gStyle->SetErrorX(0);  
    gStyle->SetMarkerStyle(20);
-   gStyle->SetMarkerSize(1.25);
+   //gStyle->SetMarkerSize(1.25);
+   gStyle->SetMarkerSize(1.5);
    gStyle->SetOptFit(1111);
    gStyle->SetStatColor(0);
    gStyle->SetStatBorderSize(1);

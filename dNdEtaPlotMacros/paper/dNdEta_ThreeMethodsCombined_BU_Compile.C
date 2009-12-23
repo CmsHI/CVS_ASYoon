@@ -75,7 +75,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    hMeasuredFinal3->SetMarkerColor(2);
    hMeasuredFinal3->SetMarkerStyle(20);
-   hMeasuredFinal3->SetMarkerSize(1.8);
+   //hMeasuredFinal3->SetMarkerSize(1.8); // use rootlogon size
    
    hMeasuredFinal3->Draw("pz");
 

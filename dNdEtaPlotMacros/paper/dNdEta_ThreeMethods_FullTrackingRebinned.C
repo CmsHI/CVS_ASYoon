@@ -54,7 +54,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    corr_result_all->SetMinimum(0);    
    corr_result_all->SetMaximum(5.5); 
    corr_result_all->SetMarkerStyle(20);  
-   //corr_result_all->SetMarkerSize(1.5);  
+   //corr_result_all->SetMarkerSize(1.5); // use rootlogon size 
    corr_result_all->SetMarkerColor(kRed);
    corr_result_all->SetLineColor(2);
 
@@ -96,7 +96,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal->SetMarkerColor(kBlue);   
    hMeasuredFinal->SetLineColor(4);
    hMeasuredFinal->SetMarkerStyle(21); 
-   //hMeasuredFinal->SetMarkerSize(1.5); 
+   //hMeasuredFinal->SetMarkerSize(1.5); // use rootlogon size 
 
    hMeasuredFinal->Draw("pzsame");
 
@@ -131,7 +131,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal2->SetMarkerColor(kBlack);
    hMeasuredFinal2->SetLineColor(1);
    hMeasuredFinal2->SetMarkerStyle(22);
-   //hMeasuredFinal2->SetMarkerSize(1.5);
+   //hMeasuredFinal2->SetMarkerSize(1.5); use root logon size
    hMeasuredFinal2->Draw("pzsame");
 
 
@@ -162,7 +162,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hTracklet236->SetMarkerColor(4);   
    hTracklet236->SetLineColor(4);
    hTracklet236->SetMarkerStyle(kOpenSquare); 
-   //hTracklet236->SetMarkerSize(1.5); 
+   //hTracklet236->SetMarkerSize(1.5); // use rootlogon size
 
    hTracklet236->Draw("pzsame");
 
