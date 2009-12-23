@@ -9,9 +9,10 @@ void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0, int do
   // add some text labels
   double ndcX = 0.2;
   double ndcY = 0.9;
+  TLatex * tex;
 
   if (doCMS>0) {
-    TLatex *tex = new TLatex(0.85,ndcY,"CMS");
+    tex = new TLatex(0.85,ndcY,"CMS");
     tex->SetTextSize(0.04);
     tex->SetLineWidth(2);
     tex->SetNDC();
@@ -40,7 +41,7 @@ void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0, int do
   MyCanvas->Print(Form("%s_A.gif",name));
   MyCanvas->Print(Form("%s_A.pdf",name));
 
-  tex->Delete();
+  if (tex) tex->Delete();
   tex = new TLatex(ndcX,ndcY,"(b)");
   tex->SetTextSize(0.04);
   tex->SetLineWidth(2);
