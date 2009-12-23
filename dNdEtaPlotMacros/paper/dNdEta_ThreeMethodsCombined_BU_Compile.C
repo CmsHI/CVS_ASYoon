@@ -2,8 +2,8 @@
 #include "GraphErrorsBand.h"
 #include "common.h"
 // Standard library
-#include <math.h>
-#include <iostream.h>
+#include <cmath>
+#include <iostream>
 #include <fstream>
 
 // ROOT Library
@@ -43,7 +43,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->GetXaxis()->SetRange(1,13);
 
    hMeasuredFinal3->SetMinimum(0);
-   hMeasuredFinal3->SetMaximum(5.0);
+   hMeasuredFinal3->SetMaximum(5.5);
 
    hMeasuredFinal3->SetBinContent(2,3.6853);  // -2.4 to -2.0 
    hMeasuredFinal3->SetBinContent(3,3.7034); //-2 to -1.5 
@@ -51,13 +51,13 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->SetBinContent(5,3.6523); // -1.0 to -0.5
    hMeasuredFinal3->SetBinContent(6,3.4984);        // -0.5 to 0
 
-   hMeasuredFinal3->SetBinContent(7,3.4984); // 0 to 0.5 
-   hMeasuredFinal3->SetBinContent(8,3.6523); // 0.5 to 1.0
-   hMeasuredFinal3->SetBinContent(9,3.7568); // 1.0 to 1.5 
-   hMeasuredFinal3->SetBinContent(10,3.7034); // 1.5 to 2.0 
-   hMeasuredFinal3->SetBinContent(11,3.6853); // 2.0 to 2.4 
+   hMeasuredFinal3->SetBinContent(7,hMeasuredFinal3->GetBinContent(6)); // 0 to 0.5 
+   hMeasuredFinal3->SetBinContent(8,hMeasuredFinal3->GetBinContent(5)); // 0.5 to 1.0
+   hMeasuredFinal3->SetBinContent(9,hMeasuredFinal3->GetBinContent(4)); // 1.0 to 1.5 
+   hMeasuredFinal3->SetBinContent(10,hMeasuredFinal3->GetBinContent(3)); // 1.5 to 2.0 
+   hMeasuredFinal3->SetBinContent(11,hMeasuredFinal3->GetBinContent(2)); // 2.0 to 2.4 
 
-   // Stat error 
+   // --- Stat error ---
    double statError= 0.01767767;
    for (int i=2; i<12; ++i) {
      hMeasuredFinal3->SetBinError(i,hMeasuredFinal3->GetBinContent(i)*statError);
@@ -73,7 +73,6 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->GetXaxis()->SetNdivisions(405);
    hMeasuredFinal3->GetYaxis()->SetNdivisions(1005);
 
-
    hMeasuredFinal3->SetMarkerColor(2);
    hMeasuredFinal3->SetMarkerStyle(20);
    hMeasuredFinal3->SetMarkerSize(1.8);
@@ -82,22 +81,41 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    // Clone above for systematic band!
    /// ==================================================== Weighted mean of all three method! 
-   Double_t xAxis8[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};
+   //Double_t xAxis8[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};
    TH1D * hMeasuredFinal4 = (TH1D*)hMeasuredFinal3->Clone("hMeasuredFinal4");
    double sysError = 0.0603;
-
-   double systematicErrorUp[13] =   
-      {sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError};
-   double systematicErrorDown[13] =
-      {sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError,sysError};
-
-   TGraph *gErrorBand;
-   gErrorBand = GetErrorBand((TH1F*)hMeasuredFinal4,systematicErrorUp,systematicErrorDown,0.25); 
-
-   //hMeasuredFinal3->Draw("pz");     
+   TGraph *gErrorBand = GetErrorBand((TH1F*)hMeasuredFinal4,sysError,sysError,0.25); 
    gErrorBand->Draw("f");
 
    hMeasuredFinal3->Draw("pzsame");  
+
+
+   /// ==================================================== CMS 2.36 GeV
+   TH1F *hMeasuredFinal236 = (TH1F*)hMeasuredFinal3->Clone("hMeasuredFinal236");
+   hMeasuredFinal236->GetXaxis()->SetRange(3,10);
+   hMeasuredFinal236->SetMarkerColor(kBlue);
+
+   //hMeasuredFinal236->SetBinContent(2,3.6853);  // -2.4 to -2.0 
+   hMeasuredFinal236->SetBinContent(3,4.32647); //-2 to -1.5 
+   hMeasuredFinal236->SetBinContent(4,4.4065);        // -1.5 to -1.0 
+   hMeasuredFinal236->SetBinContent(5,4.3577); // -1.0 to -0.5
+   hMeasuredFinal236->SetBinContent(6,4.23402);        // -0.5 to 0
+
+   hMeasuredFinal236->SetBinContent(7,hMeasuredFinal236->GetBinContent(6)); // 0 to 0.5 
+   hMeasuredFinal236->SetBinContent(8,hMeasuredFinal236->GetBinContent(5)); // 0.5 to 1.0
+   hMeasuredFinal236->SetBinContent(9,hMeasuredFinal236->GetBinContent(4)); // 1.0 to 1.5 
+   hMeasuredFinal236->SetBinContent(10,hMeasuredFinal236->GetBinContent(3)); // 1.5 to 2.0 
+   //hMeasuredFinal236->SetBinContent(11,hMeasuredFinal236->GetBinContent(2)); // 2.0 to 2.4 
+
+   /// --- draw the error bands ---
+   TH1F *hMeasuredFinal236EB = (TH1F*)hMeasuredFinal236->Clone("hMeasuredFinal236EB");
+   hMeasuredFinal236EB->SetBinContent(2,4.32647);
+   hMeasuredFinal236EB->SetBinContent(11,4.32647);
+   TGraph *gErrorBand236 = GetErrorBand((TH1F*)hMeasuredFinal236EB,sysError,sysError,0.25);
+   gErrorBand236->Draw("f");
+
+   hMeasuredFinal236->Draw("pzsame");
+
 
 
    /// ====================================================  ALICE 
@@ -137,9 +155,9 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    hEta_ALICE_NSD->SetMarkerColor(4);
    hEta_ALICE_NSD->SetMarkerStyle(24);
-   hEta_ALICE_NSD->SetLineColor(4);
+   hEta_ALICE_NSD->SetLineColor(kBlack);
    //hEta_ALICE_NSD->SetMarkerSize(1.5);
-   hEta_ALICE_NSD->SetMarkerSize(1.0);
+   hEta_ALICE_NSD->SetMarkerSize(1.25);
    hEta_ALICE_NSD->Draw("pzsame");
 
 
@@ -207,7 +225,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hEta_UA5_NSD->SetBinError(hEta_UA5_NSD->FindBin(-3.125),0.07);
 
    hEta_UA5_NSD->SetMarkerStyle(25);
-   hEta_UA5_NSD->SetMarkerSize(1.0);
+   hEta_UA5_NSD->SetMarkerSize(1.25);
    hEta_UA5_NSD->Draw("psame");
 
 
@@ -219,33 +237,14 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(1001);
-   leg->SetTextSize(0.035);  
+   leg->SetTextSize(0.03);  
    //leg->SetHeader("    Systematic error (6% total)");
    
-
-   TLegendEntry *entry=leg->AddEntry("","CMS NSD, all three methods combined","P");
-   entry->SetLineColor(1);
-   entry->SetMarkerColor(2);
-   entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(1.8);
-
-
-   entry=leg->AddEntry("","ALICE NSD","P");
-   entry->SetLineColor(4);
-   entry->SetMarkerColor(4);
-   entry->SetMarkerStyle(24);
-   entry->SetMarkerSize(1.8);
-
-
-   entry=leg->AddEntry("","UA5 NSD","P");
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(1);
-   entry->SetMarkerStyle(25);
-   entry->SetMarkerSize(1.8);
-
+   leg->AddEntry(hMeasuredFinal236,"CMS NSD (2.36 TeV), three methods combined","P");
+   leg->AddEntry(hMeasuredFinal3,"CMS NSD (900 GeV), three methods combined","P");
+   leg->AddEntry(hEta_ALICE_NSD,"ALICE NSD (900 GeV)","P");
+   leg->AddEntry(hEta_UA5_NSD,"UA5 NSD (900 GeV)","P");
    leg->Draw();
 
-   printFinalCanvases(MyCanvas,"dNdeta_ThreeMethodsCombined");
+   printFinalCanvases(MyCanvas,"dNdeta_ThreeMethodsCombined",0,2);
 }
