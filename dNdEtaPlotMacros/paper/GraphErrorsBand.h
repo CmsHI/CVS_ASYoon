@@ -96,6 +96,7 @@ TGraph* GetErrorBand(TH1F *hist, Double_t ratio1, Double_t ratio2, Double_t xoff
       outg->SetPoint(2*n-4-i,shiftedx,y[i]*(1+ratio1));
       outg->SetPoint(2*n-4,x[1]-xoffset,y[i]*(1-ratio2)); 
       
+      cout << "x: " << x[i] << " y: " << y[i] << "  Sys Error (" << i << "): " << y[i]*ratio1 << ", " << y[i]*ratio2 << endl;
    }
    outg->Print();
    outg->SetLineColor(ing->GetLineColor());
@@ -136,7 +137,6 @@ TGraph* GetErrorBand(TH1F *hist, Double_t *ratio1, Double_t *ratio2, Double_t xo
       outg->SetPoint(2*n-4-i,shiftedx,y[i]*(1+ratio1[i]));
       outg->SetPoint(2*n-4,x[1]-xoffset,y[i]*(1-ratio2[i])); 
       cout << "x: " << x[i] << " y: " << y[i] << "  Sys Error (" << i << "): " << y[i]*ratio1[i] << ", " << y[i]*ratio2[i] << endl;
-      
    }
    outg->Print();
    outg->SetLineColor(ing->GetLineColor());
