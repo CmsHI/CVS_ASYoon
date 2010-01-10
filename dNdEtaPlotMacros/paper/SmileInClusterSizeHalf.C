@@ -12,7 +12,8 @@ void SmileInClusterSizeHalf (){
    gStyle->SetTitleXSize(.060);
    gStyle->SetTitleXOffset(1.1);
 
-   TH1 *hCorrEtaSizeY = new TH2F("hCorrEtaSizeY","hCorrEtaSizeY",300,-3,3,20,0,20);
+   TH2F *hCorrEtaSizeY = new TH2F("hCorrEtaSizeY","hCorrEtaSizeY",300,-3,3,20,0,20);
+ 
    hCorrEtaSizeY->SetBinContent(616,3);
    hCorrEtaSizeY->SetBinContent(617,1);
    hCorrEtaSizeY->SetBinContent(618,1);
@@ -2341,7 +2342,11 @@ void SmileInClusterSizeHalf (){
    hCorrEtaSizeY->GetYaxis()->SetTitle("Pixel cluster length along z [pixel units]");
    hCorrEtaSizeY->GetXaxis()->CenterTitle();
    hCorrEtaSizeY->GetYaxis()->CenterTitle();
-   hCorrEtaSizeY->Draw("P");
+   ////
+   hCorrEtaSizeY->RebinX(4);
+   //   hCorrEtaSizeY->Scale(.01);
+   hCorrEtaSizeY->Draw("P box");
+   
 
    /*
    TLatex *   tex = new TLatex(-1.519631,17.97885,"bit40 && BPTX coinc.");
