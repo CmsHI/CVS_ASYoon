@@ -64,7 +64,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
      cout << "stat error (" << i << "): " << hMeasuredFinal3->GetBinError(i) << endl;
    }
 
-   hMeasuredFinal3->GetYaxis()->SetTitle("dN/d#eta");
+   hMeasuredFinal3->GetYaxis()->SetTitle("dN_{ch}/d#eta");
    hMeasuredFinal3->GetXaxis()->SetTitle("#eta");
    hMeasuredFinal3->GetXaxis()->CenterTitle();
    hMeasuredFinal3->GetYaxis()->CenterTitle();
@@ -153,8 +153,8 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hEta_ALICE_NSD->SetBinError(8,0.329);
 
 
-   hEta_ALICE_NSD->SetMarkerColor(4);
-   hEta_ALICE_NSD->SetMarkerStyle(24);
+   hEta_ALICE_NSD->SetMarkerColor(1);
+   hEta_ALICE_NSD->SetMarkerStyle(20);
    hEta_ALICE_NSD->SetLineColor(kBlack);
    //hEta_ALICE_NSD->SetMarkerSize(1.5);
    hEta_ALICE_NSD->SetMarkerSize(1.25);

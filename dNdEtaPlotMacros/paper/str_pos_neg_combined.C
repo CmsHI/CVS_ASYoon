@@ -90,7 +90,7 @@ void str_pos_neg_combined(){
    Graph6->SetLineWidth(2);
 
    Graph6->GetXaxis()->SetTitle("Number of strip hits on track");
-   Graph6->GetYaxis()->SetTitle("Fraction");
+   Graph6->GetYaxis()->SetTitle("Fraction of events");
    Graph6->GetXaxis()->CenterTitle();
    Graph6->GetYaxis()->CenterTitle();
 

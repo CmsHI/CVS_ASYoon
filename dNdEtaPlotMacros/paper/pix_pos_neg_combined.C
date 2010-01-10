@@ -15,7 +15,7 @@ void pix_pos_neg_combined(){
    hDist->SetMaximum(0.12);
    hDist->SetLineStyle(0);
    hDist->GetXaxis()->SetTitle("Number of pixel hits on track");
-   hDist->GetYaxis()->SetTitle("Fraction");
+   hDist->GetYaxis()->SetTitle("Fraction of events");
    hDist->Draw("");
    */
 
@@ -123,7 +123,7 @@ void pix_pos_neg_combined(){
 
    Graph2->SetLineWidth(1.0);
    Graph2->GetXaxis()->SetTitle("Number of pixel hits on track");
-   Graph2->GetYaxis()->SetTitle("Fraction");
+   Graph2->GetYaxis()->SetTitle("Fraction of events");
    Graph2->GetXaxis()->CenterTitle();
    Graph2->GetYaxis()->CenterTitle();
    Graph2->GetXaxis()->SetNdivisions(4);

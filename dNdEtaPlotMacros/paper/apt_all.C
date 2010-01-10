@@ -175,7 +175,7 @@ void apt_all(){
    gre05->Draw("pzsame");
    
    // Fit function
-   TF1 *func = new TF1("func","0.40-0.03*log(x)+0.0053*log(x)^2",10,100000);
+   TF1 *func = new TF1("func","0.4-0.015*log(x)+0.001325*log(x)^2",10,100000);
    func->SetLineColor(1);
    func->SetLineWidth(1.5);
    func->Draw("same");
@@ -223,7 +223,7 @@ void apt_all(){
    leg2->SetMargin(0.15);
 
    //TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.03ln(#sqrt{s})+0.0053ln^{2}(#sqrt{s})","l"); ln(sqrt(s)) == 0.5*ln(s)
-   TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.015 ln(s) + 0.00265 ln^{2}(s)","l");
+   TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.03 ln(s) + 0.00531 ln^{2}(s)","l");
    entry->SetTextSize(0.045);
    entry->SetMarkerSize(0);
    leg2->Draw();

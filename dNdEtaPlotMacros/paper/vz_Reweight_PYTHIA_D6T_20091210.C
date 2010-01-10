@@ -90,8 +90,8 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
 
    hvz1->GetYaxis()->SetNdivisions(405);
    
-   hvz1->GetXaxis()->SetTitle("v_{z} [cm]");
-   hvz1->GetYaxis()->SetTitle("Fraction");
+   hvz1->GetXaxis()->SetTitle("z_{PV} [cm]");
+   hvz1->GetYaxis()->SetTitle("Fraction of events");
 
    hvz1->GetXaxis()->CenterTitle();
    hvz1->GetYaxis()->CenterTitle();

@@ -58,7 +58,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    corr_result_all->SetMarkerColor(kRed);
    corr_result_all->SetLineColor(2);
 
-   corr_result_all->GetYaxis()->SetTitle("dN/d#eta");
+   corr_result_all->GetYaxis()->SetTitle("dN_{ch}/d#eta");
    corr_result_all->GetXaxis()->SetTitle("#eta"); 
    corr_result_all->GetXaxis()->CenterTitle();
    corr_result_all->GetYaxis()->CenterTitle();
@@ -255,7 +255,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    */
 
    leg->AddEntry(hTracklet236,"Tracklet (2.36 TeV), 3 combinations averaged","P"); 
-   leg->AddEntry(corr_result_all,"Hit counting (900 GeV), 3 layer averaged","P");
+   leg->AddEntry(corr_result_all,"Hit counting (900 GeV), 3 layers averaged","P");
    leg->AddEntry(hMeasuredFinal,"Tracklet (900 GeV), 3 combinations averaged","P"); 
    leg->AddEntry(hMeasuredFinal2,"Global tracking (900 GeV)","P");
 

@@ -117,8 +117,8 @@ void AngleCorrectedClusterCharge_layer1(){
    hChargeDistMC->SetLineColor(2);
    hChargeDistMC->SetLineStyle(0);
    hChargeDistMC->SetLineWidth(2);
-   hChargeDistMC->GetXaxis()->SetTitle("Angle corrected cluster charge [ke^{-}] ");
-   hChargeDistMC->GetYaxis()->SetTitle("Fraction");
+   hChargeDistMC->GetXaxis()->SetTitle("Angle corrected cluster charge [ke] ");
+   hChargeDistMC->GetYaxis()->SetTitle("Fraction of events");
    hChargeDistMC->GetXaxis()->SetNdivisions(906);
    //TGaxis tgaxis; 
    //tgaxis->SetMaxDigits(3);    

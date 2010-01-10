@@ -138,7 +138,7 @@ void deta_Reweight_PYTHIA_D6T_20091210() {
 
 
    hdeta->GetXaxis()->SetTitle("#Delta#eta");
-   hdeta->GetYaxis()->SetTitle("Fraction");
+   hdeta->GetYaxis()->SetTitle("Fraction of events");
 
    hdeta->GetXaxis()->CenterTitle();
    hdeta->GetYaxis()->CenterTitle();
@@ -317,9 +317,10 @@ void deta_Reweight_PYTHIA_D6T_20091210() {
    h->SetEntries(6088738);
    h->SetFillColor(1);
    h->SetFillStyle(0);
-   h->SetLineStyle(2);
+   h->SetLineStyle(7);
+   h->SetLineWidth(3);
+   //
    h->SetLineColor(mcColor);
-   h->SetLineWidth(2);
 
    h->SetMarkerStyle(20);
    h->SetMarkerSize(1.25);
