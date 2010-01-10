@@ -10,7 +10,7 @@ void trigeff(){
 
 	TCanvas *cEvtSel = new TCanvas("cEvtSel", "EvtSel",550,600);
 	
-	TH1 *hFrame = new TH2D("hFrame","",1,0,20.5,1,0,1.15);
+	TH1 *hFrame = new TH2D("hFrame","",1,0,25.5,1,0,1.15);
 	hFrame->SetDirectory(0);
 	hFrame->SetStats(0);
 	hFrame->GetXaxis()->SetTitle("Charged-particle multiplicity");
@@ -23,12 +23,12 @@ void trigeff(){
 	hFrame->GetXaxis()->SetNdivisions(220);
 
 	TGraphAsymmErrors *grae = new TGraphAsymmErrors(27);
-	grae->SetName("a1");
+	grae->SetName("");
 	grae->SetTitle("");
 	grae->SetFillColor(1);
 	grae->SetMarkerStyle(25);
 	grae->SetMarkerSize(1.2);
-	grae->SetPoint(0,0,-1);
+	grae->SetPoint(0,0,0.0002645794);
 	grae->SetPointError(0,0,0,6.967609e-05,8.45763e-05);
 	grae->SetPoint(1,1,0.03124274);
 	grae->SetPointError(1,0,0,0.001840245,0.001912953);
@@ -91,14 +91,14 @@ void trigeff(){
 	grae->SetHistogram(Graph1);
 	
 	grae->Draw("p ");
-	
+
 	grae = new TGraphAsymmErrors(85);
-	grae->SetName("a2");
+	grae->SetName("");
 	grae->SetTitle("");
 	grae->SetFillColor(1);
 	grae->SetMarkerStyle(20);
 	grae->SetMarkerSize(1.2);
-	grae->SetPoint(0,0,-1);
+	grae->SetPoint(0,0,0.01236786);
 	grae->SetPointError(0,0,0,0.0007871246,0.0008215521);
 	grae->SetPoint(1,1,0.3242094);
 	grae->SetPointError(1,0,0,0.004877877,0.004903465);
@@ -267,7 +267,7 @@ void trigeff(){
 	grae->SetPoint(83,85,1);
 	grae->SetPointError(83,0,0,0.4369725,0);
 	grae->SetPoint(84,86,1);
-	grae->SetPointError(84,0,0,0.4369725,0);
+	grae->SetPointError(84,0,0,0.4369725,0);	
 	
 	TH1 *Graph2 = new TH1F("Graph2","",100,0,94.6);
 	Graph2->SetMinimum(-1.200866);
