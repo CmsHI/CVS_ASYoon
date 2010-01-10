@@ -10,7 +10,7 @@ void diffrac(){
 
   TCanvas *cEvtSel = new TCanvas("cEvtSel", "EvtSel",550,600);
 	
-  TH1 *hFrame = new TH2D("hFrame","",1,0,25.5,1,0,0.105);
+  TH1 *hFrame = new TH2D("hFrame","",1,-0.5,25.5,1,0,0.505);
   hFrame->SetDirectory(0);
   hFrame->SetStats(0);
   hFrame->GetXaxis()->SetTitle("Charged-particle multiplicity");
