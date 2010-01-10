@@ -1121,6 +1121,20 @@ void invariant_all() {
    gre->SetPointError(18,0.5,0.0001303872);
    gre->SetPoint(19,4.5,0.000426813);
    gre->SetPointError(19,0.5,0.0001303872);
+
+   const int nBins = 17;
+   double ptBins[nBins + 1] = {0,.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.,1.2,1.4,1.6,1.8,2,2.4,2.8};
+
+   TH1D * hPT = new TH1D("","",nBins,ptBins);
+
+   for(int i = 0; i < gre->GetN(); ++i){
+     double x,y;
+     gre->GetPoint(i,x,y);
+     hPT->Fill(x,y);
+   }
+
+   hPT->Draw("same");
+
    
    TH1F *Graph99 = new TH1F("Graph99","Graph",100,0,5.49);
    Graph99->SetMinimum(0.0002667832);
@@ -1147,7 +1161,8 @@ void invariant_all() {
    Graph99->GetZaxis()->SetTitleFont(42);
    gre->SetHistogram(Graph99);
    
-   gre->Draw("zp");
+   gre->SetMarkerSize(0);
+   gre->Draw("P");
    
    TLegend *leg = new TLegend(0.28,0.2,0.61,0.35,NULL,"brNDC");
 
