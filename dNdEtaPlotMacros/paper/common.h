@@ -19,7 +19,7 @@ void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0, int do
     tex->Draw();
 
     if (doCMS==1) {
-      TLatex *tex2 = new TLatex(0.85-0.132,ndcY-0.045,"#sqrt{s}=900 GeV");
+      TLatex *tex2 = new TLatex(0.88-0.132,ndcY-0.045,"#sqrt{s}=0.9 TeV");
       tex2->SetTextSize(0.04);
       tex2->SetLineWidth(2);
       tex2->SetNDC();
