@@ -14092,7 +14092,7 @@ void differential_hap_ham_combined() {
    tex->SetLineWidth(2);
    tex->Draw();
 
-   TLatex *tex2 = new TLatex(1.3,40,"#sqrt{s}=900 GeV");
+   TLatex *tex2 = new TLatex(1.35,40,"#sqrt{s}=0.9 TeV");
    tex2->SetTextSize(0.04);
    tex2->SetLineWidth(2);
    tex2->Draw();
