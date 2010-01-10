@@ -1131,10 +1131,10 @@ void invariant_all() {
      double x,y;
      gre->GetPoint(i,x,y);
      hPT->Fill(x,y);
+     hPT->SetBinError(hPT->FindBin(x),gre->GetErrorY(i));
    }
 
-   hPT->Draw("same");
-
+   //   hPT->Draw("same");
    
    TH1F *Graph99 = new TH1F("Graph99","Graph",100,0,5.49);
    Graph99->SetMinimum(0.0002667832);
@@ -1162,7 +1162,7 @@ void invariant_all() {
    gre->SetHistogram(Graph99);
    
    gre->SetMarkerSize(0);
-   gre->Draw("P");
+   gre->Draw("e2");
    
    TLegend *leg = new TLegend(0.28,0.2,0.61,0.35,NULL,"brNDC");
 
