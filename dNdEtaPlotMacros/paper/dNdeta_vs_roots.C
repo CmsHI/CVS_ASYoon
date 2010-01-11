@@ -128,7 +128,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   TGraphAsymmErrors *fnalinel=new TGraphAsymmErrors(2,x4,y4,exl4,exh4,eyl4,eyh4);
   fnalinel->SetMarkerColor(kBlack);
   //fnalinel->SetMarkerStyle(22);
-  fnalinel->SetMarkerStyle(29);
+  fnalinel->SetMarkerStyle(3);
   fnalinel->SetMarkerSize(msize);
   fnalinel->SetLineColor(kBlack);
   //fnalinel->Draw("PE");
@@ -185,7 +185,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 
   TGraphAsymmErrors *alicensd=new TGraphAsymmErrors(2,x10,y10,exl10,exh10,eyl10,eyh10);
   alicensd->SetMarkerColor(kBlack);
-  alicensd->SetMarkerStyle(24);
+  alicensd->SetMarkerStyle(30);
   alicensd->SetMarkerSize(msize);
   alicensd->SetLineColor(kBlack);
   alicensd->Draw("PZsame");
@@ -212,7 +212,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   //if(bw)cmsnsd->SetMarkerColor(kBlack);
   if(bw)cmsnsd->SetMarkerColor(kRed);
   cmsnsd->SetMarkerStyle(kFullStar);
-  if(bw)cmsnsd->SetMarkerStyle(kFullStar);
+  if(bw)cmsnsd->SetMarkerStyle(20);
   cmsnsd->SetMarkerSize(msize*1.3);
   cmsnsd->SetLineColor(kRed);
   //if(bw)cmsnsd->SetLineColor(kBlack);
@@ -252,7 +252,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 
   TGraphAsymmErrors *aliceinel=new TGraphAsymmErrors(2,x12,y12,exl12,exh12,eyl12,eyh12);
   aliceinel->SetMarkerColor(kBlack);
-  aliceinel->SetMarkerStyle(20);
+  aliceinel->SetMarkerStyle(29);
   aliceinel->SetMarkerSize(msize);
   aliceinel->SetLineColor(kBlack);
   aliceinel->Draw("PZsame");
@@ -289,7 +289,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 
   TGraphAsymmErrors *starnsd=new TGraphAsymmErrors(2,x14,y14,exl14,exh14,eyl14,eyh14);
   starnsd->SetMarkerColor(kBlack);
-  starnsd->SetMarkerStyle(30);
+  starnsd->SetMarkerStyle(26);
   starnsd->SetMarkerSize(msize);
   starnsd->SetLineColor(kBlack);
   starnsd->Draw("PZsame");
