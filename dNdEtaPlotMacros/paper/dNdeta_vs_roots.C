@@ -82,7 +82,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   ua5nsd->SetLineColor(kBlue);
   if(bw)ua5nsd->SetLineColor(kBlack);
   //ua5nsd->Draw("PE");
-  ua5nsd->Draw("PZ");  
+  //  ua5nsd->Draw("PZ");  
   
 //  TF1 *fitUA5 = new TF1("fitUA5","2.5-0.5*log(x)+0.023*4*log(x)*log(x)",40,8000);
   TF1 *fitUA5 = new TF1("fitUA5","2.26-2*0.207*log(x)+0.0215*4*log(x)*log(x)",40,8000);
@@ -195,6 +195,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t x11[NCMS] =  { 900, 2360 }; 
   //Double_t y11[2] =  {  3.3, 3.3 };  // guesstimate!
   Double_t y11[NCMS] =  {  3.4984, 4.23402 };
+  Double_t  cmsSysErr = (y11[0]+y11[1])/2. *0.035;
   /*
   Double_t exl11[NCMS]= { 0. };
   Double_t exh11[NCMS]= { 0. };
@@ -219,16 +220,17 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   if(bw)cmsnsd->SetLineColor(kRed);
   //cmsnsd->Draw("PE");
   cmsnsd->Draw("PEsame");
+  ua5nsd->Draw("PZsame");
 
   TGraphAsymmErrors * cmsnsdSysError = cmsnsd->Clone();
-  cmsnsdSysError->SetPoint(0,6000,6.5);
-  cmsnsdSysError->SetPointError(0,0,0,0.2108,0.2108);
+  cmsnsdSysError->SetPoint(0,220,3.86);
+  cmsnsdSysError->SetPointError(0,0,0,cmsSysErr,cmsSysErr);
   cmsnsdSysError->SetMarkerStyle(0);
   cmsnsdSysError->SetMarkerColor(kGray);
   cmsnsdSysError->SetLineColor(kGray);
   cmsnsdSysError->SetLineWidth(10);
   cmsnsdSysError->Draw("PEsame");
-  TLatex *tex11 = new TLatex(392,6.428,"CMS Sys. Uncertainty");
+  TLatex *tex11 = new TLatex(15,3.8,"CMS Sys. Uncertainty");
   tex11->SetTextSize(0.03);
   tex11->SetLineWidth(2);
   //tex11->SetNDC();
@@ -320,22 +322,16 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   cmsinel->Draw("PZ");
   */
 
-  TLegend* leg = new TLegend(0.25,0.444,0.48,0.90);
+  TLegend* leg = new TLegend(0.45,0.65,0.8,0.90);
     leg->SetFillColor(0);
 
     leg->SetBorderSize(0);
     if(bw){
-    leg->AddEntry(fnalinel,"FNAL inel.","p");
-    leg->AddEntry(isr,"ISR inel.","p");
-    leg->AddEntry(ua5inel,"UA5 inel.","p");
-    leg->AddEntry(aliceinel,"ALICE inel.","p");
-    leg->AddEntry(phobosinel,"PHOBOS inel.","p");
-    leg->AddEntry(ua1nsd,"UA1 NSD","p");
-    leg->AddEntry(ua5nsd,"UA5 NSD","p");
-    leg->AddEntry(starnsd,"STAR NSD","p");
-    leg->AddEntry(cdf,"CDF NSD","p");
-    leg->AddEntry(alicensd,"ALICE NSD","p");
-    leg->AddEntry(cmsnsd,"CMS NSD","p");
+      leg->AddEntry(fnalinel,"FNAL inel.","p");
+      leg->AddEntry(isr,"ISR inel.","p");
+      leg->AddEntry(ua5inel,"UA5 inel.","p");
+      leg->AddEntry(aliceinel,"ALICE inel.","p");
+      leg->AddEntry(phobosinel,"PHOBOS inel.","p");
     }
     else{
     leg->AddEntry(fnalinel,"FNAL inel.","p");
@@ -347,6 +343,22 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     
     leg->AddEntry(cmsnsd,"CMS NSD","p");
     }
+    //    leg->Draw();
+
+
+    TLegend* leg3 = new TLegend(0.25,0.6,0.48,0.90);
+    leg3->SetFillColor(0);
+
+    leg3->SetBorderSize(0);
+    if(bw){
+      leg3->AddEntry(ua1nsd,"UA1 NSD","p");
+      leg3->AddEntry(ua5nsd,"UA5 NSD","p");
+      leg3->AddEntry(starnsd,"STAR NSD","p");
+      leg3->AddEntry(cdf,"CDF NSD","p");
+      leg3->AddEntry(alicensd,"ALICE NSD","p");
+      leg3->AddEntry(cmsnsd,"CMS NSD","p");
+    }
+    leg3->Draw();
     leg->Draw();
 
     //TLegend leg2(0.38,0.15,0.88,0.29);
