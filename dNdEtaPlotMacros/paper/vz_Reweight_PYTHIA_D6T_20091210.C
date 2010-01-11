@@ -264,7 +264,6 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
    hvz12TeV->SetBinError(51,9.21659e-05);
 
    hvz12TeV->SetMarkerStyle(24);
-   hvz12TeV->Scale(1.2);
    hvz12TeV->Draw("same");
 
 
