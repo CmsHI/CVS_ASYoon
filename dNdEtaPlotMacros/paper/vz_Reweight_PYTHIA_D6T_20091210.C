@@ -95,10 +95,10 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
 
    hvz1->GetXaxis()->CenterTitle();
    hvz1->GetYaxis()->CenterTitle();
-   hvz1->Draw("pz");
+   //   hvz1->Draw("pz");
    TH1 *hvz11 = hvz1->Clone("hvz11");
    hvz11->SetMarkerStyle(0);
-   hvz11->Draw("pzsame");
+   //   hvz11->Draw("pzsame");
 
    
    TH1 *h2vz = new TH1F("h2vz","",50,-20,20);
@@ -192,22 +192,172 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
 
    h2vz->GetXaxis()->SetTitle("v_z [cm]");
    h2vz->GetYaxis()->SetTitle("Arbitrary normalization");
-   h2vz->Draw("same hist");
+
+
+   hvz1->SetAxisRange(0,0.16,"Y");
+   hvz1->Draw("pz");
+   h2vz->Draw("hist same");
+   hvz11->Draw("pzsame");
 
    TH1 *hvz12TeV = (TH1F*)hvz1->Clone("hvz12TeV");
+   hvz12TeV->SetBinContent(0,9.21659e-05);
+   hvz12TeV->SetBinContent(13,0.0005529954);
+   hvz12TeV->SetBinContent(14,0.0005529954);
+   hvz12TeV->SetBinContent(15,0.001843318);
+   hvz12TeV->SetBinContent(16,0.003317972);
+   hvz12TeV->SetBinContent(17,0.007557604);
+   hvz12TeV->SetBinContent(18,0.01493088);
+   hvz12TeV->SetBinContent(19,0.02589862);
+   hvz12TeV->SetBinContent(20,0.04341014);
+   hvz12TeV->SetBinContent(21,0.05834102);
+   hvz12TeV->SetBinContent(22,0.08138249);
+   hvz12TeV->SetBinContent(23,0.1041475);
+   hvz12TeV->SetBinContent(24,0.1134562);
+   hvz12TeV->SetBinContent(25,0.1102304);
+   hvz12TeV->SetBinContent(26,0.1088479);
+   hvz12TeV->SetBinContent(27,0.09788018);
+   hvz12TeV->SetBinContent(28,0.07880184);
+   hvz12TeV->SetBinContent(29,0.05797235);
+   hvz12TeV->SetBinContent(30,0.03668203);
+   hvz12TeV->SetBinContent(31,0.02682028);
+   hvz12TeV->SetBinContent(32,0.01317972);
+   hvz12TeV->SetBinContent(33,0.007741936);
+   hvz12TeV->SetBinContent(34,0.003225806);
+   hvz12TeV->SetBinContent(35,0.001382489);
+   hvz12TeV->SetBinContent(36,0.0006451613);
+   hvz12TeV->SetBinContent(37,0.0003686636);
+   hvz12TeV->SetBinContent(38,9.21659e-05);
+   hvz12TeV->SetBinContent(39,9.21659e-05);
+   hvz12TeV->SetBinContent(40,0.0001843318);
+   hvz12TeV->SetBinContent(41,0.0002764977);
+   hvz12TeV->SetBinContent(51,9.21659e-05);
+   hvz12TeV->SetBinError(0,9.21659e-05);
+   hvz12TeV->SetBinError(13,0.0002257594);
+   hvz12TeV->SetBinError(14,0.0002257594);
+   hvz12TeV->SetBinError(15,0.0004121784);
+   hvz12TeV->SetBinError(16,0.0005529954);
+   hvz12TeV->SetBinError(17,0.0008345977);
+   hvz12TeV->SetBinError(18,0.00117308);
+   hvz12TeV->SetBinError(19,0.001544982);
+   hvz12TeV->SetBinError(20,0.002000234);
+   hvz12TeV->SetBinError(21,0.002318847);
+   hvz12TeV->SetBinError(22,0.002738739);
+   hvz12TeV->SetBinError(23,0.0030982);
+   hvz12TeV->SetBinError(24,0.003233697);
+   hvz12TeV->SetBinError(25,0.003187395);
+   hvz12TeV->SetBinError(26,0.003167344);
+   hvz12TeV->SetBinError(27,0.003003534);
+   hvz12TeV->SetBinError(28,0.002694966);
+   hvz12TeV->SetBinError(29,0.002311509);
+   hvz12TeV->SetBinError(30,0.001838704);
+   hvz12TeV->SetBinError(31,0.001572232);
+   hvz12TeV->SetBinError(32,0.001102144);
+   hvz12TeV->SetBinError(33,0.0008447144);
+   hvz12TeV->SetBinError(34,0.0005452608);
+   hvz12TeV->SetBinError(35,0.000356957);
+   hvz12TeV->SetBinError(36,0.000243848);
+   hvz12TeV->SetBinError(37,0.0001843318);
+   hvz12TeV->SetBinError(38,9.21659e-05);
+   hvz12TeV->SetBinError(39,9.21659e-05);
+   hvz12TeV->SetBinError(40,0.0001303423);
+   hvz12TeV->SetBinError(41,0.000159636);
+   hvz12TeV->SetBinError(51,9.21659e-05);
+
    hvz12TeV->SetMarkerStyle(24);
    hvz12TeV->Scale(1.2);
    hvz12TeV->Draw("same");
 
+
    TH1 *h2vz2TeV = (TH1F*)h2vz->Clone("h2vz2TeV");
+   h2vz2TeV->SetBinContent(0,1.214934e-05);
+   h2vz2TeV->SetBinContent(1,2.02489e-06);
+   h2vz2TeV->SetBinContent(2,2.02489e-06);
+   h2vz2TeV->SetBinContent(8,2.02489e-06);
+   h2vz2TeV->SetBinContent(9,6.07467e-06);
+   h2vz2TeV->SetBinContent(10,1.619912e-05);
+   h2vz2TeV->SetBinContent(11,5.264714e-05);
+   h2vz2TeV->SetBinContent(12,0.000129593);
+   h2vz2TeV->SetBinContent(13,0.0003766295);
+   h2vz2TeV->SetBinContent(14,0.001004345);
+   h2vz2TeV->SetBinContent(15,0.002109935);
+   h2vz2TeV->SetBinContent(16,0.00478279);
+   h2vz2TeV->SetBinContent(17,0.00938739);
+   h2vz2TeV->SetBinContent(18,0.01660207);
+   h2vz2TeV->SetBinContent(19,0.02772277);
+   h2vz2TeV->SetBinContent(20,0.04350679);
+   h2vz2TeV->SetBinContent(21,0.06059281);
+   h2vz2TeV->SetBinContent(22,0.08000543);
+   h2vz2TeV->SetBinContent(23,0.09706108);
+   h2vz2TeV->SetBinContent(24,0.1101115);
+   h2vz2TeV->SetBinContent(25,0.1124421);
+   h2vz2TeV->SetBinContent(26,0.1065862);
+   h2vz2TeV->SetBinContent(27,0.0946717);
+   h2vz2TeV->SetBinContent(28,0.07710984);
+   h2vz2TeV->SetBinContent(29,0.0579726);
+   h2vz2TeV->SetBinContent(30,0.04036011);
+   h2vz2TeV->SetBinContent(31,0.02616158);
+   h2vz2TeV->SetBinContent(32,0.01532032);
+   h2vz2TeV->SetBinContent(33,0.008348621);
+   h2vz2TeV->SetBinContent(34,0.00414495);
+   h2vz2TeV->SetBinContent(35,0.001988442);
+   h2vz2TeV->SetBinContent(36,0.0008443791);
+   h2vz2TeV->SetBinContent(37,0.0003280322);
+   h2vz2TeV->SetBinContent(38,0.0001356676);
+   h2vz2TeV->SetBinContent(39,4.454758e-05);
+   h2vz2TeV->SetBinContent(40,2.429868e-05);
+   h2vz2TeV->SetBinContent(41,6.07467e-06);
+   h2vz2TeV->SetBinContent(42,2.02489e-06);
+   h2vz2TeV->SetBinContent(43,6.07467e-06);
+   h2vz2TeV->SetBinContent(46,2.02489e-06);
+   h2vz2TeV->SetBinContent(51,1.417423e-05);
+   h2vz2TeV->SetBinError(0,4.959947e-06);
+   h2vz2TeV->SetBinError(1,2.02489e-06);
+   h2vz2TeV->SetBinError(2,2.02489e-06);
+   h2vz2TeV->SetBinError(8,2.02489e-06);
+   h2vz2TeV->SetBinError(9,3.507212e-06);
+   h2vz2TeV->SetBinError(10,5.727254e-06);
+   h2vz2TeV->SetBinError(11,1.032495e-05);
+   h2vz2TeV->SetBinError(12,1.619912e-05);
+   h2vz2TeV->SetBinError(13,2.761582e-05);
+   h2vz2TeV->SetBinError(14,4.509644e-05);
+   h2vz2TeV->SetBinError(15,6.53635e-05);
+   h2vz2TeV->SetBinError(16,9.841048e-05);
+   h2vz2TeV->SetBinError(17,0.0001378711);
+   h2vz2TeV->SetBinError(18,0.0001833504);
+   h2vz2TeV->SetBinError(19,0.0002369294);
+   h2vz2TeV->SetBinError(20,0.0002968105);
+   h2vz2TeV->SetBinError(21,0.0003502767);
+   h2vz2TeV->SetBinError(22,0.0004024949);
+   h2vz2TeV->SetBinError(23,0.0004433261);
+   h2vz2TeV->SetBinError(24,0.0004721903);
+   h2vz2TeV->SetBinError(25,0.0004771614);
+   h2vz2TeV->SetBinError(26,0.0004645699);
+   h2vz2TeV->SetBinError(27,0.0004378353);
+   h2vz2TeV->SetBinError(28,0.0003951442);
+   h2vz2TeV->SetBinError(29,0.0003426195);
+   h2vz2TeV->SetBinError(30,0.0002858755);
+   h2vz2TeV->SetBinError(31,0.0002301615);
+   h2vz2TeV->SetBinError(32,0.0001761305);
+   h2vz2TeV->SetBinError(33,0.0001300194);
+   h2vz2TeV->SetBinError(34,9.161368e-05);
+   h2vz2TeV->SetBinError(35,6.345373e-05);
+   h2vz2TeV->SetBinError(36,4.134942e-05);
+   h2vz2TeV->SetBinError(37,2.577264e-05);
+   h2vz2TeV->SetBinError(38,1.657444e-05);
+   h2vz2TeV->SetBinError(39,9.497576e-06);
+   h2vz2TeV->SetBinError(40,7.014425e-06);
+   h2vz2TeV->SetBinError(41,3.507212e-06);
+   h2vz2TeV->SetBinError(42,2.02489e-06);
+   h2vz2TeV->SetBinError(43,3.507212e-06);
+   h2vz2TeV->SetBinError(46,2.02489e-06);
+   h2vz2TeV->SetBinError(51,5.357355e-06);
    h2vz2TeV->SetLineStyle(7);
    h2vz2TeV->SetLineWidth(2);
    h2vz2TeV->Draw("same hist");
-   h2vz2TeV->Scale(1.2);
-   
 
 
-   TLegend *leg = new TLegend(0.63,0.71,1.0,0.83,NULL,"brNDC");
+
+   TLegend *leg = new TLegend(0.21,0.61,.48,0.83,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -223,7 +373,7 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
 
-   entry=leg->AddEntry("h2vz","PYTHIA D6T 0.9TeV","l");
+   entry=leg->AddEntry("h2vz","Pythia 0.9TeV","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);
@@ -238,7 +388,7 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
 
-   entry=leg->AddEntry("h2vz2TeV","PYTHIA D6T 2.36TeV","l");
+   entry=leg->AddEntry("h2vz2TeV","Pythia 2.36TeV","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);
