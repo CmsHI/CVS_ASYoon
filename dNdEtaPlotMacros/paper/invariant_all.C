@@ -1130,6 +1130,11 @@ void invariant_all() {
    for(int i = 0; i < gre->GetN(); ++i){
      double x,y;
      gre->GetPoint(i,x,y);
+
+
+     gre->SetPointError(i,0,gre->GetErrorY(i));
+
+
      hPT->Fill(x,y);
      hPT->SetBinError(hPT->FindBin(x),gre->GetErrorY(i));
    }
@@ -1161,8 +1166,9 @@ void invariant_all() {
    Graph99->GetZaxis()->SetTitleFont(42);
    gre->SetHistogram(Graph99);
    
-   gre->SetMarkerSize(0);
-   gre->Draw("e2");
+   //   gre->Draw("e2"); // Weird error boxes with no bin point
+
+   gre->Draw("p");
    
    TLegend *leg = new TLegend(0.28,0.2,0.61,0.35,NULL,"brNDC");
 
