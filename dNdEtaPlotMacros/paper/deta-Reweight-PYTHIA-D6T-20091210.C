@@ -22,7 +22,7 @@ void deta_Reweight_PYTHIA_D6T_20091210() {
 
    if(logscale){
       hdeta->SetMaximum(0.55);
-      hdeta->SetMinimum(0.0011);
+      hdeta->SetMinimum(0.00055);
    }else{
       hdeta->SetMaximum(0.3);
       hdeta->SetMinimum(-0.01);
