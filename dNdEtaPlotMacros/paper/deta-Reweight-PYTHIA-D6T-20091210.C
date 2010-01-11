@@ -364,15 +364,10 @@ void deta_Reweight_PYTHIA_D6T_20091210() {
    TLegend *leg = new TLegend(0.19,0.65,0.53,0.86,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
-   leg->SetLineColor(1);
-   leg->SetLineStyle(1);
-   leg->SetLineWidth(1);
-   leg->SetFillColor(0);
    leg->SetFillStyle(0);
 
-
-   TLegendEntry *entry=leg->AddEntry(hdeta2TeV,"Data 2.36 TeV #times 2","p");
-   entry->SetMarkerStyle(2);
+   TLegendEntry *entry=leg->AddEntry("hdeta2TeV","Data 2.36 TeV #times 2","P");
+   entry->SetMarkerStyle(5);
 
    leg->AddEntry(h2deta2TeV,"PYTHIA D6T 2.36 TeV #times 2","l");
 
