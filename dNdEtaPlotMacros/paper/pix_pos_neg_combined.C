@@ -132,7 +132,6 @@ void pix_pos_neg_combined(){
    Graph2->SetMaximum(1);
    Graph2->Draw("hist");  
 
-
    // Positive DATA
    gre = new TGraphErrors(30);
    gre->SetName("Graph");
@@ -229,9 +228,44 @@ void pix_pos_neg_combined(){
    Graph4->Add(Graph3);
    Graph4->Scale(1./2);
 
-   Graph4->Draw("pzsame");
+   TGraphErrors* g4 = new TGraphErrors(Graph4->GetNbinsX());
 
-   TLegend *leg = new TLegend(0.63,0.71,1.0,0.83,NULL,"brNDC");
+   for(int i = 0; i < Graph4->GetNbinsX(); ++i){
+     g4->SetPoint(i,Graph4->GetBinCenter(i+1)-0.06,Graph4->GetBinContent(i+1));
+     g4->SetPointError(i,0,Graph4->GetBinError(i+1));
+   }
+
+   g4->SetMarkerStyle(20);
+   g4->SetMarkerSize(msize);
+   g4->Draw("p");
+
+   //   Graph4->Draw("pzsame");
+
+   // 2.36 TeV PlaceHolder
+   TH1F* Graph5 = (TH1F*)Graph4->Clone("Graph5");
+   TH1F* Graph6 = (TH1F*)Graph2->Clone("Graph6");
+
+   Graph6->SetMarkerSize(msize);
+   Graph6->SetLineStyle(2);
+   Graph6->Fill(2,0.01);
+   Graph6->Fill(3,-0.01);
+   Graph6->Fill(4,-0.02);
+   Graph6->Fill(5,0.02);
+   Graph6->Draw("hist same");
+
+   TGraphErrors* g5 = new TGraphErrors(Graph5->GetNbinsX());
+
+   for(int i = 0; i < Graph5->GetNbinsX(); ++i){
+     g5->SetPoint(i,Graph5->GetBinCenter(i+1)+0.06,Graph5->GetBinContent(i+1));
+     g5->SetPointError(i,0,Graph5->GetBinError(i+1));
+   }
+
+   g5->SetMarkerStyle(24);
+   g5->SetMarkerSize(msize);
+   g5->Draw("p");
+
+
+   TLegend *leg = new TLegend(0.61,0.66,0.88,0.84,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.038);
@@ -239,18 +273,30 @@ void pix_pos_neg_combined(){
    leg->SetFillStyle(0);
    leg->SetMargin(0.32);
 
-   TLegendEntry *entry=leg->AddEntry("","Data","p");
+   TLegendEntry *entry=leg->AddEntry("","Data 0.9TeV","p");
    entry->SetLineColor(1);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
 
-   entry=leg->AddEntry("","PYTHIA D6T","l");
+   entry=leg->AddEntry("","Pythia 0.9TeV","l");
    entry->SetLineWidth(2);
    entry->SetLineColor(2);
    leg->Draw();
 
+   entry=leg->AddEntry("","Data 2.36TeV","p");
+   entry->SetLineColor(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(24);
+   entry->SetMarkerSize(msize);
+
+   entry=leg->AddEntry("","Pythia 2.36TeV","l");
+   entry->SetLineWidth(2);
+   entry->SetLineColor(2);
+   entry->SetLineStyle(2);
+   leg->Draw();
 
    printFinalCanvases(MyCanvas,"pixels_pos_neg");
 
