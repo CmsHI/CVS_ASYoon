@@ -144,7 +144,7 @@ void deta_Reweight_PYTHIA_D6T_20091210() {
    hdeta->GetYaxis()->CenterTitle();
    hdeta->GetXaxis()->SetNdivisions(505);
 
-   hdeta->SetMaximum(1);
+   //   hdeta->SetMaximum(1);
    hdeta->Draw("");
 
    TH1 *hdeta1 = hdeta->Clone("hdeta1");
@@ -347,29 +347,26 @@ void deta_Reweight_PYTHIA_D6T_20091210() {
 
 
    TH1D* hdeta2TeV = (TH1D*)hdeta->Clone("hdeta2TeV");
-   hdeta2TeV->Scale(2.);
+   hdeta2TeV->Scale(.5);
    hdeta2TeV->SetMarkerStyle(24);
    hdeta2TeV->Draw("same");
 
 
    TH1D* hdeta2TeV = (TH1D*)hdeta->Clone("h2deta2TeV");
-   h2deta2TeV->Scale(2.);
+   h2deta2TeV->Scale(.5);
    h2deta2TeV->SetLineStyle(2);
    h2deta2TeV->SetLineWidth(2);
    h2deta2TeV->SetLineColor(mcColor);
 
    h2deta2TeV->Draw("same hist");
-
    
-   TLegend *leg = new TLegend(0.19,0.65,0.53,0.86,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.18,0.62,0.52,0.86,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
+   leg->SetTextSize(0.021);
    leg->SetFillStyle(0);
 
-   TLegendEntry *entry=leg->AddEntry("hdeta2TeV","Data 2.36 TeV #times 2","P");
-   entry->SetMarkerStyle(5);
-
-   leg->AddEntry(h2deta2TeV,"PYTHIA D6T 2.36 TeV #times 2","l");
+   TLegendEntry *entry;
 
    entry=leg->AddEntry("hdeta","Data 0.9 TeV","p");
    entry->SetLineColor(1);
@@ -378,30 +375,33 @@ void deta_Reweight_PYTHIA_D6T_20091210() {
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
 
-   entry=leg->AddEntry("h2deta","PYTHIA D6T 0.9 TeV","l");
+   entry=leg->AddEntry("h2deta","Pythia 0.9TeV","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(2);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
 
+   entry=leg->AddEntry("hdeta2TeV","Data 2.36TeV scaled by 0.5","P");
+   entry->SetMarkerStyle(5);
 
+   leg->AddEntry(h2deta2TeV,"Pythia 2.36TeV scaled by 0.5","l");
 
-   entry=leg->AddEntry("h","PYTHIA D6T 0.9 TeV","l");
+   if(0){
+   entry=leg->AddEntry("h","Pythia 0.9TeV","l");
    entry->SetLineColor(1);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
+   }
 
-   entry=leg->AddEntry("h","(Primary Tracklets)","");
+   entry=leg->AddEntry("h","Primary Tracklets in MC","l");
    entry->SetLineColor(1);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
-
-
 
    leg->Draw();
 
