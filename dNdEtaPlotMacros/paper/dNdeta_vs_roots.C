@@ -50,7 +50,7 @@ void dNdeta_vs_roots() {
   TGraphAsymmErrors *isr=new TGraphAsymmErrors(4,x1,y1,exl1,exh1,eyl1,eyh1);
   isr->SetMarkerColor(kBlack);
   isr->SetMarkerStyle(24);
-  if(bw)isr->SetMarkerStyle(23);
+  if(bw)isr->SetMarkerStyle(26);
   //if(bw)isr->SetMarkerStyle(22);  
   isr->SetMarkerSize(msize);
   isr->SetLineColor(kBlack);
@@ -77,7 +77,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   ua5nsd->SetMarkerStyle(20);
   //if(bw)ua5nsd->SetMarkerStyle(25);
   //if(bw)ua5nsd->SetMarkerStyle(23);
-  if(bw)ua5nsd->SetMarkerStyle(25);
+  if(bw)ua5nsd->SetMarkerStyle(21);
   ua5nsd->SetMarkerSize(msize);
   ua5nsd->SetLineColor(kBlue);
   if(bw)ua5nsd->SetLineColor(kBlack);
@@ -111,7 +111,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 
   TGraphAsymmErrors *ua5inel=new TGraphAsymmErrors(4,x3,y3,exl3,exh3,eyl3,eyh3);
   ua5inel->SetMarkerColor(kBlack);
-  ua5inel->SetMarkerStyle(21);
+  ua5inel->SetMarkerStyle(25);
   ua5inel->SetMarkerSize(msize);
   ua5inel->SetLineColor(kBlack);
   //ua5inel->Draw("PE");
@@ -128,7 +128,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   TGraphAsymmErrors *fnalinel=new TGraphAsymmErrors(2,x4,y4,exl4,exh4,eyl4,eyh4);
   fnalinel->SetMarkerColor(kBlack);
   //fnalinel->SetMarkerStyle(22);
-  fnalinel->SetMarkerStyle(3);
+  fnalinel->SetMarkerStyle(4);
   fnalinel->SetMarkerSize(msize);
   fnalinel->SetLineColor(kBlack);
   //fnalinel->Draw("PE");
@@ -146,7 +146,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   cdf->SetMarkerColor(kBlue);
   if(bw)cdf->SetMarkerColor(kBlack);
   cdf->SetMarkerStyle(21);
-  if(bw)cdf->SetMarkerStyle(27);
+  if(bw)cdf->SetMarkerStyle(22);
   cdf->SetMarkerSize(msize);
   cdf->SetLineColor(kBlue);
   if(bw)cdf->SetLineColor(kBlack);
@@ -163,7 +163,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   TGraphAsymmErrors *ua1nsd=new TGraphAsymmErrors(7,xua1,yua1,exlua1,exlua1,eylua1,eylua1);
   ua1nsd->SetName("ua1nsd");
   ua1nsd->SetMarkerColor(1);
-  ua1nsd->SetMarkerStyle(28);
+  ua1nsd->SetMarkerStyle(3);
   ua1nsd->SetMarkerSize(msize);
   ua1nsd->SetLineColor(1);
   ua1nsd->Draw("PZsame");
@@ -185,7 +185,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 
   TGraphAsymmErrors *alicensd=new TGraphAsymmErrors(2,x10,y10,exl10,exh10,eyl10,eyh10);
   alicensd->SetMarkerColor(kBlack);
-  alicensd->SetMarkerStyle(30);
+  alicensd->SetMarkerStyle(29);
   alicensd->SetMarkerSize(msize);
   alicensd->SetLineColor(kBlack);
   alicensd->Draw("PZsame");
@@ -252,7 +252,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 
   TGraphAsymmErrors *aliceinel=new TGraphAsymmErrors(2,x12,y12,exl12,exh12,eyl12,eyh12);
   aliceinel->SetMarkerColor(kBlack);
-  aliceinel->SetMarkerStyle(29);
+  aliceinel->SetMarkerStyle(30);
   aliceinel->SetMarkerSize(msize);
   aliceinel->SetLineColor(kBlack);
   aliceinel->Draw("PZsame");
@@ -267,7 +267,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 
   TGraphAsymmErrors *phobosinel=new TGraphAsymmErrors(1,x13,y13,exl13,exh13,eyl13,eyh13);
   phobosinel->SetMarkerColor(kBlack);
-  phobosinel->SetMarkerStyle(22);
+  phobosinel->SetMarkerStyle(27);
   phobosinel->SetMarkerSize(msize);
   phobosinel->SetLineColor(kBlack);
   phobosinel->Draw("PZsame");
@@ -289,7 +289,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 
   TGraphAsymmErrors *starnsd=new TGraphAsymmErrors(2,x14,y14,exl14,exh14,eyl14,eyh14);
   starnsd->SetMarkerColor(kBlack);
-  starnsd->SetMarkerStyle(26);
+  starnsd->SetMarkerStyle(23);
   starnsd->SetMarkerSize(msize);
   starnsd->SetLineColor(kBlack);
   starnsd->Draw("PZsame");
