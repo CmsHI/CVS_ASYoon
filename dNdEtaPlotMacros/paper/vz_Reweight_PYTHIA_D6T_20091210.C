@@ -194,7 +194,7 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
    h2vz->GetYaxis()->SetTitle("Arbitrary normalization");
 
 
-   hvz1->SetAxisRange(0,0.16,"Y");
+   hvz1->SetAxisRange(0,0.13,"Y");
    hvz1->Draw("pz");
    h2vz->Draw("hist same");
    hvz11->Draw("pzsame");
@@ -356,7 +356,7 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
 
 
 
-   TLegend *leg = new TLegend(0.21,0.61,.48,0.83,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.20,0.66,.50,0.87,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
