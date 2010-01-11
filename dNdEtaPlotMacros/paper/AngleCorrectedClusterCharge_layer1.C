@@ -363,6 +363,18 @@ void AngleCorrectedClusterCharge_layer1(){
    hChargeDist1->SetMarkerStyle(0);
    hChargeDist1->Draw("Psame");
    
+   TH1 *hChargeDistMC2TeV = (TH1F*)hChargeDistMC->Clone("hChargeDistMC2TeV");
+   hChargeDistMC2TeV->Scale(1.2);
+   hChargeDistMC2TeV->SetLineStyle(7);
+   hChargeDistMC2TeV->Draw("same");
+   
+   TH1 *hChargeDist2TeV = (TH1F*)hChargeDist->Clone("hChargeDist2TeV");
+   hChargeDist2TeV->Scale(1.2);
+   hChargeDist2TeV->SetMarkerStyle(24);
+   hChargeDist2TeV->Draw("Psame");
+
+
+
    TLegend *leg = new TLegend(0.63,0.71,1.0,0.83,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
@@ -373,7 +385,7 @@ void AngleCorrectedClusterCharge_layer1(){
    leg->SetFillStyle(0);
 
    //TLegendEntry *entry=leg->AddEntry("hChargeDist","Data Event selection","P");
-   TLegendEntry *entry=leg->AddEntry("","Data","P");
+   TLegendEntry *entry=leg->AddEntry("","Data 0.9TeV","P");
    entry->SetLineColor(1);
    entry->SetLineStyle(1);
    entry->SetLineWidth(2);
@@ -382,12 +394,31 @@ void AngleCorrectedClusterCharge_layer1(){
    entry->SetMarkerSize(msize);
 
    //entry=leg->AddEntry("hChargeDistMC","MC Event selection","L");
-   entry=leg->AddEntry("","PYTHIA D6T","L"); 
+   entry=leg->AddEntry("","PYTHIA D6T 0.9TeV","L"); 
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(21);
    entry->SetMarkerSize(msize);
+
+   entry=leg->AddEntry("hChargeDist2TeV","Data 2.36TeV","P");
+   entry->SetLineColor(1);
+   entry->SetLineStyle(1);
+   entry->SetLineWidth(2);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(msize);
+
+   entry=leg->AddEntry("hChargeDistMC2TeV","PYTHIA D6T 2.36TeV","L");
+   entry->SetLineColor(2);
+   entry->SetLineWidth(2);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(21);
+   entry->SetMarkerSize(msize);
+
+
+
+
    leg->Draw();
 
    TLatex *   tex = new TLatex(48360.08,0.033,"Layer 1");
