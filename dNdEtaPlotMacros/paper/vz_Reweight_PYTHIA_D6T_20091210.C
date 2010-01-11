@@ -194,6 +194,19 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
    h2vz->GetYaxis()->SetTitle("Arbitrary normalization");
    h2vz->Draw("same hist");
 
+   TH1 *hvz12TeV = (TH1F*)hvz1->Clone("hvz12TeV");
+   hvz12TeV->SetMarkerStyle(24);
+   hvz12TeV->Scale(1.2);
+   hvz12TeV->Draw("same");
+
+   TH1 *h2vz2TeV = (TH1F*)h2vz->Clone("h2vz2TeV");
+   h2vz2TeV->SetLineStyle(7);
+   h2vz2TeV->SetLineWidth(2);
+   h2vz2TeV->Draw("same hist");
+   h2vz2TeV->Scale(1.2);
+   
+
+
    TLegend *leg = new TLegend(0.63,0.71,1.0,0.83,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
@@ -203,20 +216,37 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
 
-   TLegendEntry *entry=leg->AddEntry("hvz1","Data","p");
+   TLegendEntry *entry=leg->AddEntry("hvz1","Data 0.9TeV","p");
    entry->SetLineColor(1);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
 
-   entry=leg->AddEntry("h2vz","PYTHIA D6T","l");
+   entry=leg->AddEntry("h2vz","PYTHIA D6T 0.9TeV","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
    leg->Draw();
+
+   entry=leg->AddEntry("hvz12TeV","Data 2.36TeV","p");
+   entry->SetLineColor(1);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(1);
+   entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(msize);
+
+   entry=leg->AddEntry("h2vz2TeV","PYTHIA D6T 2.36TeV","l");
+   entry->SetLineColor(2);
+   entry->SetLineWidth(1);
+   entry->SetMarkerColor(2);
+   entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(msize);
+   leg->Draw();
+
+
 
    printFinalCanvases(MyCanvas,"Vz_PYTHIA_Run123596");
 
