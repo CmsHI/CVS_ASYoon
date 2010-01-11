@@ -1,6 +1,6 @@
 #include "TLatex.h"
 
-void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0, int doCMS=1)
+void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0, int doCMS=2)
 {
   MyCanvas->cd();
   MyCanvas->SetLogy(log);
