@@ -59,6 +59,8 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    // --- Stat error ---
    double statError= 0.01767767;
+   
+
    for (int i=2; i<12; ++i) {
      hMeasuredFinal3->SetBinError(i,hMeasuredFinal3->GetBinContent(i)*statError);
      cout << "stat error (" << i << "): " << hMeasuredFinal3->GetBinError(i) << endl;
@@ -83,7 +85,9 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    /// ==================================================== Weighted mean of all three method! 
    //Double_t xAxis8[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};
    TH1D * hMeasuredFinal4 = (TH1D*)hMeasuredFinal3->Clone("hMeasuredFinal4");
-   double sysError = 0.0603;
+   //   double sysError = 0.0603;
+   double sysError = 0.035;
+
    TGraph *gErrorBand = GetErrorBand((TH1F*)hMeasuredFinal4,sysError,sysError,0.25); 
    gErrorBand->Draw("f");
 
@@ -93,7 +97,9 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    /// ==================================================== CMS 2.36 GeV
    TH1F *hMeasuredFinal236 = (TH1F*)hMeasuredFinal3->Clone("hMeasuredFinal236");
    hMeasuredFinal236->GetXaxis()->SetRange(3,10);
-   hMeasuredFinal236->SetMarkerColor(kBlue);
+   hMeasuredFinal236->SetMarkerColor(kRed);
+   hMeasuredFinal236->SetMarkerStyle(4);
+
 
    //hMeasuredFinal236->SetBinContent(2,3.6853);  // -2.4 to -2.0 
    hMeasuredFinal236->SetBinContent(3,4.32647); //-2 to -1.5 
@@ -154,7 +160,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
 
    hEta_ALICE_NSD->SetMarkerColor(1);
-   hEta_ALICE_NSD->SetMarkerStyle(20);
+   hEta_ALICE_NSD->SetMarkerStyle(21);
    hEta_ALICE_NSD->SetLineColor(kBlack);
    //hEta_ALICE_NSD->SetMarkerSize(1.5);
    hEta_ALICE_NSD->SetMarkerSize(1.25);
