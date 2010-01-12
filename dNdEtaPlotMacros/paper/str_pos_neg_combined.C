@@ -185,7 +185,7 @@ void str_pos_neg_combined(){
    Graph82->SetMarkerStyle(0);
    Graph82->Draw("pzsame");
 
-   TLegend *leg = new TLegend(0.63,0.71,1.0,0.83,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.61,0.66,0.88,0.84,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.038);
@@ -193,8 +193,8 @@ void str_pos_neg_combined(){
    leg->SetFillStyle(0);
    leg->SetMargin(0.32);
    
-   leg->AddEntry(Graph8,"Data","p");
-   leg->AddEntry(Graph6,"PYTHIA D6T","l");
+   leg->AddEntry(Graph8,"Data 0.9TeV","p");
+   leg->AddEntry(Graph6,"Pythia 0.9TeV","l");
    leg->Draw();
    
    printFinalCanvases(MyCanvas,"strips_pos_neg");
