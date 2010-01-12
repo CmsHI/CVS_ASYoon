@@ -1,6 +1,6 @@
 #include "common.h"
 
-void vz_Reweight_PYTHIA_D6T_20091210(){
+void vertex(){
 //=========Macro generated from canvas: c9/
 //=========  (Fri Dec 11 00:41:05 2009) by ROOT version5.22/00a
    gROOT->Reset();
@@ -407,6 +407,15 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
+	
+	entry=leg->AddEntry("hvz12TeV","Data 2.36TeV","p");
+	entry->SetLineColor(1);
+	entry->SetLineWidth(1);
+	entry->SetMarkerColor(1);
+	entry->SetMarkerStyle(20);
+	entry->SetMarkerSize(msize);
+	
+	
 
    entry=leg->AddEntry("h2vz","Pythia 0.9TeV","l");
    entry->SetLineColor(2);
@@ -416,14 +425,7 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
    entry->SetMarkerSize(msize);
    leg->Draw();
 
-   entry=leg->AddEntry("hvz12TeV","Data 2.36TeV","p");
-   entry->SetLineColor(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(1);
-   entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(msize);
-
-   entry=leg->AddEntry("h2vz2TeV","Pythia 2.36TeV","l");
+    entry=leg->AddEntry("h2vz2TeV","Pythia 2.36TeV","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);
@@ -433,6 +435,6 @@ void vz_Reweight_PYTHIA_D6T_20091210(){
 
 
 
-   printFinalCanvases(MyCanvas,"Vz_PYTHIA_Run123596");
+   printFinalCanvases(MyCanvas,"vertex");
 
 }

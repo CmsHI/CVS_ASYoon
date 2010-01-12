@@ -1,6 +1,6 @@
 #include "common.h"
 
-void AngleCorrectedClusterCharge_layer1(){
+void landau(){
 //=========Macro generated from canvas: c1/c1
 //=========  (Tue Dec 15 17:46:58 2009) by ROOT version5.22/00d
 
@@ -697,6 +697,15 @@ void AngleCorrectedClusterCharge_layer1(){
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
+	
+	
+	entry=leg->AddEntry("hChargeDist2TeV","Data 2.36TeV","P");
+	entry->SetLineColor(1);
+	entry->SetLineStyle(1);
+	entry->SetLineWidth(2);
+	entry->SetMarkerColor(1);
+	entry->SetMarkerStyle(20);
+	entry->SetMarkerSize(msize);
 
    //entry=leg->AddEntry("hChargeDistMC","MC Event selection","L");
    entry=leg->AddEntry("","Pythia 0.9TeV","L"); 
@@ -706,13 +715,6 @@ void AngleCorrectedClusterCharge_layer1(){
    entry->SetMarkerStyle(21);
    entry->SetMarkerSize(msize);
 
-   entry=leg->AddEntry("hChargeDist2TeV","Data 2.36TeV","P");
-   entry->SetLineColor(1);
-   entry->SetLineStyle(1);
-   entry->SetLineWidth(2);
-   entry->SetMarkerColor(1);
-   entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(msize);
 
    entry=leg->AddEntry("hChargeDistMC2TeV","Pythia 2.36TeV","L");
    entry->SetLineColor(2);
