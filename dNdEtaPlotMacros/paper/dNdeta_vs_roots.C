@@ -226,7 +226,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   TGraphAsymmErrors *alicensd=new TGraphAsymmErrors(2,x10,y10,exl10,exh10,eyl10,eyh10);
   alicensd->SetMarkerColor(kBlack);
   alicensd->SetMarkerStyle(29);
-  alicensd->SetMarkerSize(msize*1.8);
+  alicensd->SetMarkerSize(msize*1.5);
   alicensd->SetLineColor(kBlack);
   alicensd->Draw("PZsame");
 
@@ -262,7 +262,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   if(bw)cmsnsd->SetMarkerColor(kRed);
   cmsnsd->SetMarkerStyle(kFullStar);
   if(bw)cmsnsd->SetMarkerStyle(20);
-  cmsnsd->SetMarkerSize(msize*1.2);
+  cmsnsd->SetMarkerSize(msize*0.85);
   cmsnsd->SetLineColor(kRed);
   //if(bw)cmsnsd->SetLineColor(kBlack);
   if(bw)cmsnsd->SetLineColor(kRed);
@@ -304,7 +304,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   TGraphAsymmErrors *aliceinel=new TGraphAsymmErrors(2,x12,y12,exl12,exh12,eyl12,eyh12);
   aliceinel->SetMarkerColor(kBlack);
   aliceinel->SetMarkerStyle(30);
-  aliceinel->SetMarkerSize(msize*1.8);
+  aliceinel->SetMarkerSize(msize*1.5);
   aliceinel->SetLineColor(kBlack);
   aliceinel->Draw("PZsame");
 
@@ -426,13 +426,14 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     //TLegend leg2(0.22,0.52,0.5,0.91);
     //TLegend leg2(0.38,0.15,0.89,0.3);
     //TLegend leg2(0.41,0.15,0.91,0.3);
-    TLegend *leg2 = new TLegend(0.411,0.18,0.91,0.33,NULL,"brNDC"); 
-    //TLegend *leg2 = new TLegend(0.22,0.48,0.6,0.911,NULL,"brNDC");
+    TLegend *leg2 = new TLegend(0.39,0.33-0.045*3,0.91,0.33,NULL,"brNDC"); 
+    //TLegend *leg2 = new TLegend(0.22,0.34,0.6,0.911,NULL,"brNDC");
     leg2->SetFillColor(0);
     leg2->SetBorderSize(0);
     leg2->AddEntry(fitISR,"0.161 + 0.201 ln(s)","l");
     leg2->AddEntry(fitUA5,"2.26 - 0.207 ln(s) + 0.0215 ln^{2}(s)","l");
     leg2->AddEntry(fitUA5inel,"1.54 - 0.096 ln(s) + 0.0155 ln^{2}(s)","l");
+    leg2->SetTextSize(0.03);
     leg2->Draw();
 
     TLatex t_sys(70.,5.2,"}");

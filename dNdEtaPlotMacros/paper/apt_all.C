@@ -12,7 +12,7 @@ void apt_all(){
 
    MyCanvas->SetLogx();
 
-   double msize = 1.8;
+   double msize = 2;
 
    TH1D *hDist = new TH1D("hDist","hDist",20,9,10000);
    hDist->GetXaxis()->SetRange(1,20);
@@ -162,12 +162,15 @@ void apt_all(){
    //Now real measurement
    gre->SetPoint(0,900,0.46);
    gre->SetPointError(0,0,0.02);
+   gre->SetPoint(1,2360,0.51);
+   gre->SetPointError(1,0,0.02);
 
    
    TH1F *Graph5 = new TH1F("Graph5","Graph",100,899.9,901.1);
    Graph5->SetMinimum(0.4184);
    Graph5->SetMaximum(0.4616);
    gre->SetHistogram(Graph5);
+   gre->SetMarkerSize(msize*0.85);
    gre->Draw("pz");
    
    TGraph* gre05 = gre->Clone("gre05");
@@ -175,12 +178,12 @@ void apt_all(){
    gre05->Draw("pzsame");
    
    // Fit function
-   TF1 *func = new TF1("func","0.40-0.03*log(x)+0.0053*log(x)^2",10,100000);
+   TF1 *func = new TF1("func","0.40-0.03*log(x)+0.0053*log(x)^2",18,100000);
    func->SetLineColor(1);
    func->SetLineWidth(1.5);
    func->Draw("same");
    
-   TLegend *leg = new TLegend(0.25,0.69,0.48,0.90,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.25,0.90-0.045*5,0.5,0.90,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -188,6 +191,7 @@ void apt_all(){
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
+   leg->SetTextSize(0.03);
 
    TLegendEntry *entry=leg->AddEntry("Graph1","ISR inel.","P");
    entry->SetMarkerStyle(22);
@@ -207,7 +211,7 @@ void apt_all(){
    entry=leg->AddEntry("Graph5","CMS NSD","P");
    entry->SetMarkerStyle(20);  
    entry->SetMarkerColor(2);
-   entry->SetMarkerSize(msize);  
+   entry->SetMarkerSize(msize*0.85);  
    leg->Draw();  
 
    TLegend *leg2 = new TLegend(0.245,0.20,0.55,0.26,NULL,"brNDC");
@@ -221,11 +225,12 @@ void apt_all(){
    leg2->SetFillColor(0);
    leg2->SetFillStyle(0);
    leg2->SetMargin(0.15);
+   leg2->SetTextSize(0.03);
 
    //   TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.015 #times ln(s) + 0.001325 #times ln^{2}(s)","l");
    TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.015 ln(s) + 0.001325 ln^{2}(s)","l");
 
-   entry->SetTextSize(0.045);
+   entry->SetTextSize(0.03);
    entry->SetMarkerSize(0);
    leg2->Draw();
 
