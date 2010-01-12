@@ -4,7 +4,7 @@ void vertex(){
 //=========Macro generated from canvas: c9/
 //=========  (Fri Dec 11 00:41:05 2009) by ROOT version5.22/00a
    gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
+   gROOT->ProcessLine(".x rootlogon.C");
    TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
    MyCanvas->Range(-28.6076,-0.01804519,22.02532,0.1022561);
 
@@ -391,10 +391,10 @@ void vertex(){
 
 
 
-   TLegend *leg = new TLegend(0.20,0.66,.50,0.87,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.18,0.66,.48,0.87,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
-
+	leg->SetTextSize(0.035);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);
@@ -431,8 +431,7 @@ void vertex(){
    entry->SetMarkerColor(2);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
-   leg->Draw();
-
+ 
 
 
    printFinalCanvases(MyCanvas,"vertex");

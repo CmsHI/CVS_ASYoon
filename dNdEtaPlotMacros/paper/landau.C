@@ -677,12 +677,12 @@ void landau(){
    hChargeDist2TeV->SetMarkerStyle(24);
    hChargeDist2TeV->Draw("Psame");
 
+	TLegend *leg = new TLegend(0.64,0.66,.94,0.87,NULL,"brNDC");
 
 
-   TLegend *leg = new TLegend(0.60,0.61,.90,0.82,NULL,"brNDC");
-   
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
+	leg->SetTextSize(0.035);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);
@@ -715,16 +715,12 @@ void landau(){
    entry->SetMarkerStyle(21);
    entry->SetMarkerSize(msize);
 
-
    entry=leg->AddEntry("hChargeDistMC2TeV","Pythia 2.36TeV","L");
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(21);
    entry->SetMarkerSize(msize);
-
-
-
 
    leg->Draw();
 
