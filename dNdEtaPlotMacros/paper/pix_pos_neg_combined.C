@@ -272,8 +272,9 @@ void pix_pos_neg_combined(){
    g5->Draw("p");
    }
 
-   TLegend *leg = new TLegend(0.61,0.66,0.88,0.84,NULL,"brNDC");
-   leg->SetBorderSize(0);
+	TLegend *leg = new TLegend(0.61,0.77,.91,0.87,NULL,"brNDC");
+	
+	leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.038);
    leg->SetFillColor(0);

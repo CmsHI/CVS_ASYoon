@@ -185,7 +185,7 @@ void str_pos_neg_combined(){
    Graph82->SetMarkerStyle(0);
    Graph82->Draw("pzsame");
 
-   TLegend *leg = new TLegend(0.61,0.66,0.88,0.84,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.61,0.77,.91,0.87,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.038);

@@ -8,7 +8,8 @@ void differential_hap_ham_combined() {
    gROOT->ProcessLine(".x rootlogon.C");
 
    gStyle->SetPadRightMargin(0.13);
-
+	gStyle->SetMarkerStyle(24);
+	
    Float_t marker = 1.4;
    Float_t tsize = 0.035;
 
@@ -1071,7 +1072,7 @@ void differential_hap_ham_combined() {
    TGraphErrors *gre = new TGraphErrors(16);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
-   gre->SetFillColor(1);
+   gre->SetFillColor(0);
    gre->SetMarkerStyle(24);
    gre->SetPoint(0,0.15,5.406044);
    gre->SetPointError(0,0,0.7718413);
@@ -3473,7 +3474,7 @@ void differential_hap_ham_combined() {
    Graph53->GetZaxis()->SetTitleFont(42);
    gre->SetHistogram(Graph53);
    
-   gre->Draw("zp");
+   gre->Draw("p");
    
    gre = new TGraphErrors(17);
    gre->SetName("masik");
@@ -14087,21 +14088,6 @@ void differential_hap_ham_combined() {
    
    gre->Draw("zp");
    
-   TLatex *tex = new TLatex(1.65,42.43,"CMS");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
-
-   TLatex *tex2 = new TLatex(1.35,40,"#sqrt{s}=0.9 TeV");
-   tex2->SetTextSize(0.04);
-   tex2->SetLineWidth(2);
-   tex2->Draw();
-
-
-   //   tex = new TLatex(0.1,42.43,"(a)");
-   tex->SetTextSize(0.04);
-   tex->SetLineWidth(2);
-   tex->Draw();
 
    TLegend *leg = new TLegend(0.325,0.84,0.60,0.94,NULL,"brNDC");   
    leg->SetBorderSize(0);
@@ -14116,15 +14102,54 @@ void differential_hap_ham_combined() {
    leg->SetMargin(0.28);
 
 
-   TLegendEntry *entry=leg->AddEntry("Graph54","Data","P");
+   TLegendEntry *entry=leg->AddEntry("Graph54","Data 2.36 TeV","P");
    entry->SetMarkerColor(1.0);
-   entry->SetMarkerStyle(20);
+   entry->SetMarkerStyle(24);
    entry->SetMarkerSize(1.3);
 
    entry=leg->AddEntry("Graph53","Tsallis fit","L");
    entry->SetLineWidth(2);
 
+	
+	
    leg->Draw();
+	TLatex * tex;
 
-   printFinalCanvases(MyCanvas,"differential_hap_ham_combined",0,0);
+        double ndcX = 0.2;
+	double ndcY = 0.9;
+
+	const char* name = "differential_hap_ham_combined";
+
+    tex = new TLatex(0.77,ndcY,"CMS");
+    tex->SetTextSize(0.04);
+    tex->SetLineWidth(2);
+    tex->SetNDC();
+    tex->Draw();
+	
+	MyCanvas->Print(Form("%s.eps",name));
+	MyCanvas->Print(Form("%s.gif",name));
+	MyCanvas->Print(Form("%s.pdf",name));
+	
+	tex = new TLatex(ndcX,ndcY,"(a)");
+	tex->SetTextSize(0.04);
+	tex->SetLineWidth(2);
+	tex->SetNDC();
+	tex->Draw();
+	
+	MyCanvas->Print(Form("%s_A.eps",name));
+	MyCanvas->Print(Form("%s_A.gif",name));
+	MyCanvas->Print(Form("%s_A.pdf",name));
+	
+	if (tex) tex->Delete();
+	tex = new TLatex(ndcX,ndcY,"(b)");
+	tex->SetTextSize(0.04);
+	tex->SetLineWidth(2);
+	tex->SetNDC();
+	tex->Draw();
+	
+	MyCanvas->Print(Form("%s_B.eps",name));
+	MyCanvas->Print(Form("%s_B.gif",name));
+	MyCanvas->Print(Form("%s_B.pdf",name));
+	
+
 }

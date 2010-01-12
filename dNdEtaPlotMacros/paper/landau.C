@@ -677,7 +677,7 @@ void landau(){
    hChargeDist2TeV->SetMarkerStyle(24);
    hChargeDist2TeV->Draw("Psame");
 
-	TLegend *leg = new TLegend(0.64,0.66,.94,0.87,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.64,0.67,.94,0.87,NULL,"brNDC");
 
 
    leg->SetBorderSize(0);

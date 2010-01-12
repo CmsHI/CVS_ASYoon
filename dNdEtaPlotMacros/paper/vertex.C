@@ -389,7 +389,7 @@ void vertex(){
    h2vz2TeV->SetLineWidth(2);
    h2vz2TeV->Draw("same hist");
 
-	TLegend *leg = new TLegend(0.64,0.66,.94,0.87,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.64,0.67,.94,0.87,NULL,"brNDC");
 	
 //   TLegend *leg = new TLegend(0.18,0.66,.48,0.87,NULL,"brNDC");
    leg->SetBorderSize(0);

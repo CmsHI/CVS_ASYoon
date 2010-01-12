@@ -624,7 +624,7 @@ void DeltaEta() {
 
    h2deta2TeV->Draw("same hist");
 
-   	TLegend *leg = new TLegend(0.61,0.66,.91,0.87,NULL,"brNDC");	
+   	TLegend *leg = new TLegend(0.61,0.62,.91,0.87,NULL,"brNDC");	
 //   TLegend *leg = new TLegend(0.19,0.60,0.56,0.86,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
