@@ -214,7 +214,7 @@ void apt_all(){
    entry->SetMarkerSize(msize*0.85);  
    leg->Draw();  
 
-   TLegend *leg2 = new TLegend(0.245,0.20,0.55,0.26,NULL,"brNDC");
+   TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.26,NULL,"brNDC");
    //TLegend *leg2 = new TLegend(0.411,0.18,0.91,0.33,NULL,"brNDC");     
    leg2->SetBorderSize(0);
    leg2->SetTextFont(62);
