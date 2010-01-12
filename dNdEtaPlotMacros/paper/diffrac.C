@@ -27,14 +27,14 @@ void diffrac(){
 	leg->SetLineWidth(2);
 	leg->SetFillColor(19);
 	leg->SetFillStyle(0);
-	TLegendEntry *entry=leg->AddEntry("hNDofNpix","Pythia 0.9TeV","p");
+	TLegendEntry *entry=leg->AddEntry("hNDofNpix","Pythia 0.9TeV","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(2);
 	entry->SetMarkerColor(1);
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1);
-	entry=leg->AddEntry("hNDofNpix","Pythia 2.36TeV ","p");
+	entry=leg->AddEntry("hNDofNpix","Pythia 2.36TeV ","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(2);
 	entry->SetLineWidth(2);
@@ -46,15 +46,15 @@ void diffrac(){
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
 	entry->SetMarkerColor(1);
-	entry->SetMarkerStyle(21);
-	entry->SetMarkerSize(1);
+	entry->SetMarkerStyle(20);
+	entry->SetMarkerSize(1.2);
 	entry=leg->AddEntry("hNDofNpix","PhoJet 2.36TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
 	entry->SetMarkerColor(1);
-	entry->SetMarkerStyle(25);
-	entry->SetMarkerSize(1);
+	entry->SetMarkerStyle(24);
+	entry->SetMarkerSize(1.2);
 	leg->Draw();
 	
 	TH1 *hNDofNpix = new TH1D("hNDofNpix","ND processes",250,-0.5,249.5);
@@ -228,7 +228,7 @@ void diffrac(){
 	hNDofNpix->SetLineWidth(2);
 	hNDofNpix->SetMarkerStyle(20);
 	hNDofNpix->GetXaxis()->SetTitle("M");
-	hNDofNpix->Draw("p same");
+	hNDofNpix->Draw("hist same");
 	
 	TH1 *hNDofNpix = new TH1D("hNDofNpix","ND processes",250,-0.5,249.5);
 
@@ -448,7 +448,7 @@ void diffrac(){
 	hNDofNpix->SetLineWidth(3);
 	hNDofNpix->SetMarkerStyle(24);
 	hNDofNpix->GetXaxis()->SetTitle("M");
-	hNDofNpix->Draw("p same");
+	hNDofNpix->Draw("hist same");
 	
 	TH1 *hNDofNpix = new TH1D("hNDofNpix","ND processes",250,-0.5,249.5);
 
@@ -694,7 +694,7 @@ void diffrac(){
 	hNDofNpix->SetDirectory(0);
 	hNDofNpix->SetLineStyle(2);
 	hNDofNpix->SetLineWidth(3);
-	hNDofNpix->SetMarkerStyle(21);
+	hNDofNpix->SetMarkerStyle(20);
 	hNDofNpix->GetXaxis()->SetTitle("M");
 	hNDofNpix->Draw("p same");
 	
@@ -987,7 +987,7 @@ void diffrac(){
 	hNDofNpix->SetDirectory(0);
 	hNDofNpix->SetLineStyle(9);
 	hNDofNpix->SetLineWidth(3);
-	hNDofNpix->SetMarkerStyle(25);
+	hNDofNpix->SetMarkerStyle(24);
 	hNDofNpix->GetXaxis()->SetTitle("M");
 	hNDofNpix->Draw("P same");
 	

@@ -27,14 +27,14 @@ void trigeff(){
 	leg->SetLineWidth(1);
 	leg->SetFillColor(19);
 	leg->SetFillStyle(0);
-	TLegendEntry *entry=leg->AddEntry("","Pythia 0.9TeV","p");
+	TLegendEntry *entry=leg->AddEntry("","Pythia 0.9TeV","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(3);
 	entry->SetMarkerColor(1);
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1.2);
-	entry=leg->AddEntry("","Pythia 2.36TeV ","p");
+	entry=leg->AddEntry("","Pythia 2.36TeV ","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(2);
 	entry->SetLineWidth(3);
@@ -46,14 +46,14 @@ void trigeff(){
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
 	entry->SetMarkerColor(1);
-	entry->SetMarkerStyle(21);
+	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1.2);
 	entry=leg->AddEntry("","PhoJet 2.36TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
 	entry->SetMarkerColor(1);
-	entry->SetMarkerStyle(25);
+	entry->SetMarkerStyle(24);
 	entry->SetMarkerSize(1.2);
 	leg->Draw();
 	
@@ -232,15 +232,24 @@ void trigeff(){
 	grae->SetPointError(82,0,0,0,0.4369725);
 	
 	
-	
 	TH1 *Graph1 = new TH1F("Graph1","",100,0,93.5);
 	Graph1->SetMinimum(0);
 	Graph1->SetMaximum(1.1);
 	Graph1->SetDirectory(0);
 	Graph1->SetStats(0);
 	grae->SetHistogram(Graph1);
+
+	const int nBins = 100;
 	
-	grae->Draw("p ");
+	TH1D * hPT = new TH1D("","",nBins,-0.5,99.5);	
+	for(int i = 0; i < grae->GetN(); ++i){
+		double x,y;
+		grae->GetPoint(i,x,y);
+		hPT->Fill(x,y);
+		hPT->SetBinError(hPT->FindBin(x),grae->GetErrorY(i));
+	}
+	hPT->SetLineWidth(2);
+	hPT->Draw("hist same");
 	
 	grae = new TGraphAsymmErrors(98);
 	grae->SetName("");
@@ -249,6 +258,8 @@ void trigeff(){
 	grae->SetMarkerStyle(24);
 	grae->SetMarkerSize(1.2);
 
+	grae->SetLineStyle(2);
+	
 	grae->SetPoint(0,0,0.009823577);
 	grae->SetPointError(0,0,0,0.0009562246,0.001021911);
 	grae->SetPoint(1,1,0.3674699);
@@ -461,7 +472,6 @@ void trigeff(){
 	grae->SetPointError(104,0,0,0.4369725,0);
 	
 	
-	
 	TH1 *Graph2 = new TH1F("Graph2","",100,0,114.4);
 	Graph2->SetMinimum(0);
 	Graph2->SetMaximum(1.099072);
@@ -469,13 +479,23 @@ void trigeff(){
 	Graph2->SetStats(0);
 	grae->SetHistogram(Graph2);
 	
-	grae->Draw("p ");
+	TH1D * hPT2 = new TH1D("","",nBins,-0.5,99.5);	
+	for(int i = 0; i < grae->GetN(); ++i){
+		double x,y;
+		grae->GetPoint(i,x,y);
+		hPT2->Fill(x,y);
+		hPT2->SetBinError(hPT2->FindBin(x),grae->GetErrorY(i));
+	}
+	
+	hPT2->SetLineStyle(2);
+	hPT2->SetLineWidth(2);
+	hPT2->Draw("hist same");
 	
 	grae = new TGraphAsymmErrors(106);
 	grae->SetName("");
 	grae->SetTitle("");
 	grae->SetFillColor(1);
-	grae->SetMarkerStyle(21);
+	grae->SetMarkerStyle(20);
 	grae->SetMarkerSize(1.2);
 
 	grae->SetPoint(0,0,0.01932045);
@@ -729,7 +749,7 @@ void trigeff(){
 	grae->SetName("");
 	grae->SetTitle("");
 	grae->SetFillColor(1);
-	grae->SetMarkerStyle(25);
+	grae->SetMarkerStyle(24);
 	grae->SetMarkerSize(1.2);
 
 	grae->SetPoint(0,0,0.01263424);
