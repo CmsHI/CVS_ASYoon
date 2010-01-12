@@ -9,6 +9,8 @@ void pix_pos_neg_combined(){
    gROOT->ProcessLine(".x dndeta_rootlogon.C");
    TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
 
+   bool do2TeV = false;
+
    /*
    TH1D *hDist = new TH1D("hDist","hDist",20,1.5,5.5); // bin size = 0.2
    hDist->SetMinimum(0);
@@ -230,8 +232,12 @@ void pix_pos_neg_combined(){
 
    TGraphErrors* g4 = new TGraphErrors(Graph4->GetNbinsX());
 
+   double shift = 0;
+
+   if(do2TeV) shift += 0.06;
+
    for(int i = 0; i < Graph4->GetNbinsX(); ++i){
-     g4->SetPoint(i,Graph4->GetBinCenter(i+1)-0.06,Graph4->GetBinContent(i+1));
+     g4->SetPoint(i,Graph4->GetBinCenter(i+1)-shift,Graph4->GetBinContent(i+1));
      g4->SetPointError(i,0,Graph4->GetBinError(i+1));
    }
 
@@ -241,6 +247,7 @@ void pix_pos_neg_combined(){
 
    //   Graph4->Draw("pzsame");
 
+   if(do2TeV){
    // 2.36 TeV PlaceHolder
    TH1F* Graph5 = (TH1F*)Graph4->Clone("Graph5");
    TH1F* Graph6 = (TH1F*)Graph2->Clone("Graph6");
@@ -256,14 +263,14 @@ void pix_pos_neg_combined(){
    TGraphErrors* g5 = new TGraphErrors(Graph5->GetNbinsX());
 
    for(int i = 0; i < Graph5->GetNbinsX(); ++i){
-     g5->SetPoint(i,Graph5->GetBinCenter(i+1)+0.06,Graph5->GetBinContent(i+1));
+     g5->SetPoint(i,Graph5->GetBinCenter(i+1)+shift,Graph5->GetBinContent(i+1));
      g5->SetPointError(i,0,Graph5->GetBinError(i+1));
    }
 
    g5->SetMarkerStyle(24);
-   g5->SetMarkerSize(msize);
+   g5->SetMarkerSize(msize*0.85);
    g5->Draw("p");
-
+   }
 
    TLegend *leg = new TLegend(0.61,0.66,0.88,0.84,NULL,"brNDC");
    leg->SetBorderSize(0);
@@ -285,6 +292,8 @@ void pix_pos_neg_combined(){
    entry->SetLineColor(2);
    leg->Draw();
 
+   if(do2TeV){
+
    entry=leg->AddEntry("","Data 2.36TeV","p");
    entry->SetLineColor(1);
    entry->SetLineWidth(1);
@@ -297,6 +306,8 @@ void pix_pos_neg_combined(){
    entry->SetLineColor(2);
    entry->SetLineStyle(2);
    leg->Draw();
+
+   }
 
    printFinalCanvases(MyCanvas,"pixels_pos_neg");
 
