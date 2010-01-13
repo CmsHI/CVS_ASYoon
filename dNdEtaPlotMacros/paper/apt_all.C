@@ -54,7 +54,7 @@ void apt_all(){
 
    TGraph* gre01 = gre->Clone("gre01");
    gre01->SetMarkerStyle(0);
-   gre01->Draw("pzsame");
+   //   gre01->Draw("pzsame");
 
    // ============================= UA1?   
    gre = new TGraphErrors(7);
@@ -89,7 +89,7 @@ void apt_all(){
    
    TGraph* gre02 = gre->Clone("gre02");
    gre02->SetMarkerStyle(0);
-   gre02->Draw("pzsame");
+   //   gre02->Draw("pzsame");
 
    // ============================= E735?
    gre = new TGraphErrors(4);
@@ -118,7 +118,7 @@ void apt_all(){
 
    TGraph* gre03 = gre->Clone("gre03");
    gre03->SetMarkerStyle(0);
-   gre03->Draw("pzsame");
+   //   gre03->Draw("pzsame");
    
    // ============================= CDF
    gre = new TGraphErrors(2);
@@ -142,7 +142,7 @@ void apt_all(){
    
    TGraph* gre04 = gre->Clone("gre04");
    gre04->SetMarkerStyle(0);
-   gre04->Draw("pzsame");
+   //   gre04->Draw("pzsame");
 
    // ============================= CMS?
    gre = new TGraphErrors(1);
@@ -175,7 +175,7 @@ void apt_all(){
    
    TGraph* gre05 = gre->Clone("gre05");
    gre05->SetMarkerStyle(0);
-   gre05->Draw("pzsame");
+   //   gre05->Draw("pzsame");
    
    // Fit function
    TF1 *func = new TF1("func","0.40-0.03*log(x)+0.0053*log(x)^2",18,100000);
