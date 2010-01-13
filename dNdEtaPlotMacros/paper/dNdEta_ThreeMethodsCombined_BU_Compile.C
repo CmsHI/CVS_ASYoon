@@ -43,13 +43,13 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->GetXaxis()->SetRange(1,13);
 
    hMeasuredFinal3->SetMinimum(0);
-   hMeasuredFinal3->SetMaximum(5.5);
+   hMeasuredFinal3->SetMaximum(6.0);
 
-   hMeasuredFinal3->SetBinContent(2,3.6853);  // -2.4 to -2.0 
-   hMeasuredFinal3->SetBinContent(3,3.7034); //-2 to -1.5 
-   hMeasuredFinal3->SetBinContent(4,3.7568);        // -1.5 to -1.0 
-   hMeasuredFinal3->SetBinContent(5,3.6523); // -1.0 to -0.5
-   hMeasuredFinal3->SetBinContent(6,3.4984);        // -0.5 to 0
+   hMeasuredFinal3->SetBinContent(2,3.6541);  // -2.4 to -2.0 
+   hMeasuredFinal3->SetBinContent(3,3.7376); //-2 to -1.5 
+   hMeasuredFinal3->SetBinContent(4,3.7255);        // -1.5 to -1.0 
+   hMeasuredFinal3->SetBinContent(5,3.6123); // -1.0 to -0.5
+   hMeasuredFinal3->SetBinContent(6,3.4977);        // -0.5 to 0
 
    hMeasuredFinal3->SetBinContent(7,hMeasuredFinal3->GetBinContent(6)); // 0 to 0.5 
    hMeasuredFinal3->SetBinContent(8,hMeasuredFinal3->GetBinContent(5)); // 0.5 to 1.0
@@ -73,7 +73,9 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
 
    hMeasuredFinal3->GetXaxis()->SetNdivisions(405);
-   hMeasuredFinal3->GetYaxis()->SetNdivisions(1005);
+   //hMeasuredFinal3->GetYaxis()->SetNdivisions(1005);
+   hMeasuredFinal3->GetYaxis()->SetNdivisions(506);
+
 
    hMeasuredFinal3->SetMarkerColor(2);
    hMeasuredFinal3->SetMarkerStyle(20);
@@ -86,7 +88,8 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    //Double_t xAxis8[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};
    TH1D * hMeasuredFinal4 = (TH1D*)hMeasuredFinal3->Clone("hMeasuredFinal4");
    //   double sysError = 0.0603;
-   double sysError = 0.035;
+   //double sysError = 0.035;
+   double sysError = 0.036;
 
    TGraph *gErrorBand = GetErrorBand((TH1F*)hMeasuredFinal4,sysError,sysError,0.25); 
    gErrorBand->Draw("f");
@@ -96,27 +99,27 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    /// ==================================================== CMS 2.36 GeV
    TH1F *hMeasuredFinal236 = (TH1F*)hMeasuredFinal3->Clone("hMeasuredFinal236");
-   hMeasuredFinal236->GetXaxis()->SetRange(3,10);
+   //hMeasuredFinal236->GetXaxis()->SetRange(3,10);
+   hMeasuredFinal236->GetXaxis()->SetRange(1,13);
    hMeasuredFinal236->SetMarkerColor(kRed);
    hMeasuredFinal236->SetMarkerStyle(4);
 
-
-   //hMeasuredFinal236->SetBinContent(2,3.6853);  // -2.4 to -2.0 
-   hMeasuredFinal236->SetBinContent(3,4.32647); //-2 to -1.5 
-   hMeasuredFinal236->SetBinContent(4,4.4065);        // -1.5 to -1.0 
-   hMeasuredFinal236->SetBinContent(5,4.3577); // -1.0 to -0.5
-   hMeasuredFinal236->SetBinContent(6,4.23402);        // -0.5 to 0
+   hMeasuredFinal236->SetBinContent(2,4.9689);  // -2.4 to -2.0 
+   hMeasuredFinal236->SetBinContent(3,4.9122); //-2 to -1.5 
+   hMeasuredFinal236->SetBinContent(4,4.7081);        // -1.5 to -1.0 
+   hMeasuredFinal236->SetBinContent(5,4.6404); // -1.0 to -0.5
+   hMeasuredFinal236->SetBinContent(6,4.4921);        // -0.5 to 0
 
    hMeasuredFinal236->SetBinContent(7,hMeasuredFinal236->GetBinContent(6)); // 0 to 0.5 
    hMeasuredFinal236->SetBinContent(8,hMeasuredFinal236->GetBinContent(5)); // 0.5 to 1.0
    hMeasuredFinal236->SetBinContent(9,hMeasuredFinal236->GetBinContent(4)); // 1.0 to 1.5 
    hMeasuredFinal236->SetBinContent(10,hMeasuredFinal236->GetBinContent(3)); // 1.5 to 2.0 
-   //hMeasuredFinal236->SetBinContent(11,hMeasuredFinal236->GetBinContent(2)); // 2.0 to 2.4 
+   hMeasuredFinal236->SetBinContent(11,hMeasuredFinal236->GetBinContent(2)); // 2.0 to 2.4 
 
    /// --- draw the error bands ---
    TH1F *hMeasuredFinal236EB = (TH1F*)hMeasuredFinal236->Clone("hMeasuredFinal236EB");
-   hMeasuredFinal236EB->SetBinContent(2,4.32647);
-   hMeasuredFinal236EB->SetBinContent(11,4.32647);
+   //hMeasuredFinal236EB->SetBinContent(2,4.32647);
+   //hMeasuredFinal236EB->SetBinContent(11,4.32647);
    TGraph *gErrorBand236 = GetErrorBand((TH1F*)hMeasuredFinal236EB,sysError,sysError,0.25);
    gErrorBand236->Draw("f");
 
@@ -233,24 +236,52 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hEta_UA5_NSD->SetMarkerStyle(25);
    hEta_UA5_NSD->SetMarkerSize(1.25);
    hEta_UA5_NSD->Draw("psame");
+   
+   Float_t ywidth = 0.045*4;
 
-
-   TLegend *leg = new TLegend(0.20,0.27,0.53,0.47,"","brNDC");   
+   //TLegend *leg = new TLegend(0.20,0.27,0.53,0.27+ywidth,"","brNDC");   
+   //TLegend *leg = new TLegend(0.48,0.27,0.81,0.27+ywidth,"","brNDC");
+   TLegend *leg = new TLegend(0.27,0.21,0.70,0.21+ywidth,NULL,"brNDC");
+   leg->SetMargin(0.37);
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
-   leg->SetFillStyle(1001);
+   leg->SetFillStyle(0);
    leg->SetTextSize(0.03);  
-   //leg->SetHeader("    Systematic error (6% total)");
+   leg->SetHeader("  0.9 TeV");
    
-   leg->AddEntry(hMeasuredFinal236,"CMS NSD (2.36 TeV), three methods combined","P");
-   leg->AddEntry(hMeasuredFinal3,"CMS NSD (900 GeV), three methods combined","P");
-   leg->AddEntry(hEta_ALICE_NSD,"ALICE NSD (900 GeV)","P");
-   leg->AddEntry(hEta_UA5_NSD,"UA5 NSD (900 GeV)","P");
+   //leg->AddEntry(hMeasuredFinal236,"CMS NSD (2.36 TeV)","P");
+   leg->AddEntry(hMeasuredFinal3,"","P");
+   leg->AddEntry(hEta_ALICE_NSD,"","P");
+   leg->AddEntry(hEta_UA5_NSD,"","P");
+   
+   Float_t ywidth2 = 0.045*2;
+   
+   //TLegend *leg2 = new TLegend(0.38,0.27,0.81,0.27+ywidth2,"","brNDC");
+   TLegend *leg2 = new TLegend(0.39,0.21,0.82,0.21+ywidth,NULL,"brNDC");
+
+   leg2->SetMargin(0.5);
+   leg2->SetBorderSize(0);
+   leg2->SetTextFont(62);
+   leg2->SetLineColor(1);
+   leg2->SetLineStyle(1);
+   leg2->SetLineWidth(1);
+   leg2->SetFillColor(0);
+   //leg->SetFillStyle(1001);
+   leg2->SetFillStyle(0);
+   leg2->SetTextSize(0.03);
+   leg2->SetHeader("     2.36 TeV");
+   leg2->AddEntry(hMeasuredFinal236,"CMS NSD","P");
+   leg2->AddEntry(hEta_ALICE_NSD,"ALICE NSD","");
+   leg2->AddEntry(hEta_UA5_NSD,"UA5 NSD","");
+
+
+   leg2->Draw();
    leg->Draw();
+
 
    printFinalCanvases(MyCanvas,"dNdeta_ThreeMethodsCombined",0,2);
 }
