@@ -84,7 +84,7 @@ void str_pos_neg_combined(){
    Double_t *ydata = gre->GetY();
    Double_t *yerr = gre->GetEY();
 
-   TH1D *Graph6 = new TH1D("Graph6","Graph6",20,-0.5,20.5);
+   TH1D *Graph6 = new TH1D("Graph6","Graph6",21,-0.5,20.5);
 
    Graph6->SetLineColor(2);
    Graph6->SetLineWidth(2);
@@ -94,7 +94,7 @@ void str_pos_neg_combined(){
    Graph6->GetXaxis()->CenterTitle();
    Graph6->GetYaxis()->CenterTitle();
 
-   for(Int_t i = 0; i<20; i++){
+   for(Int_t i = 0; i<21; i++){
       Graph6->SetBinContent(i+1,ydata[i]);
       Graph6->SetBinError(i+1,yerr[i]);
    }
@@ -170,13 +170,13 @@ void str_pos_neg_combined(){
    Double_t *ydata = gre->GetY();
    Double_t *yerr = gre->GetEY();
 
-   TH1D *Graph8 = new TH1D("Graph8","Graph",20,-0.5,20.5);//-0.5 ~ 0.5, 0.5 ~ 1.5, ...
+   TH1D *Graph8 = new TH1D("Graph8","Graph",21,-0.5,20.5);//-0.5 ~ 0.5, 0.5 ~ 1.5, ...
    Graph8->SetMarkerSize(msize);
    Graph8->SetMarkerStyle(20);
    Graph8->SetMarkerColor(1);
    Graph8->SetLineColor(1);
    Graph8->Draw("pzsame");
-   for(Int_t i = 0; i<20; i++){
+   for(Int_t i = 0; i<21; i++){
       Graph8->SetBinContent(i+1,ydata[i]);
       Graph8->SetBinError(i+1,yerr[i]);
    }
