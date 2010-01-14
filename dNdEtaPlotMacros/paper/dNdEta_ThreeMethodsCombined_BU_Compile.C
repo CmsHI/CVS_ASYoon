@@ -37,7 +37,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    TCanvas *MyCanvas = new TCanvas("MyCanvas", "Final result",1,360,550,600);
    /// ==================================================== Weighted mean of all three method!
 
-   Double_t xAxis7[13] = {-3, -2.4, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.4, 3};
+   Double_t xAxis7[13] = {-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3};
    TH1 *hMeasuredFinal3 = new TH1D("hMeasuredFinal3","",12, xAxis7);
    
    hMeasuredFinal3->GetXaxis()->SetRange(1,13);
@@ -128,6 +128,8 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
 
    /// ====================================================  ALICE 
+   //Double_t xAxis9[9] = {-1.4, -1.0, -0.6, -0.2, 0.2, 0.6, 1.0, 1.4};
+   //Double_t xAxis9[9] = {-1.4, -1.0, -0.6, -0.2, 0.2, 0.6, 1.0, 1.4};
    Double_t xAxis9[9] = {-1.6, -1.2, -0.8, -0.4, 0, 0.4, 0.8, 1.2, 1.6};
    TH1 *hEta_ALICE_NSD = new TH1D("hEta_ALICE_NSD","",8, xAxis9);
 
@@ -172,7 +174,9 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    /// ====================================================  UA5 Data
 
-   TH1F* hEta_UA5_NSD = new TH1F("hEta_UA5_NSD",";#eta;dN/d#eta",26,-3.25,3.25);
+   //TH1F* hEta_UA5_NSD = new TH1F("hEta_UA5_NSD",";#eta;dN/d#eta",50,-3,3);
+   //TH1F* hEta_UA5_NSD = new TH1F("hEta_UA5_NSD",";#eta;dN/d#eta",100,-3,3);
+   TH1F* hEta_UA5_NSD = new TH1F("hEta_UA5_NSD",";#eta;dN/d#eta",26,-3.25,3.25);  
 
    // positive eta
    hEta_UA5_NSD->SetBinContent(hEta_UA5_NSD->FindBin(0.125),3.48);
