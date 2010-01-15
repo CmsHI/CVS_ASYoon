@@ -52,7 +52,7 @@ void dNdeta_vs_roots() {
   TGraphAsymmErrors *isr=new TGraphAsymmErrors(4,x1,y1,exl1,exh1,eyl1,eyh1);
   isr->SetMarkerColor(kBlack);
   isr->SetMarkerStyle(24);
-  if(bw)isr->SetMarkerStyle(25);
+  if(bw)isr->SetMarkerStyle(28);
   //if(bw)isr->SetMarkerStyle(22);  
   isr->SetMarkerSize(msize);
   isr->SetLineColor(kBlack);
@@ -271,7 +271,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   cmsnsd->Draw("PEsame");
 
   TGraphAsymmErrors * cmsnsdSysError = cmsnsd->Clone();
-  cmsnsdSysError->SetPoint(0,130,4.1);
+  cmsnsdSysError->SetPoint(0,440,4.05);
   cmsnsdSysError->SetPoint(1,1,3.71);
   cmsnsdSysError->SetPointError(0,0,0,cmsSysErr,cmsSysErr);
   cmsnsdSysError->SetMarkerStyle(0);
@@ -279,7 +279,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   cmsnsdSysError->SetLineColor(kGray);
   cmsnsdSysError->SetLineWidth(10);
   cmsnsdSysError->Draw("PEsame");
-  TLatex *tex11 = new TLatex(34.5,4.,"CMS S. U.");
+  TLatex *tex11 = new TLatex(14.5,4.,"CMS systematic uncertainty");
   tex11->SetTextSize(0.03);
   tex11->SetLineWidth(2);
   //tex11->SetNDC();

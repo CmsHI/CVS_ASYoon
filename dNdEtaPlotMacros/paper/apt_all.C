@@ -32,7 +32,7 @@ void apt_all(){
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
-   gre->SetMarkerStyle(22);
+   gre->SetMarkerStyle(28);
    gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,22.1269,0.36151);
@@ -62,7 +62,7 @@ void apt_all(){
    gre->SetTitle("Graph");
 
 
-   gre->SetMarkerStyle(26);
+   gre->SetMarkerStyle(3);
    gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,201.626,0.391897);
@@ -96,7 +96,7 @@ void apt_all(){
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
-   gre->SetMarkerStyle(25);
+   gre->SetMarkerStyle(27);
    gre->SetMarkerSize(msize);
       
    gre->SetPoint(0,300.629,0.392818);
@@ -125,7 +125,7 @@ void apt_all(){
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
-   gre->SetMarkerStyle(21);
+   gre->SetMarkerStyle(25);
    gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,636.31,0.431676);
@@ -194,18 +194,18 @@ void apt_all(){
    leg->SetTextSize(0.03);
 
    TLegendEntry *entry=leg->AddEntry("Graph1","ISR inel.","P");
-   entry->SetMarkerStyle(22);
+   entry->SetMarkerStyle(28);
    entry->SetMarkerSize(msize);
    entry=leg->AddEntry("Graph2","UA1 inel.","P");
-   entry->SetMarkerStyle(26);   
+   entry->SetMarkerStyle(3);   
    entry->SetMarkerSize(msize);   
 
    entry=leg->AddEntry("Graph3","E735 inel.","P");
-   entry->SetMarkerStyle(25);   
+   entry->SetMarkerStyle(27);   
    entry->SetMarkerSize(msize); 
 
    entry=leg->AddEntry("Graph4","CDF inel.","P");
-   entry->SetMarkerStyle(21);    
+   entry->SetMarkerStyle(25);    
    entry->SetMarkerSize(msize);    
 
    entry=leg->AddEntry("Graph5","CMS NSD","P");
