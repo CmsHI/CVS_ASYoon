@@ -81,7 +81,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
       eyl2[2]= 0;
       eyh2[2]= 0;
       eyl2[3]= 0;
-      eyh2[4]= 0;
+      eyh2[3]= 0;
 
     }
 
