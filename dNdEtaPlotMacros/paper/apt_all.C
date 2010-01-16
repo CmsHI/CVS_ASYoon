@@ -62,7 +62,7 @@ void apt_all(){
    gre->SetTitle("Graph");
 
 
-   gre->SetMarkerStyle(3);
+   gre->SetMarkerStyle(5);
    gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,201.626,0.391897);
@@ -197,7 +197,7 @@ void apt_all(){
    entry->SetMarkerStyle(28);
    entry->SetMarkerSize(msize);
    entry=leg->AddEntry("Graph2","UA1 inel.","P");
-   entry->SetMarkerStyle(3);   
+   entry->SetMarkerStyle(5);   
    entry->SetMarkerSize(msize);   
 
    entry=leg->AddEntry("Graph3","E735 inel.","P");
