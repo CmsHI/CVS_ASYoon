@@ -37,7 +37,7 @@ void invariant_all() {
    hDist->GetYaxis()->SetLabelOffset(0.01);
    hDist->GetYaxis()->SetLabelSize(0.045);
    hDist->GetYaxis()->SetTitleSize(0.055);
-   hDist->GetYaxis()->SetTitleOffset(1.2);
+   hDist->GetYaxis()->SetTitleOffset(1.5);
    hDist->GetYaxis()->SetTitleFont(42);
    hDist->GetZaxis()->SetLabelFont(42);
    hDist->GetZaxis()->SetLabelSize(0.045);
