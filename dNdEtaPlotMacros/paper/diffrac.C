@@ -19,7 +19,13 @@ void diffrac(){
 	
 	hFrame2->GetXaxis()->SetNdivisions(312);
 	
-	TLegend *leg = new TLegend(0.5302419,0.6000847,0.9676935,0.8600847,NULL,"brNDC");
+	
+	TLegend *leg = new TLegend(0.61,0.67,.91,0.87,NULL,"brNDC");	
+	
+	leg->SetBorderSize(0);
+	leg->SetTextFont(62);
+	leg->SetTextSize(0.035);
+	
 	leg->SetBorderSize(0);
 	leg->SetTextFont(62);
 	leg->SetLineColor(1);
