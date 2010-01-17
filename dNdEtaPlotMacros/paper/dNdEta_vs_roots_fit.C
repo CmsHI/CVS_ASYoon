@@ -83,10 +83,11 @@ void dNdEta_vs_roots_fit() {
   gre->Draw("p");
 
   // fit
-   TF1 *func = new TF1("func","[0]+[1]*log(x^2)+[2]*(log(x^2))^2",18,100000);
+   //TF1 *func = new TF1("func","[0]+[1]*log(x^2)+[2]*(log(x^2))^2",18,100000);
+   TF1 *func = new TF1("func","[0]+[1]*exp(sqrt(log(x^2)))",18,100000);
    func->SetLineColor(1);
    func->SetLineWidth(1.5);
-   func->SetParameters(2,-0.2,0.02);
+   //func->SetParameters(2,-0.2,0.02);
    gre->Fit("func","wR","",18,3000);
    func->Draw("same");
    func->Print();

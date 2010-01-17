@@ -102,13 +102,13 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 //  TF1 *fitUA5 = new TF1("fitUA5","2.5-0.5*log(x)+0.023*4*log(x)*log(x)",40,8000);
 //  TF1 *fitUA5 = new TF1("fitUA5","2.26-2*0.207*log(x)+0.0215*4*log(x)*log(x)",40,8000);
   // fit with CMS 900, 2360 GeV Points
-  TF1 *fitUA5 = new TF1("fitUA5","2.371-0.201*log(x^2)+0.0209*(log(x^2))^2",40,8000);
+  //TF1 *fitUA5 = new TF1("fitUA5","2.371-0.201*log(x^2)+0.0209*(log(x^2))^2",40,8000);
+  TF1 *fitUA5 = new TF1("funcTh","0.929+0.0644*exp(sqrt(log(x^2)))",18,100000);
   fitUA5->SetLineColor(kBlue);
   if(bw)fitUA5->SetLineColor(kBlack);
   fitUA5->SetLineWidth(2);
   fitUA5->SetLineStyle(2);    
-  //fitUA5->Draw("same");
-  fitUA5->Draw("same");  
+  fitUA5->Draw("same");
 
   // fit to UA5 and CMS inelastic points
   TF1 *fitUA5inel = new TF1("fitUA5inel","1.54-2*0.096*log(x)+0.0155*4*log(x)*log(x)",40,8000);
@@ -435,7 +435,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     leg2->AddEntry(fitISR,"0.161 + 0.201 ln(s)","l");
     //leg2->AddEntry(fitUA5,"2.26 - 0.207 ln(s) + 0.0215 ln^{2}(s)","l");
     // fit with CMS 900, 2360 GeV Points
-    leg2->AddEntry(fitUA5,"2.371 - 0.201 ln(s) + 0.0209 ln^{2}(s)","l");
+    //leg2->AddEntry(fitUA5,"2.371 - 0.201 ln(s) + 0.0209 ln^{2}(s)","l");
+    leg2->AddEntry(fitUA5,"0.929 + 0.0644 exp(#sqrt{ln(s)})","l");
     leg2->AddEntry(fitUA5inel,"1.54 - 0.096 ln(s) + 0.0155 ln^{2}(s)","l");
     leg2->SetTextSize(0.03);
     leg2->Draw();
