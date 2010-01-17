@@ -45,12 +45,13 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->SetMinimum(0);
    hMeasuredFinal3->SetMaximum(6.0);
 
-   
+
    hMeasuredFinal3->SetBinContent(2,3.65413);  // -2.4 to -2.0    
    hMeasuredFinal3->SetBinContent(3,3.744095779); //-2 to -1.5 
    hMeasuredFinal3->SetBinContent(4,3.726157315);        // -1.5 to -1.0 
    hMeasuredFinal3->SetBinContent(5,3.6087225); // -1.0 to -0.5 
    hMeasuredFinal3->SetBinContent(6,3.489931761);        // -0.5 to 0
+
 
    /*
    hMeasuredFinal3->SetBinContent(2,3.6541);  // -2.4 to -2.0 
@@ -99,7 +100,8 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    TH1D * hMeasuredFinal4 = (TH1D*)hMeasuredFinal3->Clone("hMeasuredFinal4");
    //   double sysError = 0.0603;
    //double sysError = 0.035;
-   double sysError = 0.036;
+   double sysError = 0.037;
+   
 
    TGraph *gErrorBand = GetErrorBand((TH1F*)hMeasuredFinal4,sysError,sysError,0.25); 
    gErrorBand->Draw("f");
