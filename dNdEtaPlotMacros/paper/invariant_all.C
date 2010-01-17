@@ -14,7 +14,10 @@ void invariant_all() {
 	int doLog=1;
 
    TH1D *hDist = new TH1D("hDist","hDist",20,0,6);
-   hDist->SetMinimum(1e-06);
+
+   hDist->GetXaxis()->SetRange(1,12);
+
+   hDist->SetMinimum(1e-05);
    hDist->SetMaximum(50);
    hDist->SetFillColor(1);
    hDist->SetFillStyle(0);
