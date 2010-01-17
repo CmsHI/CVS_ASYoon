@@ -160,7 +160,7 @@ void apt_all(){
    */
    
    //Now real measurement
-   Float_t cmsSysError = 0.025;
+   Float_t cmsSysError = 0.028;
    gre->SetPoint(0,900,0.46);
    gre->SetPointError(0,0,0.46*cmsSysError);
    gre->SetPoint(1,2360,0.51);
@@ -179,7 +179,8 @@ void apt_all(){
    //   gre05->Draw("pzsame");
    
    // Fit function
-   TF1 *func = new TF1("func","0.426-0.0198*log(x^2)+0.00156*log(x^2)^2",18,100000);
+   //TF1 *func = new TF1("func","0.426-0.0198*log(x^2)+0.00156*log(x^2)^2",18,100000);
+   TF1 *func = new TF1("func","0.430-0.0207*log(x^2)+0.00161*log(x^2)^2",18,100000);  
    func->SetLineColor(1);
    func->SetLineWidth(1.5);
    func->Draw("same");
@@ -230,7 +231,9 @@ void apt_all(){
 
    //   TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.015 #times ln(s) + 0.001325 #times ln^{2}(s)","l");
    //TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.015 ln(s) + 0.001325 ln^{2}(s)","l");
-   TLegendEntry *entry=leg2->AddEntry("func","0.426 - 0.0198 ln(s) + 0.00156 ln^{2}(s)","l");
+   //TLegendEntry *entry=leg2->AddEntry("func","0.426 - 0.0198 ln(s) + 0.00156 ln^{2}(s)","l");
+   TLegendEntry *entry=leg2->AddEntry("func","0.430 - 0.0207 ln(s) + 0.00161 ln^{2}(s)","l");
+
 
    entry->SetTextSize(0.03);
    entry->SetMarkerSize(0);
