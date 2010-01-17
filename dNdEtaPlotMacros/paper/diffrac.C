@@ -7,7 +7,7 @@ void diffrac(){
 	
 	TCanvas *cEvtSel = new TCanvas("cEvtSel", "EvtSel",550,600);
 	
-	TH1 *hFrame2 = new TH2D("hFrame2","",1,-0.5,30.5,1,0,0.1);
+	TH1 *hFrame2 = new TH2D("hFrame2","",1,-0.5,30.5,1,0,0.07);
 	hFrame2->SetDirectory(0);
 	hFrame2->SetStats(0);
 	hFrame2->GetXaxis()->SetTitle("Charged-particle multiplicity");
@@ -19,36 +19,39 @@ void diffrac(){
 	
 	hFrame2->GetXaxis()->SetNdivisions(312);
 	
-	TLegend *leg = new TLegend(0.5302419,0.6000847,0.9676935,0.8600847,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.61,0.67,.91,0.87,NULL,"brNDC");	
+
 	leg->SetBorderSize(0);
 	leg->SetTextFont(62);
+	leg->SetTextSize(0.035);
+
 	leg->SetLineColor(1);
 	leg->SetLineStyle(1);
 	leg->SetLineWidth(2);
 	leg->SetFillColor(19);
 	leg->SetFillStyle(0);
-	TLegendEntry *entry=leg->AddEntry("hNDofNpix","Pythia 0.9TeV","l");
+	TLegendEntry *entry=leg->AddEntry("hNDofNpix","Pythia 0.9 TeV","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(2);
 	entry->SetMarkerColor(1);
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1);
-	entry=leg->AddEntry("hNDofNpix","Pythia 2.36TeV ","l");
+	entry=leg->AddEntry("hNDofNpix","Pythia 2.36 TeV ","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(2);
 	entry->SetLineWidth(2);
 	entry->SetMarkerColor(1);
 	entry->SetMarkerStyle(24);
 	entry->SetMarkerSize(1);
-	entry=leg->AddEntry("hNDofNpix","PhoJet 0.9TeV","p");
+	entry=leg->AddEntry("hNDofNpix","PhoJet 0.9 TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
 	entry->SetMarkerColor(1);
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1.2);
-	entry=leg->AddEntry("hNDofNpix","PhoJet 2.36TeV","p");
+	entry=leg->AddEntry("hNDofNpix","PhoJet 2.36 TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);

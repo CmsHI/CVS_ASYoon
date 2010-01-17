@@ -2304,16 +2304,18 @@ void invariant_all() {
    
    gre->Draw("zp");
    
-    TLegend *leg = new TLegend(0.28,0.2,0.61,0.35,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.61,0.72,.91,0.87,NULL,"brNDC");
 	
 	leg->SetBorderSize(0);
 	leg->SetTextFont(62);
+	leg->SetTextSize(0.035);
+
 	leg->SetLineColor(1);
 	leg->SetLineStyle(1);
 	leg->SetLineWidth(1);
 	leg->SetFillColor(0);
 	leg->SetFillStyle(0);
-	TLegendEntry *entry=leg->AddEntry("Graph","Data 0.9TeV","P");
+	TLegendEntry *entry=leg->AddEntry("Graph","Data 0.9 TeV","P");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
@@ -2323,7 +2325,7 @@ void invariant_all() {
 
 //	leg->SetMarkerStyle(24);
 	
-TLegendEntry* entry2=leg->AddEntry("","Data 2.36TeV","P");
+TLegendEntry* entry2=leg->AddEntry("","Data 2.36 TeV","P");
 	entry2->SetLineColor(1);
 	entry2->SetLineStyle(0);
 	entry2->SetLineWidth(1);
@@ -2338,9 +2340,8 @@ TLegendEntry* entry2=leg->AddEntry("","Data 2.36TeV","P");
 //	entry->SetMarkerStyle(21);
 	entry->SetMarkerSize(marker);
 	leg->Draw();
-	MyCanvas->Modified();
-	MyCanvas->cd();
-	MyCanvas->SetSelected(MyCanvas);
+
+	
 	MyCanvas->SetLogy();
 	
 	printFinalCanvases(MyCanvas,"invariant_all",doLog);
