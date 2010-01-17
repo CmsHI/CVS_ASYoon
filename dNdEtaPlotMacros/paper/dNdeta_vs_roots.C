@@ -237,7 +237,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t x11[NCMS] =  { 900, 2360 }; 
   //Double_t y11[2] =  {  3.3, 3.3 };  // guesstimate!
   Double_t y11[NCMS] =  {  3.4984, 4.46 };
-  Double_t  cmsSysErr = (y11[0]+y11[1])/2. *0.035;
+  Double_t  cmsSysErr = (y11[0]+y11[1])/2. *0.036;
   /*
   Double_t exl11[NCMS]= { 0. };
   Double_t exh11[NCMS]= { 0. };
@@ -435,8 +435,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     leg2->AddEntry(fitISR,"0.161 + 0.201 ln(s)","l");
     //leg2->AddEntry(fitUA5,"2.26 - 0.207 ln(s) + 0.0215 ln^{2}(s)","l");
     // fit with CMS 900, 2360 GeV Points
-    //leg2->AddEntry(fitUA5,"2.371 - 0.201 ln(s) + 0.0209 ln^{2}(s)","l");
-    leg2->AddEntry(fitUA5,"0.929 + 0.0644 exp(#sqrt{ln(s)})","l");
+    leg2->AddEntry(fitUA5,"2.371 - 0.201 ln(s) + 0.0209 ln^{2}(s)","l");
+    //leg2->AddEntry(fitUA5,"0.929 + 0.0644 exp(#sqrt{ln(s)})","l");
     leg2->AddEntry(fitUA5inel,"1.54 - 0.096 ln(s) + 0.0155 ln^{2}(s)","l");
     leg2->SetTextSize(0.03);
     leg2->Draw();
