@@ -160,10 +160,11 @@ void apt_all(){
    */
    
    //Now real measurement
+   Float_t cmsSysError = 0.025;
    gre->SetPoint(0,900,0.46);
-   gre->SetPointError(0,0,0.02);
+   gre->SetPointError(0,0,0.46*cmsSysError);
    gre->SetPoint(1,2360,0.51);
-   gre->SetPointError(1,0,0.02);
+   gre->SetPointError(1,0,0.51*cmsSysError);
 
    
    TH1F *Graph5 = new TH1F("Graph5","Graph",100,899.9,901.1);
