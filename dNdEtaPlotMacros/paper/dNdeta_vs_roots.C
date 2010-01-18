@@ -237,7 +237,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t x11[NCMS] =  { 900, 2360 }; 
   //Double_t y11[2] =  {  3.3, 3.3 };  // guesstimate!
   Double_t y11[NCMS] =  {  3.4984, 4.46 };
-  Double_t  cmsSysErr = (y11[0]+y11[1])/2. *0.036;
+  Double_t  cmsSysErr = (y11[0]+y11[1])/2. *0.037;
   /*
   Double_t exl11[NCMS]= { 0. };
   Double_t exh11[NCMS]= { 0. };
@@ -247,8 +247,12 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   // for now we don't show sys error for everyone
   Double_t exl11[NCMS]= { 0.,0 };
   Double_t exh11[NCMS]= { 0.,0 };
-  Double_t eyl11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
-  Double_t eyh11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
+  //Double_t eyl11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
+  //Double_t eyh11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
+  Double_t eyl11[NCMS]= { 0.5*0.037*y11[0] , 0.5*0.037*y11[1] };
+  Double_t eyh11[NCMS]= { 0.5*0.037*y11[0] , 0.5*0.037*y11[1] };
+
+  /*
   if ( ErrorFlag == false)
     {
       eyl11[0]= 0;
@@ -256,7 +260,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
       eyl11[1]= 0;
       eyh11[1]= 0;
     }
-
+  */
 
   TGraphAsymmErrors *cmsnsd=new TGraphAsymmErrors(NCMS,x11,y11,exl11,exh11,eyl11,eyh11);
   cmsnsd->SetMarkerColor(kRed);
@@ -272,6 +276,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   ua5nsd->Draw("PZsame");
   cmsnsd->Draw("PEsame");
 
+  /*
   TGraphAsymmErrors * cmsnsdSysError = cmsnsd->Clone();
   cmsnsdSysError->SetPoint(0,440,4.05);
   cmsnsdSysError->SetPoint(1,1,3.71);
@@ -286,7 +291,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   tex11->SetLineWidth(2);
   //tex11->SetNDC();
   tex11->Draw();
-
+  */
   
   // ---- ALICE INEL ------
   Double_t x12[1] =  {  900};
