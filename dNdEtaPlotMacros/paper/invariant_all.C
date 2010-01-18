@@ -9,6 +9,7 @@ void invariant_all() {
 	gStyle->SetErrorX(0);
 	
 	Float_t marker = 1.4;
+	Bool_t  doTsallis = false;
 	
 	TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
 	int doLog=1;
@@ -2335,7 +2336,7 @@ TLegendEntry* entry2=leg->AddEntry("","Data 2.36 TeV","P");
 	entry2->SetMarkerColor(1);
 	entry2->SetMarkerStyle(kOpenCircle);
 	entry2->SetMarkerSize(marker);
-	entry=leg->AddEntry("","Tsallis fit","L");
+	if(doTsallis) entry=leg->AddEntry("","Tsallis fit","L");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
