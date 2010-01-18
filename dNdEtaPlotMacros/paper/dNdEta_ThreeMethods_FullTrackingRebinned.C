@@ -458,7 +458,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    leg->SetFillStyle(0);
    leg->SetTextSize(0.03); 
    leg->SetHeader("      2.36 TeV");
-   leg->AddEntry(corr_result_all236,"Hit counting","P");
+   leg->AddEntry(corr_result_all236,"Cluster counting","P");
    leg->AddEntry(hTracklet236,"Tracklet","P");
    leg->AddEntry(hMeasuredFinal2236,"Global tracking","P");
 
