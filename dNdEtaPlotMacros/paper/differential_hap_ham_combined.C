@@ -13,6 +13,7 @@ void differential_hap_ham_combined(){
 	Float_t marker = 1.1;
 	Float_t tsize = 0.035;
 	
+	bool doTsallis = false;
 	double step = 4;
 	
 	TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,720,800);
@@ -14472,9 +14473,10 @@ void differential_hap_ham_combined(){
    gre->Draw("zp");
  
 	
-	
-	
-	TLegend *leg = new TLegend(0.325,0.84,0.60,0.94,NULL,"brNDC");   
+   double ndcX = 0.2;
+   double ndcY = 0.9;
+		
+	TLegend *leg = new TLegend(0.325,0.88,0.60,0.94,NULL,"brNDC");   
 	leg->SetBorderSize(0);
 	leg->SetTextFont(62);
 	leg->SetLineColor(1);
@@ -14483,30 +14485,26 @@ void differential_hap_ham_combined(){
 	leg->SetFillColor(0);
 	leg->SetFillStyle(0);
 	leg->SetMargin(0.37);
-	leg->SetTextSize(0.037);
+	leg->SetTextSize(tsize);
 	leg->SetMargin(0.28);
-	
 	
 	TLegendEntry *entry=leg->AddEntry("Graph54","Data 2.36 TeV","P");
 	entry->SetMarkerColor(1.0);
 	entry->SetMarkerStyle(24);
 	entry->SetMarkerSize(1.3);
-	
+
+	if(doTsallis){	
 	entry=leg->AddEntry("Graph53","Tsallis fit","L");
 	entry->SetLineWidth(2);
-	
-	
-	
+	}
+		
 	leg->Draw();
 	TLatex * tex;
-	
-	double ndcX = 0.2;
-	double ndcY = 0.9;
-	
+		
 	const char* name = "differential_hap_ham_combined";
 	
     tex = new TLatex(0.75,ndcY,"CMS");
-    tex->SetTextSize(0.04);
+    tex->SetTextSize(tsize);
     tex->SetLineWidth(2);
     tex->SetNDC();
     tex->Draw();
