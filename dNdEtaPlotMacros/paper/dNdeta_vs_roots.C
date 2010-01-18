@@ -249,8 +249,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t exh11[NCMS]= { 0.,0 };
   //Double_t eyl11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
   //Double_t eyh11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
-  Double_t eyl11[NCMS]= { 0.5*0.037*y11[0] , 0.5*0.037*y11[1] };
-  Double_t eyh11[NCMS]= { 0.5*0.037*y11[0] , 0.5*0.037*y11[1] };
+  Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
+  Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
 
   /*
   if ( ErrorFlag == false)
