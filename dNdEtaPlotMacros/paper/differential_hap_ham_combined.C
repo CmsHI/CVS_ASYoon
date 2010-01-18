@@ -7,7 +7,7 @@ void differential_hap_ham_combined(){
 	gROOT->Reset();
 	gROOT->ProcessLine(".x rootlogon.C");
 	
-	gStyle->SetPadRightMargin(0.13);
+	gStyle->SetPadRightMargin(0.15);
 	gStyle->SetMarkerStyle(24);
 	
 	Float_t marker = 1.1;
@@ -15,7 +15,7 @@ void differential_hap_ham_combined(){
 	
 	double step = 4;
 	
-	TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
+	TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,720,800);
 	
 	TH1D *hDist = new TH1D("hDist","hDist",20,0,2);
 	hDist->SetMinimum(0);
@@ -14505,7 +14505,7 @@ void differential_hap_ham_combined(){
 	
 	const char* name = "differential_hap_ham_combined";
 	
-    tex = new TLatex(0.77,ndcY,"CMS");
+    tex = new TLatex(0.75,ndcY,"CMS");
     tex->SetTextSize(0.04);
     tex->SetLineWidth(2);
     tex->SetNDC();
