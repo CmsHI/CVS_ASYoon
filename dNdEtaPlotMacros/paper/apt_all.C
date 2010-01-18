@@ -27,7 +27,9 @@ void apt_all(){
    hDist->Draw("");
    
 
-   // ============================= ISR?
+   // ============================= ISR
+   // OK, from http://www.slac.stanford.edu/spires/find/hep/www?j=NUPHA,B84,269
+
    TGraphErrors *gre = new TGraphErrors(4);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
@@ -35,14 +37,14 @@ void apt_all(){
    gre->SetMarkerStyle(28);
    gre->SetMarkerSize(msize);
 
-   gre->SetPoint(0,22.1269,0.36151);
-   gre->SetPointError(0,0.00355619,0.00478821);
-   gre->SetPoint(1,31.2682,0.363904);
-   gre->SetPointError(1,0.0997339,0.00497238);
-   gre->SetPoint(2,45.2369,0.366667);
-   gre->SetPointError(2,0.144569,0.00478821);
-   gre->SetPoint(3,52.9691,0.367956);
-   gre->SetPointError(3,0.00884053,0.00497238);
+   gre->SetPoint(0,23.32,0.362);// plab = 289
+   gre->SetPointError(0,0,0.004);  // errors are not verified! 
+   gre->SetPoint(1,30.59,0.364);// plab = 498
+   gre->SetPointError(1,0,0.00497238);
+   gre->SetPoint(2,44.61,0.366); // plab = 1060
+   gre->SetPointError(2,0,0.00478821);
+   gre->SetPoint(3,53.06,0.368); // plab = 1500
+   gre->SetPointError(3,0,0.00497238);
 
    
    TH1F *Graph1 = new TH1F("Graph1","Graph",100,19.03788,56.0634);
@@ -56,29 +58,29 @@ void apt_all(){
    gre01->SetMarkerStyle(0);
    //   gre01->Draw("pzsame");
 
-   // ============================= UA1?   
+   // ============================= UA1  
+   // OK, from  http://dx.doi.org/10.1016/0550-3213(90)90493-W
+
    gre = new TGraphErrors(7);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
-
    gre->SetMarkerStyle(5);
    gre->SetMarkerSize(msize);
-
-   gre->SetPoint(0,201.626,0.391897);
-   gre->SetPointError(0,0.0211879,0.00313076);
-   gre->SetPoint(1,261.197,0.403867);
-   gre->SetPointError(1,0.912236,0.00405157);
-   gre->SetPoint(2,381.723,0.407919);
-   gre->SetPointError(2,0.0519114,0.00405157);
-   gre->SetPoint(3,501.169,0.418785);
-   gre->SetPointError(3,1.61094,0.00423573);
-   gre->SetPoint(4,623.515,0.426519);
-   gre->SetPointError(4,0.096356,0.00460405);
-   gre->SetPoint(5,796.869,0.434991);
-   gre->SetPointError(5,2.57127,0.0038674);
-   gre->SetPoint(6,902.622,0.447698);
-   gre->SetPointError(6,0.0669543,0.00220994);
+   gre->SetPoint(0,200,0.392);
+   gre->SetPointError(0,0,0.003);
+   gre->SetPoint(1,260,0.404);
+   gre->SetPointError(1,0,0.004);
+   gre->SetPoint(2,380,0.408);
+   gre->SetPointError(2,0,0.004);
+   gre->SetPoint(3,500,0.419);
+   gre->SetPointError(3,0,0.004);
+   gre->SetPoint(4,620,0.426);
+   gre->SetPointError(4,0,0.004);
+   gre->SetPoint(5,790,0.435);
+   gre->SetPointError(5,0,0.004);
+   gre->SetPoint(6,900,0.447);
+   gre->SetPointError(6,0,0.003);
    
    TH1F *Graph2 = new TH1F("Graph2","Graph",100,131.4964,972.7974);
    Graph2->SetMinimum(0.3826521);
@@ -92,22 +94,22 @@ void apt_all(){
    //   gre02->Draw("pzsame");
 
    // ============================= E735?
+   // OK, from https://twiki.cern.ch/twiki/pub/CMS/DNdEtaBib/e735numbers.pdf
    gre = new TGraphErrors(4);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
    gre->SetMarkerStyle(27);
    gre->SetMarkerSize(msize);
-      
-   gre->SetPoint(0,300.629,0.392818);
-   gre->SetPointError(0,0.908721,0.00994475);
-   gre->SetPoint(1,543.419,0.430018);
-   gre->SetPointError(1,2.00539,0.00994475);
-   gre->SetPoint(2,905.668,0.447882);
-   gre->SetPointError(2,3.33661,0.00976059);
-   gre->SetPoint(3,1809.47,0.467772);
-   gre->SetPointError(3,6.66633,0.00976059);
-   
+   gre->SetPoint(0,300,0.393);
+   gre->SetPointError(0,0,0.01);
+   gre->SetPoint(1,540,0.430);
+   gre->SetPointError(1,0,0.01);
+   gre->SetPoint(2,900,0.448);
+   gre->SetPointError(2,0,0.01);
+   gre->SetPoint(3,1800,0.468);
+   gre->SetPointError(3,0,0.01);
+
    TH1F *Graph3 = new TH1F("Graph3","Graph",100,148.0787,1967.778);
    Graph3->SetMinimum(0.3734073);
    Graph3->SetMaximum(0.4869985);
@@ -121,6 +123,8 @@ void apt_all(){
    //   gre03->Draw("pzsame");
    
    // ============================= CDF
+   // OK, from http://www.slac.stanford.edu/spires/find/hep/www?j=PRLTA,61,1819
+
    gre = new TGraphErrors(2);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
@@ -128,10 +132,10 @@ void apt_all(){
    gre->SetMarkerStyle(25);
    gre->SetMarkerSize(msize);
 
-   gre->SetPoint(0,636.31,0.431676);
-   gre->SetPointError(0,0.0825999,0.0038674);
-   gre->SetPoint(1,1817.2,0.495028);
-   gre->SetPointError(1,0.864938,0.0141805);
+   gre->SetPoint(0,630,0.432);
+   gre->SetPointError(0,0,0.004);
+   gre->SetPoint(1,1800,0.495);
+   gre->SetPointError(1,0,0.014);
    
    TH1F *Graph4 = new TH1F("Graph4","Graph",100,518.0436,1936.249);
    Graph4->SetMinimum(0.4196686);
@@ -242,4 +246,7 @@ void apt_all(){
    printFinalCanvases(MyCanvas,"apt_all");
 
 }
+
+
+
 
