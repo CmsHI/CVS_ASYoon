@@ -155,33 +155,34 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    // ALICE data points! 
    /*
-     -1.4    3.875   0.458
-     -1.0    3.867   0.285
-     -0.6    3.469   0.234 
-     -0.2    3.408   0.234 
-      0.2     3.624   0.234 
-      0.6     3.910   0.242
-      1.0     3.590   0.251 
-      1.4     3.590   0.329
+     ALICE, NSD:
+     -1.400000: 3.880678  +- 0.448263
+     -1.000000: 3.863622  +- 0.279495
+     -0.600000: 3.466114  +- 0.235660
+     -0.200000: 3.408768  +- 0.233457
+     0.200000: 3.619309  +- 0.241938
+     0.600000: 3.905048  +- 0.251426
+     1.000000: 3.590869  +- 0.249225
+     1.400000: 3.592486  +- 0.320071
    */
 
-   hEta_ALICE_NSD->SetBinContent(1,3.875);
-   hEta_ALICE_NSD->SetBinContent(2,3.867);
-   hEta_ALICE_NSD->SetBinContent(3,3.469);
-   hEta_ALICE_NSD->SetBinContent(4,3.408);
-   hEta_ALICE_NSD->SetBinContent(5,3.624);
-   hEta_ALICE_NSD->SetBinContent(6,3.910);
-   hEta_ALICE_NSD->SetBinContent(7,3.590);
-   hEta_ALICE_NSD->SetBinContent(8,3.590);
+   hEta_ALICE_NSD->SetBinContent(1,3.880678);
+   hEta_ALICE_NSD->SetBinContent(2,3.863622);
+   hEta_ALICE_NSD->SetBinContent(3,3.466114);
+   hEta_ALICE_NSD->SetBinContent(4,3.408768);
+   hEta_ALICE_NSD->SetBinContent(5,3.619309);
+   hEta_ALICE_NSD->SetBinContent(6,3.905048);
+   hEta_ALICE_NSD->SetBinContent(7,3.590869);
+   hEta_ALICE_NSD->SetBinContent(8,3.592486);
 
-   hEta_ALICE_NSD->SetBinError(1,0.458);
-   hEta_ALICE_NSD->SetBinError(2,0.285);
-   hEta_ALICE_NSD->SetBinError(3,0.234);
-   hEta_ALICE_NSD->SetBinError(4,0.234);
-   hEta_ALICE_NSD->SetBinError(5,0.234);
-   hEta_ALICE_NSD->SetBinError(6,0.242);
-   hEta_ALICE_NSD->SetBinError(7,0.251);
-   hEta_ALICE_NSD->SetBinError(8,0.329);
+   hEta_ALICE_NSD->SetBinError(1,0.448263);
+   hEta_ALICE_NSD->SetBinError(2,0.279495);
+   hEta_ALICE_NSD->SetBinError(3,0.235660);
+   hEta_ALICE_NSD->SetBinError(4,0.233457);
+   hEta_ALICE_NSD->SetBinError(5,0.241938);
+   hEta_ALICE_NSD->SetBinError(6,0.251426);
+   hEta_ALICE_NSD->SetBinError(7,0.249225);
+   hEta_ALICE_NSD->SetBinError(8,0.320071);
 
 
    hEta_ALICE_NSD->SetMarkerColor(1);
