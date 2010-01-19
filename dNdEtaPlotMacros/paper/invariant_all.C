@@ -17,6 +17,7 @@ void invariant_all() {
    TH1D *hDist = new TH1D("hDist","hDist",20,0,6);
 
    hDist->GetXaxis()->SetRange(1,12);
+   hDist->GetXaxis()->SetNdivisions(510);
 
    hDist->SetMinimum(1e-05);
    hDist->SetMaximum(50);
@@ -32,7 +33,7 @@ void invariant_all() {
    hDist->GetXaxis()->SetLabelSize(0.045);
    hDist->GetXaxis()->SetTitleSize(0.055);
    hDist->GetXaxis()->SetTitleFont(42);
-   hDist->GetYaxis()->SetTitle("1/2#pi p_{T} d^{2} N_{ch}/d#eta dp_{T} [(GeV/c)^{-2}]");
+   hDist->GetYaxis()->SetTitle("1/(2#pi p_{T}) d^{2} N_{ch}/d#eta dp_{T} [(GeV/c)^{-2}]");
    hDist->GetYaxis()->CenterTitle(true);
    hDist->GetYaxis()->SetLabelFont(42);
    hDist->GetYaxis()->SetLabelOffset(0.01);
