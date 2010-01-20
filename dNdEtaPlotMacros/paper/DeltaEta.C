@@ -142,7 +142,7 @@ void DeltaEta() {
 
 
    hdeta->GetXaxis()->SetTitle("#Delta#eta");
-   hdeta->GetYaxis()->SetTitle("Fraction of events");
+   hdeta->GetYaxis()->SetTitle("Fraction of tracklets");
 
    hdeta->GetXaxis()->CenterTitle();
    hdeta->GetYaxis()->CenterTitle();
