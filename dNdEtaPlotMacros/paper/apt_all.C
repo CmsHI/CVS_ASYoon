@@ -24,6 +24,7 @@ void apt_all(){
    hDist->GetYaxis()->SetTitle("#LTp_{T}#GT [GeV/c]");
    hDist->GetXaxis()->CenterTitle();
    hDist->GetYaxis()->CenterTitle();
+   hDist->GetYaxis()->SetNdivisions(510);
    hDist->Draw("");
    
 
@@ -214,7 +215,7 @@ void apt_all(){
    entry->SetMarkerStyle(25);    
    entry->SetMarkerSize(msize);    
 
-   entry=leg->AddEntry("Graph5","CMS NSD","P");
+   entry=leg->AddEntry("Graph5","CMS NSD (|#eta|<2.4)","P");
    entry->SetMarkerStyle(20);  
    entry->SetMarkerColor(2);
    entry->SetMarkerSize(msize*0.85);  
