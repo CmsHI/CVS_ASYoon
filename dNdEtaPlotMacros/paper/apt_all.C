@@ -66,7 +66,7 @@ void apt_all(){
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
-   gre->SetMarkerStyle(5);
+   gre->SetMarkerStyle(3);
    gre->SetMarkerSize(msize);
    gre->SetPoint(0,200,0.392);
    gre->SetPointError(0,0,0.003);
@@ -100,7 +100,7 @@ void apt_all(){
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
-   gre->SetMarkerStyle(27);
+   gre->SetMarkerStyle(22);
    gre->SetMarkerSize(msize);
    gre->SetPoint(0,300,0.393);
    gre->SetPointError(0,0,0.01);
@@ -130,7 +130,7 @@ void apt_all(){
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
-   gre->SetMarkerStyle(25);
+   gre->SetMarkerStyle(21);
    gre->SetMarkerSize(msize);
 
    gre->SetPoint(0,630,0.432);
@@ -205,15 +205,15 @@ void apt_all(){
    entry->SetMarkerStyle(28);
    entry->SetMarkerSize(msize);
    entry=leg->AddEntry("Graph2","UA1 NSD","P");
-   entry->SetMarkerStyle(5);   
+   entry->SetMarkerStyle(3);   
    entry->SetMarkerSize(msize);   
 
    entry=leg->AddEntry("Graph3","E735 NSD","P");
-   entry->SetMarkerStyle(27);   
+   entry->SetMarkerStyle(22);   
    entry->SetMarkerSize(msize); 
 
    entry=leg->AddEntry("Graph4","CDF NSD","P");
-   entry->SetMarkerStyle(25);    
+   entry->SetMarkerStyle(21);    
    entry->SetMarkerSize(msize);    
 
    entry=leg->AddEntry("Graph5","CMS NSD (|#eta|<2.4)","P");
