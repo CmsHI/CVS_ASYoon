@@ -84,8 +84,8 @@ void apt_all_fit(){
    Float_t cmsSysError = 0.028;
    gre->SetPoint(++ip,900,0.46);
    gre->SetPointError(ip,0,0.46*cmsSysError);
-   gre->SetPoint(++ip,2360,0.51);
-   gre->SetPointError(ip,0,0.46*cmsSysError);
+   gre->SetPoint(++ip,2360,0.50);
+   gre->SetPointError(ip,0,0.50*cmsSysError);
 
    // Fit function
    //TF1 *func = new TF1("func","0.40-0.03*log(x)+0.0053*log(x)^2",18,100000);

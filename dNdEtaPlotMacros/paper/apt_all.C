@@ -168,8 +168,8 @@ void apt_all(){
    Float_t cmsSysError = 0.028;
    gre->SetPoint(0,900,0.46);
    gre->SetPointError(0,0,0.46*cmsSysError);
-   gre->SetPoint(1,2360,0.51);
-   gre->SetPointError(1,0,0.51*cmsSysError);
+   gre->SetPoint(1,2360,0.50);
+   gre->SetPointError(1,0,0.50*cmsSysError);
 
    
    TH1F *Graph5 = new TH1F("Graph5","Graph",100,899.9,901.1);
@@ -185,7 +185,8 @@ void apt_all(){
    
    // Fit function
    //TF1 *func = new TF1("func","0.426-0.0198*log(x^2)+0.00156*log(x^2)^2",18,100000);
-   TF1 *func = new TF1("func","0.430-0.0207*log(x^2)+0.00161*log(x^2)^2",18,100000);  
+   //TF1 *func = new TF1("func","0.430-0.0207*log(x^2)+0.00161*log(x^2)^2",18,100000);  
+   TF1 *func = new TF1("func","0.425-0.0197*log(x^2)+0.00156*log(x^2)^2",18,100000);  
    func->SetLineColor(1);
    func->SetLineWidth(1.5);
    func->Draw("same");
@@ -203,15 +204,15 @@ void apt_all(){
    TLegendEntry *entry=leg->AddEntry("Graph1","ISR inel.","P");
    entry->SetMarkerStyle(28);
    entry->SetMarkerSize(msize);
-   entry=leg->AddEntry("Graph2","UA1 inel.","P");
+   entry=leg->AddEntry("Graph2","UA1 NSD","P");
    entry->SetMarkerStyle(5);   
    entry->SetMarkerSize(msize);   
 
-   entry=leg->AddEntry("Graph3","E735 inel.","P");
+   entry=leg->AddEntry("Graph3","E735 NSD","P");
    entry->SetMarkerStyle(27);   
    entry->SetMarkerSize(msize); 
 
-   entry=leg->AddEntry("Graph4","CDF inel.","P");
+   entry=leg->AddEntry("Graph4","CDF NSD","P");
    entry->SetMarkerStyle(25);    
    entry->SetMarkerSize(msize);    
 
@@ -236,8 +237,8 @@ void apt_all(){
 
    //   TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.015 #times ln(s) + 0.001325 #times ln^{2}(s)","l");
    //TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.015 ln(s) + 0.001325 ln^{2}(s)","l");
-   //TLegendEntry *entry=leg2->AddEntry("func","0.426 - 0.0198 ln(s) + 0.00156 ln^{2}(s)","l");
-   TLegendEntry *entry=leg2->AddEntry("func","0.430 - 0.0207 ln(s) + 0.00161 ln^{2}(s)","l");
+   TLegendEntry *entry=leg2->AddEntry("func","0.425 - 0.0197 ln(s) + 0.00156 ln^{2}(s)","l");
+   //TLegendEntry *entry=leg2->AddEntry("func","0.430 - 0.0207 ln(s) + 0.00161 ln^{2}(s)","l");
 
 
    entry->SetTextSize(0.03);
