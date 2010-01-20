@@ -5,7 +5,7 @@ void dNdeta_vs_roots() {
   gROOT->ProcessLine(".x rootlogon.C");
 
 
-  bool ErrorFlag = false;
+  bool ErrorFlag = true;
 
   //****************************************************
   Bool_t bw = 1;       // 1: BLACK AND WHITE, 0: COLOR
@@ -66,12 +66,14 @@ void dNdeta_vs_roots() {
   fitISR->Draw("same");
 
 // ---- UA5 NSD ---
-Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
-  Double_t y2[4] =  {  1.982, 2.474, 3.047, 3.478 };
+Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
+  Double_t y2[4] =  {  1.93,  2.48,  3.05,  3.48 };
   Double_t exl2[4]= { 0, 0, 0, 0 };
   Double_t exh2[4]= { 0, 0, 0, 0 };
-  Double_t eyl2[4]= { 0.090, 0.078, 0.099, 0.090 };
-  Double_t eyh2[4]= { 0.090, 0.078, 0.099, 0.090 };
+//  Double_t eyl2[4]= { 0.135, 0.106, 0.0948, 0.139 }; // statistical + systematic
+//  Double_t eyh2[4]= { 0.135, 0.106, 0.0948, 0.139 };
+  Double_t eyl2[4]= { 0.10, 0.08, 0.09, 0.12 }; //  systematic
+  Double_t eyh2[4]= { 0.10, 0.08, 0.09, 0.12 };
   if ( ErrorFlag == false)
     {
       eyl2[0]= 0;
@@ -102,8 +104,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
 //  TF1 *fitUA5 = new TF1("fitUA5","2.5-0.5*log(x)+0.023*4*log(x)*log(x)",40,8000);
 //  TF1 *fitUA5 = new TF1("fitUA5","2.26-2*0.207*log(x)+0.0215*4*log(x)*log(x)",40,8000);
   // fit with CMS 900, 2360 GeV Points
-  //TF1 *fitUA5 = new TF1("fitUA5","2.371-0.201*log(x^2)+0.0209*(log(x^2))^2",40,8000);
-  TF1 *fitUA5 = new TF1("funcTh","0.929+0.0644*exp(sqrt(log(x^2)))",18,100000);
+  TF1 *fitUA5 = new TF1("fitUA5","2.420-0.244*log(x^2)+0.0236*(log(x^2))^2",40,8000);
+//  TF1 *fitUA5 = new TF1("funcTh","0.929+0.0644*exp(sqrt(log(x^2)))",18,100000);
   fitUA5->SetLineColor(kBlue);
   if(bw)fitUA5->SetLineColor(kBlack);
   fitUA5->SetLineWidth(2);
@@ -119,12 +121,12 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   fitUA5inel->Draw("same");
 
 // ---- UA5 INEL ---
-  Double_t x3[4] =  { 51.5,  200,     532,  886 };  // approx values
-  Double_t y3[4] =  {  1.761, 2.205, 2.785, 3.137 };
+  Double_t x3[4] =  {    53,  200,     546,  900 };  // checked from paper
+  Double_t y3[4] =  {  1.76, 2.29,    2.79, 3.14 };
   Double_t exl3[4]= { 0, 0, 0, 0 };
   Double_t exh3[4]= { 0, 0, 0, 0 };
-  Double_t eyl3[4]= { 0.090, 0.078, 0.099, 0.090 };
-  Double_t eyh3[4]= { 0.090, 0.078, 0.099, 0.090 };
+  Double_t eyl3[4]= { 0.09, 0.07, 0.08, 0.09 };
+  Double_t eyh3[4]= { 0.09, 0.07, 0.08, 0.09 };
   if ( ErrorFlag == false)
     {
       eyl3[0]= 0;
@@ -150,8 +152,10 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t y4[2] =  {  1.210, 1.414 };
   Double_t exl4[2]= { 0, 0, };
   Double_t exh4[2]= { 0, 0, };
-  Double_t eyl4[2]= { 0.050, 0.065 };
-  Double_t eyh4[2]= { 0.050, 0.065 };
+//  Double_t eyl4[2]= { 0.050, 0.065 };
+//  Double_t eyh4[2]= { 0.050, 0.065 };
+  Double_t eyl4[2]= { 0.000, 0.00 }; // error bar smaller than circle, drop it
+  Double_t eyh4[2]= { 0.000, 0.00 };
   if ( ErrorFlag == false)
     {
       eyl4[0]= 0;
@@ -173,8 +177,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t y5[2] =  {  3.18, 3.95 };
   Double_t exl5[2]= { 0, 0, };
   Double_t exh5[2]= { 0, 0, };
-  Double_t eyl5[2]= { 0.117, 0.133 };
-  Double_t eyh5[2]= { 0.117, 0.133 };
+  Double_t eyl5[2]= { 0.10, 0.13 };
+  Double_t eyh5[2]= { 0.10, 0.13 };
   if ( ErrorFlag == false)
     {
       eyl5[0]= 0;
@@ -200,7 +204,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t xua1[7] =  { 200,  260, 380, 500, 620, 790, 900 };
   Double_t yua1[7] =  {  2.65, 2.71, 2.94, 3.05, 3.15, 3.41, 3.48 };
   Double_t exlua1[7]= {0,0,0,0,0,0,0  };
-  Double_t eylua1[7]= {0.08.0.08,0.09,0.09,0.09,0.10,0.10 };
+//  Double_t eylua1[7]= {0.08.0.08,0.09,0.09,0.09,0.10,0.10 };
+  Double_t eylua1[7]= {0.29.0.30,0.32,0.34,0.35,0.38,0.38 };
 
   TGraphAsymmErrors *ua1nsd=new TGraphAsymmErrors(7,xua1,yua1,exlua1,exlua1,eylua1,eylua1);
   ua1nsd->SetName("ua1nsd");
@@ -219,11 +224,10 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t eyl10[2]= { 0.25};
   Double_t eyh10[2]= { 0.25};
   */
-  // for now we don't show sys error for everyone
   Double_t exl10[2]= {  0};
   Double_t exh10[2]= { 0};
-  Double_t eyl10[2]= { 0};
-  Double_t eyh10[2]= { 0};
+  Double_t eyl10[2]= { 0.25};
+  Double_t eyh10[2]= { 0.25};
 
   TGraphAsymmErrors *alicensd=new TGraphAsymmErrors(2,x10,y10,exl10,exh10,eyl10,eyh10);
   alicensd->SetMarkerColor(kBlack);
@@ -249,6 +253,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t exh11[NCMS]= { 0.,0 };
   //Double_t eyl11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
   //Double_t eyh11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
+  //Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
+  //Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
   Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
   Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
 
@@ -274,7 +280,11 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   if(bw)cmsnsd->SetLineColor(kRed);
   //cmsnsd->Draw("PE");
   ua5nsd->Draw("PZsame");
-  cmsnsd->Draw("PEsame");
+  cmsnsd->Draw("PZsame");
+
+  TGraph* cmsnsd04 = cmsnsd->Clone("cmsnsd04");
+  cmsnsd04->SetMarkerStyle(0);
+  cmsnsd04->Draw("PZsame");
 
   /*
   TGraphAsymmErrors * cmsnsdSysError = cmsnsd->Clone();
@@ -305,8 +315,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   // for now we don't show sys error for everyone
   Double_t exl12[1]= {  0};
   Double_t exh12[1]= { 0};
-  Double_t eyl12[1]= { 0};
-  Double_t eyh12[1]= { 0};
+  Double_t eyl12[1]= { 0.22};
+  Double_t eyh12[1]= { 0.22};
 
   TGraphAsymmErrors *aliceinel=new TGraphAsymmErrors(2,x12,y12,exl12,exh12,eyl12,eyh12);
   aliceinel->SetMarkerColor(kBlack);
@@ -320,8 +330,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   Double_t y13[1] =  {  2.32 };
   Double_t exl13[1]= { 0 };
   Double_t exh13[1]= { 0 };
-  Double_t eyl13[1]= { 0.20};
-  Double_t eyh13[1]= { 0.20};
+  Double_t eyl13[1]= { 0.15};
+  Double_t eyh13[1]= { 0.30};
   if ( ErrorFlag == false)
     {
       eyl13[0]= 0;
@@ -351,8 +361,8 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   // for now we don't show sys error for everyone
   Double_t exl14[1]= {  0};
   Double_t exh14[1]= { 0};
-  Double_t eyl14[1]= { 0};
-  Double_t eyh14[1]= { 0};
+  Double_t eyl14[1]= { 0.34};
+  Double_t eyh14[1]= { 0.34};
 
   TGraphAsymmErrors *starnsd=new TGraphAsymmErrors(2,x14,y14,exl14,exh14,eyl14,eyh14);
   starnsd->SetMarkerColor(kBlack);
@@ -361,6 +371,9 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
   starnsd->SetLineColor(kBlack);
   starnsd->Draw("PZsame");
 
+  TGraph* starnsd04 = starnsd->Clone("starnsd04");
+  starnsd04->SetMarkerStyle(0);
+  starnsd04->Draw("PZsame");
 
 
 
@@ -440,7 +453,7 @@ Double_t x2[4] =  { 51.5,  200,     532,  886 };  // approx values
     leg2->AddEntry(fitISR,"0.161 + 0.201 ln(s)","l");
     //leg2->AddEntry(fitUA5,"2.26 - 0.207 ln(s) + 0.0215 ln^{2}(s)","l");
     // fit with CMS 900, 2360 GeV Points
-    leg2->AddEntry(fitUA5,"2.371 - 0.201 ln(s) + 0.0209 ln^{2}(s)","l");
+    leg2->AddEntry(fitUA5,"2.42 - 0.244 ln(s) + 0.0236 ln^{2}(s)","l");
     //leg2->AddEntry(fitUA5,"0.929 + 0.0644 exp(#sqrt{ln(s)})","l");
     leg2->AddEntry(fitUA5inel,"1.54 - 0.096 ln(s) + 0.0155 ln^{2}(s)","l");
     leg2->SetTextSize(0.03);
