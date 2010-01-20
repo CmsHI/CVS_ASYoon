@@ -9,6 +9,7 @@ void invariant_all() {
 	gStyle->SetErrorX(0);
 	
 	Float_t marker = 1.4;
+	Float_t tsize = 0.035;
 	Bool_t  doTsallis = false;
 	
 	TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
@@ -2313,7 +2314,7 @@ void invariant_all() {
 	
 	leg->SetBorderSize(0);
 	leg->SetTextFont(62);
-	leg->SetTextSize(0.035);
+	leg->SetTextSize(tsize);
 
 	leg->SetLineColor(1);
 	leg->SetLineStyle(1);
