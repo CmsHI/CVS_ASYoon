@@ -119,7 +119,7 @@ void landau(){
    hChargeDistMC->SetLineStyle(0);
    hChargeDistMC->SetLineWidth(2);
    hChargeDistMC->GetXaxis()->SetTitle("Angle corrected cluster charge [ke] ");
-   hChargeDistMC->GetYaxis()->SetTitle("Fraction of events");
+   hChargeDistMC->GetYaxis()->SetTitle("Fraction of clusters");
    hChargeDistMC->GetXaxis()->SetNdivisions(906);
    //TGaxis tgaxis; 
    //tgaxis->SetMaxDigits(3);    
@@ -681,7 +681,7 @@ void landau(){
    hChargeDist2TeV->SetMarkerStyle(24);
    hChargeDist2TeV->Draw("Psame");
 
-	TLegend *leg = new TLegend(0.64,0.67,.94,0.87,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.61,0.67,.91,0.87,NULL,"brNDC");
 
 
    leg->SetBorderSize(0);
@@ -694,7 +694,7 @@ void landau(){
    leg->SetFillStyle(0);
 
    //TLegendEntry *entry=leg->AddEntry("hChargeDist","Data Event selection","P");
-   TLegendEntry *entry=leg->AddEntry("","Data 0.9TeV","P");
+   TLegendEntry *entry=leg->AddEntry("","Data 0.9 TeV","P");
    entry->SetLineColor(1);
    entry->SetLineStyle(1);
    entry->SetLineWidth(2);
@@ -703,7 +703,7 @@ void landau(){
    entry->SetMarkerSize(msize);
 	
 	
-	entry=leg->AddEntry("hChargeDist2TeV","Data 2.36TeV","P");
+	entry=leg->AddEntry("hChargeDist2TeV","Data 2.36 TeV","P");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(2);
@@ -712,14 +712,14 @@ void landau(){
 	entry->SetMarkerSize(msize);
 
    //entry=leg->AddEntry("hChargeDistMC","MC Event selection","L");
-   entry=leg->AddEntry("","Pythia 0.9TeV","L"); 
+   entry=leg->AddEntry("","Pythia 0.9 TeV","L"); 
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(21);
    entry->SetMarkerSize(msize);
 
-   entry=leg->AddEntry("hChargeDistMC2TeV","Pythia 2.36TeV","L");
+   entry=leg->AddEntry("hChargeDistMC2TeV","Pythia 2.36 TeV","L");
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
