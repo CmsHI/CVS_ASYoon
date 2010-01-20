@@ -2,314 +2,278 @@
 
 
 void pix_pos_neg_combined(){
-//=========Macro generated from canvas: MyCanvas/My Canvas
-//=========  (Tue Dec 15 18:00:56 2009) by ROOT version5.25/04
+	//=========Macro generated from canvas: MyCanvas/My Canvas
+	//=========  (Tue Dec 15 18:00:56 2009) by ROOT version5.25/04
+	
+	gROOT->Reset();
+	gROOT->ProcessLine(".x dndeta_rootlogon.C");
+	TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
+	
+	bool do2TeV = false;
+	double msize = 1.8;
 
-   gROOT->Reset();
-   gROOT->ProcessLine(".x dndeta_rootlogon.C");
-   TCanvas *MyCanvas = new TCanvas("c1", "c1",3,48,550,600);
+	TH1D *hDist = new TH1D("hDist","hDist",20,1.5,5.5);
+	hDist->SetMinimum(0);
+	hDist->SetMaximum(1);
+	hDist->SetFillColor(1);
+	hDist->SetFillStyle(0);
+	hDist->SetLineStyle(0);
+	hDist->SetMarkerStyle(20);
+	hDist->SetMarkerSize(1.25);
+	hDist->GetXaxis()->SetTitle("Number of pixel hits on track");
+	hDist->GetXaxis()->SetLabelFont(42);
+	hDist->GetXaxis()->SetLabelOffset(0.01);
+	hDist->GetXaxis()->SetLabelSize(0.045);
+	hDist->GetXaxis()->SetTitleSize(0.055);
+	hDist->GetXaxis()->SetTitleFont(42);
+	hDist->GetYaxis()->SetTitle("Fraction of tracks");
+	hDist->GetYaxis()->SetLabelFont(42);
+	hDist->GetYaxis()->SetLabelOffset(0.01);
+	hDist->GetYaxis()->SetLabelSize(0.045);
+	hDist->GetYaxis()->SetTitleSize(0.055);
+	hDist->GetYaxis()->SetTitleOffset(1.3);
+	hDist->GetYaxis()->SetTitleFont(42);
+	hDist->GetZaxis()->SetLabelFont(42);
+	hDist->GetZaxis()->SetLabelSize(0.045);
+	hDist->GetZaxis()->SetTitleFont(42);
+	hDist->GetXaxis()->CenterTitle();
+	hDist->GetYaxis()->CenterTitle();
+hDist->GetXaxis()->SetNdivisions(4);
 
-   bool do2TeV = false;
+	hDist->Draw("");
 
-   /*
-   TH1D *hDist = new TH1D("hDist","hDist",20,1.5,5.5); // bin size = 0.2
-   hDist->SetMinimum(0);
-   hDist->SetMaximum(0.12);
-   hDist->SetLineStyle(0);
-   hDist->GetXaxis()->SetTitle("Number of pixel hits on track");
-   hDist->GetYaxis()->SetTitle("Fraction of events");
-   hDist->Draw("");
-   */
-
-   //Postive SIM
    TGraphErrors *gre = new TGraphErrors(30);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
-   double msize = 1.8;
-   gre->SetMarkerSize(msize);
+   gre->SetFillColor(1);
 
+   Int_t ci;   // for color index setting
+   ci = TColor::GetColor("#000000");
+   gre->SetLineColor(ci);
+
+   ci = TColor::GetColor("#000000");
+   gre->SetMarkerColor(ci);
+   gre->SetMarkerStyle(20);
+   gre->SetMarkerSize(1.25);
    gre->SetPoint(0,0,0);
    gre->SetPointError(0,0.5,0);
-   gre->SetPoint(1,1,0.000489806);
+   gre->SetPoint(1,1,0.00063215);
    gre->SetPointError(1,0.5,0);
-   gre->SetPoint(2,2,0.0833864);
+   gre->SetPoint(2,2,0.0888403);
    gre->SetPointError(2,0.5,0);
-   gre->SetPoint(3,3,0.763657);
+   gre->SetPoint(3,3,0.759757);
    gre->SetPointError(3,0.5,0);
-   gre->SetPoint(4,4,0.144364);
+   gre->SetPoint(4,4,0.141622);
    gre->SetPointError(4,0.5,0);
-   gre->SetPoint(5,5,0.00787668);
+   gre->SetPoint(5,5,0.00894177);
    gre->SetPointError(5,0.5,0);
-   gre->SetPoint(6,6,0.000226256);
+   gre->SetPoint(6,6,0.000207145);
+   gre->SetPointError(6,0.5,0);
+   gre->SetPoint(7,7,0);
+   gre->SetPointError(7,0.5,0);
+   gre->SetPoint(8,8,0);
+   gre->SetPointError(8,0.5,0);
+   gre->SetPoint(9,9,0);
+   gre->SetPointError(9,0.5,0);
+   gre->SetPoint(10,10,0);
+   gre->SetPointError(10,0.5,0);
+   gre->SetPoint(11,11,0);
+   gre->SetPointError(11,0.5,0);
+   gre->SetPoint(12,12,0);
+   gre->SetPointError(12,0.5,0);
+   gre->SetPoint(13,13,0);
+   gre->SetPointError(13,0.5,0);
+   gre->SetPoint(14,14,0);
+   gre->SetPointError(14,0.5,0);
+   gre->SetPoint(15,15,0);
+   gre->SetPointError(15,0.5,0);
+   gre->SetPoint(16,16,0);
+   gre->SetPointError(16,0.5,0);
+   gre->SetPoint(17,17,0);
+   gre->SetPointError(17,0.5,0);
+   gre->SetPoint(18,18,0);
+   gre->SetPointError(18,0.5,0);
+   gre->SetPoint(19,19,0);
+   gre->SetPointError(19,0.5,0);
+   gre->SetPoint(20,20,0);
+   gre->SetPointError(20,0.5,0);
+   gre->SetPoint(21,21,0);
+   gre->SetPointError(21,0.5,0);
+   gre->SetPoint(22,22,0);
+   gre->SetPointError(22,0.5,0);
+   gre->SetPoint(23,23,0);
+   gre->SetPointError(23,0.5,0);
+   gre->SetPoint(24,24,0);
+   gre->SetPointError(24,0.5,0);
+   gre->SetPoint(25,25,0);
+   gre->SetPointError(25,0.5,0);
+   gre->SetPoint(26,26,0);
+   gre->SetPointError(26,0.5,0);
+   gre->SetPoint(27,27,0);
+   gre->SetPointError(27,0.5,0);
+   gre->SetPoint(28,28,0);
+   gre->SetPointError(28,0.5,0);
+   gre->SetPoint(29,29,0);
+   gre->SetPointError(29,0.5,0);
+//   gre->Draw("hist");
+   	Double_t *ydata = gre->GetY();
+	Double_t *yerr = gre->GetEY();
 
-   Double_t xAxis[7] = {0.5,1.5,2.5,3.5,4.5,5.5,6.5};
-   TH1F *Graph1 = new TH1F("Graph1","Graph",6,xAxis);
+	TH1D *Graph6 = new TH1D("Graph6","Graph6",6,-0.5,5.5);
+	
+	Graph6->SetLineColor(2);
+	Graph6->SetLineWidth(2);
+	
 
+	Graph6->GetXaxis()->CenterTitle();
+	Graph6->GetYaxis()->CenterTitle();
+	
+	for(Int_t i = 0; i<6; i++){
+		Graph6->SetBinContent(i+1,ydata[i]);
+		Graph6->SetBinError(i+1,yerr[i]);
+	}
+	
+//	Graph6->SetMaximum(0.15);
+	Graph6->Draw("hist same");
+	
+	
+	gre = new TGraphErrors(30);
+   gre->SetName("Graph");
+   gre->SetTitle("Graph");
+   gre->SetFillColor(1);
+   gre->SetMarkerStyle(20);
+   gre->SetMarkerSize(1.25);
+   gre->SetPoint(0,0,0);
+   gre->SetPointError(0,0,0);
+   gre->SetPoint(1,1,0.000781103);
+   gre->SetPointError(1,0,4.42213e-05);
+   gre->SetPoint(2,2,0.0897718);
+   gre->SetPointError(2,0,0.000474075);
+   gre->SetPoint(3,3,0.754393);
+   gre->SetPointError(3,0,0.00137428);
+   gre->SetPoint(4,4,0.145788);
+   gre->SetPointError(4,0,0.000604141);
+   gre->SetPoint(5,5,0.00887003);
+   gre->SetPointError(5,0,0.000149018);
+   gre->SetPoint(6,6,0.000393055);
+   gre->SetPointError(6,0,3.13692e-05);
+   gre->SetPoint(7,7,2.50354e-06);
+   gre->SetPointError(7,0,2.50354e-06);
+   gre->SetPoint(8,8,0);
+   gre->SetPointError(8,0,0);
+   gre->SetPoint(9,9,0);
+   gre->SetPointError(9,0,0);
+   gre->SetPoint(10,10,0);
+   gre->SetPointError(10,0,0);
+   gre->SetPoint(11,11,0);
+   gre->SetPointError(11,0,0);
+   gre->SetPoint(12,12,0);
+   gre->SetPointError(12,0,0);
+   gre->SetPoint(13,13,0);
+   gre->SetPointError(13,0,0);
+   gre->SetPoint(14,14,0);
+   gre->SetPointError(14,0,0);
+   gre->SetPoint(15,15,0);
+   gre->SetPointError(15,0,0);
+   gre->SetPoint(16,16,0);
+   gre->SetPointError(16,0,0);
+   gre->SetPoint(17,17,0);
+   gre->SetPointError(17,0,0);
+   gre->SetPoint(18,18,0);
+   gre->SetPointError(18,0,0);
+   gre->SetPoint(19,19,0);
+   gre->SetPointError(19,0,0);
+   gre->SetPoint(20,20,0);
+   gre->SetPointError(20,0,0);
+   gre->SetPoint(21,21,0);
+   gre->SetPointError(21,0,0);
+   gre->SetPoint(22,22,0);
+   gre->SetPointError(22,0,0);
+   gre->SetPoint(23,23,0);
+   gre->SetPointError(23,0,0);
+   gre->SetPoint(24,24,0);
+   gre->SetPointError(24,0,0);
+   gre->SetPoint(25,25,0);
+   gre->SetPointError(25,0,0);
+   gre->SetPoint(26,26,0);
+   gre->SetPointError(26,0,0);
+   gre->SetPoint(27,27,0);
+   gre->SetPointError(27,0,0);
+   gre->SetPoint(28,28,0);
+   gre->SetPointError(28,0,0);
+   gre->SetPoint(29,29,0);
+   gre->SetPointError(29,0,0);
+   
+   TH1F *Graph1 = new TH1F("Graph1","Graph",100,0,31.9);
    Graph1->SetMinimum(0);
-   Graph1->SetMaximum(0.12);
-   Graph1->GetXaxis()->SetRange(2,5);
-
-   Graph1->SetBinContent(1,0.000489806); // x = 1     
-   Graph1->SetBinContent(2,0.0833864); // x = 2 
-   Graph1->SetBinContent(3,0.763657);// x = 3 
-   Graph1->SetBinContent(4,0.144364);// x = 4 
-   Graph1->SetBinContent(5,0.00787668);// x= 5
-   Graph1->SetBinContent(6,0.000226256);// x= 6  
-   
-   Graph1->SetBinError(1,0);
-   Graph1->SetBinError(2,0);
-   Graph1->SetBinError(3,0);
-   Graph1->SetBinError(4,0);
-   Graph1->SetBinError(5,0);
-   Graph1->SetBinError(6,0);
-
-   Graph1->GetXaxis()->SetNdivisions(5);
-   
-   //Negative SIM 
-   TGraphErrors *gre = new TGraphErrors(30);
-   gre->SetName("Graph");
-   gre->SetTitle("Graph");
-
-   gre->SetPoint(0,0,0);
-   gre->SetPointError(0,0.5,0);
-   gre->SetPoint(1,1,0.00079501);
-   gre->SetPointError(1,0.5,0);
-   gre->SetPoint(2,2,0.0943157);
-   gre->SetPointError(2,0.5,0);
-   gre->SetPoint(3,3,0.755919);
-   gre->SetPointError(3,0.5,0);
-   gre->SetPoint(4,4,0.13866);
-   gre->SetPointError(4,0.5,0);
-   gre->SetPoint(5,5,0.0101007);
-   gre->SetPointError(5,0.5,0);
-   gre->SetPoint(6,6,0.000208945);
-
-   TH1F *Graph2 = new TH1F("Graph2","Graph",6,xAxis);
-
-   Graph2->SetMarkerSize(msize);
-
-
-   Graph2->SetMinimum(0);
-   Graph2->SetMaximum(0.12);
-   Graph2->GetXaxis()->SetRange(2,5);
-
-   Graph2->SetBinContent(1,0.00079501); // x = 1
-   Graph2->SetBinContent(2,0.0943157); // x = 2
-   Graph2->SetBinContent(3,0.755919);// x = 3
-   Graph2->SetBinContent(4,0.13866);// x = 4
-   Graph2->SetBinContent(5,0.0101007);// x= 5
-   Graph2->SetBinContent(6,0.000208945);// x= 6
-
-   Graph2->SetBinError(1,0);
-   Graph2->SetBinError(2,0);
-   Graph2->SetBinError(3,0);
-   Graph2->SetBinError(4,0);
-   Graph2->SetBinError(5,0);
-   Graph2->SetBinError(6,0);
-
-   /*   
-   Graph2->SetMarkerStyle(20);
-   Graph2->SetMarkerSize(2);
-   Graph2->Draw("p");
-
+   Graph1->SetMaximum(0.831344);
+   Graph1->SetDirectory(0);
+   Graph1->SetStats(0);
+   Graph1->SetFillColor(1);
+   Graph1->SetFillStyle(0);
+   Graph1->SetLineStyle(0);
    Graph1->SetMarkerStyle(20);
-   Graph1->SetMarkerSize(1);
-   Graph1->Draw("psame");
-   */
-
-   Graph1->Sumw2();
-   Graph2->Sumw2();
-
-   Graph2->Add(Graph1);
-   Graph2->Scale(1./2);
-
-   Graph2->SetLineWidth(1.0);
-   Graph2->GetXaxis()->SetTitle("Number of pixel hits on track");
-   Graph2->GetYaxis()->SetTitle("Fraction of events");
-   Graph2->GetXaxis()->CenterTitle();
-   Graph2->GetYaxis()->CenterTitle();
-   Graph2->GetXaxis()->SetNdivisions(4);
-   Graph2->GetYaxis()->SetDecimals(1);
-
-   Graph2->SetMaximum(1);
-   Graph2->Draw("hist");  
-
-   // Positive DATA
-   gre = new TGraphErrors(30);
-   gre->SetName("Graph");
-   gre->SetTitle("Graph");
-
-   gre->SetPoint(0,0,0);
-   gre->SetPointError(0,0,0);
-   gre->SetPoint(1,1,0.000801796);
-   gre->SetPointError(1,0,0.000358574);
-   gre->SetPoint(2,2,0.0845093);
-   gre->SetPointError(2,0,0.00368128);
-   gre->SetPoint(3,3,0.757216);
-   gre->SetPointError(3,0,0.0110194);
-   gre->SetPoint(4,4,0.148813);
-   gre->SetPointError(4,0,0.00488504);
-   gre->SetPoint(5,5,0.0086594);
-   gre->SetPointError(5,0,0.00117839);
+   Graph1->SetMarkerSize(1.25);
+   Graph1->GetXaxis()->SetLabelFont(42);
+   Graph1->GetXaxis()->SetLabelOffset(0.01);
+   Graph1->GetXaxis()->SetLabelSize(0.045);
+   Graph1->GetXaxis()->SetTitleSize(0.055);
+   Graph1->GetXaxis()->SetTitleFont(42);
+   Graph1->GetYaxis()->SetLabelFont(42);
+   Graph1->GetYaxis()->SetLabelOffset(0.01);
+   Graph1->GetYaxis()->SetLabelSize(0.045);
+   Graph1->GetYaxis()->SetTitleSize(0.055);
+   Graph1->GetYaxis()->SetTitleOffset(1.35);
+   Graph1->GetYaxis()->SetTitleFont(42);
+   Graph1->GetZaxis()->SetLabelFont(42);
+   Graph1->GetZaxis()->SetLabelSize(0.045);
+   Graph1->GetZaxis()->SetTitleFont(42);
+   gre->SetHistogram(Graph1);
    
-   TH1F *Graph3 = new TH1F("Graph3","Graph",6,xAxis);
-
-   Graph3->SetMinimum(0);
-   Graph3->SetMaximum(0.12);
-   Graph3->GetXaxis()->SetRange(2,5);
-
-   Graph3->SetBinContent(1,0.000801796); // x = 1
-   Graph3->SetBinContent(2,0.0845093); // x = 2
-   Graph3->SetBinContent(3,0.757216);// x = 3
-   Graph3->SetBinContent(4,0.148813);// x = 4
-   Graph3->SetBinContent(5,0.0086594);// x= 5
-   Graph3->SetBinContent(6,0);// x= 6
-   
-   Graph3->SetBinError(1,0.000358574);
-   Graph3->SetBinError(2,0.00368128);
-   Graph3->SetBinError(3,0,0.0110194);
-   Graph3->SetBinError(4,0.00488504);
-   Graph3->SetBinError(5,0.00117839);
-   Graph3->SetBinError(6,0);
-   
-
-   // Negative DATA
-   gre = new TGraphErrors(30);
-   gre->SetName("Graph");
-   gre->SetTitle("Graph");
-
-   gre->SetPoint(0,0,0);
-   gre->SetPointError(0,0,0);
-   gre->SetPoint(1,1,0.00096231);
-   gre->SetPointError(1,0,0.000392861);
-   gre->SetPoint(2,2,0.0936648);
-   gre->SetPointError(2,0,0.00387588);
-   gre->SetPoint(3,3,0.752366);
-   gre->SetPointError(3,0,0.0109849);
-   gre->SetPoint(4,4,0.142582);
-   gre->SetPointError(4,0,0.00478205);
-   gre->SetPoint(5,5,0.0102646);
-   gre->SetPointError(5,0,0.00128308);
-   gre->SetPoint(6,6,0.000160385);
-   gre->SetPointError(6,0,0.000160385);
-
-
-   TH1F *Graph4 = new TH1F("Graph4","Graph",6,xAxis);
-
-   Graph4->SetMinimum(0);
-   Graph4->SetMaximum(0.12);
-   Graph4->GetXaxis()->SetRange(2,5);
-
-   Graph4->SetMarkerColor(1);
-   Graph4->SetMarkerStyle(20);
-
-   Graph4->SetMarkerSize(msize);
-
-   Graph4->SetLineColor(1);
-
-   Graph2->SetLineColor(2);
-   Graph2->SetLineWidth(2);
-
-   Graph4->SetBinContent(1,0.00096231); // x = 1
-   Graph4->SetBinContent(2,0.0936648); // x = 2
-   Graph4->SetBinContent(3,0.752366);// x = 3
-   Graph4->SetBinContent(4,0.142582);// x = 4
-   Graph4->SetBinContent(5,0.0102646);// x= 5
-   Graph4->SetBinContent(6,0.000160385);// x= 6
-
-   Graph4->SetBinError(1,0.000392861);
-   Graph4->SetBinError(2,0.00387588);
-   Graph4->SetBinError(3,0.0109849);
-   Graph4->SetBinError(4,0.00478205);
-   Graph4->SetBinError(5,0.00128308);
-   Graph4->SetBinError(6,0.000160385);                             
-
-   Graph3->Sumw2();
-   Graph4->Sumw2();
-
-   Graph4->Add(Graph3);
-   Graph4->Scale(1./2);
-
-   TGraphErrors* g4 = new TGraphErrors(Graph4->GetNbinsX());
-
-   double shift = 0;
-
-   if(do2TeV) shift += 0.06;
-
-   for(int i = 0; i < Graph4->GetNbinsX(); ++i){
-     g4->SetPoint(i,Graph4->GetBinCenter(i+1)-shift,Graph4->GetBinContent(i+1));
-     g4->SetPointError(i,0,Graph4->GetBinError(i+1));
+//   gre->Draw("p");
+	
+	Double_t *ydata = gre->GetY();
+	Double_t *yerr = gre->GetEY();
+	
+	TH1D *Graph8 = new TH1D("Graph8","Graph",6,-0.5,5.5);//-0.5 ~ 0.5, 0.5 ~ 1.5, ...
+	Graph8->SetMarkerSize(msize);
+	Graph8->SetMarkerStyle(20);
+	Graph8->SetMarkerColor(1);
+	Graph8->SetLineColor(1);
+	for(Int_t i = 0; i<6; i++){
+		Graph8->SetBinContent(i+1,ydata[i]);
+		Graph8->SetBinError(i+1,yerr[i]);
    }
+	Graph8->Draw("pzsame");
 
-   g4->SetMarkerStyle(20);
-   g4->SetMarkerSize(msize);
-   g4->Draw("p");
-
-   //   Graph4->Draw("pzsame");
-
-   if(do2TeV){
-   // 2.36 TeV PlaceHolder
-   TH1F* Graph5 = (TH1F*)Graph4->Clone("Graph5");
-   TH1F* Graph6 = (TH1F*)Graph2->Clone("Graph6");
-
-   Graph6->SetMarkerSize(msize);
-   Graph6->SetLineStyle(2);
-   Graph6->Fill(2,0.01);
-   Graph6->Fill(3,-0.01);
-   Graph6->Fill(4,-0.02);
-   Graph6->Fill(5,0.02);
-   Graph6->Draw("hist same");
-
-   TGraphErrors* g5 = new TGraphErrors(Graph5->GetNbinsX());
-
-   for(int i = 0; i < Graph5->GetNbinsX(); ++i){
-     g5->SetPoint(i,Graph5->GetBinCenter(i+1)+shift,Graph5->GetBinContent(i+1));
-     g5->SetPointError(i,0,Graph5->GetBinError(i+1));
-   }
-
-   g5->SetMarkerStyle(24);
-   g5->SetMarkerSize(msize*0.85);
-   g5->Draw("p");
-   }
-
+	
+	
+	
+	
+	
 	TLegend *leg = new TLegend(0.61,0.77,.91,0.87,NULL,"brNDC");
 	
 	leg->SetBorderSize(0);
-   leg->SetTextFont(62);
-   leg->SetTextSize(0.038);
-   leg->SetFillColor(0);
-   leg->SetFillStyle(0);
-   leg->SetMargin(0.32);
+	leg->SetTextFont(62);
+	leg->SetTextSize(0.038);
+	leg->SetFillColor(0);
+	leg->SetFillStyle(0);
+	leg->SetMargin(0.32);
+	
+	TLegendEntry *entry=leg->AddEntry("","Data 0.9 TeV","p");
+	entry->SetLineColor(1);
+	entry->SetLineWidth(1);
+	entry->SetMarkerColor(1);
+	entry->SetMarkerStyle(20);
+	entry->SetMarkerSize(msize);
+	
+	entry=leg->AddEntry("","Pythia 0.9 TeV","l");
+	entry->SetLineWidth(2);
+	entry->SetLineColor(2);
+	leg->Draw();
 
-   TLegendEntry *entry=leg->AddEntry("","Data 0.9TeV","p");
-   entry->SetLineColor(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(1);
-   entry->SetMarkerStyle(20);
-   entry->SetMarkerSize(msize);
-
-   entry=leg->AddEntry("","Pythia 0.9TeV","l");
-   entry->SetLineWidth(2);
-   entry->SetLineColor(2);
-   leg->Draw();
-
-   if(do2TeV){
-
-   entry=leg->AddEntry("","Data 2.36TeV","p");
-   entry->SetLineColor(1);
-   entry->SetLineWidth(1);
-   entry->SetMarkerColor(1);
-   entry->SetMarkerStyle(24);
-   entry->SetMarkerSize(msize);
-
-   entry=leg->AddEntry("","Pythia 2.36TeV","l");
-   entry->SetLineWidth(2);
-   entry->SetLineColor(2);
-   entry->SetLineStyle(2);
-   leg->Draw();
-
-   }
-
-   printFinalCanvases(MyCanvas,"pixels_pos_neg");
-
+	
+	printFinalCanvases(MyCanvas,"pixels_pos_neg");
+	
+	
 }
