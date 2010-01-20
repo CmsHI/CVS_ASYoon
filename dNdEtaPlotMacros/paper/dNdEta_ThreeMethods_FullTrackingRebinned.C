@@ -158,6 +158,32 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    TH1 *hMeasuredFinal2 = new TH1D("hMeasuredFinal2","",12, xAxis6);
 
    // Hight Stat
+   hMeasuredFinal2->SetBinContent(2,3.60278);
+   hMeasuredFinal2->SetBinContent(3,3.65928);
+   hMeasuredFinal2->SetBinContent(4,3.56974);
+   hMeasuredFinal2->SetBinContent(5,3.51377);
+   hMeasuredFinal2->SetBinContent(6,3.48749);
+
+   hMeasuredFinal2->SetBinContent(7,3.47464);
+   hMeasuredFinal2->SetBinContent(8,3.51377);
+   hMeasuredFinal2->SetBinContent(9,3.56185);
+   hMeasuredFinal2->SetBinContent(10,3.64934);
+   hMeasuredFinal2->SetBinContent(11,3.60278);
+
+   hMeasuredFinal2->SetBinError(2,0.08646672);
+   hMeasuredFinal2->SetBinError(3,0.08782272);
+   hMeasuredFinal2->SetBinError(4,0.08567376);
+   hMeasuredFinal2->SetBinError(5,0.08433048);
+   hMeasuredFinal2->SetBinError(6,0.08369976);
+
+   hMeasuredFinal2->SetBinError(7,0.08339136);
+   hMeasuredFinal2->SetBinError(8,0.08433048);
+   hMeasuredFinal2->SetBinError(9,0.0854844);
+   hMeasuredFinal2->SetBinError(10,0.08758416);
+   hMeasuredFinal2->SetBinError(11,0.08646672);
+
+
+   /*
    hMeasuredFinal2->SetBinContent(2,3.65413);
    hMeasuredFinal2->SetBinContent(3,3.68883);
    hMeasuredFinal2->SetBinContent(4,3.73805);
@@ -169,7 +195,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal2->SetBinContent(9,3.7577);
    hMeasuredFinal2->SetBinContent(10,3.67975);
    hMeasuredFinal2->SetBinContent(11,3.65413);
-
+   */
    /*
    hMeasuredFinal2->SetBinContent(2,3.68115);
    hMeasuredFinal2->SetBinContent(3,3.71015);
@@ -185,6 +211,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
 
 
    // Systematic error of 3.1%  --> to 2.4%
+   /*
    hMeasuredFinal2->SetBinError(2,0.08769912);
    hMeasuredFinal2->SetBinError(3,0.08853192);
    hMeasuredFinal2->SetBinError(4,0.0897132);
@@ -195,7 +222,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal2->SetBinError(9,0.0901848);
    hMeasuredFinal2->SetBinError(10,0.088314);
    hMeasuredFinal2->SetBinError(11,0.08769912);
-
+   */
    /*
    // Systematic error of 3.1%  --> to 2.3%
    hMeasuredFinal2->SetBinError(2,0.084045);
@@ -328,6 +355,32 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    Double_t xAxis7[13] = {-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3};
    TH1 *hMeasuredFinal2236 = new TH1D("hMeasuredFinal2","",12, xAxis7);
 
+
+   hMeasuredFinal2236->SetBinContent(2,4.78296);
+   hMeasuredFinal2236->SetBinContent(3,4.73973);
+   hMeasuredFinal2236->SetBinContent(4,4.62044);
+   hMeasuredFinal2236->SetBinContent(5,4.65018);
+   hMeasuredFinal2236->SetBinContent(6,4.49968);
+
+   hMeasuredFinal2236->SetBinContent(7,4.50151);
+   hMeasuredFinal2236->SetBinContent(8,4.59691);
+   hMeasuredFinal2236->SetBinContent(9,4.6091);
+   hMeasuredFinal2236->SetBinContent(10,4.72734);
+   hMeasuredFinal2236->SetBinContent(11,4.78296);
+
+   hMeasuredFinal2236->SetBinError(2,0.11479104);
+   hMeasuredFinal2236->SetBinError(3,0.11375352);
+   hMeasuredFinal2236->SetBinError(4,0.11089056);
+   hMeasuredFinal2236->SetBinError(5,0.11160432);
+   hMeasuredFinal2236->SetBinError(6,0.10799232);
+   hMeasuredFinal2236->SetBinError(7,0.10803624);
+   hMeasuredFinal2236->SetBinError(8,0.11032584);
+   hMeasuredFinal2236->SetBinError(9,0.1106184);
+   hMeasuredFinal2236->SetBinError(10,0.11345616);
+   hMeasuredFinal2236->SetBinError(11,0.11479104);
+
+
+   /*
    hMeasuredFinal2236->SetBinContent(2,4.9689);
    hMeasuredFinal2236->SetBinContent(3,4.93581);
    hMeasuredFinal2236->SetBinContent(4,4.67197);
@@ -350,6 +403,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal2236->SetBinError(9,0.11222664);
    hMeasuredFinal2236->SetBinError(10,0.11697648);
    hMeasuredFinal2236->SetBinError(11,0.11925384);
+   */
 
    // Systematic error of 3.1% --> 2.3%
    /*

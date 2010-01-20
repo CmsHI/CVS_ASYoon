@@ -45,12 +45,19 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->SetMinimum(0);
    hMeasuredFinal3->SetMaximum(6.0);
 
+   hMeasuredFinal3->SetBinContent(2,3.60278);  // -2.4 to -2.0    
+   hMeasuredFinal3->SetBinContent(3,3.731399616); //-2 to -1.5 
+   hMeasuredFinal3->SetBinContent(4,3.618227783);        // -1.5 to -1.0 
+   hMeasuredFinal3->SetBinContent(5,3.538766473); // -1.0 to -0.5 
+   hMeasuredFinal3->SetBinContent(6,3.477522368);        // -0.5 to 0
 
+   /*
    hMeasuredFinal3->SetBinContent(2,3.65413);  // -2.4 to -2.0    
    hMeasuredFinal3->SetBinContent(3,3.744095779); //-2 to -1.5 
    hMeasuredFinal3->SetBinContent(4,3.726157315);        // -1.5 to -1.0 
    hMeasuredFinal3->SetBinContent(5,3.6087225); // -1.0 to -0.5 
    hMeasuredFinal3->SetBinContent(6,3.489931761);        // -0.5 to 0
+   */
 
 
    /*
@@ -116,12 +123,20 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal236->SetMarkerColor(kRed);
    hMeasuredFinal236->SetMarkerStyle(4);
 
+
+   hMeasuredFinal236->SetBinContent(2,4.78296);  // -2.4 to -2.0  
+   hMeasuredFinal236->SetBinContent(3,4.806189822); //-2 to -1.5
+   hMeasuredFinal236->SetBinContent(4,4.662502625);        // -1.5 to -1.0 
+   hMeasuredFinal236->SetBinContent(5,4.614742045); // -1.0 to -0.5 
+   hMeasuredFinal236->SetBinContent(6,4.469256947);        // -0.5 to 0
+
+   /*
    hMeasuredFinal236->SetBinContent(2,4.968905);  // -2.4 to -2.0  
    hMeasuredFinal236->SetBinContent(3,4.906105606); //-2 to -1.5
    hMeasuredFinal236->SetBinContent(4,4.695318198);        // -1.5 to -1.0 
    hMeasuredFinal236->SetBinContent(5,4.635741157); // -1.0 to -0.5 
    hMeasuredFinal236->SetBinContent(6,4.495389263);        // -0.5 to 0
-
+   */
    /*
    hMeasuredFinal236->SetBinContent(2,4.9689);  // -2.4 to -2.0 
    hMeasuredFinal236->SetBinContent(3,4.9122); //-2 to -1.5 
