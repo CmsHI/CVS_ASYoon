@@ -66,7 +66,7 @@ TGraph* GetTGraphErrorBand(TH1F *hist, Double_t xoffset=0) {
    return outg;
 }
 
-TGraph* GetErrorBand(TH1F *hist, Double_t ratio1, Double_t ratio2, Double_t xoffset) {
+TGraph* GetErrorBand(TH1F *hist, Double_t ratio1, Double_t ratio2, Double_t xoffset, Double_t yoffset=0) {
    //returns a band surrounding a TGraphErrors or TGraphAsymmErrors
    //xoffset: points at the edges can be moved such that band does
    //  not pass through the marker. It is assumed that points are 
@@ -91,8 +91,8 @@ TGraph* GetErrorBand(TH1F *hist, Double_t ratio1, Double_t ratio2, Double_t xoff
       Double_t shiftedx=x[i];
       Double_t shiftedy=y[i];
       cout <<x[i]<<endl;
-      if(i==1) { shiftedx-=xoffset; shiftedy-=0.06; }
-      if(i==n-2) { shiftedx+=xoffset; shiftedy-=0.06; }
+      if(i==1) { shiftedx-=xoffset; shiftedy-=yoffset; }
+      if(i==n-2) { shiftedx+=xoffset; shiftedy-=yoffset; }
       outg->SetPoint(i-1,shiftedx,shiftedy*(1-ratio2));
       outg->SetPoint(2*n-4-i,shiftedx,shiftedy*(1+ratio1));
       outg->SetPoint(2*n-4,x[1]-xoffset,shiftedy*(1-ratio2)); 
