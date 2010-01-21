@@ -89,12 +89,13 @@ TGraph* GetErrorBand(TH1F *hist, Double_t ratio1, Double_t ratio2, Double_t xoff
    }
    for(Int_t i=1;i<n-1;i++) {
       Double_t shiftedx=x[i];
+      Double_t shiftedy=y[i];
       cout <<x[i]<<endl;
-      if(i==1) shiftedx-=xoffset;
-      if(i==n-2) shiftedx+=xoffset;
-      outg->SetPoint(i-1,shiftedx,y[i]*(1-ratio2));
-      outg->SetPoint(2*n-4-i,shiftedx,y[i]*(1+ratio1));
-      outg->SetPoint(2*n-4,x[1]-xoffset,y[i]*(1-ratio2)); 
+      if(i==1) { shiftedx-=xoffset; shiftedy-=0.06; }
+      if(i==n-2) { shiftedx+=xoffset; shiftedy-=0.06; }
+      outg->SetPoint(i-1,shiftedx,shiftedy*(1-ratio2));
+      outg->SetPoint(2*n-4-i,shiftedx,shiftedy*(1+ratio1));
+      outg->SetPoint(2*n-4,x[1]-xoffset,shiftedy*(1-ratio2)); 
       
       cout << "x: " << x[i] << " y: " << y[i] << "  Sys Error (" << i << "): " << y[i]*ratio1 << ", " << y[i]*ratio2 << endl;
    }
