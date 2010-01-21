@@ -110,7 +110,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    double sysError = 0.037;
    
 
-   TGraph *gErrorBand = GetErrorBand((TH1F*)hMeasuredFinal4,sysError,sysError,0.25); 
+   TGraph *gErrorBand = GetErrorBand((TH1F*)hMeasuredFinal4,sysError,sysError,0.25,0.06); 
    gErrorBand->Draw("f");
 
    hMeasuredFinal3->Draw("pzsame");  
