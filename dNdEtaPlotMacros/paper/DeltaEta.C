@@ -267,7 +267,7 @@ void DeltaEta() {
 
    h2deta->Draw("same hist");
       
-   TH1 *h = new TH1F("h","",50,-0.2,0.2);
+   TH1 *h = new TH1F("h","",50,-0.2,0.2); // 0.4/50 = 0.008
    h->SetBinContent(0,0.01197719);
    h->SetBinContent(1,0.0002417578);
    h->SetBinContent(2,0.0002384731);
@@ -347,6 +347,7 @@ void DeltaEta() {
    h->GetZaxis()->SetLabelSize(0.045);
    h->GetZaxis()->SetTitleFont(42);
    h->Scale(1./1.599);
+   h->GetXaxis()->SetRange(19,32);
    h->Draw("same hist");
 	
 	TH1 *hdeta2TeV = new TH1F("hdeta2TeV","",50,-0.2,0.2);
@@ -459,7 +460,7 @@ void DeltaEta() {
 	hdeta2TeV->SetFillStyle(0);
 	hdeta2TeV->SetLineStyle(0);
 	hdeta2TeV->SetMarkerStyle(20);
-	hdeta2TeV->SetMarkerSize(0.7);
+	hdeta2TeV->SetMarkerSize(1.25);
 	hdeta2TeV->GetXaxis()->SetTitle("#Delta#eta^{Tracklet}_{1}^{1+2}");
 	hdeta2TeV->GetXaxis()->SetLabelFont(42);
 	hdeta2TeV->GetXaxis()->SetLabelOffset(0.01);
@@ -639,12 +640,12 @@ void DeltaEta() {
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
-
-	entry=leg->AddEntry("","Data 2.36TeV","P");
-	entry->SetMarkerStyle(24);
-	entry->SetMarkerSize(msize);
-		
-	entry=leg->AddEntry("h2deta","Pythia 0.9TeV","l");
+   
+   entry=leg->AddEntry("","Data 2.36 TeV","P");
+   entry->SetMarkerStyle(24);
+   entry->SetMarkerSize(msize);
+   
+   entry=leg->AddEntry("h2deta","Pythia 0.9 TeV","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(2);
@@ -652,11 +653,17 @@ void DeltaEta() {
    entry->SetMarkerSize(2.0);
 
 
-   entry=leg->AddEntry("","Pythia 2.36TeV","l");
+   entry=leg->AddEntry("","Pythia 2.36 TeV","l");
+   entry->SetLineColor(2);
+   entry->SetLineStyle(2);
+   entry->SetLineWidth(2);
+   entry->SetMarkerColor(2);
+   entry->SetMarkerStyle(20);
+   entry->SetMarkerSize(2.0);
 
 
    if(0){
-   entry=leg->AddEntry("h","Pythia 0.9TeV","l");
+   entry=leg->AddEntry("h","Pythia 0.9 TeV","l");
    entry->SetLineColor(1);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
