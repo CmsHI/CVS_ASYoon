@@ -712,14 +712,14 @@ void landau(){
 	entry->SetMarkerSize(msize);
 
    //entry=leg->AddEntry("hChargeDistMC","MC Event selection","L");
-   entry=leg->AddEntry("","Pythia 0.9 TeV","L"); 
+   entry=leg->AddEntry("","PYTHIA 0.9 TeV","L"); 
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(21);
    entry->SetMarkerSize(msize);
 
-   entry=leg->AddEntry("hChargeDistMC2TeV","Pythia 2.36 TeV","L");
+   entry=leg->AddEntry("hChargeDistMC2TeV","PYTHIA 2.36 TeV","L");
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(1);

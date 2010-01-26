@@ -626,7 +626,6 @@ void DeltaEta() {
    h2deta2TeV->Draw("same hist");
 
    	TLegend *leg = new TLegend(0.61,0.62,.91,0.87,NULL,"brNDC");	
-//   TLegend *leg = new TLegend(0.19,0.60,0.56,0.86,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetTextSize(0.035);
@@ -645,21 +644,23 @@ void DeltaEta() {
    entry->SetMarkerStyle(24);
    entry->SetMarkerSize(msize);
    
-   entry=leg->AddEntry("h2deta","Pythia 0.9 TeV","l");
+   entry=leg->AddEntry("h2deta","PYTHIA 0.9 TeV","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(2);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
+   //   entry->SetTextFont(102);
 
 
-   entry=leg->AddEntry("","Pythia 2.36 TeV","l");
+   entry=leg->AddEntry("","PYTHIA 2.36 TeV","l");
    entry->SetLineColor(2);
    entry->SetLineStyle(2);
    entry->SetLineWidth(2);
    entry->SetMarkerColor(2);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(2.0);
+   //   entry->SetTextFont(102);
 
 
    if(0){

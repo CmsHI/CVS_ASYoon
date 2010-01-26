@@ -251,7 +251,7 @@ hDist->GetXaxis()->SetNdivisions(4);
 	
 	
 	
-	TLegend *leg = new TLegend(0.61,0.77,.91,0.87,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.60,0.77,.90,0.87,NULL,"brNDC");
 	
 	leg->SetBorderSize(0);
 	leg->SetTextFont(62);
@@ -267,7 +267,7 @@ hDist->GetXaxis()->SetNdivisions(4);
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(msize);
 	
-	entry=leg->AddEntry("","Pythia 0.9 TeV","l");
+	entry=leg->AddEntry("","PYTHIA 0.9 TeV","l");
 	entry->SetLineWidth(2);
 	entry->SetLineColor(2);
 	leg->Draw();
