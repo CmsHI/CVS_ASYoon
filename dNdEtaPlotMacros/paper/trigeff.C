@@ -41,14 +41,14 @@ void trigeff(){
 	entry->SetMarkerColor(1);
 	entry->SetMarkerStyle(24);
 	entry->SetMarkerSize(1.2);
-	entry=leg->AddEntry("","PhoJet 0.9TeV","p");
+	entry=leg->AddEntry("","Phojet 0.9TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
 	entry->SetMarkerColor(1);
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1.2);
-	entry=leg->AddEntry("","PhoJet 2.36TeV","p");
+	entry=leg->AddEntry("","Phojet 2.36TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);

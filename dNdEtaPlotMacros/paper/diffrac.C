@@ -47,14 +47,14 @@ void diffrac(){
 	entry->SetMarkerColor(1);
 	entry->SetMarkerStyle(24);
 	entry->SetMarkerSize(1);
-	entry=leg->AddEntry("hGenINELofNpix","PhoJet 0.9TeV","p");
+	entry=leg->AddEntry("hGenINELofNpix","Phojet 0.9TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
 	entry->SetMarkerColor(1);
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1.2);
-	entry=leg->AddEntry("hGenINELofNpix","PhoJet 2.36TeV","p");
+	entry=leg->AddEntry("hGenINELofNpix","Phojet 2.36TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
