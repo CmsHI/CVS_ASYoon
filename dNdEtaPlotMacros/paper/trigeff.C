@@ -19,7 +19,7 @@ void trigeff(){
 	hFrame1->GetXaxis()->SetNdivisions(312);
 
 	
-	TLegend *leg = new TLegend(0.57,0.22,1,0.47,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.57,0.22,1,0.42,NULL,"brNDC");
 	leg->SetBorderSize(0);
 	leg->SetTextFont(62);
 	leg->SetLineColor(1);
