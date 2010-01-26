@@ -464,7 +464,9 @@ Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
     t_sys.SetTextColor(1);
     t_sys.SetTextAlign(32);
 
-    printFinalCanvases(c,"dNdeta_vs_roots",0,0);
+    
+
+    printFinalCanvases(c,"dNdeta_vs_roots",0,2);
     /*
     // add some text labels
     double ndcX = 0.2;
