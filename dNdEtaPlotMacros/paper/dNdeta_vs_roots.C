@@ -1,15 +1,15 @@
 #include "common.h"
 
 void dNdeta_vs_roots() {
-  gROOT->Reset();
-  gROOT->ProcessLine(".x rootlogon.C");
+   gROOT->Reset();
+   gROOT->ProcessLine(".x rootlogon.C");
 
 
   bool ErrorFlag = true;
 
   //****************************************************
   Bool_t bw = 1;       // 1: BLACK AND WHITE, 0: COLOR
-  Float_t msize = 2.; // MARKER SIZE
+  Float_t msize = 1.8; // MARKER SIZE
   //****************************************************
   
   TCanvas *c = new TCanvas("c","c",550,600);
@@ -199,6 +199,11 @@ Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
   //cdf->Draw("PE");
   cdf->Draw("PZ"); 
 
+  TGraph* cdf04 = cdf->Clone("cdf04");
+  cdf04->SetMarkerStyle(0);
+  cdf04->Draw("PZsame");
+
+
 
   // ---- UA1 NSD ---                                                              
   Double_t xua1[7] =  { 200,  260, 380, 500, 620, 790, 900 };
@@ -239,6 +244,7 @@ Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
 // ---- CMS NSD ---
   const int NCMS=2;
   Double_t x11[NCMS] =  { 900, 2360 }; 
+  //Double_t x11[NCMS] =  { 1000, 3360 }; 
   //Double_t y11[2] =  {  3.3, 3.3 };  // guesstimate!
   Double_t y11[NCMS] =  {  3.4984, 4.46 };
   Double_t  cmsSysErr = (y11[0]+y11[1])/2. *0.037;
@@ -249,15 +255,30 @@ Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
   Double_t eyh11[NCMS]= { 0.2108 };
   */
   // for now we don't show sys error for everyone
-  Double_t exl11[NCMS]= { 0.,0 };
-  Double_t exh11[NCMS]= { 0.,0 };
+  Bool_t errorX = false;
+  if(errorX){
+     //Arbitary error
+     Double_t exl11[NCMS]= { 200.,0 };
+     Double_t exh11[NCMS]= { 1000.,0 };
+  }else{
+     Double_t exl11[NCMS]= { 0.,0 };
+     Double_t exh11[NCMS]= { 0.,0 };
+  }  
+
+  Double_t eyld11[NCMS]= { 500,50 };
+  Double_t eyhd11[NCMS]= { 500,50 };
+  Double_t exld11[NCMS]= { 0.00,0.00 };
+  Double_t exhd11[NCMS]= { 0.00,0.00 };
+
+
   //Double_t eyl11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
   //Double_t eyh11[NCMS]= { 0.06*y11[0] , 0.05*y11[1] };
   //Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
   //Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
+
   Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
   Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] };
-
+  
   /*
   if ( ErrorFlag == false)
     {
@@ -269,22 +290,36 @@ Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
   */
 
   TGraphAsymmErrors *cmsnsd=new TGraphAsymmErrors(NCMS,x11,y11,exl11,exh11,eyl11,eyh11);
+  //TGraphBentErrors *cmsnsd = new TGraphBentErrors(NCMS,x11,y11,exl11,exh11,eyl11,eyh11,exld11,exhd11,eyld11,eyhd11); 
+
   cmsnsd->SetMarkerColor(kRed);
   //if(bw)cmsnsd->SetMarkerColor(kBlack);
-  if(bw)cmsnsd->SetMarkerColor(kRed);
+  if(bw)cmsnsd->SetMarkerColor(kRed+2);
   cmsnsd->SetMarkerStyle(kFullStar);
   if(bw)cmsnsd->SetMarkerStyle(20);
-  cmsnsd->SetMarkerSize(msize*0.9);
-  cmsnsd->SetLineColor(kRed);
+  cmsnsd->SetMarkerSize(msize*1.115);
+  //cmsnsd->SetMarkerSize(msize*1.2);
+  cmsnsd->SetLineColor(kRed+3);
   //if(bw)cmsnsd->SetLineColor(kBlack);
-  if(bw)cmsnsd->SetLineColor(kRed);
+  if(bw)cmsnsd->SetLineColor(kRed+2);
   //cmsnsd->Draw("PE");
   ua5nsd->Draw("PZsame");
   cmsnsd->Draw("PZsame");
+  //cmsnsd->Draw("same");   
 
+  // to fill the white gap around the marker
   TGraph* cmsnsd04 = cmsnsd->Clone("cmsnsd04");
   cmsnsd04->SetMarkerStyle(0);
   cmsnsd04->Draw("PZsame");
+
+  // to draw vertical lines at the end 
+  TGraph* cmsnsd05 = cmsnsd->Clone("cmsnsd05");
+  gStyle->SetEndErrorSize(5);
+  cmsnsd05->SetMarkerStyle(0);
+  cmsnsd05->Draw("||");
+
+
+  //cmsnsd04->Draw("[]");
 
   /*
   TGraphAsymmErrors * cmsnsdSysError = cmsnsd->Clone();

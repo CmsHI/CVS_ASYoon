@@ -116,12 +116,11 @@ void apt_all(){
    Graph3->SetMaximum(0.4869985);
 
    gre->SetHistogram(Graph3);
-   
    gre->Draw("pz");
 
    TGraph* gre03 = gre->Clone("gre03");
    gre03->SetMarkerStyle(0);
-   //   gre03->Draw("pzsame");
+   gre03->Draw("pzsame");
    
    // ============================= CDF
    // OK, from http://www.slac.stanford.edu/spires/find/hep/www?j=PRLTA,61,1819
@@ -147,7 +146,7 @@ void apt_all(){
    
    TGraph* gre04 = gre->Clone("gre04");
    gre04->SetMarkerStyle(0);
-   //   gre04->Draw("pzsame");
+   gre04->Draw("pzsame");
 
    // ============================= CMS?
    gre = new TGraphErrors(1);
@@ -156,8 +155,8 @@ void apt_all(){
 
    gre->SetMarkerStyle(20);
    gre->SetMarkerSize(msize);
-   gre->SetMarkerColor(2);
-   gre->SetLineColor(2);
+   gre->SetMarkerColor(kRed+2);
+   gre->SetLineColor(kRed+2);
 
    /*
    gre->SetPoint(0,900,0.44);
@@ -171,12 +170,23 @@ void apt_all(){
    gre->SetPoint(1,2360,0.50);
    gre->SetPointError(1,0,0.50*cmsSysError);
 
+   TGraph* greOnT = gre->Clone("greOnT");
+   greOnT->SetMarkerStyle(0);
+   greOnT->Draw("PZsame");
+
+   TGraph* greOnT2 = gre->Clone("cmsnsd05");
+   gStyle->SetEndErrorSize(5);
+   greOnT2->SetMarkerStyle(0);
+   greOnT2->Draw("||");
+
+   
+
    
    TH1F *Graph5 = new TH1F("Graph5","Graph",100,899.9,901.1);
    Graph5->SetMinimum(0.4184);
    Graph5->SetMaximum(0.4616);
    gre->SetHistogram(Graph5);
-   gre->SetMarkerSize(msize*0.85);
+   gre->SetMarkerSize(msize*1.2);
    gre->Draw("pz");
    
    TGraph* gre05 = gre->Clone("gre05");
@@ -218,8 +228,8 @@ void apt_all(){
 
    entry=leg->AddEntry("Graph5","CMS NSD (|#eta|<2.4)","P");
    entry->SetMarkerStyle(20);  
-   entry->SetMarkerColor(2);
-   entry->SetMarkerSize(msize*0.85);  
+   entry->SetMarkerColor(kRed+2);
+   entry->SetMarkerSize(msize*1.0);  
    leg->Draw();  
 
    TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.26,NULL,"brNDC");
