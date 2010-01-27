@@ -25,7 +25,7 @@ void differential_hap_ham_combined(){
 	hDist->SetMaximum(60);
 	hDist->SetLineStyle(0);
 	hDist->GetXaxis()->SetTitle("p_{T} [GeV/c]");
-	hDist->GetYaxis()->SetTitle("d^{2} N_{ch} / d#eta dp_{T} [(GeV/c)^{-1}]");
+	hDist->GetYaxis()->SetTitle("d^{ 2 }N_{ch} / d#eta dp_{T} [(GeV/c)^{-1}]");
 	hDist->GetXaxis()->CenterTitle();
 	hDist->GetYaxis()->CenterTitle();
 	hDist->GetXaxis()->SetNdivisions(505);
