@@ -30,6 +30,22 @@ void differential_hap_ham_combined(){
 	hDist->GetYaxis()->CenterTitle();
 	hDist->GetXaxis()->SetNdivisions(505);
 	hDist->GetYaxis()->SetTitleOffset(1.3);
+
+	// adjustment
+	/*
+	hDist->GetXaxis()->SetLabelFont(42);
+	hDist->GetXaxis()->SetLabelOffset(0.01);
+	hDist->GetXaxis()->SetLabelSize(0.045);
+	hDist->GetXaxis()->SetTitleSize(0.055);
+	hDist->GetYaxis()->SetLabelFont(42);
+	hDist->GetYaxis()->SetLabelOffset(0.01);
+	hDist->GetYaxis()->SetLabelSize(0.045);
+	hDist->GetYaxis()->SetTitleSize(0.055);
+	hDist->GetYaxis()->SetTitleOffset(1.5);
+	hDist->GetYaxis()->SetTitleFont(42);
+	*/
+
+
 	
 	hDist->Draw("");
 	TLine *line = new TLine(0,0,2,0);

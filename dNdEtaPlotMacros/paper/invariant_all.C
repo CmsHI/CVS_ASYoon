@@ -6,12 +6,17 @@ void invariant_all() {
 
   gROOT->Reset();
   gROOT->ProcessLine(".x rootlogon.C");
+
+  gStyle->SetPadRightMargin(0.15);
   gStyle->SetErrorX(0);
 
   Float_t marker = 1.4;
   Bool_t  doTsallis = false;
+  
+  //TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
+  TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,720,800);
+  //TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,550,800);
 
-  TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
   int doLog=1;
 
   TH1D *hDist = new TH1D("hDist","hDist",20,0,20);
@@ -2346,7 +2351,8 @@ for(int i = 0; i < gre->GetN(); ++i){
 
 
 
-TLegend *leg = new TLegend(0.61,0.72,.91,0.87,NULL,"brNDC");
+//TLegend *leg = new TLegend(0.61,0.72,.91,0.87,NULL,"brNDC");
+ TLegend *leg = new TLegend(0.50,0.72,.80,0.87,NULL,"brNDC");  
 
 leg->SetBorderSize(0);
 leg->SetTextFont(62);
@@ -2381,9 +2387,21 @@ entry->SetMarkerSize(marker);
 leg->Draw();
 
 
+ double ndcY = 0.9;
+ Float_t tsize = 0.035;
+
+ TLatex * tex;
+ tex = new TLatex(0.75,ndcY,"CMS");
+ tex->SetTextSize(tsize);
+ tex->SetLineWidth(2);
+ tex->SetNDC();
+ tex->Draw();
+
 MyCanvas->SetLogy();
 
-printFinalCanvases(MyCanvas,"invariant_all",doLog);
+ printFinalCanvases(MyCanvas,"invariant_all",doLog,0);
+// void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0, int doCMS=2)
+
 
 }
 
