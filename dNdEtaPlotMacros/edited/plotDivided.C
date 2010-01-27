@@ -11,9 +11,11 @@ void plotDivided(){
    //gStyle->SetPadLeftMargin(0.5);
 
    // ================================== 900 GeV ==================================
+   Double_t staterr900 = 0.005; // 0.5 % error
 
    // 1. cluster counting
    TH1 *corr_result_all = new TH1D("corr_result_all","",14,-3.5,3.5);
+   corr_result_all->Sumw2();
    corr_result_all->GetXaxis()->SetRange(2,13);
    corr_result_all->SetBinContent(4,4.043821);  // -2.0 to -1.5
    corr_result_all->SetBinContent(5,3.821537);  // -1.5 to -1.0 
@@ -23,10 +25,20 @@ void plotDivided(){
    corr_result_all->SetBinContent(9,3.632249);      
    corr_result_all->SetBinContent(10,3.747706);    
    corr_result_all->SetBinContent(11,4.01596);  
+
+   corr_result_all->SetBinError(4,staterr900*corr_result_all->GetBinContent(4));
+   corr_result_all->SetBinError(5,staterr900*corr_result_all->GetBinContent(5));
+   corr_result_all->SetBinError(6,staterr900*corr_result_all->GetBinContent(6));
+   corr_result_all->SetBinError(7,staterr900*corr_result_all->GetBinContent(7));
+   corr_result_all->SetBinError(8,staterr900*corr_result_all->GetBinContent(8));
+   corr_result_all->SetBinError(9,staterr900*corr_result_all->GetBinContent(9));
+   corr_result_all->SetBinError(10,staterr900*corr_result_all->GetBinContent(10));
+   corr_result_all->SetBinError(11,staterr900*corr_result_all->GetBinContent(11));
    
    // 2. tracklet 
    Double_t xAxis5[13] = {-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3};
    TH1 *hMeasuredFinal = new TH1D("hMeasuredFinal","",12, xAxis5);
+   hMeasuredFinal->Sumw2();
    hMeasuredFinal->SetBinContent(3,3.7459);
    hMeasuredFinal->SetBinContent(4,3.65462);
    hMeasuredFinal->SetBinContent(5,3.55475);
@@ -36,9 +48,19 @@ void plotDivided(){
    hMeasuredFinal->SetBinContent(9,3.59575);
    hMeasuredFinal->SetBinContent(10,3.6612);
 
+   hMeasuredFinal->SetBinError(3,staterr900*hMeasuredFinal->GetBinContent(3));
+   hMeasuredFinal->SetBinError(4,staterr900*hMeasuredFinal->GetBinContent(4));
+   hMeasuredFinal->SetBinError(5,staterr900*hMeasuredFinal->GetBinContent(5));
+   hMeasuredFinal->SetBinError(6,staterr900*hMeasuredFinal->GetBinContent(6));
+   hMeasuredFinal->SetBinError(7,staterr900*hMeasuredFinal->GetBinContent(7));
+   hMeasuredFinal->SetBinError(8,staterr900*hMeasuredFinal->GetBinContent(8));
+   hMeasuredFinal->SetBinError(9,staterr900*hMeasuredFinal->GetBinContent(9));
+   hMeasuredFinal->SetBinError(10,staterr900*hMeasuredFinal->GetBinContent(10));
+
    // 3. full tracking
    Double_t xAxis6[13] = {-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3}; 
    TH1 *hMeasuredFinal2 = new TH1D("hMeasuredFinal2","",12, xAxis6);
+   hMeasuredFinal2->Sumw2();
    hMeasuredFinal2->SetBinContent(2,3.60278);
    hMeasuredFinal2->SetBinContent(3,3.65928);
    hMeasuredFinal2->SetBinContent(4,3.56974);
@@ -50,12 +72,25 @@ void plotDivided(){
    hMeasuredFinal2->SetBinContent(10,3.64934);
    hMeasuredFinal2->SetBinContent(11,3.60278);
 
+   hMeasuredFinal2->SetBinError(2,staterr900*hMeasuredFinal2->GetBinContent(2));
+   hMeasuredFinal2->SetBinError(3,staterr900*hMeasuredFinal2->GetBinContent(3));
+   hMeasuredFinal2->SetBinError(4,staterr900*hMeasuredFinal2->GetBinContent(4));
+   hMeasuredFinal2->SetBinError(5,staterr900*hMeasuredFinal2->GetBinContent(5));
+   hMeasuredFinal2->SetBinError(6,staterr900*hMeasuredFinal2->GetBinContent(6));
+   hMeasuredFinal2->SetBinError(7,staterr900*hMeasuredFinal2->GetBinContent(7));
+   hMeasuredFinal2->SetBinError(8,staterr900*hMeasuredFinal2->GetBinContent(8));
+   hMeasuredFinal2->SetBinError(9,staterr900*hMeasuredFinal2->GetBinContent(9));
+   hMeasuredFinal2->SetBinError(10,staterr900*hMeasuredFinal2->GetBinContent(10));
+   hMeasuredFinal2->SetBinError(11,staterr900*hMeasuredFinal2->GetBinContent(11));
+
 
 
    // ================================== 2.36 TeV =================================
+   Double_t staterr2360 = 0.008; // 0.8 % error
 
    // 1. cluster counting
    TH1 *corr_result_all236 = new TH1D("corr_result_all236","",14,-3.5,3.5);
+   corr_result_all236->Sumw2();
    corr_result_all236->GetXaxis()->SetRange(2,13);
    corr_result_all236->SetBinContent(4,5.107068);
    corr_result_all236->SetBinContent(5,4.809771);
@@ -66,8 +101,18 @@ void plotDivided(){
    corr_result_all236->SetBinContent(10,4.800785);
    corr_result_all236->SetBinContent(11,5.08702);
 
+   corr_result_all236->SetBinError(4,staterr2360*corr_result_all236->GetBinContent(4));
+   corr_result_all236->SetBinError(5,staterr2360*corr_result_all236->GetBinContent(5));
+   corr_result_all236->SetBinError(6,staterr2360*corr_result_all236->GetBinContent(6));
+   corr_result_all236->SetBinError(7,staterr2360*corr_result_all236->GetBinContent(7));
+   corr_result_all236->SetBinError(8,staterr2360*corr_result_all236->GetBinContent(8));
+   corr_result_all236->SetBinError(9,staterr2360*corr_result_all236->GetBinContent(9));
+   corr_result_all236->SetBinError(10,staterr2360*corr_result_all236->GetBinContent(10));
+   corr_result_all236->SetBinError(11,staterr2360*corr_result_all236->GetBinContent(11));
+
    // 2. tracklet   
    TH1 *hTracklet236 = new TH1D("hTracklet236","",12, xAxis5);
+   hTracklet236->Sumw2();
    hTracklet236->SetBinContent(3,4.73663);
    hTracklet236->SetBinContent(4,4.69978);
    hTracklet236->SetBinContent(5,4.61061);
@@ -77,10 +122,20 @@ void plotDivided(){
    hTracklet236->SetBinContent(9,4.6502);
    hTracklet236->SetBinContent(10,4.80977);
 
+   hTracklet236->SetBinError(3,staterr2360*hTracklet236->GetBinContent(3));
+   hTracklet236->SetBinError(4,staterr2360*hTracklet236->GetBinContent(4));
+   hTracklet236->SetBinError(5,staterr2360*hTracklet236->GetBinContent(5));
+   hTracklet236->SetBinError(6,staterr2360*hTracklet236->GetBinContent(6));
+   hTracklet236->SetBinError(7,staterr2360*hTracklet236->GetBinContent(7));
+   hTracklet236->SetBinError(8,staterr2360*hTracklet236->GetBinContent(8));
+   hTracklet236->SetBinError(9,staterr2360*hTracklet236->GetBinContent(9));
+   hTracklet236->SetBinError(10,staterr2360*hTracklet236->GetBinContent(10));
+
 
    // 3. full tracking
    Double_t xAxis7[13] = {-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3};
    TH1 *hMeasuredFinal2236 = new TH1D("hMeasuredFinal2","",12, xAxis7);
+   hMeasuredFinal2236->Sumw2();
    hMeasuredFinal2236->SetBinContent(2,4.78296);
    hMeasuredFinal2236->SetBinContent(3,4.73973);
    hMeasuredFinal2236->SetBinContent(4,4.62044);
@@ -92,16 +147,30 @@ void plotDivided(){
    hMeasuredFinal2236->SetBinContent(10,4.72734);
    hMeasuredFinal2236->SetBinContent(11,4.78296);
 
-
+   hMeasuredFinal2236->SetBinError(2,staterr2360*hMeasuredFinal2236->GetBinContent(2));
+   hMeasuredFinal2236->SetBinError(3,staterr2360*hMeasuredFinal2236->GetBinContent(3));
+   hMeasuredFinal2236->SetBinError(4,staterr2360*hMeasuredFinal2236->GetBinContent(4));
+   hMeasuredFinal2236->SetBinError(5,staterr2360*hMeasuredFinal2236->GetBinContent(5));
+   hMeasuredFinal2236->SetBinError(6,staterr2360*hMeasuredFinal2236->GetBinContent(6));
+   hMeasuredFinal2236->SetBinError(7,staterr2360*hMeasuredFinal2236->GetBinContent(7));
+   hMeasuredFinal2236->SetBinError(8,staterr2360*hMeasuredFinal2236->GetBinContent(8));
+   hMeasuredFinal2236->SetBinError(9,staterr2360*hMeasuredFinal2236->GetBinContent(9));
+   hMeasuredFinal2236->SetBinError(10,staterr2360*hMeasuredFinal2236->GetBinContent(10));
+   hMeasuredFinal2236->SetBinError(11,staterr2360*hMeasuredFinal2236->GetBinContent(11));
 
    // ================================== Division  =================================
    // 0. dummy plot!
    // 0. preperation
+
+   // SUMW2!
+
    Double_t minR = 1.13;
    Double_t maxR = 1.4;
    // 1. cluster counting  
-   corr_result_all236->GetXaxis()->SetRange(6,9);
-
+   Bool_t indicator=false;
+   if(!indicator){
+      corr_result_all236->GetXaxis()->SetRange(6,9);
+   }
    corr_result_all236->Divide(corr_result_all);
 
    corr_result_all236->SetMinimum(minR);    
@@ -166,7 +235,7 @@ void plotDivided(){
    }
    hMeasuredFinal2236->Draw("pzsame");
 
-   Bool_t indicator=false;
+   
    if(indicator){
       TLine *rline = new TLine(-3,1.14171805,3,1.14171805);
    rline->SetLineStyle(2);
@@ -224,7 +293,7 @@ void plotDivided(){
 
 
 
-   TF1 *f1 = new TF1("f1", "gaus", 1.22, 1.35);
+   TF1 *f1 = new TF1("f1", "gaus", 1.21, 1.38);
    ratioDist->Fit("f1","R");  
 
 
