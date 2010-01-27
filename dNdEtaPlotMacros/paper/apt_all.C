@@ -27,6 +27,14 @@ void apt_all(){
    hDist->GetYaxis()->SetNdivisions(510);
    hDist->Draw("");
    
+   // Fit function                                                                                                                                 
+   //TF1 *func = new TF1("func","0.426-0.0198*log(x^2)+0.00156*log(x^2)^2",18,100000); 
+   //TF1 *func = new TF1("func","0.430-0.0207*log(x^2)+0.00161*log(x^2)^2",18,100000); 
+   TF1 *func = new TF1("func","0.425-0.0197*log(x^2)+0.00156*log(x^2)^2",18,100000);
+   func->SetLineColor(1);
+   func->SetLineWidth(2.0);
+   func->Draw("same");
+
 
    // ============================= ISR
    // OK, from http://www.slac.stanford.edu/spires/find/hep/www?j=NUPHA,B84,269
@@ -172,14 +180,13 @@ void apt_all(){
 
    TGraph* greOnT = gre->Clone("greOnT");
    greOnT->SetMarkerStyle(0);
+   greOnT->SetLineWidth(2);
    greOnT->Draw("PZsame");
 
    TGraph* greOnT2 = gre->Clone("cmsnsd05");
-   gStyle->SetEndErrorSize(5);
+   gStyle->SetEndErrorSize(3);
    greOnT2->SetMarkerStyle(0);
    greOnT2->Draw("||");
-
-   
 
    
    TH1F *Graph5 = new TH1F("Graph5","Graph",100,899.9,901.1);
@@ -193,6 +200,7 @@ void apt_all(){
    gre05->SetMarkerStyle(0);
    //   gre05->Draw("pzsame");
    
+   /*
    // Fit function
    //TF1 *func = new TF1("func","0.426-0.0198*log(x^2)+0.00156*log(x^2)^2",18,100000);
    //TF1 *func = new TF1("func","0.430-0.0207*log(x^2)+0.00161*log(x^2)^2",18,100000);  
@@ -200,7 +208,8 @@ void apt_all(){
    func->SetLineColor(1);
    func->SetLineWidth(1.5);
    func->Draw("same");
-   
+   */
+
    TLegend *leg = new TLegend(0.25,0.90-0.045*5,0.5,0.90,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);

@@ -40,6 +40,31 @@ void dNdeta_vs_roots() {
   dummy->GetXaxis()->CenterTitle();
   dummy->Draw();
 
+
+  // ---- fits ----
+  TF1 *fitISR = new TF1("fitISR","0.161+0.201*2*log(x)",12,80);
+  fitISR->SetLineColor(kBlack);
+  fitISR->SetLineWidth(2);
+  fitISR->SetLineStyle(3);
+  fitISR->Draw("same");
+
+
+  TF1 *fitUA5 = new TF1("fitUA5","2.420-0.244*log(x^2)+0.0236*(log(x^2))^2",40,8000);
+  fitUA5->SetLineColor(kBlue);
+  if(bw)fitUA5->SetLineColor(kBlack);
+  fitUA5->SetLineWidth(2);
+  fitUA5->SetLineStyle(2);
+  fitUA5->Draw("same");
+
+  // fit to UA5 and CMS inelastic points 
+  TF1 *fitUA5inel = new TF1("fitUA5inel","1.54-2*0.096*log(x)+0.0155*4*log(x)*log(x)",40,8000);
+  fitUA5inel->SetLineColor(kGreen);
+  if(bw)fitUA5inel->SetLineColor(kBlack);
+  fitUA5inel->SetLineWidth(2);
+  fitUA5inel->SetLineStyle(26);
+  fitUA5inel->Draw("same");
+
+
 // ---- ISR ---
 
   Double_t x1[4] =  { 23.6,  30.8,  45.2,  62.8 }; 
@@ -58,12 +83,14 @@ void dNdeta_vs_roots() {
   isr->SetLineColor(kBlack);
   isr->Draw("PE");
 
+  /*
 //  TF1 *fitISR = new TF1("fitISR","0.01+0.44*log(x)",12,80);
   TF1 *fitISR = new TF1("fitISR","0.161+0.201*2*log(x)",12,80);
   fitISR->SetLineColor(kBlack);
   fitISR->SetLineWidth(2);
   fitISR->SetLineStyle(1);    
   fitISR->Draw("same");
+  */
 
 // ---- UA5 NSD ---
 Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
@@ -100,7 +127,8 @@ Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
   if(bw)ua5nsd->SetLineColor(kBlack);
   //ua5nsd->Draw("PE");
   //  ua5nsd->Draw("PZ");  
-  
+
+  /*  
 //  TF1 *fitUA5 = new TF1("fitUA5","2.5-0.5*log(x)+0.023*4*log(x)*log(x)",40,8000);
 //  TF1 *fitUA5 = new TF1("fitUA5","2.26-2*0.207*log(x)+0.0215*4*log(x)*log(x)",40,8000);
   // fit with CMS 900, 2360 GeV Points
@@ -119,6 +147,7 @@ Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
   fitUA5inel->SetLineWidth(2);
   fitUA5inel->SetLineStyle(26);    
   fitUA5inel->Draw("same");
+  */
 
 // ---- UA5 INEL ---
   Double_t x3[4] =  {    53,  200,     546,  900 };  // checked from paper
@@ -310,11 +339,12 @@ Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
   // to fill the white gap around the marker
   TGraph* cmsnsd04 = cmsnsd->Clone("cmsnsd04");
   cmsnsd04->SetMarkerStyle(0);
+  cmsnsd04->SetLineWidth(2);
   cmsnsd04->Draw("PZsame");
 
   // to draw vertical lines at the end 
   TGraph* cmsnsd05 = cmsnsd->Clone("cmsnsd05");
-  gStyle->SetEndErrorSize(5);
+  gStyle->SetEndErrorSize(3);
   cmsnsd05->SetMarkerStyle(0);
   cmsnsd05->Draw("||");
 
