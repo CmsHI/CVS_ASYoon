@@ -95,9 +95,10 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->GetYaxis()->SetNdivisions(506);
 
 
-   hMeasuredFinal3->SetMarkerColor(2);
+   hMeasuredFinal3->SetMarkerColor(kRed);
    hMeasuredFinal3->SetMarkerStyle(20);
-   //hMeasuredFinal3->SetMarkerSize(1.8); // use rootlogon size
+   hMeasuredFinal3->SetLineColor(kRed);
+   hMeasuredFinal3->SetMarkerSize(1.8); 
    
    hMeasuredFinal3->Draw("pz");
 
@@ -121,8 +122,9 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    //hMeasuredFinal236->GetXaxis()->SetRange(3,10);
    hMeasuredFinal236->GetXaxis()->SetRange(1,13);
    hMeasuredFinal236->SetMarkerColor(kRed);
+   hMeasuredFinal236->SetLineColor(kRed);
    hMeasuredFinal236->SetMarkerStyle(4);
-
+   hMeasuredFinal236->SetMarkerSize(1.8);
 
    hMeasuredFinal236->SetBinContent(2,4.78296);  // -2.4 to -2.0  
    hMeasuredFinal236->SetBinContent(3,4.806189822); //-2 to -1.5
@@ -201,10 +203,10 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
 
    hEta_ALICE_NSD->SetMarkerColor(1);
-   hEta_ALICE_NSD->SetMarkerStyle(21);
+   hEta_ALICE_NSD->SetMarkerStyle(26);
    hEta_ALICE_NSD->SetLineColor(kBlack);
-   //hEta_ALICE_NSD->SetMarkerSize(1.5);
-   hEta_ALICE_NSD->SetMarkerSize(1.25);
+   hEta_ALICE_NSD->SetMarkerSize(1.5);
+   //hEta_ALICE_NSD->SetMarkerSize(1.25);
    hEta_ALICE_NSD->Draw("pzsame");
 
 
@@ -276,12 +278,17 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hEta_UA5_NSD->SetMarkerStyle(25);
    hEta_UA5_NSD->SetMarkerSize(1.25);
    hEta_UA5_NSD->Draw("psame");
+
+   // Draw one more time to put CMS point on top of every other experiemnt's data points!
+   hMeasuredFinal3->Draw("pzsame");
+
+
    
    Float_t ywidth = 0.045*5;
 
    //TLegend *leg = new TLegend(0.20,0.27,0.53,0.27+ywidth,"","brNDC");   
    //TLegend *leg = new TLegend(0.48,0.27,0.81,0.27+ywidth,"","brNDC");
-   TLegend *leg = new TLegend(0.27,0.21,0.70,0.21+ywidth,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.27,0.21,0.699,0.21+ywidth,NULL,"brNDC");
    leg->SetMargin(0.37);
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
