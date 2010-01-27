@@ -514,7 +514,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    leg->SetHeader("      2.36 TeV");
    leg->AddEntry(corr_result_all236,"Cluster counting","P");
    leg->AddEntry(hTracklet236,"Tracklet","P");
-   leg->AddEntry(hMeasuredFinal2236,"Global tracking","P");
+   leg->AddEntry(hMeasuredFinal2236,"Tracking","P");
 
 
    //cout<<"Number of column "<<leg->GetNColumns()<<endl;
