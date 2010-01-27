@@ -496,7 +496,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
 
    //TLegend *leg = new TLegend(0.20,0.27,0.53,0.47,NULL,"brNDC");
    //TLegend *leg = new TLegend(0.20,0.35,0.53,0.47,NULL,"brNDC"); 
-   Float_t ywidth = 0.045*4;
+   Float_t ywidth = 0.045*5;
 
    //TLegend *leg = new TLegend(0.27,0.26,0.70,0.26+ywidth,NULL,"brNDC");
    TLegend *leg = new TLegend(0.39,0.21,0.82,0.21+ywidth,NULL,"brNDC");
@@ -510,7 +510,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
-   leg->SetTextSize(0.03); 
+   leg->SetTextSize(0.033); 
    leg->SetHeader("      2.36 TeV");
    leg->AddEntry(corr_result_all236,"Cluster counting","P");
    leg->AddEntry(hTracklet236,"Tracklet","P");
@@ -537,7 +537,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    leg2->SetFillColor(0);
    //leg2->SetFillStyle(1001);
    leg2->SetFillStyle(0); 
-   leg2->SetTextSize(0.03);
+   leg2->SetTextSize(0.033);
    leg2->SetHeader("   0.9 TeV");
    leg2->AddEntry(corr_result_all,"","P");
    leg2->AddEntry(hMeasuredFinal,"","P"); 

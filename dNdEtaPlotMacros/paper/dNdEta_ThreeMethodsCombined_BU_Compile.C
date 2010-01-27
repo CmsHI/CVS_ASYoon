@@ -277,7 +277,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hEta_UA5_NSD->SetMarkerSize(1.25);
    hEta_UA5_NSD->Draw("psame");
    
-   Float_t ywidth = 0.045*4;
+   Float_t ywidth = 0.045*5;
 
    //TLegend *leg = new TLegend(0.20,0.27,0.53,0.27+ywidth,"","brNDC");   
    //TLegend *leg = new TLegend(0.48,0.27,0.81,0.27+ywidth,"","brNDC");
@@ -290,7 +290,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    leg->SetLineWidth(1);
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
-   leg->SetTextSize(0.03);  
+   leg->SetTextSize(0.033);  
    leg->SetHeader("  0.9 TeV");
    
    //leg->AddEntry(hMeasuredFinal236,"CMS NSD (2.36 TeV)","P");
@@ -312,7 +312,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    leg2->SetFillColor(0);
    //leg->SetFillStyle(1001);
    leg2->SetFillStyle(0);
-   leg2->SetTextSize(0.03);
+   leg2->SetTextSize(0.033);
    leg2->SetHeader("     2.36 TeV");
    leg2->AddEntry(hMeasuredFinal236,"CMS NSD","P");
    leg2->AddEntry(hEta_ALICE_NSD,"ALICE NSD","");
