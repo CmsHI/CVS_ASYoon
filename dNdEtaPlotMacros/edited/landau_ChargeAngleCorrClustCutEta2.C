@@ -719,6 +719,6 @@ void landau_ChargeAngleCorrClustCutEta2(){
   tex->SetLineWidth(2);
   tex->Draw();
 
-  printFinalCanvases(c1,"landau");
+  printFinalCanvases(c1,"figure_landau_ChargeAngleCorrClustCutEta2");
 
 }
