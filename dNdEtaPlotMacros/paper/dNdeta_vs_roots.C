@@ -469,7 +469,7 @@ Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
     leg->SetFillColor(0);
     leg->SetBorderSize(0);
     if(bw){
-      leg->AddEntry(fnalinel,"FNAL inel.","p");
+      leg->AddEntry(fnalinel,"NAL B.C. inel.","p");
       leg->AddEntry(isr,"ISR inel.","p");
       leg->AddEntry(ua5inel,"UA5 inel.","p");
       leg->AddEntry(phobosinel,"PHOBOS inel.","p");
