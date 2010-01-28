@@ -24,7 +24,7 @@ void dNdeta_vs_roots() {
   dummy->SetMaximum(7.5);
   dummy->SetMinimum(0);
   dummy->SetXTitle("#sqrt{s} [GeV]");
-  dummy->SetYTitle("dN_{ch}/d#eta_{|#eta|#approx0}");
+  dummy->SetYTitle("dN_{ch}/d#eta_{#eta#approx0}");
   /*
   dummy->GetYaxis()->SetNdivisions(505);
   dummy->GetXaxis()->SetNdivisions(505);
