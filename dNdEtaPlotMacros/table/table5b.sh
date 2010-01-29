@@ -2,7 +2,9 @@
 
 
 cat ../paper/invariant_all.C | grep gre > greOnly 
-cat greOnly | sed "s/gre->SetPoint(/Value /g" > greOnly0
+cat greOnly | sed "s/gre->SetPoint(/Value /g" > greOnly000
+cat greOnly000 | sed "s/PointError(i/ /g" > greOnly00
+cat greOnly00 | sed "s/ErrorY/ /g" > greOnly0
 cat greOnly0 | sed "s/gre->SetPoint/ /g" > greOnly1
 cat greOnly1 | sed "s/(/ /g" > greOnly2
 cat greOnly2 | sed "s/)/ /g" > greOnly3
