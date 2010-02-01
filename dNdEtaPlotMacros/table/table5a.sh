@@ -2,6 +2,7 @@
 
 
 cat ../paper/differential_hap_ham_combined.C | grep gre > greOnly 
+#cat ../paper/differential_hab_900.C | grep gre > greOnly 
 cat greOnly | sed "s/gre->SetPoint(/Value /g" > greOnly0
 cat greOnly0 | sed "s/gre->SetPoint/ /g" > greOnly1
 cat greOnly1 | sed "s/(/ /g" > greOnly2
