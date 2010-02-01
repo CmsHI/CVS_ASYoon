@@ -20,9 +20,10 @@ for($i = 0; $i < scalar @valuesX; $i++){
     if($valuesX[$i] =~ /B/){
 	$counter++;
 	if( $counter % 2 == 0){
-	    print "New Eta Bin \n";
+	    printf "Eta %.1f \n", 0.1+$counter*0.1;
 	    print "pt  value  error \n";
-	    $offset = $offset + 4;
+	    #$offset = $offset + 3; # for 900 GeV macro
+	    $offset = $offset + 4; # for 2.36 TeV
 	}
     }
 
