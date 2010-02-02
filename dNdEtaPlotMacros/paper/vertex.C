@@ -389,7 +389,7 @@ void vertex(){
    h2vz2TeV->SetLineWidth(2);
    h2vz2TeV->Draw("same hist");
 
-	TLegend *leg = new TLegend(0.63,0.67,.93,0.87,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.619,0.67,.92,0.87,NULL,"brNDC");
 	
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
@@ -400,14 +400,14 @@ void vertex(){
    leg->SetFillColor(0);
    leg->SetFillStyle(0);
 
-   TLegendEntry *entry=leg->AddEntry("hvz1","Data 0.9TeV","p");
+   TLegendEntry *entry=leg->AddEntry("hvz1","Data 0.9 TeV","p");
    entry->SetLineColor(1);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(1);
    entry->SetMarkerStyle(20);
    entry->SetMarkerSize(msize);
 	
-	entry=leg->AddEntry("hvz12TeV","Data 2.36TeV","p");
+	entry=leg->AddEntry("hvz12TeV","Data 2.36 TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineWidth(1);
 	entry->SetMarkerColor(1);
@@ -416,7 +416,7 @@ void vertex(){
 	
 	
 
-   entry=leg->AddEntry("h2vz","PYTHIA 0.9TeV","l");
+   entry=leg->AddEntry("h2vz","PYTHIA 0.9 TeV","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);
@@ -424,7 +424,7 @@ void vertex(){
    entry->SetMarkerSize(msize);
    leg->Draw();
 
-    entry=leg->AddEntry("h2vz2TeV","PYTHIA 2.36TeV","l");
+    entry=leg->AddEntry("h2vz2TeV","PYTHIA 2.36 TeV","l");
    entry->SetLineColor(2);
    entry->SetLineWidth(1);
    entry->SetMarkerColor(2);
