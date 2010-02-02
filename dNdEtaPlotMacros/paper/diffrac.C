@@ -20,7 +20,7 @@ void diffrac(){
 	hFrame2->GetXaxis()->SetNdivisions(312);
 	
 	
-	TLegend *leg = new TLegend(0.61,0.67,.91,0.87,NULL,"brNDC");	
+	TLegend *leg = new TLegend(0.58,0.67,.88,0.87,NULL,"brNDC");	
 	
 	leg->SetBorderSize(0);
 	leg->SetTextFont(62);
@@ -33,7 +33,7 @@ void diffrac(){
 	leg->SetLineWidth(2);
 	leg->SetFillColor(19);
 	leg->SetFillStyle(0);
-	TLegendEntry *entry=leg->AddEntry("Pythia900GeV","PYTHIA 0.9TeV","l");
+	TLegendEntry *entry=leg->AddEntry("Pythia900GeV","PYTHIA 0.9 TeV","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(2);
@@ -41,7 +41,7 @@ void diffrac(){
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1);
 	//	entry->SetTextFont(102);
-	entry=leg->AddEntry("Pythia2360GeV","PYTHIA 2.36TeV ","l");
+	entry=leg->AddEntry("Pythia2360GeV","PYTHIA 2.36 TeV ","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(2);
 	entry->SetLineWidth(2);
@@ -49,7 +49,7 @@ void diffrac(){
 	entry->SetMarkerStyle(24);
 	entry->SetMarkerSize(1);
 	//        entry->SetTextFont(102);
-	entry=leg->AddEntry("hGenINELofNpix","PHOJET 0.9TeV","p");
+	entry=leg->AddEntry("hGenINELofNpix","PHOJET 0.9 TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
@@ -57,7 +57,7 @@ void diffrac(){
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1.2);
 	//        entry->SetTextFont(102);
-	entry=leg->AddEntry("hGenINELofNpix","PHOJET 2.36TeV","p");
+	entry=leg->AddEntry("hGenINELofNpix","PHOJET 2.36 TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);

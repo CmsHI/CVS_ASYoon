@@ -19,7 +19,7 @@ void trigeff(){
 	hFrame1->GetXaxis()->SetNdivisions(312);
 
 	
-	TLegend *leg = new TLegend(0.57,0.22,1,0.42,NULL,"brNDC");
+	TLegend *leg = new TLegend(0.58,0.22,0.88,0.42,NULL,"brNDC");
 	leg->SetBorderSize(0);
 	leg->SetTextFont(62);
 	leg->SetLineColor(1);
@@ -28,7 +28,7 @@ void trigeff(){
 	leg->SetFillColor(19);
 	leg->SetFillStyle(0);
 
-	TLegendEntry *entry=leg->AddEntry("","PYTHIA 0.9TeV","l");
+	TLegendEntry *entry=leg->AddEntry("","PYTHIA 0.9 TeV","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(3);
@@ -36,7 +36,7 @@ void trigeff(){
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1.2);
 	//        entry->SetTextFont(102);
-	entry=leg->AddEntry("","PYTHIA 2.36TeV ","l");
+	entry=leg->AddEntry("","PYTHIA 2.36 TeV ","l");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(2);
 	entry->SetLineWidth(3);
@@ -44,7 +44,7 @@ void trigeff(){
 	entry->SetMarkerStyle(24);
 	entry->SetMarkerSize(1.2);
 	//        entry->SetTextFont(102);
-	entry=leg->AddEntry("","PHOJET 0.9TeV","p");
+	entry=leg->AddEntry("","PHOJET 0.9 TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
@@ -52,7 +52,7 @@ void trigeff(){
 	entry->SetMarkerStyle(20);
 	entry->SetMarkerSize(1.2);
 	//        entry->SetTextFont(102);
-	entry=leg->AddEntry("","PHOJET 2.36TeV","p");
+	entry=leg->AddEntry("","PHOJET 2.36 TeV","p");
 	entry->SetLineColor(1);
 	entry->SetLineStyle(1);
 	entry->SetLineWidth(1);
