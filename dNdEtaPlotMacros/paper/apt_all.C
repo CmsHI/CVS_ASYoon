@@ -174,9 +174,12 @@ void apt_all(){
    //Now real measurement
    Float_t cmsSysError = 0.028;
    gre->SetPoint(0,900,0.46);
-   gre->SetPointError(0,0,0.46*cmsSysError);
+   //gre->SetPointError(0,0,0.46*cmsSysError);
+   // updated to sqrt (0.01*0.01+0.46*0.46*0.028*0.028) , where 0.01 is stat err. 
+   gre->SetPointError(0,0,0.0163); 
    gre->SetPoint(1,2360,0.50);
-   gre->SetPointError(1,0,0.50*cmsSysError);
+   //gre->SetPointError(1,0,0.50*cmsSysError);
+   gre->SetPointError(1,0,0.0172);
 
    TGraph* greOnT = gre->Clone("greOnT");
    greOnT->SetMarkerStyle(0);
