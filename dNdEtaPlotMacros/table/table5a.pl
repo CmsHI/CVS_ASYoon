@@ -31,8 +31,9 @@ for($i = 0; $i < scalar @valuesX; $i++){
 
     if($valuesX[$i] < $xMax){
     $valueY = $valuesY[$i] - $offset;
-    $valueY = `printf "%5.2f" $valueY`;
-    $valueYE = `printf "%5.2f" $errorsY[$i]`;
+    $valueY = `printf "%5.3e" $valueY`;
+    $valueY = `printf "%5.3f" $valueY`;
+    $valueYE = `printf "%5.3f" $errorsY[$i]`;
     print $valuesX[$i], " ",$valueY, "  ", $valueYE, " \n"  ;    
 }
 }
