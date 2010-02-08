@@ -21,8 +21,8 @@ process.ana = cms.EDAnalyzer('GenAnalyzer',
 process.TFileService = cms.Service('TFileService',
                                    fileName = cms.string('gen_analyzer.root')
                                    )
-process.ana = cms.EDAnalyzer('GenAnalyzer'
-)
+#process.ana = cms.EDAnalyzer('GenAnalyzer'
+#)
 
 
 process.p = cms.Path(process.ana)
