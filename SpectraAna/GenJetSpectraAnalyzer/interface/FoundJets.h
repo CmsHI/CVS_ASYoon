@@ -12,7 +12,7 @@ class FoundJets : public TObject {
    FoundJets();          // constructor
    virtual ~FoundJets(); // desctructor
    
-   float fPt,fRapid;
+   float fPt,fRapid,fEta;
    int iCharge,iStatus,iPdgId;
    int iFromHQ,iFromAnyHQ;
    //bool bIsMortherPartonQuark;

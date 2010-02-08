@@ -13,7 +13,7 @@
 //
 // Original Author:  Sungho Yoon
 //         Created:  Sun Aug 23 10:50:33 EDT 2009
-// $Id$
+// $Id: GenJetSpectraAnalyzer.cc,v 1.1 2009/10/09 13:45:43 sungho Exp $
 //
 //
 
@@ -89,7 +89,7 @@ private:
    bool isFromHeavyQuark( const reco::Candidate & , bool bIniPartonOnly) const;
 
    Int_t iJets, iJIndex;
-   Float_t fJPt, fJPhi,fJRapid,fJEt;
+   Float_t fJPt, fJPhi,fJRapid,fJEta,fJEt;
    Float_t fAlpha, fBeta, fBeta_check;
    string resultFileLabel;
 
@@ -172,7 +172,7 @@ GenJetSpectraAnalyzer::isFromHeavyQuark( const reco::Candidate & c, bool bIniPar
    for( size_t j= 0; j < c.numberOfMothers(); j++){
       const Candidate * mom = c.mother(j);
       const Candidate * grandMom;
-      while ( (grandMom = mom->mother() )!=0){
+      while ( (grandMom = mom->mother() )!=0){ // if mom's mom exists
          mom = grandMom;
 	 const ParticleData * pd_mom = pdt_->particle(mom->pdgId());
          if(!bIniPartonOnly){// heavy quarks from anywhere along decay,shower,etc..   
@@ -234,6 +234,7 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 
 	 AllTemp->fPt = gen->pt();
 	 AllTemp->fRapid = gen->rapidity();
+	 AllTemp->fEta = gen->eta();
 	 AllTemp->iCharge = gen->charge();
 	 AllTemp->iStatus = gen->status(); // Status = 1 is guaranteed above
 	 AllTemp->iPdgId = gen->pdgId();
@@ -333,6 +334,7 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 
 	 JetTemp->fPt = members[k]->pt();
 	 JetTemp->fRapid = members[k]->rapidity();
+	 JetTemp->fEta = members[k]->eta();
 	 JetTemp->iCharge = members[k]->charge();
 	 JetTemp->iStatus = members[k]->status(); 
 	 JetTemp->iPdgId = members[k]->pdgId(); 
@@ -378,6 +380,7 @@ GenJetSpectraAnalyzer::beginJob()
    spectraTree->Branch("JetPt",&fJPt,"JetPt/F");
    spectraTree->Branch("JetPhi",&fJPhi,"JetPhi/F");
    spectraTree->Branch("JetRapidity",&fJRapid,"JetRapidity/F");
+   spectraTree->Branch("JetEta",&fJEta,"JetEta/F");
    spectraTree->Branch("JetEt",&fJEt,"JetEt/F");
    spectraTree->Branch("Alpha",&fAlpha,"Alpha/F");
 

@@ -8,6 +8,7 @@ FoundJets::FoundJets()
 
    fPt = 0.0;
    fRapid = 0.0;
+   fEta = 0.0;
    iCharge = 0;
    iStatus = 0; 
    iPdgId = 0;
