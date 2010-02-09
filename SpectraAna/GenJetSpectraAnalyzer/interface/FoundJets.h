@@ -17,7 +17,7 @@ class FoundJets : public TObject {
    int iFromHQ,iFromAnyHQ;
    //bool bIsMortherPartonQuark;
    
-   ClassDef(FoundJets,7)
+   ClassDef(FoundJets,8)
       
 };
       
