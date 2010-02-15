@@ -6,6 +6,7 @@ ClassImp(FoundJets)
 FoundJets::FoundJets()
 {
 
+   fP = 0.0;
    fPt = 0.0;
    fRapid = 0.0;
    fEta = 0.0;

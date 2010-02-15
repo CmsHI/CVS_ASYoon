@@ -89,6 +89,7 @@ private:
    bool isFromHeavyQuark( const reco::Candidate & , bool bIniPartonOnly) const;
 
    Int_t iJets, iJIndex;
+   Int_t iProcID;
    Float_t fJPt, fJPhi,fJRapid,fJEta,fJEt;
    Float_t fAlpha, fBeta, fBeta_check;
    string resultFileLabel;
@@ -205,12 +206,14 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 {
    //using namespace edm;
    
-   cout<<"[GenJetSpectraAnalyzer][analyze] BEGINS..."<<endl;
+   //cout<<"[GenJetSpectraAnalyzer][analyze] BEGINS..."<<endl;
 
    // --- Particles                                                                                            
    iSetup.getData( pdt_);
    Handle<View<Candidate> > particles;
    iEvent.getByLabel("genParticles", particles);
+
+   // --- HepMC to get event process id!
 
    // --- Gen Jets                                                                                     
    Handle<vector<GenJet> > genjets;
@@ -224,6 +227,9 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
    TClonesArray &CAAllTemp = *((TClonesArray*)CAAllPart);
    Int_t iPartCount = -1;
 
+   //iProcID = iEvent.id().event();
+   //cout<<"Process ID? = "<<iProcID<<endl;
+
    for(View<Candidate>::const_iterator gen = particles->begin();
        gen != particles->end(); ++gen){
       
@@ -231,7 +237,7 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 	 iPartCount++;
 
 	 FoundJets *AllTemp = new(CAAllTemp[iPartCount]) FoundJets(); 
-
+	 AllTemp->fP = gen->p();
 	 AllTemp->fPt = gen->pt();
 	 AllTemp->fRapid = gen->rapidity();
 	 AllTemp->fEta = gen->eta();
@@ -286,7 +292,7 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
    // ---- Analyze Jets!                                                                               
    iJets = genjets->size();
 
-   cout<<"[GenFragmentationExtractor][analyze] Number of jets : "<<iJets<<endl;
+   //cout<<"[GenFragmentationExtractor][analyze] Number of jets : "<<iJets<<endl;
 
    vector<const GenJet *> jetsSorted;
 
@@ -326,12 +332,13 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 
       vector<const Candidate*> members = jetsSorted[ij]->getJetConstituentsQuick();
 
-      cout<<"Number of particles inside this jets "<<members.size()<<endl;
+      //cout<<"Number of particles inside this jets "<<members.size()<<endl;
 
       for(size_t k = 0; k < members.size(); k++){
 
 	 FoundJets *JetTemp = new(CAJetTemp[k]) FoundJets();
 
+	 JetTemp->fP = members[k]->p();
 	 JetTemp->fPt = members[k]->pt();
 	 JetTemp->fRapid = members[k]->rapidity();
 	 JetTemp->fEta = members[k]->eta();
