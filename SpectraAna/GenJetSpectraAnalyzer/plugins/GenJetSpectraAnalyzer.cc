@@ -85,8 +85,9 @@ private:
    virtual void analyze(const edm::Event&, const edm::EventSetup&);
    virtual void endJob() ;
    edm::ESHandle<ParticleDataTable> pdt_;
-   bool checkHeavyQuark(int it) const;
-   bool isFromHeavyQuark( const reco::Candidate & , bool bIniPartonOnly) const;
+   bool checkHeavyQuarkC(int it) const;
+   bool checkHeavyQuarkB(int it) const;
+   bool isFromHeavyQuark( const reco::Candidate & , bool bIniPartonOnly,  bool bIsCquark) const;
 
    Int_t iJets, iJIndex;
    Int_t iProcID;
@@ -141,17 +142,26 @@ GenJetSpectraAnalyzer::~GenJetSpectraAnalyzer()
 
 // ------------ method called to for each event  ------------
 bool
-GenJetSpectraAnalyzer::checkHeavyQuark(int id) const {
+GenJetSpectraAnalyzer::checkHeavyQuarkC(int id) const {
 
    if(abs(id) == 4 ||
-      abs(id) == 5 ||
-      abs(id) == 4201 || // diquarks system containing b or c                                                             
+      abs(id) == 4201 || // diquarks system containing c                         
       abs(id) == 4203 ||
       abs(id) == 4301 ||
       abs(id) == 4303 ||
       abs(id) == 4301 ||
       abs(id) == 4303 ||
-      abs(id) == 4403 ||
+      abs(id) == 4403){
+      return true;
+   }else{
+      return false;
+   }
+}
+
+bool
+GenJetSpectraAnalyzer::checkHeavyQuarkB(int id) const {
+
+   if(abs(id) == 5 ||
       abs(id) == 5101 ||
       abs(id) == 5103 ||
       abs(id) == 5201 ||
@@ -167,8 +177,10 @@ GenJetSpectraAnalyzer::checkHeavyQuark(int id) const {
    }
 }
 
+
+
 bool
-GenJetSpectraAnalyzer::isFromHeavyQuark( const reco::Candidate & c, bool bIniPartonOnly) const {
+GenJetSpectraAnalyzer::isFromHeavyQuark( const reco::Candidate & c, bool bIniPartonOnly, bool bIsCquark) const {
 
    for( size_t j= 0; j < c.numberOfMothers(); j++){
       const Candidate * mom = c.mother(j);
@@ -177,29 +189,33 @@ GenJetSpectraAnalyzer::isFromHeavyQuark( const reco::Candidate & c, bool bIniPar
          mom = grandMom;
 	 const ParticleData * pd_mom = pdt_->particle(mom->pdgId());
          if(!bIniPartonOnly){// heavy quarks from anywhere along decay,shower,etc..   
-            if(checkHeavyQuark(mom->pdgId())) {
-	       return true;
-            }
-         }
-	 //cout<<"Number of mom of this mom "<<mom->numberOfMothers()<<" and identity = "<<pd_mom->name()
-	 //<<" and status = "<<mom->status()<<endl;
+	    if(bIsCquark){
+	       if(checkHeavyQuarkC(mom->pdgId())) {
+		  return true;
+	       }
+	    }else{
+	       if(checkHeavyQuarkB(mom->pdgId())) {
+                  return true;
+               }
+	    }
+	 }
 	 if(mom->numberOfMothers() == 2 &&
 	    mom->status() == 3) break; // to pick up a parton produced in hard collision
       }
-      //const Candidate * d = mom->daughter(0); // first daughter from the incoming (NOT 0th)
-      //const Candidate * d = dd->daughter(1);
-      //const ParticleData * pd = pdt_->particle(mom->pdgId());
-      //const ParticleData * pd = pdt_->particle(d->pdgId());
+
       const ParticleData * pd = pdt_->particle(mom->pdgId());
-      //cout<<"initial parton = "<<pd->name()<<" / pdg id is "<<mom->pdgId()<<endl;
-      if(checkHeavyQuark(mom->pdgId())){
-	 //cout<<"b and c flavored hard parton found!"<<endl;
-         return true;
+      if(bIsCquark){
+	 if(checkHeavyQuarkC(mom->pdgId())){
+	    return true;
+	 }
+      }else{
+	 if(checkHeavyQuarkB(mom->pdgId())){
+            return true;
+         }
       }
    }
    return false;
 }
-
 
 void
 GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
@@ -244,8 +260,10 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 	 AllTemp->iCharge = gen->charge();
 	 AllTemp->iStatus = gen->status(); // Status = 1 is guaranteed above
 	 AllTemp->iPdgId = gen->pdgId();
-	 AllTemp->iFromHQ = (isFromHeavyQuark( * gen, true)) ? 1 : 0;
-	 AllTemp->iFromAnyHQ = (isFromHeavyQuark( * gen, false)) ? 1 : 0;
+	 AllTemp->iFromHQc = (isFromHeavyQuark( * gen, true, true)) ? 1 : 0;
+         AllTemp->iFromAnyHQc = (isFromHeavyQuark( * gen, false, true)) ? 1 : 0;
+	 AllTemp->iFromHQb = (isFromHeavyQuark( * gen, true, false)) ? 1 : 0;
+	 AllTemp->iFromAnyHQb = (isFromHeavyQuark( * gen, false, false)) ? 1 : 0;
 	 //AllTemp->bIsMortherPartonQuark = true;
 
 	 status1p.push_back( & * gen);
@@ -345,13 +363,10 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 	 JetTemp->iCharge = members[k]->charge();
 	 JetTemp->iStatus = members[k]->status(); 
 	 JetTemp->iPdgId = members[k]->pdgId(); 
-	 JetTemp->iFromHQ = 0;
-	 JetTemp->iFromAnyHQ = 0;
-
-	 //JetTemp->iFromHQ = (isFromHeavyQuark( * gen, true)) ? 1 : 0;
-	 //JetTemp->iFromAnyHQ = (isFromHeavyQuark( * gen, false)) ? 1 : 0;
-	 //JetTemp->bIsMortherPartonQuark = isMotherPartonQuark;
-      
+	 JetTemp->iFromHQc = 0;
+	 JetTemp->iFromAnyHQc = 0;
+	 JetTemp->iFromHQb = 0;
+         JetTemp->iFromAnyHQb = 0;
       }
 
       spectraTree->Fill(); //filled n times 
