@@ -13,8 +13,10 @@ FoundJets::FoundJets()
    iCharge = 0;
    iStatus = 0; 
    iPdgId = 0;
-   iFromHQ = 0;
-   iFromAnyHQ = 0;
+   iFromHQc = 0;
+   iFromAnyHQc = 0;
+   iFromHQb = 0;
+   iFromAnyHQb = 0;
    //bIsMortherPartonQuark = true;
 
 }

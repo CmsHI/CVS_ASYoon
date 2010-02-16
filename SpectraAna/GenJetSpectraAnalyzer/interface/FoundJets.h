@@ -14,10 +14,11 @@ class FoundJets : public TObject {
    
    float fP,fPt,fRapid,fEta;
    int iCharge,iStatus,iPdgId;
-   int iFromHQ,iFromAnyHQ;
+   int iFromHQc,iFromAnyHQc;
+   int iFromHQb,iFromAnyHQb;
    //bool bIsMortherPartonQuark;
    
-   ClassDef(FoundJets,9)
+   ClassDef(FoundJets,10)
       
 };
       
