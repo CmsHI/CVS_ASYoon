@@ -55,6 +55,10 @@
 
 #include "RecoJets/JetAlgorithms/interface/JetAlgoHelper.h" //for sorting                                      
 
+//This to access HepMC
+#include "HepMC/GenEvent.h"
+#include "SimDataFormats/GeneratorProducts/interface/HepMCProduct.h"
+
 
 #include "TNtuple.h"
 //#include "TH1D.h"
@@ -94,6 +98,8 @@ private:
    Float_t fJPt, fJPhi,fJRapid,fJEta,fJEt;
    Float_t fAlpha, fBeta, fBeta_check;
    string resultFileLabel;
+   
+   Int_t totEvt;
 
    TTree *spectraTree;
    TTree *spectraTree2;
@@ -102,6 +108,8 @@ private:
    TClonesArray *CAAllPart;
 
    //Service<TFileService> fs;
+   bool pthatReject_;
+   double pthatMax_;
    
 
       // ----------member data ---------------------------
@@ -123,7 +131,8 @@ GenJetSpectraAnalyzer::GenJetSpectraAnalyzer(const edm::ParameterSet& iConfig)
 {
    //now do what ever initialization is needed
    resultFileLabel = iConfig.getParameter<string>("resultFile");
-
+   pthatReject_ = iConfig.getUntrackedParameter<bool>("pthatReject",false);
+   pthatMax_ = iConfig.getUntrackedParameter<double>("pthatMax", 5);
 }
 
 
@@ -221,7 +230,8 @@ void
 GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    //using namespace edm;
-   
+   using namespace HepMC;
+
    //cout<<"[GenJetSpectraAnalyzer][analyze] BEGINS..."<<endl;
 
    // --- Particles                                                                                            
@@ -230,6 +240,19 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
    iEvent.getByLabel("genParticles", particles);
 
    // --- HepMC to get event process id!
+   Float_t pthat;
+   //Int_t iSUB;
+   Handle<HepMCProduct> mc;
+   iEvent.getByLabel("generator",mc);
+   const GenEvent* MCEvt = mc->GetEvent();
+   // this rejects events with pthat > pthatMax!
+   if(pthatReject_){
+      pthat = MCEvt->event_scale();
+      if(pthat>(Float_t)pthatMax_){
+	 //cout<<"pT hat ="<<pthat<<endl;
+	 return;
+      }
+   }
 
    // --- Gen Jets                                                                                     
    Handle<vector<GenJet> > genjets;
@@ -373,6 +396,7 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
       CAJetPart->Clear();  
    }
    
+   totEvt++;
 
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;
@@ -411,6 +435,7 @@ GenJetSpectraAnalyzer::beginJob()
    spectraTree2 = new TTree("SpectraStudyTree2","SpectraStudyTree2");
    spectraTree2->Branch("AllParticles",&CAAllPart);
 
+   totEvt = 0;
 
 }
 
@@ -421,6 +446,9 @@ GenJetSpectraAnalyzer::endJob() {
    spectraTree->Write();
    spectraTree2->Write();
    resultFile->Close();
+
+   cout<<"Total number of events analyzed: "<<totEvt<<endl;
+
 }
 
 //define this as a plug-in
