@@ -110,7 +110,8 @@ private:
    //Service<TFileService> fs;
    bool pthatReject_;
    double pthatMax_;
-   
+   InputTag mcjet_;
+
 
       // ----------member data ---------------------------
 };
@@ -133,6 +134,7 @@ GenJetSpectraAnalyzer::GenJetSpectraAnalyzer(const edm::ParameterSet& iConfig)
    resultFileLabel = iConfig.getParameter<string>("resultFile");
    pthatReject_ = iConfig.getUntrackedParameter<bool>("pthatReject",false);
    pthatMax_ = iConfig.getUntrackedParameter<double>("pthatMax", 5);
+   mcjet_ = iConfig.getUntrackedParameter<InputTag>("mcjet",InputTag("iterativeCone5GenJets"));
 }
 
 
@@ -256,7 +258,7 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 
    // --- Gen Jets                                                                                     
    Handle<vector<GenJet> > genjets;
-   iEvent.getByLabel("iterativeCone5GenJets",genjets);
+   iEvent.getByLabel(mcjet_,genjets);
 
    // --- Sort the particles according to thier status                                                 
    vector<const Candidate *> status1p;
