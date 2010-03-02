@@ -65,7 +65,7 @@ process.generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
-    comEnergy = cms.double(1960.0),
+    comEnergy = cms.double(7000.0),
     #pythiaBeam1 = cms.untracked.string('p'),
     #pythiaBeam2 = cms.untracked.string('n'),
     #crossSection = cms.untracked.double(30000000000.0),
@@ -115,18 +115,18 @@ process.generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 ####################################################################################
 # JET
-process.load('RecoJets.Configuration.GenJetParticles_cff')
-process.load('RecoJets.JetProducers.ic5GenJets_cfi')
-process.load('RecoJets.JetProducers.kt4GenJets_cfi')
-process.load('RecoJets.JetProducers.sc5GenJets_cfi')
+#process.load('RecoJets.Configuration.GenJetParticles_cff')
+#process.load('RecoJets.JetProducers.ic5GenJets_cfi')
+#process.load('RecoJets.JetProducers.kt4GenJets_cfi')
+#process.load('RecoJets.JetProducers.sc5GenJets_cfi')
 
-process.iterativeCone5GenJets.rParam = cms.double(0.7) 
-process.kt4GenJets.rParam = cms.double(0.7)
-process.sisCone5GenJets.rParam = cms.double(0.7)
+#process.iterativeCone5GenJets.rParam = cms.double(0.7) 
+#process.kt4GenJets.rParam = cms.double(0.7)
+#process.sisCone5GenJets.rParam = cms.double(0.7)
 
-process.genJet = cms.Sequence(process.genParticlesForJets
-                              *(process.iterativeCone5GenJets+process.kt4GenJets+process.sisCone5GenJets)
-                              )
+#process.genJet = cms.Sequence(process.genParticlesForJets
+#                              *(process.iterativeCone5GenJets+process.kt4GenJets+process.sisCone5GenJets)
+#                              )
 
 #################################################################################### 
 # ANA
@@ -134,24 +134,25 @@ process.genjetana  = cms.EDAnalyzer('GenJetSpectraAnalyzer',
                                     resultFile = cms.string('__OUTPUTDIR2__/__OUTPUT2___IC7.root'),
                                     pthatReject = cms.untracked.bool(True),
                                     pthatMax = cms.untracked.double(__MAXPT__),
+                                    jetANA = cms.untracked.bool(False),
                                     mcjet = cms.untracked.InputTag("iterativeCone5GenJets")
                                     #resultFile = cms.string("test.root")
                                     )
 
-process.genjetana2  = cms.EDAnalyzer('GenJetSpectraAnalyzer',
-                                     resultFile = cms.string('__OUTPUTDIR2__/__OUTPUT2___KT7.root'),
-                                     pthatReject = cms.untracked.bool(True),
-                                     pthatMax = cms.untracked.double(__MAXPT__),
-                                     mcjet = cms.untracked.InputTag("kt4GenJets")
-                                     #resultFile = cms.string("test.root")
-                                     )
-process.genjetana3  = cms.EDAnalyzer('GenJetSpectraAnalyzer',
-                                     resultFile = cms.string('__OUTPUTDIR2__/__OUTPUT2___SC7.root'),
-                                     pthatReject = cms.untracked.bool(True),
-                                     pthatMax = cms.untracked.double(__MAXPT__),
-                                     mcjet = cms.untracked.InputTag("sisCone5GenJets")
-                                     #resultFile = cms.string("test.root")
-                                     )
+#process.genjetana2  = cms.EDAnalyzer('GenJetSpectraAnalyzer',
+#                                     resultFile = cms.string('__OUTPUTDIR2__/__OUTPUT2___KT7.root'),
+#                                     pthatReject = cms.untracked.bool(True),
+#                                     pthatMax = cms.untracked.double(__MAXPT__),
+#                                     mcjet = cms.untracked.InputTag("kt4GenJets")
+#                                     #resultFile = cms.string("test.root")
+#                                     )
+#process.genjetana3  = cms.EDAnalyzer('GenJetSpectraAnalyzer',
+#                                     resultFile = cms.string('__OUTPUTDIR2__/__OUTPUT2___SC7.root'),
+#                                     pthatReject = cms.untracked.bool(True),
+#                                     pthatMax = cms.untracked.double(__MAXPT__),
+#                                     mcjet = cms.untracked.InputTag("sisCone5GenJets")
+#                                     #resultFile = cms.string("test.root")
+#                                     )
 #################################################################################### 
 
 
@@ -159,17 +160,17 @@ process.genjetana3  = cms.EDAnalyzer('GenJetSpectraAnalyzer',
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.generator)
 process.generation_step2 = cms.Path(process.genParticles)
-process.generation_jet = cms.Path(process.genJet)
+#process.generation_jet = cms.Path(process.genJet)
 process.ana = cms.Path(process.genjetana)
-process.ana2 = cms.Path(process.genjetana2)
-process.ana3 = cms.Path(process.genjetana3)
+#process.ana2 = cms.Path(process.genjetana2)
+#process.ana3 = cms.Path(process.genjetana3)
 process.out_step = cms.EndPath(process.output)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.generation_step,
                                 process.generation_step2,
-                                process.generation_jet,
-                                process.ana,
-                                process.ana2,
-                                process.ana3,
-                                process.out_step)
+                                #process.generation_jet,
+                                process.ana)
+                                #process.ana2,
+                                #process.ana3,
+                                #process.out_step)

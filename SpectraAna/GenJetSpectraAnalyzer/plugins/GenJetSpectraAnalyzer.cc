@@ -13,7 +13,7 @@
 //
 // Original Author:  Sungho Yoon
 //         Created:  Sun Aug 23 10:50:33 EDT 2009
-// $Id: GenJetSpectraAnalyzer.cc,v 1.1 2009/10/09 13:45:43 sungho Exp $
+// $Id: GenJetSpectraAnalyzer.cc,v 1.6 2010/02/23 12:14:03 sungho Exp $
 //
 //
 
@@ -109,6 +109,7 @@ private:
 
    //Service<TFileService> fs;
    bool pthatReject_;
+   bool jetANA_;
    double pthatMax_;
    InputTag mcjet_;
 
@@ -134,6 +135,7 @@ GenJetSpectraAnalyzer::GenJetSpectraAnalyzer(const edm::ParameterSet& iConfig)
    resultFileLabel = iConfig.getParameter<string>("resultFile");
    pthatReject_ = iConfig.getUntrackedParameter<bool>("pthatReject",false);
    pthatMax_ = iConfig.getUntrackedParameter<double>("pthatMax", 5);
+   jetANA_ = iConfig.getUntrackedParameter<bool>("jetANA",true);
    mcjet_ = iConfig.getUntrackedParameter<InputTag>("mcjet",InputTag("iterativeCone5GenJets"));
 }
 
@@ -256,10 +258,6 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
       }
    }
 
-   // --- Gen Jets                                                                                     
-   Handle<vector<GenJet> > genjets;
-   iEvent.getByLabel(mcjet_,genjets);
-
    // --- Sort the particles according to thier status                                                 
    vector<const Candidate *> status1p;
    vector<const Candidate *> status2p;
@@ -305,66 +303,45 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
    spectraTree2->Fill(); //filled n times 
    CAAllPart->Clear();
 
-   /*
-   // ---- Analyze All particles !                                                                                       
-   TClonesArray &CAAllTemp = *((TClonesArray*)CAAllPart);
-
-   //FoundJets *AllTemp = new(CAAllTemp[0]) FoundJets();
-
-   cout<<"Number of stutus 1 particle "<<status1p.size()<<endl;
-   Int_t iPartCount = -1;
-
-   for(size_t i = 0; i < status1p.size(); i++){
-
-      iPartCount++;
-   
-      FoundJets *AllTemp = new(CAAllTemp[iPartCount]) FoundJets();
-
-      AllTemp->fPt = status1p[i]->pt();
-      AllTemp->fRapid = status1p[i]->rapidity();
-      AllTemp->iCharge = status1p[i]->charge();
-      AllTemp->iStatus = status1p[i]->status();
-      AllTemp->iPdgId = status1p[i]->pdgId();
-      AllTemp->bIsMortherPartonQuark = true;
-   }
-   
-   spectraTree2->Fill(); //filled n times                                
-   CAAllPart->Clear();
-   */
-
    // ---- Analyze Jets!                                                                               
-   iJets = genjets->size();
+   if(jetANA_){
 
-   //cout<<"[GenFragmentationExtractor][analyze] Number of jets : "<<iJets<<endl;
-
-   vector<const GenJet *> jetsSorted;
-
-   for(size_t j = 0; j < iJets; ++j){
-      const GenJet* jet = &((*genjets)[j]);
-      jetsSorted.push_back( & *jet);
-   }
-
-   sortByEtRef (&jetsSorted);
-
-   //int highestNum = 2; // take only two highest Et jets in each event!                                 
-   int highestNum = jetsSorted.size();
-
-   /*
-   if(jetsSorted.size() < 2) {
-      cout<<"[GenFragmentationExtractor][analyze] Only one jet exists!"<<endl;
-      highestNum = 1;
+      // --- Gen Jets                  
+      Handle<vector<GenJet> > genjets;
+      iEvent.getByLabel(mcjet_,genjets);
+      
+      iJets = genjets->size();
+      
+      //cout<<"[GenFragmentationExtractor][analyze] Number of jets : "<<iJets<<endl;
+      
+      vector<const GenJet *> jetsSorted;
+      
+      for(size_t j = 0; j < iJets; ++j){
+	 const GenJet* jet = &((*genjets)[j]);
+	 jetsSorted.push_back( & *jet);
+      }
+      
+      sortByEtRef (&jetsSorted);
+      
+      //int highestNum = 2; // take only two highest Et jets in each event!                                 
+      int highestNum = jetsSorted.size();
+      
+      /*
+	if(jetsSorted.size() < 2) {
+	cout<<"[GenFragmentationExtractor][analyze] Only one jet exists!"<<endl;
+	highestNum = 1;
       return;
-   }
-   */
-
-   TClonesArray &CAJetTemp = *((TClonesArray*)CAJetPart);
-
-   for(size_t ij = 0; ij < highestNum; ij++){
-
+      }
+      */
+      
+      TClonesArray &CAJetTemp = *((TClonesArray*)CAJetPart);
+      
+      for(size_t ij = 0; ij < highestNum; ij++){
+	 
       int  nChargedHadrons = 0;
       int  nAll = 0;
       bool isMotherPartonQuark = true;
-
+      
       iJIndex = ij+1;
       fJPt = jetsSorted[ij]->pt();
       fJPhi = jetsSorted[ij]->phi();
@@ -372,15 +349,15 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
       fJEt = jetsSorted[ij]->et();  
 
       //checkMotherParton(status3p,jPhi,jRapid,jEt);
-
+      
       vector<const Candidate*> members = jetsSorted[ij]->getJetConstituentsQuick();
-
+      
       //cout<<"Number of particles inside this jets "<<members.size()<<endl;
-
+      
       for(size_t k = 0; k < members.size(); k++){
-
+	 
 	 FoundJets *JetTemp = new(CAJetTemp[k]) FoundJets();
-
+	 
 	 JetTemp->fP = members[k]->p();
 	 JetTemp->fPt = members[k]->pt();
 	 JetTemp->fRapid = members[k]->rapidity();
@@ -393,9 +370,10 @@ GenJetSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& 
 	 JetTemp->iFromHQb = 0;
          JetTemp->iFromAnyHQb = 0;
       }
-
+      
       spectraTree->Fill(); //filled n times 
       CAJetPart->Clear();  
+      }
    }
    
    totEvt++;
@@ -419,24 +397,24 @@ GenJetSpectraAnalyzer::beginJob()
    resultFile = new TFile(resultFileLabel.c_str(),"recreate");
    resultFile->cd();
 
-   CAJetPart = new TClonesArray("FoundJets",20000);
+   if(jetANA_) CAJetPart = new TClonesArray("FoundJets",20000);
    CAAllPart = new TClonesArray("FoundJets",20000);
 
-   spectraTree = new TTree("SpectraStudyTree","SpectraStudyTree");
-   spectraTree->Branch("NumJets",&iJets,"NumJets/I");
-   spectraTree->Branch("JetIndex",&iJIndex,"JetIndex/I");
-   spectraTree->Branch("JetPt",&fJPt,"JetPt/F");
-   spectraTree->Branch("JetPhi",&fJPhi,"JetPhi/F");
-   spectraTree->Branch("JetRapidity",&fJRapid,"JetRapidity/F");
-   spectraTree->Branch("JetEta",&fJEta,"JetEta/F");
-   spectraTree->Branch("JetEt",&fJEt,"JetEt/F");
-   spectraTree->Branch("Alpha",&fAlpha,"Alpha/F");
-
-   spectraTree->Branch("JetParticles",&CAJetPart);
-
+   if(jetANA_){
+      spectraTree = new TTree("SpectraStudyTree","SpectraStudyTree");
+      spectraTree->Branch("NumJets",&iJets,"NumJets/I");
+      spectraTree->Branch("JetIndex",&iJIndex,"JetIndex/I");
+      spectraTree->Branch("JetPt",&fJPt,"JetPt/F");
+      spectraTree->Branch("JetPhi",&fJPhi,"JetPhi/F");
+      spectraTree->Branch("JetRapidity",&fJRapid,"JetRapidity/F");
+      spectraTree->Branch("JetEta",&fJEta,"JetEta/F");
+      spectraTree->Branch("JetEt",&fJEt,"JetEt/F");
+      spectraTree->Branch("Alpha",&fAlpha,"Alpha/F");
+      spectraTree->Branch("JetParticles",&CAJetPart);
+   }
    spectraTree2 = new TTree("SpectraStudyTree2","SpectraStudyTree2");
    spectraTree2->Branch("AllParticles",&CAAllPart);
-
+   
    totEvt = 0;
 
 }
@@ -445,7 +423,7 @@ GenJetSpectraAnalyzer::beginJob()
 void 
 GenJetSpectraAnalyzer::endJob() {
    resultFile->cd();
-   spectraTree->Write();
+   if(jetANA_) spectraTree->Write();
    spectraTree2->Write();
    resultFile->Close();
 
