@@ -6,6 +6,7 @@ void dNdeta_vs_roots() {
 
 
   bool ErrorFlag = true;
+  bool theory = true;
 
   //****************************************************
   Bool_t bw = 1;       // 1: BLACK AND WHITE, 0: COLOR
@@ -74,13 +75,13 @@ void dNdeta_vs_roots() {
   pythia1->SetLineColor(kBlue);
   pythia1->SetLineWidth(2);
   pythia1->SetLineStyle(1);
-  //pythia1->Draw("same");
+  if(theory) pythia1->Draw("same");
 
   TF1 *pythia2 = new TF1("pythia2","3.328+(log(x)-log(2360))/(log(7000)-log(2360))*(4.09-3.328)",2360,7000);
   pythia2->SetLineColor(kBlue);
   pythia2->SetLineWidth(2);
   pythia2->SetLineStyle(1);
-  //pythia2->Draw("same");
+  if(theory) pythia2->Draw("same");
 
   // ---- PHOJET ----
   //  900 GeV NSD:  3.474
@@ -95,8 +96,8 @@ void dNdeta_vs_roots() {
   phojet2->SetLineWidth(2);
   phojet1->SetLineStyle(1);
   phojet2->SetLineStyle(1);
-  //phojet1->Draw("same");
-  //phojet2->Draw("same");
+  if(theory) phojet1->Draw("same");
+  if(theory) phojet2->Draw("same");
 
   // ---- G. Levin ----
 
@@ -107,7 +108,7 @@ void dNdeta_vs_roots() {
    gr = new TGraphErrors(8,x,y,ex,ey);
    gr->SetLineColor(kRed);
    gr->SetLineWidth(2);
-   //gr->Draw("L");
+   if(theory) gr->Draw("L");
 
 // ---- ISR ---
 
@@ -515,7 +516,7 @@ void dNdeta_vs_roots() {
     leg5->AddEntry(pythia1,"PYTHIA 6.420 D6T","l");
     leg5->AddEntry(gr,"E. Levin et al.","l");
     leg5->SetTextSize(0.03);
-    //leg5->Draw();
+    if(theory) leg5->Draw();
 
 
     //TLegend leg2(0.38,0.15,0.88,0.29);
