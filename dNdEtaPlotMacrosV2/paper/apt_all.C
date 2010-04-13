@@ -232,6 +232,7 @@ void apt_all(){
    */
 
    TLegend *leg = new TLegend(0.25,0.90-0.045*5,0.5,0.90,NULL,"brNDC");
+   if(theory) TLegend *leg = new TLegend(0.25,0.90-0.045*6,0.57,0.90,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -260,11 +261,18 @@ void apt_all(){
    entry->SetMarkerStyle(20);  
    entry->SetMarkerColor(kRed+2);
    entry->SetMarkerSize(msize*1.0);  
+   
+   entry=leg->AddEntry("func2","Troshin et. al.","l");
+   //entry->SetMarkerStyle(20);
+   //entry->SetMarkerColor(kRed+2);
+   //entry->SetMarkerSize(msize*1.0);
+
    leg->Draw();  
 
-   if(theory) TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.26,NULL,"brNDC");
+   //if(theory) TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.26,NULL,"brNDC");
    //TLegend *leg2 = new TLegend(0.411,0.18,0.91,0.33,NULL,"brNDC");     
-   else TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.31,NULL,"brNDC");  
+   //else TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.31,NULL,"brNDC");  
+   TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.31,NULL,"brNDC");
    leg2->SetBorderSize(0);
    leg2->SetTextFont(62);
    leg2->SetTextSize(0.035);
@@ -279,7 +287,7 @@ void apt_all(){
    //   TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.015 #times ln(s) + 0.001325 #times ln^{2}(s)","l");
    //TLegendEntry *entry=leg2->AddEntry("func","0.40 - 0.015 ln(s) + 0.001325 ln^{2}(s)","l");
    //TLegendEntry *entry=leg2->AddEntry("func","0.425 - 0.0197 ln(s) + 0.00156 ln^{2}(s)","l");
-   if(theory)TLegendEntry *entry=leg2->AddEntry("func2","0.337 + 0.00652 s^{0.207}","l");
+   //if(theory)TLegendEntry *entry=leg2->AddEntry("func2","0.337 + 0.00652 s^{0.207}","l");
    TLegendEntry *entry=leg2->AddEntry("func","0.409 - 0.0163 ln(s) + 0.00139 ln^{2}(s)","l");
    
    //TLegendEntry *entry=leg2->AddEntry("func2","0.337 + 0.00652 s^{0.207}","l");
