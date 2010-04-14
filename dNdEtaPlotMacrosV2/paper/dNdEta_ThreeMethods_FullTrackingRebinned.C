@@ -462,7 +462,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    corr_result_all7->Draw("pzsame");
 
    /// --- tracklet
-   Float_t err_tracklet = 0.037;
+   Float_t err_tracklet = 0.029;
    TH1 *hTracklet7 = new TH1D("hTracklet7","",12, xAxis5);
 
    hTracklet7->SetBinContent(2,6.40978);
@@ -500,6 +500,19 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    Double_t xAxis7[13] = {-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3};
    TH1 *hMeasuredFinal7 = new TH1D("hMeasuredFinal7","",12, xAxis7);
 
+   
+   hMeasuredFinal7->SetBinContent(2,6.04289);
+   hMeasuredFinal7->SetBinContent(3,6.16213);
+   hMeasuredFinal7->SetBinContent(4,6.08164);
+   hMeasuredFinal7->SetBinContent(5,6.03978);
+   hMeasuredFinal7->SetBinContent(6,5.88494);
+   hMeasuredFinal7->SetBinContent(7,5.85596);
+   hMeasuredFinal7->SetBinContent(8,6.00706);
+   hMeasuredFinal7->SetBinContent(9,6.07017);
+   hMeasuredFinal7->SetBinContent(10,6.15765);
+   hMeasuredFinal7->SetBinContent(11,6.04289);
+   
+   /*
    hMeasuredFinal7->SetBinContent(2,6.06085);
    hMeasuredFinal7->SetBinContent(3,6.18989);
    hMeasuredFinal7->SetBinContent(4,6.12138);
@@ -510,6 +523,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal7->SetBinContent(9,6.10845);
    hMeasuredFinal7->SetBinContent(10,6.18874);
    hMeasuredFinal7->SetBinContent(11,6.06085);
+   */
 
    hMeasuredFinal7->SetBinError(2,6.06085*err_track);
    hMeasuredFinal7->SetBinError(3,6.18989*err_track);

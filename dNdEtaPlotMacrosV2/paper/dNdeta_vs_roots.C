@@ -7,6 +7,7 @@ void dNdeta_vs_roots() {
 
   bool ErrorFlag = true;
   bool theory = true;
+  theory = false;
 
   //****************************************************
   Bool_t bw = 1;       // 1: BLACK AND WHITE, 0: COLOR
@@ -51,7 +52,8 @@ void dNdeta_vs_roots() {
 
 
   //TF1 *fitUA5 = new TF1("fitUA5","2.420-0.244*log(x^2)+0.0236*(log(x^2))^2",40,8000);
-  TF1 *fitUA5 = new TF1("fitUA5","3.183-0.384*log(x^2)+0.0297*(log(x^2))^2",40,8000);     
+  //TF1 *fitUA5 = new TF1("fitUA5","3.183-0.384*log(x^2)+0.0297*(log(x^2))^2",40,8000);     
+  TF1 *fitUA5 = new TF1("fitUA5","3.167-0.381*log(x^2)+0.0296*(log(x^2))^2",40,8000);   
   fitUA5->SetLineColor(kBlue);
   if(bw)fitUA5->SetLineColor(kBlack);
   fitUA5->SetLineWidth(2);
@@ -94,8 +96,8 @@ void dNdeta_vs_roots() {
   phojet2->SetLineColor(kGreen);
   phojet1->SetLineWidth(2);
   phojet2->SetLineWidth(2);
-  phojet1->SetLineStyle(1);
-  phojet2->SetLineStyle(1);
+  phojet1->SetLineStyle(2);
+  phojet2->SetLineStyle(2);
   if(theory) phojet1->Draw("same");
   if(theory) phojet2->Draw("same");
 
@@ -108,6 +110,7 @@ void dNdeta_vs_roots() {
    gr = new TGraphErrors(8,x,y,ex,ey);
    gr->SetLineColor(kRed);
    gr->SetLineWidth(2);
+   gr->SetLineStyle(9);
    if(theory) gr->Draw("L");
 
 // ---- ISR ---
@@ -318,7 +321,8 @@ void dNdeta_vs_roots() {
 // ---- CMS NSD ---
   const int NCMS=3;
   Double_t x11[NCMS] =  { 900, 2360, 7000 }; 
-  Double_t y11[NCMS] =  {  3.4984, 4.46, 5.84 };
+  //Double_t y11[NCMS] =  {  3.4984, 4.46, 5.84 };
+  Double_t y11[NCMS] =  {  3.4984, 4.46, 5.82 }; 
   Double_t cmsSysErr = (y11[0]+y11[1])/2. *0.037;
 
   // for now we don't show sys error for everyone
@@ -338,8 +342,8 @@ void dNdeta_vs_roots() {
   Double_t exhd11[NCMS]= { 0.00,0.00,0 };
 
 
-  Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.037*y11[2]};
-  Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.037*y11[2]};
+  Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.04*y11[2]};
+  Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.04*y11[2]};
   
   TGraphAsymmErrors *cmsnsd=new TGraphAsymmErrors(NCMS,x11,y11,exl11,exh11,eyl11,eyh11);
   //TGraphBentErrors *cmsnsd = new TGraphBentErrors(NCMS,x11,y11,exl11,exh11,eyl11,eyh11,exld11,exhd11,eyld11,eyhd11); 
@@ -487,13 +491,18 @@ void dNdeta_vs_roots() {
     leg->AddEntry(ua5nsd,"UA5 NSD","p");
     leg->AddEntry(cdf,"CDF NSD","p");
     leg->AddEntry(cmsnsd,"CMS NSD","p");
+    leg->AddEntry(phojet1,"PHOJET 1.12","l");
+    leg->AddEntry(pythia1,"PYTHIA 6.420 D6T","l");
+    leg->AddEntry(gr,"E. Levin et al.","l");
     leg->SetTextSize(0.03);
 
     }
     //    leg->Draw();
 
 
-    TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*6,0.68,0.92);
+    if(theory) TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*8,0.68,0.92);
+    else TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*6,0.68,0.92);
+
     leg3->SetFillColor(0);
 
     leg3->SetBorderSize(0);
@@ -504,19 +513,24 @@ void dNdeta_vs_roots() {
       leg3->AddEntry(cdf,"CDF NSD","p");
       leg3->AddEntry(alicensd,"ALICE NSD","p");
       leg3->AddEntry(cmsnsd,"CMS NSD","p");
+      if(theory){
+	 leg3->AddEntry(phojet1,"PHOJET 1.12","l");
+	 leg3->AddEntry(pythia1,"PYTHIA 6.420 D6T","l");
+	 leg3->AddEntry(gr,"E. Levin et al.","l");
+      }
       leg3->SetTextSize(0.03);
     }
     leg3->Draw();
     leg->Draw();
 
-    TLegend* leg5 = new TLegend(0.60,0.4 - 0.045*2,0.95,0.4);
-    leg5->SetFillColor(0);
-    leg5->SetBorderSize(0);
-    leg5->AddEntry(phojet1,"PHOJET 1.12","l");
-    leg5->AddEntry(pythia1,"PYTHIA 6.420 D6T","l");
-    leg5->AddEntry(gr,"E. Levin et al.","l");
-    leg5->SetTextSize(0.03);
-    if(theory) leg5->Draw();
+    //TLegend* leg5 = new TLegend(0.60,0.4 - 0.045*2,0.95,0.4);
+    //leg5->SetFillColor(0);
+    //leg5->SetBorderSize(0);
+    //leg5->AddEntry(phojet1,"PHOJET 1.12","l");
+    //leg5->AddEntry(pythia1,"PYTHIA 6.420 D6T","l");
+    //leg5->AddEntry(gr,"E. Levin et al.","l");
+    //leg5->SetTextSize(0.03);
+    //if(theory) leg5->Draw();
 
 
     //TLegend leg2(0.38,0.15,0.88,0.29);
@@ -531,7 +545,8 @@ void dNdeta_vs_roots() {
     leg2->AddEntry(fitISR,"0.161 + 0.201 ln(s)","l");
     //leg2->AddEntry(fitUA5,"2.26 - 0.207 ln(s) + 0.0215 ln^{2}(s)","l");
     // fit with CMS 900, 2360 GeV Points
-    leg2->AddEntry(fitUA5,"3.18 - 0.384 ln(s) + 0.0297 ln^{2}(s)","l");
+    //leg2->AddEntry(fitUA5,"3.18 - 0.384 ln(s) + 0.0297 ln^{2}(s)","l");
+    leg2->AddEntry(fitUA5,"3.17 - 0.381 ln(s) + 0.0296 ln^{2}(s)","l");
     //leg2->AddEntry(fitUA5,"0.929 + 0.0644 exp(#sqrt{ln(s)})","l");
     leg2->AddEntry(fitUA5inel,"1.54 - 0.096 ln(s) + 0.0155 ln^{2}(s)","l");
     leg2->SetTextSize(0.03);

@@ -283,18 +283,27 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->Draw("pzsame");
 
    //------------------------ 7 TeV measurement is added -------------------
+   sysError = 0.04;
    TH1F *hMeasuredFinal7 = (TH1F*)hMeasuredFinal3->Clone("hMeasuredFinal7");
    hMeasuredFinal7->GetXaxis()->SetRange(1,13);
    hMeasuredFinal7->SetMarkerColor(kRed);
    hMeasuredFinal7->SetLineColor(kRed);
    hMeasuredFinal7->SetMarkerStyle(21);
    hMeasuredFinal7->SetMarkerSize(1.8);
+   
+   hMeasuredFinal7->SetBinContent(2,6.192219583);  // -2.4 to -2.0                                                                     
+   hMeasuredFinal7->SetBinContent(3,6.282615295); //-2 to -1.5        
+   hMeasuredFinal7->SetBinContent(4,6.160073591);        // -1.5 to -1.0 
+   hMeasuredFinal7->SetBinContent(5,6.029742284); // -1.0 to -0.5 
+   hMeasuredFinal7->SetBinContent(6,5.820368328);        // -0.5 to 0
 
+   /*
    hMeasuredFinal7->SetBinContent(2,6.185906584);  // -2.4 to -2.0 
    hMeasuredFinal7->SetBinContent(3,6.289866674); //-2 to -1.5
    hMeasuredFinal7->SetBinContent(4,6.171406418);        // -1.5 to -1.0 
    hMeasuredFinal7->SetBinContent(5,6.034369977); // -1.0 to -0.5 
    hMeasuredFinal7->SetBinContent(6,5.828669611);        // -0.5 to 0 
+   */
 
    hMeasuredFinal7->SetBinContent(7,hMeasuredFinal7->GetBinContent(6)); // 0 to 0.5
    hMeasuredFinal7->SetBinContent(8,hMeasuredFinal7->GetBinContent(5)); // 0.5 to 1.0
@@ -311,7 +320,6 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
 
 
-   //------------------------ 7 TeV measurement is added ------------------- 
    
    Float_t ywidth = 0.045*5;
 
