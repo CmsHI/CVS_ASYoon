@@ -196,9 +196,7 @@ void apt_all(){
    gre->SetPointError(1,0,0.0172);// 3.44%
 
    gre->SetPoint(2,7000,0.545);
-
-   //gre->SetPointError(2,0,0.005);//stat only
-   gre->SetPointError(2,0,0.018232);// 3.44%
+   gre->SetPointError(2,0,0.0158113);// sqrt(0.005*0.005+0.015*0.015) (stat + sys)
 
    TGraph* greOnT = gre->Clone("greOnT");
    greOnT->SetMarkerStyle(0);
