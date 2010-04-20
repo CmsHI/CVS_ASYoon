@@ -12,6 +12,7 @@ void invariant_all_v2() {
 
   Float_t marker = 1.4;
   Bool_t  doTsallis = false;
+  Bool_t extended = true; // to extend pt reach up to 6 GeV
   
   //TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
   TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,720,800);
@@ -21,10 +22,12 @@ void invariant_all_v2() {
 
   TH1D *hDist = new TH1D("hDist","hDist",20,0,20);
 
-  hDist->GetXaxis()->SetRange(1,4);
+  //hDist->GetXaxis()->SetRange(1,4);
+  hDist->GetXaxis()->SetRange(1,6);
   hDist->GetXaxis()->SetNdivisions(510);
 
-  hDist->SetMinimum(1e-05);
+  //hDist->SetMinimum(1e-05);
+  hDist->SetMinimum(2e-06);   
   hDist->SetMaximum(50);
   hDist->SetFillColor(1);
   hDist->SetFillStyle(0);
@@ -51,7 +54,9 @@ void invariant_all_v2() {
   hDist->GetZaxis()->SetTitleFont(42);
   hDist->Draw("");
 
-   TGraph *graph = new TGraph(1002);
+   if(extended) TGraph *graph = new TGraph(197);
+   else  TGraph *graph = new TGraph(1002);
+
    graph->SetName("Graph");
    graph->SetTitle("Graph");
    graph->SetFillColor(1);
@@ -84,6 +89,7 @@ void invariant_all_v2() {
    graph->SetPoint(24,0.48,1.315537);
    graph->SetPoint(25,0.5,1.187978);
    graph->SetPoint(26,0.52,1.073624);
+
    graph->SetPoint(27,0.54,0.971083);
    graph->SetPoint(28,0.56,0.879098);
    graph->SetPoint(29,0.58,0.796539);
@@ -108,6 +114,7 @@ void invariant_all_v2() {
    graph->SetPoint(48,0.96,0.1456868);
    graph->SetPoint(49,0.98,0.1343875);
    graph->SetPoint(50,1,0.124062);
+
    graph->SetPoint(51,1.02,0.1146184);
    graph->SetPoint(52,1.04,0.1059744);
    graph->SetPoint(53,1.06,0.0980555);
@@ -189,6 +196,7 @@ void invariant_all_v2() {
    graph->SetPoint(129,2.58,0.001212122);
    graph->SetPoint(130,2.6,0.001159842);
    graph->SetPoint(131,2.62,0.001110093);
+
    graph->SetPoint(132,2.64,0.001062739);
    graph->SetPoint(133,2.66,0.001017653);
    graph->SetPoint(134,2.68,0.000974714);
@@ -253,15 +261,21 @@ void invariant_all_v2() {
    graph->SetPoint(193,3.86,0.0001086065);
    graph->SetPoint(194,3.88,0.0001051523);
    graph->SetPoint(195,3.9,0.0001018216);
+
    graph->SetPoint(196,3.92,9.86096e-05);
+
+   if(!extended){
    graph->SetPoint(197,3.94,9.55114e-05);
+
    graph->SetPoint(198,3.96,9.25229e-05);
    graph->SetPoint(199,3.98,8.96394e-05);
+
    graph->SetPoint(200,4,8.68569e-05);
    graph->SetPoint(201,4.02,8.41718e-05);
    graph->SetPoint(202,4.04,8.15799e-05);
    graph->SetPoint(203,4.06,7.90777e-05);
    graph->SetPoint(204,4.08,7.666191e-05);
+
    graph->SetPoint(205,4.1,7.43291e-05);
    graph->SetPoint(206,4.12,7.20762e-05);
    graph->SetPoint(207,4.14,6.99e-05);
@@ -272,6 +286,7 @@ void invariant_all_v2() {
    graph->SetPoint(212,4.24,6.00739e-05);
    graph->SetPoint(213,4.26,5.83016e-05);
    graph->SetPoint(214,4.28,5.65881e-05);
+
    graph->SetPoint(215,4.3,5.49314e-05);
    graph->SetPoint(216,4.32,5.33291e-05);
    graph->SetPoint(217,4.34,5.17795e-05);
@@ -356,6 +371,7 @@ void invariant_all_v2() {
    graph->SetPoint(296,5.92,6.78043e-06);
    graph->SetPoint(297,5.94,6.62894e-06);
    graph->SetPoint(298,5.96,6.48126e-06);
+
    graph->SetPoint(299,5.98,6.3373e-06);
    graph->SetPoint(300,6,6.19693e-06);
    graph->SetPoint(301,6.02,6.06006e-06);
@@ -511,6 +527,7 @@ void invariant_all_v2() {
    graph->SetPoint(451,9.02,3.76124e-07);
    graph->SetPoint(452,9.04,3.70322e-07);
    graph->SetPoint(453,9.06,3.6462e-07);
+
    graph->SetPoint(454,9.08,3.59017e-07);
    graph->SetPoint(455,9.1,3.53512e-07);
    graph->SetPoint(456,9.12,3.48102e-07);
@@ -902,6 +919,7 @@ void invariant_all_v2() {
    graph->SetPoint(842,16.84,4.2321e-09);
    graph->SetPoint(843,16.86,4.19545e-09);
    graph->SetPoint(844,16.88,4.15916e-09);
+
    graph->SetPoint(845,16.9,4.12322e-09);
    graph->SetPoint(846,16.92,4.08763e-09);
    graph->SetPoint(847,16.94,4.05239e-09);
@@ -1011,6 +1029,7 @@ void invariant_all_v2() {
    graph->SetPoint(951,19.02,1.729762e-09);
    graph->SetPoint(952,19.04,1.716414e-09);
    graph->SetPoint(953,19.06,1.703182e-09);
+
    graph->SetPoint(954,19.08,1.690066e-09);
    graph->SetPoint(955,19.1,1.677063e-09);
    graph->SetPoint(956,19.12,1.664173e-09);
@@ -1035,6 +1054,7 @@ void invariant_all_v2() {
    graph->SetPoint(975,19.5,1.439332e-09);
    graph->SetPoint(976,19.52,1.428486e-09);
    graph->SetPoint(977,19.54,1.417731e-09);
+
    graph->SetPoint(978,19.56,1.407068e-09);
    graph->SetPoint(979,19.58,1.396496e-09);
    graph->SetPoint(980,19.6,1.386013e-09);
@@ -1059,8 +1079,12 @@ void invariant_all_v2() {
    graph->SetPoint(999,19.98,1.202799e-09);
    graph->SetPoint(1000,20,1.193941e-09);
    graph->SetPoint(1001,20,1.193941e-09);
-   
-   TH1F *Graph25 = new TH1F("Graph25","Graph",1002,0,22);
+   }
+
+   if(extended) TH1F *Graph25 = new TH1F("Graph25","Graph",197,0,4);
+   else  TH1F *Graph25 = new TH1F("Graph25","Graph",1002,0,22);
+
+
    Graph25->SetMinimum(0.00702394);
    Graph25->SetMaximum(7.02394);
    Graph25->SetDirectory(0);
@@ -1084,8 +1108,9 @@ void invariant_all_v2() {
    Graph25->GetZaxis()->SetLabelFont(42);
    Graph25->GetZaxis()->SetLabelSize(0.045);
    Graph25->GetZaxis()->SetTitleFont(42);
-   graph->SetHistogram(Graph25);
-   
+
+   //graph->SetHistogram(Graph25);
+   //graph->GetXaxis()->SetRange(1,3);
    graph->Draw("");
    
    TGraphErrors *gre = new TGraphErrors(32);
@@ -1141,6 +1166,7 @@ void invariant_all_v2() {
    gre->SetPoint(22,3.7,0.0001115977);
    gre->SetPointError(22,0,8.810906e-06);
    gre->SetPoint(23,3.9,0.000107417);
+   if(!extended){
    gre->SetPointError(23,0,9.131363e-06);
    gre->SetPoint(24,4.1,6.29886e-05);
    gre->SetPointError(24,0,6.875316e-06);
@@ -1158,7 +1184,8 @@ void invariant_all_v2() {
    gre->SetPointError(30,0,9.328171e-06);
    gre->SetPoint(31,6.3,2.20704e-05);
    gre->SetPointError(31,0,8.398106e-06);
-   
+   }
+
    TH1F *Graph51 = new TH1F("Graph51","Graph",100,0,6.915);
    Graph51->SetMinimum(1.230506e-05);
    Graph51->SetMaximum(7.249944);
@@ -1199,7 +1226,8 @@ void invariant_all_v2() {
 
    gre->Draw("zp");
    
-   graph = new TGraph(1002);
+   if(extended) graph = new TGraph(197);
+   else graph = new TGraph(1002);
    graph->SetName("Graph");
    graph->SetTitle("Graph");
    graph->SetFillColor(1);
@@ -1402,6 +1430,7 @@ void invariant_all_v2() {
    graph->SetPoint(194,3.88,0.000265198);
    graph->SetPoint(195,3.9,0.000257661);
    graph->SetPoint(196,3.92,0.000250369);
+   if(!extended){
    graph->SetPoint(197,3.94,0.000243314);
    graph->SetPoint(198,3.96,0.000236486);
    graph->SetPoint(199,3.98,0.000229877);
@@ -2207,6 +2236,7 @@ void invariant_all_v2() {
    graph->SetPoint(999,19.98,1.186581e-08);
    graph->SetPoint(1000,20,1.178975e-08);
    graph->SetPoint(1001,20,1.178975e-08);
+}
    
    TH1F *Graph26 = new TH1F("Graph26","Graph",1002,0,22);
    Graph26->SetMinimum(0.008900309);
@@ -2290,6 +2320,7 @@ void invariant_all_v2() {
    gre->SetPointError(22,0,3.287118e-05);
    gre->SetPoint(23,3.9,0.000314478);
    gre->SetPointError(23,0,5.016724e-05);
+   if(!extended){
    gre->SetPoint(24,4.1,0.000232611);
    gre->SetPointError(24,0,4.283654e-05);
    gre->SetPoint(25,4.3,0.0001916703);
@@ -2302,7 +2333,8 @@ void invariant_all_v2() {
    gre->SetPointError(28,0,4.556191e-05);
    gre->SetPoint(29,5.3,0.0001493709);
    gre->SetPointError(29,0,4.556191e-05);
-   
+   }
+
    TH1F *Graph52 = new TH1F("Graph52","Graph",100,0,5.815);
    Graph52->SetMinimum(7.11391e-05);
    Graph52->SetMaximum(9.184751);
@@ -3517,7 +3549,8 @@ for(int i = 0; i < gre->GetN(); ++i){
 //----------------- 7 TeV    
 //TLegend *leg = new TLegend(0.61,0.72,.91,0.87,NULL,"brNDC");
  //TLegend *leg = new TLegend(0.50,0.72,.80,0.87,NULL,"brNDC");  
- TLegend *leg = new TLegend(0.5,0.69,0.80,0.87,NULL,"brNDC");   
+ //TLegend *leg = new TLegend(0.5,0.69,0.80,0.87,NULL,"brNDC");   
+ TLegend *leg = new TLegend(0.46,0.66,0.76,0.84,NULL,"brNDC");   
 
 leg->SetBorderSize(0);
 leg->SetTextFont(62);
@@ -3529,14 +3562,16 @@ leg->SetLineWidth(1);
 leg->SetFillColor(0);
 leg->SetFillStyle(0);
 
-TLegendEntry *entry=leg->AddEntry("Graph","Data 0.9 TeV","P");
+//TLegendEntry *entry=leg->AddEntry("Graph","Data 0.9 TeV","P");
+ TLegendEntry *entry=leg->AddEntry("Graph","0.9 TeV, NSD p+p","P");
 entry->SetLineColor(1);
 entry->SetLineStyle(1);
 entry->SetLineWidth(1);
 entry->SetMarkerColor(1);
 entry->SetMarkerStyle(20);
 entry->SetMarkerSize(marker);
-TLegendEntry* entry2=leg->AddEntry("","Data 2.36 TeV","P");
+//TLegendEntry* entry2=leg->AddEntry("","Data 2.36 TeV","P");
+ TLegendEntry* entry2=leg->AddEntry("","2.36 TeV, NSD p+p","P");  
 entry2->SetLineColor(1);
 entry2->SetLineStyle(0);
 entry2->SetLineWidth(1);
@@ -3544,7 +3579,8 @@ entry2->SetMarkerColor(1);
 entry2->SetMarkerStyle(kOpenCircle);
 entry2->SetMarkerSize(marker);
 
- TLegendEntry* entry3=leg->AddEntry("","Data 7 TeV","P");
+//TLegendEntry* entry3=leg->AddEntry("","Data 7 TeV","P");
+ TLegendEntry* entry3=leg->AddEntry("","7 TeV, NSD p+p","P");      
  entry3->SetLineColor(1);
  entry3->SetLineStyle(0);
  entry3->SetLineWidth(1);
@@ -3574,7 +3610,9 @@ leg->Draw();
 
 MyCanvas->SetLogy();
 
- printFinalCanvases(MyCanvas,"invariant_all",doLog,0);
+ if(!extended) printFinalCanvases(MyCanvas,"invariant_all_narrow",doLog,0);
+ else printFinalCanvases(MyCanvas,"invariant_all",doLog,0);
+
 // void printFinalCanvases(TCanvas * MyCanvas, const char * name, int log=0, int doCMS=2)
 
 

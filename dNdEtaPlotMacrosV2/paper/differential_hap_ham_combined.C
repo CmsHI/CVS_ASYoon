@@ -34,7 +34,7 @@ void differential_hap_ham_combined(){
    Float_t marker = 1.1;
    Float_t tsize = 0.035;
    
-   bool doTsallis = false;
+   bool doTsallis = true;
    double step = 4;
    
    TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,720,800);
@@ -15312,7 +15312,10 @@ void differential_hap_ham_combined(){
 
    
 
-   TLegend *leg = new TLegend(0.325,0.88,0.60,0.94,NULL,"brNDC");   
+   //TLegend *leg = new TLegend(0.325,0.88,0.60,0.94,NULL,"brNDC");   
+   if(doTsallis) TLegend *leg = new TLegend(0.34,0.85,0.62,0.92,NULL,"brNDC");
+
+
 
    leg->SetBorderSize(0);
 
@@ -15336,8 +15339,9 @@ void differential_hap_ham_combined(){
 
    
 
-   TLegendEntry *entry=leg->AddEntry("Graph54","Data 7 TeV","P");
 
+   //TLegendEntry *entry=leg->AddEntry("Graph54","Data 7 TeV","P");  
+   TLegendEntry *entry=leg->AddEntry("Graph54","7 TeV, NSD p+p","P"); 
    entry->SetMarkerColor(1.0);
 
    entry->SetMarkerStyle(24);
@@ -15349,7 +15353,8 @@ void differential_hap_ham_combined(){
    if(doTsallis){
 
       entry=leg->AddEntry("Graph53","Tsallis fit","L");
-
+      //entry=leg->AddEntry("Graph53","fit","L");
+      
       entry->SetLineWidth(2);
 
    }
