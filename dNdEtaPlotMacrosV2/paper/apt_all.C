@@ -5,6 +5,7 @@ void apt_all(){
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
    Bool_t theory = true;
+   Bool_t pythia = false;
 
    gROOT->Reset();
    gROOT->ProcessLine(".x rootlogon.C");
@@ -171,6 +172,7 @@ void apt_all(){
    gre04->Draw("pzsame");
 
    // PYTHIA ATLAS ===============================
+   if(pythia){
    gre6 = new TGraphErrors(3);
    gre6->SetName("Graph6"); 
    gre6->SetTitle("Graph6");
@@ -189,8 +191,9 @@ void apt_all(){
    gre6->SetPointError(1,0,0);
 
    gre6->Draw("Lsame");
-
+   }
    // PYTHIA D6T  ===============================
+   if(pythia){
    gre7 = new TGraphErrors(3);
    gre7->SetName("Graph7"); 
    gre7->SetTitle("Graph7");
@@ -209,7 +212,7 @@ void apt_all(){
    gre7->SetPointError(1,0,0);
 
    gre7->Draw("Lsame");
-
+   }
    // ============================= CMS?
    gre = new TGraphErrors(2);
    gre->SetName("Graph");
@@ -303,7 +306,7 @@ void apt_all(){
    entry->SetMarkerSize(msize*1.0);  
 
    if(theory) entry=leg->AddEntry("func2","Troshin et. al.","l");
-   if(theory) {
+   if(pythia) {
      entry=leg->AddEntry("gre6","PYTHIA ATLAS","l");
      entry->SetLineColor(kGreen+2);
      entry->SetLineWidth(3);
