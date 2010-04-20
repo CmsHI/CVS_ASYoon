@@ -4,7 +4,7 @@ void apt_all(){
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
-   Bool_t theory = false;
+   Bool_t theory = true;
 
    gROOT->Reset();
    gROOT->ProcessLine(".x rootlogon.C");
@@ -21,7 +21,7 @@ void apt_all(){
    hDist->GetXaxis()->SetRange(1,20);
    hDist->SetMinimum(0.3);
    //hDist->SetMaximum(0.7);
-   hDist->SetMaximum(0.6);  
+   hDist->SetMaximum(0.65);  
    hDist->SetLineStyle(0);
    hDist->GetXaxis()->SetTitle("#sqrt{s} [GeV]");
    hDist->GetYaxis()->SetTitle("#LTp_{T}#GT [GeV/c]");
@@ -42,7 +42,7 @@ void apt_all(){
 
    //0.337 + 6.52e-3 * s^(0.207)
    if(theory){
-   TF1 *func2 = new TF1("func2","0.337+6.52e-3*pow(x^2,0.207)",18,100000);
+   TF1 *func2 = new TF1("func2","0.337+6.52e-3*pow(x^2,0.207)",18,7000);
    func2->SetLineColor(13);
    func2->SetLineStyle(9);
    func2->SetLineWidth(2.0);
@@ -170,8 +170,48 @@ void apt_all(){
    gre04->SetMarkerStyle(0);
    gre04->Draw("pzsame");
 
+   // PYTHIA ATLAS ===============================
+   gre6 = new TGraphErrors(3);
+   gre6->SetName("Graph6"); 
+   gre6->SetTitle("Graph6");
+
+   gre6->SetMarkerStyle(24);    
+   gre6->SetMarkerSize(msize);  
+   gre6->SetMarkerColor(kGreen+2);
+   gre6->SetLineColor(kGreen+2);
+   gre6->SetLineWidth(3);
+
+   gre6->SetPoint(0,900,0.433);  
+   gre6->SetPointError(0,0,0);
+   gre6->SetPoint(1,2360,0.463);  
+   gre6->SetPointError(0,0,0);
+   gre6->SetPoint(2,7000,0.508);  
+   gre6->SetPointError(1,0,0);
+
+   gre6->Draw("Lsame");
+
+   // PYTHIA D6T  ===============================
+   gre7 = new TGraphErrors(3);
+   gre7->SetName("Graph7"); 
+   gre7->SetTitle("Graph7");
+
+   gre7->SetMarkerStyle(26);    
+   gre7->SetMarkerSize(msize);  
+   gre7->SetMarkerColor(kBlue+2);
+   gre7->SetLineColor(kBlue+2);
+   gre7->SetLineWidth(3);
+
+   gre7->SetPoint(0,900,0.490);  
+   gre7->SetPointError(0,0,0);
+   gre7->SetPoint(1,2360,0.536);  
+   gre7->SetPointError(0,0,0);
+   gre7->SetPoint(2,7000,0.608);  
+   gre7->SetPointError(1,0,0);
+
+   gre7->Draw("Lsame");
+
    // ============================= CMS?
-   gre = new TGraphErrors(1);
+   gre = new TGraphErrors(2);
    gre->SetName("Graph");
    gre->SetTitle("Graph");
 
@@ -179,6 +219,7 @@ void apt_all(){
    gre->SetMarkerSize(msize);
    gre->SetMarkerColor(kRed+2);
    gre->SetLineColor(kRed+2);
+
 
    /*
    gre->SetPoint(0,900,0.44);
@@ -231,7 +272,7 @@ void apt_all(){
    */
 
    TLegend *leg = new TLegend(0.25,0.90-0.045*5,0.5,0.90,NULL,"brNDC");
-   if(theory) TLegend *leg = new TLegend(0.25,0.90-0.045*6,0.57,0.90,NULL,"brNDC");
+   if(theory) TLegend *leg = new TLegend(0.25,0.90-0.045*8,0.57,0.90,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -260,8 +301,16 @@ void apt_all(){
    entry->SetMarkerStyle(20);  
    entry->SetMarkerColor(kRed+2);
    entry->SetMarkerSize(msize*1.0);  
-   
+
    if(theory) entry=leg->AddEntry("func2","Troshin et. al.","l");
+   if(theory) {
+     entry=leg->AddEntry("gre6","PYTHIA ATLAS","l");
+     entry->SetLineColor(kGreen+2);
+     entry->SetLineWidth(3);
+     entry=leg->AddEntry("gre7","PYTHIA D6T","l");
+     entry->SetLineColor(kBlue+2);
+     entry->SetLineWidth(3);
+   }
    //entry->SetMarkerStyle(20);
    //entry->SetMarkerColor(kRed+2);
    //entry->SetMarkerSize(msize*1.0);
@@ -303,6 +352,7 @@ void apt_all(){
    printFinalCanvases(MyCanvas,"apt_all");
 
 }
+
 
 
 

@@ -7,7 +7,7 @@ void dNdeta_vs_roots() {
 
   bool ErrorFlag = true;
   bool theory = true;
-  theory = false;
+//  theory = false;
 
   //****************************************************
   Bool_t bw = 1;       // 1: BLACK AND WHITE, 0: COLOR
@@ -68,26 +68,26 @@ void dNdeta_vs_roots() {
   fitUA5inel->SetLineStyle(26);
   fitUA5inel->Draw("same");
 
-  // ---- PYTHIA ----
-  //  900 GeV NSD: 2.808
-  // 2360 GeV NSD: 3.328
-  // 7000 GeV NSD:�4.09
+  // ---- PYTHIA D6T ----
+  //  900 GeV NSD: 2.808
+  // 2360 GeV NSD: 3.328
+  // 7000 GeV NSD:�4.09
 
   TF1 *pythia1 = new TF1("pythia1","2.808+(log(x)-log(900))/(log(2360)-log(900))*(3.328-2.808)",900,2360);
-  pythia1->SetLineColor(kBlue);
-  pythia1->SetLineWidth(2);
+  pythia1->SetLineColor(kBlue+2);
+  pythia1->SetLineWidth(3);
   pythia1->SetLineStyle(1);
   if(theory) pythia1->Draw("same");
 
   TF1 *pythia2 = new TF1("pythia2","3.328+(log(x)-log(2360))/(log(7000)-log(2360))*(4.09-3.328)",2360,7000);
-  pythia2->SetLineColor(kBlue);
-  pythia2->SetLineWidth(2);
+  pythia2->SetLineColor(kBlue+2);
+  pythia2->SetLineWidth(3);
   pythia2->SetLineStyle(1);
   if(theory) pythia2->Draw("same");
 
   // ---- PHOJET ----
-  //  900 GeV NSD:  3.474
-  // 2360 GeV NSD:  3.979
+  //  900 GeV NSD:  3.474
+  // 2360 GeV NSD:  3.979
   // 7000 GeV NSD:  4.57
 
   TF1 *phojet1 = new TF1("phojet1","3.474+(log(x)-log(900))/(log(2360)-log(900))*(3.979-3.474)",900,2360);
@@ -98,8 +98,22 @@ void dNdeta_vs_roots() {
   phojet2->SetLineWidth(2);
   phojet1->SetLineStyle(2);
   phojet2->SetLineStyle(2);
-  if(theory) phojet1->Draw("same");
-  if(theory) phojet2->Draw("same");
+//  if(theory) phojet1->Draw("same");
+//  if(theory) phojet2->Draw("same");
+
+  // ---- PYTHIA ATLAS ----
+  //  900 GeV NSD:  3.25
+  // 2360 GeV NSD:  4.20
+  // 7000 GeV NSD:  5.62
+
+  TF1 *atlas1 = new TF1("atlas1","3.25+(log(x) -log(900))/(log(2360)- log(900))*(4.20-3.25)",900,2360);
+  TF1 *atlas2 = new TF1("atlas2","4.20+(log(x)-log(2360))/(log(7000)-log(2360))*(5.62-4.20)",2360,7000);
+  atlas1->SetLineColor(kGreen+2);
+  atlas2->SetLineColor(kGreen+2);
+  atlas1->SetLineWidth(3);
+  atlas2->SetLineWidth(3);
+  if(theory) atlas1->Draw("same");
+  if(theory) atlas2->Draw("same");
 
   // ---- G. Levin ----
 
@@ -491,8 +505,9 @@ void dNdeta_vs_roots() {
     leg->AddEntry(ua5nsd,"UA5 NSD","p");
     leg->AddEntry(cdf,"CDF NSD","p");
     leg->AddEntry(cmsnsd,"CMS NSD","p");
-    leg->AddEntry(phojet1,"PHOJET 1.12","l");
-    leg->AddEntry(pythia1,"PYTHIA 6.420 D6T","l");
+    //leg->AddEntry(phojet1,"PHOJET 1.12","l");
+    leg->AddEntry(pythia1,"PYTHIA D6T","l");
+    leg->AddEntry(atlas1,"PYTHIA ATLAS","l");
     leg->AddEntry(gr,"E. Levin et al.","l");
     leg->SetTextSize(0.03);
 
@@ -514,9 +529,10 @@ void dNdeta_vs_roots() {
       leg3->AddEntry(alicensd,"ALICE NSD","p");
       leg3->AddEntry(cmsnsd,"CMS NSD","p");
       if(theory){
-	 leg3->AddEntry(phojet1,"PHOJET 1.12","l");
-	 leg3->AddEntry(pythia1,"PYTHIA 6.420 D6T","l");
+//	 leg3->AddEntry(phojet1,"PHOJET 1.12","l");
 	 leg3->AddEntry(gr,"E. Levin et al.","l");
+	 leg3->AddEntry(atlas1,"PYTHIA ATLAS","l");
+	 leg3->AddEntry(pythia1,"PYTHIA D6T","l");
       }
       leg3->SetTextSize(0.03);
     }
@@ -561,6 +577,7 @@ void dNdeta_vs_roots() {
 
     printFinalCanvases(c,"dNdeta_vs_roots_wmodels",0,2);
 }
+
 
 
 
