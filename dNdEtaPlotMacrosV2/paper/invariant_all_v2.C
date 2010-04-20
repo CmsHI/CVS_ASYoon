@@ -11,7 +11,7 @@ void invariant_all_v2() {
   gStyle->SetErrorX(0);
 
   Float_t marker = 1.4;
-  Bool_t  doTsallis = false;
+  Bool_t  doTsallis = true;
   Bool_t extended = true; // to extend pt reach up to 6 GeV
   
   //TCanvas *MyCanvas = new TCanvas("MyCanvas", "My Canvas",0,0,600,750);
@@ -3551,7 +3551,8 @@ for(int i = 0; i < gre->GetN(); ++i){
  //TLegend *leg = new TLegend(0.50,0.72,.80,0.87,NULL,"brNDC");  
  //TLegend *leg = new TLegend(0.5,0.69,0.80,0.87,NULL,"brNDC");   
  TLegend *leg = new TLegend(0.46,0.66,0.76,0.84,NULL,"brNDC");   
-
+ if(doTsallis) TLegend *leg = new TLegend(0.46,0.64,0.76,0.84,NULL,"brNDC");
+ 
 leg->SetBorderSize(0);
 leg->SetTextFont(62);
 leg->SetTextSize(0.035);
