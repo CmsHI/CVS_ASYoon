@@ -7,7 +7,7 @@ void dNdeta_vs_roots() {
 
   bool ErrorFlag = true;
   bool theory = true;
-  bool pythia = false;
+  bool pythia = true;
 //  theory = false;
 
   //****************************************************
@@ -488,6 +488,9 @@ void dNdeta_vs_roots() {
   */
 
   TLegend* leg = new TLegend(0.50,0.92 - 0.045*5,0.80,0.92);
+  //if(theory) TLegend* leg3 = new TLegend(0.50,0.92 - 0.045*6,0.80,0.92);
+  //if(theory && pythia) TLegend* leg3 = new TLegend(0.50,0.92 - 0.045*8,0.80,0.92);
+
     leg->SetFillColor(0);
     leg->SetBorderSize(0);
     if(bw){
@@ -516,8 +519,9 @@ void dNdeta_vs_roots() {
     //    leg->Draw();
 
 
-    if(theory) TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*8,0.68,0.92);
-    else TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*6,0.68,0.92);
+    TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*6,0.68,0.92);
+    if(theory) TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*7,0.68,0.92);
+    if(theory && pythia) TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*9,0.68,0.92);
 
     leg3->SetFillColor(0);
 

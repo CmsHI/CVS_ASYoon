@@ -5,7 +5,7 @@ void apt_all(){
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
    Bool_t theory = true;
-   Bool_t pythia = false;
+   Bool_t pythia = true;
 
    gROOT->Reset();
    gROOT->ProcessLine(".x rootlogon.C");
@@ -275,7 +275,8 @@ void apt_all(){
    */
 
    TLegend *leg = new TLegend(0.25,0.90-0.045*5,0.5,0.90,NULL,"brNDC");
-   if(theory) TLegend *leg = new TLegend(0.25,0.90-0.045*8,0.57,0.90,NULL,"brNDC");
+   if(theory) TLegend *leg = new TLegend(0.25,0.90-0.045*6,0.57,0.90,NULL,"brNDC");
+   if(theory && pythia) TLegend *leg = new TLegend(0.25,0.90-0.045*8,0.57,0.90,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
