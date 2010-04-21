@@ -13,6 +13,8 @@
 #include <TH1F.h>
 #include <TH2D.h>
 #include <TH3D.h>
+#include <TGraph.h>
+#include <TGraphAsymmErrors.h>
 #include <TProfile.h>
 #include <TFile.h>
 #include <TCanvas.h>
@@ -123,7 +125,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal236->GetXaxis()->SetRange(1,13);
    hMeasuredFinal236->SetMarkerColor(kRed);
    hMeasuredFinal236->SetLineColor(kRed);
-   hMeasuredFinal236->SetMarkerStyle(4);
+   hMeasuredFinal236->SetMarkerStyle(20);
    hMeasuredFinal236->SetMarkerSize(1.8);
 
    hMeasuredFinal236->SetBinContent(2,4.78296);  // -2.4 to -2.0  
@@ -167,39 +169,63 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    /// ====================================================  ALICE 
    //Double_t xAxis9[9] = {-1.4, -1.0, -0.6, -0.2, 0.2, 0.6, 1.0, 1.4};
    //Double_t xAxis9[9] = {-1.4, -1.0, -0.6, -0.2, 0.2, 0.6, 1.0, 1.4};
-   Double_t xAxis9[9] = {-1.6, -1.2, -0.8, -0.4, 0, 0.4, 0.8, 1.2, 1.6};
-   TH1 *hEta_ALICE_NSD = new TH1D("hEta_ALICE_NSD","",8, xAxis9);
+   //Double_t xAxis9[9] = {-1.6, -1.2, -0.8, -0.4, 0, 0.4, 0.8, 1.2, 1.6};
+   //Double_t xAxis9[9] = {-1.6, -1.2, -0.8, -0.4, 0, 0.4, 0.8, 1.2, 1.6};  
+   Double_t xAxis9[15] = {-1.4, -1.2, -1.0, -0.8, -0.6, -0.4, -0.2, 0, 
+			 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4};
 
+   //TH1 *hEta_ALICE_NSD = new TH1D("hEta_ALICE_NSD","",8, xAxis9);
+   TH1 *hEta_ALICE_NSD = new TH1D("hEta_ALICE_NSD","",14, xAxis9);
+   double sysErr_alice = 0.033;
    // ALICE data points! 
-   /*
-     ALICE, NSD:
-     -1.400000: 3.880678  +- 0.448263
-     -1.000000: 3.863622  +- 0.279495
-     -0.600000: 3.466114  +- 0.235660
-     -0.200000: 3.408768  +- 0.233457
-     0.200000: 3.619309  +- 0.241938
-     0.600000: 3.905048  +- 0.251426
-     1.000000: 3.590869  +- 0.249225
-     1.400000: 3.592486  +- 0.320071
+   
+   /* ALICE, NSD updated
+      -1.3 3.893
+      -1.1 3.893
+      -0.9 3.807
+      -0.7 3.702
+      -0.5 3.635
+      -0.3 3.578
+      -0.1 3.521
+      0.1 3.569
+      0.3 3.588
+      0.5 3.607
+      0.7 3.731
+      0.9 3.798
+      1.1 3.865
+      1.3 3.950
    */
 
-   hEta_ALICE_NSD->SetBinContent(1,3.880678);
-   hEta_ALICE_NSD->SetBinContent(2,3.863622);
-   hEta_ALICE_NSD->SetBinContent(3,3.466114);
-   hEta_ALICE_NSD->SetBinContent(4,3.408768);
-   hEta_ALICE_NSD->SetBinContent(5,3.619309);
-   hEta_ALICE_NSD->SetBinContent(6,3.905048);
-   hEta_ALICE_NSD->SetBinContent(7,3.590869);
-   hEta_ALICE_NSD->SetBinContent(8,3.592486);
+   hEta_ALICE_NSD->SetBinContent(1,3.893);
+   hEta_ALICE_NSD->SetBinContent(2,3.893);
+   hEta_ALICE_NSD->SetBinContent(3,3.807);
+   hEta_ALICE_NSD->SetBinContent(4,3.702);
+   hEta_ALICE_NSD->SetBinContent(5,3.635);
+   hEta_ALICE_NSD->SetBinContent(6,3.578);
+   hEta_ALICE_NSD->SetBinContent(7,3.521);
+   hEta_ALICE_NSD->SetBinContent(8,3.569);
+   hEta_ALICE_NSD->SetBinContent(9,3.588);
+   hEta_ALICE_NSD->SetBinContent(10,3.607);
+   hEta_ALICE_NSD->SetBinContent(11,3.731);
+   hEta_ALICE_NSD->SetBinContent(12,3.798);
+   hEta_ALICE_NSD->SetBinContent(13,3.865);
+   hEta_ALICE_NSD->SetBinContent(14,3.950);
 
-   hEta_ALICE_NSD->SetBinError(1,0.448263);
-   hEta_ALICE_NSD->SetBinError(2,0.279495);
-   hEta_ALICE_NSD->SetBinError(3,0.235660);
-   hEta_ALICE_NSD->SetBinError(4,0.233457);
-   hEta_ALICE_NSD->SetBinError(5,0.241938);
-   hEta_ALICE_NSD->SetBinError(6,0.251426);
-   hEta_ALICE_NSD->SetBinError(7,0.249225);
-   hEta_ALICE_NSD->SetBinError(8,0.320071);
+   
+   hEta_ALICE_NSD->SetBinError(1,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(1)));
+   hEta_ALICE_NSD->SetBinError(2,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(2)));
+   hEta_ALICE_NSD->SetBinError(3,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(3)));
+   hEta_ALICE_NSD->SetBinError(4,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(4)));
+   hEta_ALICE_NSD->SetBinError(5,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(5)));
+   hEta_ALICE_NSD->SetBinError(6,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(6)));
+   hEta_ALICE_NSD->SetBinError(7,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(7)));
+   hEta_ALICE_NSD->SetBinError(8,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(8)));
+   hEta_ALICE_NSD->SetBinError(9,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(9)));
+   hEta_ALICE_NSD->SetBinError(10,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(10)));
+   hEta_ALICE_NSD->SetBinError(11,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(11)));
+   hEta_ALICE_NSD->SetBinError(12,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(12)));
+   hEta_ALICE_NSD->SetBinError(13,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(13)));
+   hEta_ALICE_NSD->SetBinError(14,sysErr_alice*(hEta_ALICE_NSD->GetBinContent(14)));
 
 
    hEta_ALICE_NSD->SetMarkerColor(1);
@@ -209,7 +235,53 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    //hEta_ALICE_NSD->SetMarkerSize(1.25);
    hEta_ALICE_NSD->Draw("pzsame");
 
+   // ------------ 2.36 TeV
+   /*
+     etadN/deta
+     2.36 TeV (syst error: +3.7%-2.7%)
+     -1.3 4.790
+     -1.1 4.714
+     -0.9 4.695
+     -0.7 4.561
+     -0.5 4.437
+     -0.3 4.475
+     -0.1 4.389
+     0.1 4.370
+     0.3 4.466
+     0.5 4.494
+     0.7 4.637
+     0.9 4.723
+     1.1 4.761
+     1.3 4.895
+   */
+   double sysAlice_hi = 0.037;
+   double sysAlice_lo = 0.027;
 
+   Double_t x[14]  ={-1.3,-1.1,-0.9,-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7,0.9,1.1,1.3};
+   Double_t y[14]  ={4.790,4.714,4.695,4.561,4.437,4.475,4.389,4.370,4.466,4.494,4.637,4.723,4.761,4.895};
+   Double_t exl[14];
+   Double_t exh[14];
+   Double_t eyl[14];
+   Double_t eyh[14];
+   for(int n = 0; n<14;n++){
+      exl[n] = exh[n] = 0.0;
+      eyl[n] = y[n]*sysAlice_lo;
+      eyh[n] = y[n]*sysAlice_hi;
+      cout<<"eyl:"<<eyl[n]<<" and eyh : "<<eyh[n]<<endl;
+   }
+
+   TGraphAsymmErrors* alice_236 = new TGraphAsymmErrors(14,x,y,exl,exh,eyl,eyh);
+   alice_236->SetMarkerColor(1);
+   alice_236->SetMarkerStyle(26);
+   alice_236->SetMarkerSize(1.5);
+   alice_236->Draw("pzsame"); // draw later 
+
+   //dum hist
+   TH1 *halice_236 = new TH1D();
+   halice_236->SetMarkerColor(1);
+   halice_236->SetMarkerStyle(26);
+   halice_236->SetMarkerSize(1.25);
+   
    /// ====================================================  UA5 Data
 
    //TH1F* hEta_UA5_NSD = new TH1F("hEta_UA5_NSD",";#eta;dN/d#eta",50,-3,3);
@@ -281,6 +353,8 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
    // Draw one more time to put CMS point on top of every other experiemnt's data points!
    hMeasuredFinal3->Draw("pzsame");
+   hMeasuredFinal236->Draw("pzsame");
+
 
    //------------------------ 7 TeV measurement is added -------------------
    sysError = 0.04;
@@ -288,7 +362,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal7->GetXaxis()->SetRange(1,13);
    hMeasuredFinal7->SetMarkerColor(kRed);
    hMeasuredFinal7->SetLineColor(kRed);
-   hMeasuredFinal7->SetMarkerStyle(21);
+   hMeasuredFinal7->SetMarkerStyle(20);
    hMeasuredFinal7->SetMarkerSize(1.8);
    
    hMeasuredFinal7->SetBinContent(2,6.192219583);  // -2.4 to -2.0                                                                     
@@ -359,14 +433,15 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    leg2->SetTextSize(0.033);
    leg2->SetHeader("     2.36 TeV");
    leg2->AddEntry(hMeasuredFinal236,"","P");
-   leg2->AddEntry(hEta_ALICE_NSD,"",""); 
+   leg2->AddEntry(halice_236,"","P"); 
    leg2->AddEntry(hEta_UA5_NSD,"","");
    //leg2->SetHeader("     7 TeV");
    //leg2->AddEntry(hMeasuredFinal236,"CMS NSD","P");
    //leg2->AddEntry(hEta_ALICE_NSD,"ALICE NSD","");
    //leg2->AddEntry(hEta_UA5_NSD,"UA5 NSD","");
    
-   TLegend *leg3 = new TLegend(0.50,0.21,0.99,0.21+ywidth,NULL,"brNDC");
+   //TLegend *leg3 = new TLegend(0.50,0.21,0.99,0.21+ywidth,NULL,"brNDC");
+   TLegend *leg3 = new TLegend(0.3,0.21,0.8,0.21+ywidth,NULL,"brNDC");  
    //leg3->SetMargin(0.5);
    leg3->SetMargin(0.4); 
    leg3->SetBorderSize(0);
@@ -377,15 +452,33 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    leg3->SetFillColor(0);
    leg3->SetFillStyle(0);
    leg3->SetTextSize(0.033);
-   leg3->SetHeader("     7 TeV");
+   //leg3->SetHeader("     7 TeV");
    leg3->AddEntry(hMeasuredFinal7,"CMS NSD","P");
-   leg3->AddEntry(hEta_ALICE_NSD,"ALICE NSD","");
-   leg3->AddEntry(hEta_UA5_NSD,"UA5 NSD","");
+   leg3->AddEntry(hEta_ALICE_NSD,"ALICE NSD","P");
+   leg3->AddEntry(hEta_UA5_NSD,"UA5 NSD","P");
 
 
    leg3->Draw();
-   leg2->Draw();
-   leg->Draw();
+   //leg2->Draw();
+   //leg->Draw();
+
+   Float_t tsize = 0.035;
+
+   TLatex *   tex = new TLatex(-2.7,3.05,"0.9 TeV");
+   tex->SetLineWidth(2);
+   tex->SetTextSize(tsize);
+   tex->Draw();
+
+   TLatex *   tex2 = new TLatex(-2.7,4.2,"2.36 TeV");
+   tex2->SetLineWidth(2);
+   tex2->SetTextSize(tsize);
+   tex2->Draw();
+   
+   TLatex *   tex3 = new TLatex(-2.7,5.6,"7 TeV");
+   tex3->SetLineWidth(2);
+   tex3->SetTextSize(tsize);
+   tex3->Draw();
+
 
 
    printFinalCanvases(MyCanvas,"dNdeta_ThreeMethodsCombined",0,2);

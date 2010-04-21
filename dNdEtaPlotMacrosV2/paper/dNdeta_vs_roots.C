@@ -7,7 +7,7 @@ void dNdeta_vs_roots() {
 
   bool ErrorFlag = true;
   bool theory = true;
-  bool pythia = true;
+  bool pythia = false;
 //  theory = false;
 
   //****************************************************
@@ -313,18 +313,19 @@ void dNdeta_vs_roots() {
   ua1nsd->Draw("PZsame");
 
   // ---- ALICE NSD ------
-  Double_t x10[2] =  {  900};
-  Double_t y10[2] =  {  3.51};
+  Double_t x10[2] =  {  900, 2600};
+  //Double_t y10[2] =  {  3.51};
+  Double_t y10[2] =  {  3.58, 4.43}; //updated
   /*
   Double_t exl10[2]= {  0.25};
   Double_t exh10[2]= { 0.25};
   Double_t eyl10[2]= { 0.25};
   Double_t eyh10[2]= { 0.25};
   */
-  Double_t exl10[2]= {  0};
-  Double_t exh10[2]= { 0};
-  Double_t eyl10[2]= { 0.25};
-  Double_t eyh10[2]= { 0.25};
+  Double_t exl10[2]= {  0, 0};
+  Double_t exh10[2]= { 0, 0};
+  Double_t eyl10[2]= { 0.12, 0.12};
+  Double_t eyh10[2]= { 0.12, 0.17};
 
   TGraphAsymmErrors *alicensd=new TGraphAsymmErrors(2,x10,y10,exl10,exh10,eyl10,eyh10);
   alicensd->SetMarkerColor(kBlack);
@@ -391,8 +392,8 @@ void dNdeta_vs_roots() {
   cmsnsd05->Draw("||");
 
   // ---- ALICE INEL ------
-  Double_t x12[1] =  {  900};
-  Double_t y12[1] =  {  3.10};
+  Double_t x12[2] =  {  900, 2360};
+  Double_t y12[2] =  {  3.02, 3.77};
   /*
   Double_t exl12[1]= {  0.22};
   Double_t exh12[1]= { 0.22};
@@ -400,10 +401,10 @@ void dNdeta_vs_roots() {
   Double_t eyh12[1]= { 0.22};
   */
   // for now we don't show sys error for everyone
-  Double_t exl12[1]= {  0};
-  Double_t exh12[1]= { 0};
-  Double_t eyl12[1]= { 0.22};
-  Double_t eyh12[1]= { 0.22};
+  Double_t exl12[2]= {  0, 0};
+  Double_t exh12[2]= { 0, 0};
+  Double_t eyl12[2]= { 0.05, 0.12};
+  Double_t eyh12[2]= { 0.08, 0.25};
 
   TGraphAsymmErrors *aliceinel=new TGraphAsymmErrors(2,x12,y12,exl12,exh12,eyl12,eyh12);
   aliceinel->SetMarkerColor(kBlack);
@@ -490,8 +491,9 @@ void dNdeta_vs_roots() {
   TLegend* leg = new TLegend(0.50,0.92 - 0.045*5,0.80,0.92);
   //if(theory) TLegend* leg3 = new TLegend(0.50,0.92 - 0.045*6,0.80,0.92);
   //if(theory && pythia) TLegend* leg3 = new TLegend(0.50,0.92 - 0.045*8,0.80,0.92);
+  leg->SetFillStyle(0);
 
-    leg->SetFillColor(0);
+    leg->SetFillColor(kWhite);
     leg->SetBorderSize(0);
     if(bw){
       leg->AddEntry(fnalinel,"NAL B.C. inel.","p");
@@ -524,6 +526,7 @@ void dNdeta_vs_roots() {
     if(theory && pythia) TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*9,0.68,0.92);
 
     leg3->SetFillColor(0);
+    leg3->SetFillStyle(0);
 
     leg3->SetBorderSize(0);
     if(bw){
