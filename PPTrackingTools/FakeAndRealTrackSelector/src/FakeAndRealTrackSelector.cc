@@ -12,6 +12,7 @@ FakeAndRealTrackSelector::FakeAndRealTrackSelector( const edm::ParameterSet & cf
     vertices_( cfg.getParameter<edm::InputTag>( "vertices" ) ),
     selectFake_(cfg.getUntrackedParameter<bool>("selectFake", false)),
     qualityString_(cfg.getParameter<std::string>("qualityString")),
+    setQualityBit_( false ),
     qualityToSet_(TrackBase::qualityByName(cfg.getParameter<std::string>("qualityString"))),
 
     copyExtras_(cfg.getUntrackedParameter<bool>("copyExtras", false)),
@@ -19,7 +20,6 @@ FakeAndRealTrackSelector::FakeAndRealTrackSelector( const edm::ParameterSet & cf
     keepAllTracks_( cfg.exists("keepAllTracks") ?
 		    cfg.getParameter<bool>("keepAllTracks") :
 		    false ),  // as this is what you expect from a well behaved selector
-    setQualityBit_( false ),
     //qualityToSet_( TrackBase::undefQuality ),
     vtxNumber_( cfg.getParameter<int32_t>("vtxNumber") ),
     vtxTracks_( cfg.getParameter<uint32_t>("vtxTracks") ),
@@ -129,7 +129,7 @@ void FakeAndRealTrackSelector::produce( edm::Event& evt, const edm::EventSetup& 
 	  if (tp.size()!=0) {
 	     TrackingParticleRef tpr = tp.begin()->first;
 	     pt_tp = sqrt(tpr->momentum().Perp2());
-	     double associationQuality = tp.begin()->second;
+	     //double associationQuality = tp.begin()->second;
 	  }
        } else {
 	  isFake=true;

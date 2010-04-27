@@ -63,6 +63,10 @@ namespace reco { namespace modules {
 	    // which quality ?
 	    std::string qualityString_;
 
+            /// do I have to set a quality bit?
+            bool setQualityBit_;
+            TrackBase::TrackQuality qualityToSet_;
+
             /// copy only the tracks, not extras and rechits (for AOD)
             bool copyExtras_;
             /// copy also trajectories and trajectory->track associations
@@ -70,9 +74,6 @@ namespace reco { namespace modules {
 
             /// save all the tracks
             bool keepAllTracks_;
-            /// do I have to set a quality bit?
-            bool setQualityBit_;
-            TrackBase::TrackQuality qualityToSet_;
 
             /// vertex cuts
             int32_t vtxNumber_;
