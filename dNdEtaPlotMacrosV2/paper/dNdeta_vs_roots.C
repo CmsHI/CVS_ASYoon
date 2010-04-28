@@ -7,7 +7,8 @@ void dNdeta_vs_roots() {
 
   bool ErrorFlag = true;
   bool theory = true;
-  bool pythia = false;
+  bool pythia = true;
+  bool phojet = true;
 //  theory = false;
 
   //****************************************************
@@ -91,16 +92,21 @@ void dNdeta_vs_roots() {
   // 2360 GeV NSD:  3.979
   // 7000 GeV NSD:  4.57
 
-  TF1 *phojet1 = new TF1("phojet1","3.474+(log(x)-log(900))/(log(2360)-log(900))*(3.979-3.474)",900,2360);
-  TF1 *phojet2 = new TF1("phojet2","3.979+(log(x)-log(2360))/(log(7000)-log(2360))*(4.57-3.979)",2360,7000);
-  phojet1->SetLineColor(kGreen);
-  phojet2->SetLineColor(kGreen);
-  phojet1->SetLineWidth(2);
-  phojet2->SetLineWidth(2);
-  phojet1->SetLineStyle(2);
-  phojet2->SetLineStyle(2);
-//  if(theory) phojet1->Draw("same");
-//  if(theory) phojet2->Draw("same");
+  // ---- PHOJET ---- (update)
+  //  900 GeV NSD:  3.47062 
+  // 2360 GeV NSD:  3.97918 
+  // 7000 GeV NSD:  4.60242 
+
+  TF1 *phojet1 = new TF1("phojet1","3.47062+(log(x)-log(900))/(log(2360)-log(900))*(3.97918-3.47062)",900,2360);
+  TF1 *phojet2 = new TF1("phojet2","3.97918+(log(x)-log(2360))/(log(7000)-log(2360))*(4.60242-3.97918)",2360,7000);
+  phojet1->SetLineColor(kMagenta+2);
+  phojet2->SetLineColor(kMagenta+2);
+  phojet1->SetLineWidth(3);
+  phojet2->SetLineWidth(3);
+  phojet1->SetLineStyle(1);
+  phojet2->SetLineStyle(1);
+  if(phojet) phojet1->Draw("same");
+  if(phojet) phojet2->Draw("same");
 
   // ---- PYTHIA ATLAS ----
   //  900 GeV NSD:  3.25
@@ -524,6 +530,8 @@ void dNdeta_vs_roots() {
     TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*6,0.68,0.92);
     if(theory) TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*7,0.68,0.92);
     if(theory && pythia) TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*9,0.68,0.92);
+    if(theory && pythia && phojet) TLegend* leg3 = new TLegend(0.20,0.92 - 0.045*10,0.68,0.92);
+
 
     leg3->SetFillColor(0);
     leg3->SetFillStyle(0);
@@ -543,6 +551,9 @@ void dNdeta_vs_roots() {
       if(pythia){
 	 leg3->AddEntry(atlas1,"PYTHIA ATLAS","l");
          leg3->AddEntry(pythia1,"PYTHIA D6T","l");
+      }
+      if(phojet){
+	 leg3->AddEntry(phojet1,"PHOJET","l");
       }
       leg3->SetTextSize(0.03);
     }

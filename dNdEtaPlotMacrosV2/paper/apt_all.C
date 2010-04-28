@@ -6,6 +6,7 @@ void apt_all(){
    
    Bool_t theory = true;
    Bool_t pythia = true;
+   Bool_t phojet = true;
 
    gROOT->Reset();
    gROOT->ProcessLine(".x rootlogon.C");
@@ -213,6 +214,27 @@ void apt_all(){
 
    gre7->Draw("Lsame");
    }
+   // PHOJET  ===============================                                                                                     
+   if(phojet){
+      gre8 = new TGraphErrors(3);
+      gre8->SetName("Graph8");
+      gre8->SetTitle("Graph8");
+
+      gre8->SetMarkerStyle(26);
+      gre8->SetMarkerSize(msize);
+      gre8->SetMarkerColor(kMagenta+2);
+      gre8->SetLineColor(kMagenta+2);
+      gre8->SetLineWidth(3);
+
+      gre8->SetPoint(0,900,0.45269);
+      gre8->SetPointError(0,0,0);
+      gre8->SetPoint(1,2360,0.487677);
+      gre8->SetPointError(0,0,0);
+      gre8->SetPoint(2,7000,0.536247);
+      gre8->SetPointError(1,0,0);
+
+      gre8->Draw("Lsame");
+   }
    // ============================= CMS?
    gre = new TGraphErrors(2);
    gre->SetName("Graph");
@@ -277,6 +299,7 @@ void apt_all(){
    TLegend *leg = new TLegend(0.25,0.90-0.045*5,0.5,0.90,NULL,"brNDC");
    if(theory) TLegend *leg = new TLegend(0.25,0.90-0.045*6,0.57,0.90,NULL,"brNDC");
    if(theory && pythia) TLegend *leg = new TLegend(0.25,0.90-0.045*8,0.57,0.90,NULL,"brNDC");
+   if(theory && pythia && phojet) TLegend *leg = new TLegend(0.25,0.90-0.045*9,0.57,0.90,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
    leg->SetLineColor(1);
@@ -315,6 +338,12 @@ void apt_all(){
      entry->SetLineColor(kBlue+2);
      entry->SetLineWidth(3);
    }
+   if(phojet){
+      entry=leg->AddEntry("gre8","PHOJET","l");
+      entry->SetLineColor(kMagenta+2);
+      entry->SetLineWidth(3);
+   }
+   
    //entry->SetMarkerStyle(20);
    //entry->SetMarkerColor(kRed+2);
    //entry->SetMarkerSize(msize*1.0);
