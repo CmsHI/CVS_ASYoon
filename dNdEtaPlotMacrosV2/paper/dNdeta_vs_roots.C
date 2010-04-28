@@ -6,14 +6,14 @@ void dNdeta_vs_roots() {
 
 
   bool ErrorFlag = true;
-  bool theory = true;
-  bool pythia = true;
-  bool phojet = true;
+  bool theory = false;
+  bool pythia = false;
+  bool phojet = false;
 //  theory = false;
 
   //****************************************************
   Bool_t bw = 1;       // 1: BLACK AND WHITE, 0: COLOR
-  Float_t msize = 1.8; // MARKER SIZE
+  Float_t msize = 2.0; // MARKER SIZE
   //****************************************************
   
   TCanvas *c = new TCanvas("c","c",550,600);
@@ -375,7 +375,7 @@ void dNdeta_vs_roots() {
   if(bw)cmsnsd->SetMarkerColor(kRed+2);
   cmsnsd->SetMarkerStyle(kFullStar);
   if(bw)cmsnsd->SetMarkerStyle(20);
-  cmsnsd->SetMarkerSize(msize*1.115);
+  cmsnsd->SetMarkerSize(msize*1.2);
   //cmsnsd->SetMarkerSize(msize*1.2);
   cmsnsd->SetLineColor(kRed+3);
   //if(bw)cmsnsd->SetLineColor(kBlack);
