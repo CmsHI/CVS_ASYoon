@@ -80,6 +80,8 @@ class TrackSpectraAnalyzer : public edm::EDAnalyzer {
    TNtuple *nt_jet;
    TNtuple *nt_jettrack;
 
+   TH1D *hTrkPtMB;
+
    edm::Service<TFileService> fs;
    
    bool doOutput_;
@@ -203,6 +205,8 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
    for(unsigned it=0; it<tracks->size(); ++it){
       const reco::Track & trk = (*tracks)[it];
       if(!trk.quality(reco::TrackBase::qualityByName(qualityString))) continue;
+
+      if(accept[0]==1) hTrkPtMB->Fill(trk.pt());
       nt_dndptdeta->Fill(trk.pt(),trk.eta());
 
 
@@ -250,6 +254,7 @@ TrackSpectraAnalyzer::beginJob()
 {
    if(doOutput_){
       nt_dndptdeta = fs->make<TNtuple>("nt_dndptdeta","eta vs pt","pt:eta");
+      hTrkPtMB = fs->make<TH1D>("hTrkPtMB","track p_{T}; p_{T} [GeV/c]", 1000, 0.0, 200.0);
       if(isGEN_) nt_gen_dndptdeta = fs->make<TNtuple>("nt_gen_dndptdeta","eta vs pt","pt:eta");
       if(doJet_) {
 	 nt_jet = fs->make<TNtuple>("nt_jet","jet spectra ntuple","jet:jeta:jphi:mb:jet6:jet15:jet30:jet50");
