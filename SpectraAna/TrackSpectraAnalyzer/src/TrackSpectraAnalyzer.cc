@@ -78,6 +78,7 @@ class TrackSpectraAnalyzer : public edm::EDAnalyzer {
    TNtuple *nt_dndptdeta; 
    TNtuple *nt_gen_dndptdeta;
    TNtuple *nt_jet;
+   TNtuple *nt_jettrack;
 
    edm::Service<TFileService> fs;
    
@@ -203,6 +204,17 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       const reco::Track & trk = (*tracks)[it];
       if(!trk.quality(reco::TrackBase::qualityByName(qualityString))) continue;
       nt_dndptdeta->Fill(trk.pt(),trk.eta());
+
+
+      // jet 
+      for(unsigned it=0; it<sortedJets.size(); ++it){
+         nt_jettrack->Fill(trk.eta(),sortedJets[it]->eta(),
+                           accept[0],accept[1],accept[2],accept[3],accept[4]);
+         break;
+      }
+
+
+
    }
 
    if(isGEN_){
@@ -239,7 +251,10 @@ TrackSpectraAnalyzer::beginJob()
    if(doOutput_){
       nt_dndptdeta = fs->make<TNtuple>("nt_dndptdeta","eta vs pt","pt:eta");
       if(isGEN_) nt_gen_dndptdeta = fs->make<TNtuple>("nt_gen_dndptdeta","eta vs pt","pt:eta");
-      if(doJet_) nt_jet = fs->make<TNtuple>("nt_jet","jet spectra ntuple","jet:jeta:jphi:mb:jet6:jet15:jet30:jet50");
+      if(doJet_) {
+	 nt_jet = fs->make<TNtuple>("nt_jet","jet spectra ntuple","jet:jeta:jphi:mb:jet6:jet15:jet30:jet50");
+	 nt_jettrack = fs->make<TNtuple>("nt_jettrack","jet tracks correlation ntuple","eta:jet:mb:jet6:jet15:jet30:jet50");
+      }
    }
 }
 
