@@ -6,9 +6,9 @@ void dNdeta_vs_roots() {
 
 
   bool ErrorFlag = true;
-  bool theory = false;
-  bool pythia = false;
-  bool phojet = false;
+  bool theory = true;
+  bool pythia = true;
+  bool phojet = true;
 //  theory = false;
 
   //****************************************************
@@ -55,7 +55,8 @@ void dNdeta_vs_roots() {
 
   //TF1 *fitUA5 = new TF1("fitUA5","2.420-0.244*log(x^2)+0.0236*(log(x^2))^2",40,8000);
   //TF1 *fitUA5 = new TF1("fitUA5","3.183-0.384*log(x^2)+0.0297*(log(x^2))^2",40,8000);     
-  TF1 *fitUA5 = new TF1("fitUA5","3.167-0.381*log(x^2)+0.0296*(log(x^2))^2",40,8000);   
+  //TF1 *fitUA5 = new TF1("fitUA5","3.167-0.381*log(x^2)+0.0296*(log(x^2))^2",40,8000);   
+  TF1 *fitUA5 = new TF1("fitUA5","2.807-0.315*log(x^2)+0.0267*(log(x^2))^2",40,8000); 
   fitUA5->SetLineColor(kBlue);
   if(bw)fitUA5->SetLineColor(kBlack);
   fitUA5->SetLineWidth(2);
@@ -344,7 +345,8 @@ void dNdeta_vs_roots() {
   const int NCMS=3;
   Double_t x11[NCMS] =  { 900, 2360, 7000 }; 
   //Double_t y11[NCMS] =  {  3.4984, 4.46, 5.84 };
-  Double_t y11[NCMS] =  {  3.4984, 4.46, 5.82 }; 
+  //Double_t y11[NCMS] =  {  3.4984, 4.46, 5.82 }; 
+  Double_t y11[NCMS] =  {  3.4984, 4.46, 5.78 };
   Double_t cmsSysErr = (y11[0]+y11[1])/2. *0.037;
 
   // for now we don't show sys error for everyone
@@ -364,9 +366,12 @@ void dNdeta_vs_roots() {
   Double_t exhd11[NCMS]= { 0.00,0.00,0 };
 
 
-  Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.04*y11[2]};
-  Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.04*y11[2]};
+  //Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.04*y11[2]};
+  //Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.04*y11[2]};
   
+  Double_t eyl11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.04019*y11[2]};
+  Double_t eyh11[NCMS]= { 0.037*y11[0] , 0.037*y11[1] , 1.*0.04019*y11[2]};
+
   TGraphAsymmErrors *cmsnsd=new TGraphAsymmErrors(NCMS,x11,y11,exl11,exh11,eyl11,eyh11);
   //TGraphBentErrors *cmsnsd = new TGraphBentErrors(NCMS,x11,y11,exl11,exh11,eyl11,eyh11,exld11,exhd11,eyld11,eyhd11); 
 
@@ -583,7 +588,9 @@ void dNdeta_vs_roots() {
     //leg2->AddEntry(fitUA5,"2.26 - 0.207 ln(s) + 0.0215 ln^{2}(s)","l");
     // fit with CMS 900, 2360 GeV Points
     //leg2->AddEntry(fitUA5,"3.18 - 0.384 ln(s) + 0.0297 ln^{2}(s)","l");
-    leg2->AddEntry(fitUA5,"3.17 - 0.381 ln(s) + 0.0296 ln^{2}(s)","l");
+    //leg2->AddEntry(fitUA5,"3.17 - 0.381 ln(s) + 0.0296 ln^{2}(s)","l");
+    leg2->AddEntry(fitUA5,"2.807 - 0.315 ln(s) + 0.0267 ln^{2}(s)","l"); 
+    
     //leg2->AddEntry(fitUA5,"0.929 + 0.0644 exp(#sqrt{ln(s)})","l");
     leg2->AddEntry(fitUA5inel,"1.54 - 0.096 ln(s) + 0.0155 ln^{2}(s)","l");
     leg2->SetTextSize(0.03);

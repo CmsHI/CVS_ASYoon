@@ -433,6 +433,32 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    Float_t err_hit = 0.044;
    TH1 *corr_result_all7 = new TH1D("corr_result_all7","",14,-3.5,3.5);
    //corr_result_all7->GetXaxis()->SetRange(2,13);
+
+
+   corr_result_all7->SetBinContent(3,6.5071);
+   corr_result_all7->SetBinContent(4,6.5557);
+   corr_result_all7->SetBinContent(5,6.3051);
+   corr_result_all7->SetBinContent(6,6.1184);
+   corr_result_all7->SetBinContent(7,5.7679);
+   corr_result_all7->SetBinContent(8,5.7677);
+   corr_result_all7->SetBinContent(9,6.1287);
+   corr_result_all7->SetBinContent(10,6.3105);
+   corr_result_all7->SetBinContent(11,6.4998);
+   corr_result_all7->SetBinContent(12,6.4875);
+
+   corr_result_all7->SetBinError(3,6.5071*err_hit);
+   corr_result_all7->SetBinError(4,6.5557*err_hit);
+   corr_result_all7->SetBinError(5,6.3051*err_hit);
+   corr_result_all7->SetBinError(6,6.1184*err_hit);
+   corr_result_all7->SetBinError(7,5.7679*err_hit);
+   corr_result_all7->SetBinError(8,5.7677*err_hit);
+   corr_result_all7->SetBinError(9,6.1287*err_hit);
+   corr_result_all7->SetBinError(10,6.3105*err_hit);
+   corr_result_all7->SetBinError(11,6.4998*err_hit);
+   corr_result_all7->SetBinError(12,6.4875*err_hit);
+
+
+   /*
    corr_result_all7->SetBinContent(3,6.473316);
    corr_result_all7->SetBinContent(4,6.5512895);
    corr_result_all7->SetBinContent(5,6.242294);
@@ -454,7 +480,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    corr_result_all7->SetBinError(10,6.303131667*err_hit);
    corr_result_all7->SetBinError(11,6.5432345*err_hit);
    corr_result_all7->SetBinError(12,6.412854*err_hit);
-
+   */
    corr_result_all7->SetMarkerColor(kRed);
    corr_result_all7->SetLineColor(2);
    corr_result_all7->SetMarkerStyle(20);
@@ -465,6 +491,30 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    Float_t err_tracklet = 0.029;
    TH1 *hTracklet7 = new TH1D("hTracklet7","",12, xAxis5);
 
+   hTracklet7->SetBinContent(2,6.3662);
+   hTracklet7->SetBinContent(3,6.4060);
+   hTracklet7->SetBinContent(4,6.2138);
+   hTracklet7->SetBinContent(5,6.0029);
+   hTracklet7->SetBinContent(6,5.7759);
+   hTracklet7->SetBinContent(7,5.7427);
+   hTracklet7->SetBinContent(8,6.0237);
+   hTracklet7->SetBinContent(9,6.2421);
+   hTracklet7->SetBinContent(10,6.3800);
+   hTracklet7->SetBinContent(11,6.2401);
+
+   hTracklet7->SetBinError(2,6.3662*err_tracklet);
+   hTracklet7->SetBinError(3,6.4060*err_tracklet);
+   hTracklet7->SetBinError(4,6.2138*err_tracklet);
+   hTracklet7->SetBinError(5,6.0029*err_tracklet);
+   hTracklet7->SetBinError(6,5.7759*err_tracklet);
+   hTracklet7->SetBinError(7,5.7427*err_tracklet);
+   hTracklet7->SetBinError(8,6.0237*err_tracklet);
+   hTracklet7->SetBinError(9,6.2421*err_tracklet);
+   hTracklet7->SetBinError(10,6.3800*err_tracklet);
+   hTracklet7->SetBinError(11,6.2401*err_tracklet);
+
+
+   /*
    hTracklet7->SetBinContent(2,6.40978);
    hTracklet7->SetBinContent(3,6.35934);
    hTracklet7->SetBinContent(4,6.23924);
@@ -486,7 +536,7 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hTracklet7->SetBinError(9,6.22883*err_tracklet);
    hTracklet7->SetBinError(10,6.33434*err_tracklet);
    hTracklet7->SetBinError(11,6.19277*err_tracklet);
-
+   */
 
    hTracklet7->SetMarkerColor(4);   
    hTracklet7->SetLineColor(4);
@@ -501,6 +551,18 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    TH1 *hMeasuredFinal7 = new TH1D("hMeasuredFinal7","",12, xAxis7);
 
    
+   hMeasuredFinal7->SetBinContent(2,5.9951);
+   hMeasuredFinal7->SetBinContent(3,6.0958);
+   hMeasuredFinal7->SetBinContent(4,6.0306);
+   hMeasuredFinal7->SetBinContent(5,5.9787);
+   hMeasuredFinal7->SetBinContent(6,5.8224);
+   hMeasuredFinal7->SetBinContent(7,5.7829);
+   hMeasuredFinal7->SetBinContent(8,5.9533);
+   hMeasuredFinal7->SetBinContent(9,6.0171);
+   hMeasuredFinal7->SetBinContent(10,6.0965);
+   hMeasuredFinal7->SetBinContent(11,5.9951);
+
+   /*
    hMeasuredFinal7->SetBinContent(2,6.04289);
    hMeasuredFinal7->SetBinContent(3,6.16213);
    hMeasuredFinal7->SetBinContent(4,6.08164);
@@ -511,7 +573,8 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal7->SetBinContent(9,6.07017);
    hMeasuredFinal7->SetBinContent(10,6.15765);
    hMeasuredFinal7->SetBinContent(11,6.04289);
-   
+   */
+
    /*
    hMeasuredFinal7->SetBinContent(2,6.06085);
    hMeasuredFinal7->SetBinContent(3,6.18989);
@@ -525,16 +588,16 @@ void dNdEta_ThreeMethods_FullTrackingRebinned() {
    hMeasuredFinal7->SetBinContent(11,6.06085);
    */
 
-   hMeasuredFinal7->SetBinError(2,6.06085*err_track);
-   hMeasuredFinal7->SetBinError(3,6.18989*err_track);
-   hMeasuredFinal7->SetBinError(4,6.12138*err_track);
-   hMeasuredFinal7->SetBinError(5,6.05479*err_track);
-   hMeasuredFinal7->SetBinError(6,5.89005*err_track);
-   hMeasuredFinal7->SetBinError(7,5.86093*err_track);
-   hMeasuredFinal7->SetBinError(8,5.99709*err_track);
-   hMeasuredFinal7->SetBinError(9,6.10845*err_track);
-   hMeasuredFinal7->SetBinError(10,6.18874*err_track);
-   hMeasuredFinal7->SetBinError(11,6.06085*err_track);
+   hMeasuredFinal7->SetBinError(2,5.9951*err_track);
+   hMeasuredFinal7->SetBinError(3,6.0958*err_track);
+   hMeasuredFinal7->SetBinError(4,6.0306*err_track);
+   hMeasuredFinal7->SetBinError(5,5.9787*err_track);
+   hMeasuredFinal7->SetBinError(6,5.8224*err_track);
+   hMeasuredFinal7->SetBinError(7,5.7829*err_track);
+   hMeasuredFinal7->SetBinError(8,5.9533*err_track);
+   hMeasuredFinal7->SetBinError(9,6.0171*err_track);
+   hMeasuredFinal7->SetBinError(10,6.0965*err_track);
+   hMeasuredFinal7->SetBinError(11,5.9951*err_track);
 
    hMeasuredFinal7->SetMarkerColor(kBlack);
    hMeasuredFinal7->SetLineColor(1);

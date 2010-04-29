@@ -4,9 +4,9 @@ void apt_all(){
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
-   Bool_t theory = true;
-   Bool_t pythia = true;
-   Bool_t phojet = true;
+   Bool_t theory = false;
+   Bool_t pythia = false;
+   Bool_t phojet = false;
 
    gROOT->Reset();
    gROOT->ProcessLine(".x rootlogon.C");
