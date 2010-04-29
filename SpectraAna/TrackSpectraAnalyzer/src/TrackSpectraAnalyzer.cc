@@ -81,6 +81,7 @@ class TrackSpectraAnalyzer : public edm::EDAnalyzer {
    TNtuple *nt_jettrack;
 
    TH1D *hTrkPtMB;
+   TH1D *hVtxZ;
 
    edm::Service<TFileService> fs;
    
@@ -151,13 +152,16 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
    iEvent.getByLabel(vsrc_, vertices);
    if(vertices->size()!=1) return; // one and only one vertex
    int numFake=0, numVtxTrk=0;
+   double bestvz=-999.9;
    for(unsigned it=0; it<vertices->size(); ++it) {
       const reco::Vertex & vtx = (*vertices)[it];
       if(vtx.isFake()) numFake++;
       numVtxTrk = vtx.tracksSize();
+      bestvz = vtx.z();
    }
    if(numVtxTrk<nVtxTrkCut_) return;
    if(numFake>=1) return;
+   hVtxZ->Fill(bestvz);
    //-----------------------   (This part will be in an EDFilter later)    
    
    // get hlt bit
@@ -210,14 +214,16 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       nt_dndptdeta->Fill(trk.pt(),trk.eta());
 
 
-      // jet 
-      for(unsigned it=0; it<sortedJets.size(); ++it){
-         nt_jettrack->Fill(trk.pt(),trk.eta(),sortedJets[it]->eta(),
-                           accept[0],accept[1],accept[2],accept[3],accept[4]);
-         break;
-      }
+      // (leading jet)-track
+      // even if there's no jet track info saved (needed for MB)
+      double jet_et = 0, jet_eta = 0;
+      unsigned index = 0; 
+      if(sortedJets.size()==0) jet_et = 0,jet_eta = 0;
+      else jet_et = sortedJets[index]->et(), jet_eta = sortedJets[index]->eta();
 
-
+      nt_jettrack->Fill(trk.pt(),trk.eta(),sortedJets[it]->eta(),
+			accept[0],accept[1],accept[2],accept[3],accept[4]);
+      
 
    }
 
@@ -255,6 +261,7 @@ TrackSpectraAnalyzer::beginJob()
    if(doOutput_){
       nt_dndptdeta = fs->make<TNtuple>("nt_dndptdeta","eta vs pt","pt:eta");
       hTrkPtMB = fs->make<TH1D>("hTrkPtMB","track p_{T}; p_{T} [GeV/c]", 1000, 0.0, 200.0);
+      hVtxZ = fs->make<TH1D>("hVtxZ","z position of best reconstructed pixel vertex", 80,-20,20);
       if(isGEN_) nt_gen_dndptdeta = fs->make<TNtuple>("nt_gen_dndptdeta","eta vs pt","pt:eta");
       if(doJet_) {
 	 nt_jet = fs->make<TNtuple>("nt_jet","jet spectra ntuple","jet:jeta:jphi:mb:jet6:jet15:jet30:jet50");
