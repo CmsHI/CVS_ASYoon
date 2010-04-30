@@ -109,7 +109,7 @@ TrackSpectraAnalyzer::TrackSpectraAnalyzer(const edm::ParameterSet& iConfig)
 
 {
    //now do what ever initialization is needed
-   src_ = iConfig.getUntrackedParameter<edm::InputTag>("src",edm::InputTag("generalTracks"));
+   src_ = iConfig.getUntrackedParameter<edm::InputTag>("src",edm::InputTag("selectTracks"));
    vsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("vsrc",edm::InputTag("offlinePrimaryVertices"));
    jsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("jsrc",edm::InputTag("ak5CaloJets"));
    doOutput_ = iConfig.getUntrackedParameter<bool>("doOutput", true);
@@ -170,6 +170,7 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
    //iEvent.getByLabel("TriggerResults","","HLT",triggerResults);
    const edm::TriggerNames triggerNames = iEvent.triggerNames(*triggerResults); 
    bool accept[nTrigs];
+   accept[0]=false; accept[1]=false; accept[2]=false; accept[3]=false; accept[4]=false;
    
    accept[0] = triggerResults->accept(triggerNames.triggerIndex("HLT_MinBiasBSC"));
    accept[1] = triggerResults->accept(triggerNames.triggerIndex("HLT_L1Jet6U"));
@@ -208,23 +209,22 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
    for(unsigned it=0; it<tracks->size(); ++it){
       const reco::Track & trk = (*tracks)[it];
+
       if(!trk.quality(reco::TrackBase::qualityByName(qualityString))) continue;
 
       if(accept[0]==1) hTrkPtMB->Fill(trk.pt());
       nt_dndptdeta->Fill(trk.pt(),trk.eta());
 
-
       // (leading jet)-track
       // even if there's no jet track info saved (needed for MB)
-      double jet_et = 0, jet_eta = 0;
-      unsigned index = 0; 
-      if(sortedJets.size()==0) jet_et = 0,jet_eta = 0;
-      else jet_et = sortedJets[index]->et(), jet_eta = sortedJets[index]->eta();
-
-      nt_jettrack->Fill(trk.pt(),trk.eta(),sortedJets[it]->eta(),
-			accept[0],accept[1],accept[2],accept[3],accept[4]);
-      
-
+      if(doJet_){
+	 double jet_et = 0, jet_eta = 0;
+	 unsigned index = 0; 
+	 if(sortedJets.size()==0) jet_et = 0,jet_eta = 0;
+	 else jet_et = sortedJets[index]->et(), jet_eta = sortedJets[index]->eta();
+	 nt_jettrack->Fill(trk.pt(),trk.eta(),jet_et,
+			   accept[0],accept[1],accept[2],accept[3],accept[4]);
+      }
    }
 
    if(isGEN_){
