@@ -49,6 +49,8 @@
 #include "DataFormats/HepMCCandidate/interface/GenParticleFwd.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 
+#include "DataFormats/PatCandidates/interface/Jet.h"
+
 //#include "DataFormats/Common/interface/Handle.h"
 //#include "DataFormats/HLTReco/interface/TriggerObject.h"
 
@@ -184,24 +186,27 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       //if(accept[i]) hHLTPaths->Fill(hltNames[i],1); 
     } 
 
-   //----- loop over jets and store in a vector -----
-   Handle<vector<reco::CaloJet> > jets;
-   iEvent.getByLabel(jsrc_, jets);
+   
+   
+   //----- loop over pat jets and store in a vector -----
+   Handle<std::vector<pat::Jet> > pjets;
+   iEvent.getByLabel("selectedPatJets", pjets);
 
-   vector<const reco::CaloJet *> sortedJets;
+   vector<const pat::Jet *> sortedpJets;
 
-   for(unsigned it=0; it<jets->size(); ++it){
-      const reco::CaloJet* jts = &((*jets)[it]);
-      sortedJets.push_back( & *jts);
-      sortByEtRef (&sortedJets);
+   if(doJet_){
+      for(unsigned it=0; it<pjets->size(); ++it){
+	 const pat::Jet* pjts = &((*pjets)[it]);
+	 sortedpJets.push_back( & *pjts);
+	 sortByEtRef (&sortedpJets);
+      }
+      
+      for(unsigned it=0; it<sortedpJets.size(); ++it){
+	 nt_jet->Fill(sortedpJets[it]->et(),sortedpJets[it]->eta(),sortedpJets[it]->phi(),
+		      accept[0],accept[1],accept[2],accept[3],accept[4]); 
+	 break;             
+      }                     
    }
-
-   for(unsigned it=0; it<sortedJets.size(); ++it){
-      nt_jet->Fill(sortedJets[it]->et(),sortedJets[it]->eta(),sortedJets[it]->phi(),
-		  accept[0],accept[1],accept[2],accept[3],accept[4]);
-      break;
-   }
-
 
    // get track collection 
    Handle<vector<Track> > tracks;
@@ -215,16 +220,17 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       if(accept[0]==1) hTrkPtMB->Fill(trk.pt());
       nt_dndptdeta->Fill(trk.pt(),trk.eta());
 
-      // (leading jet)-track
-      // even if there's no jet track info saved (needed for MB)
+      // (leading jet)-track                                  
+      // even if there's no jet track info saved (needed for MB) 
+
       if(doJet_){
-	 double jet_et = 0, jet_eta = 0;
-	 unsigned index = 0; 
-	 if(sortedJets.size()==0) jet_et = 0,jet_eta = 0;
-	 else jet_et = sortedJets[index]->et(), jet_eta = sortedJets[index]->eta();
-	 nt_jettrack->Fill(trk.pt(),trk.eta(),jet_et,
-			   accept[0],accept[1],accept[2],accept[3],accept[4]);
-      }
+         double jet_et = 0, jet_eta = 0;
+         unsigned index = 0; 
+         if(sortedpJets.size()==0) jet_et = 0,jet_eta = 0; 
+	 else jet_et = sortedpJets[index]->et(), jet_eta = sortedpJets[index]->eta(); 
+         nt_jettrack->Fill(trk.pt(),trk.eta(),jet_et,
+                           accept[0],accept[1],accept[2],accept[3],accept[4]); 
+      }                                                       
    }
 
    if(isGEN_){
