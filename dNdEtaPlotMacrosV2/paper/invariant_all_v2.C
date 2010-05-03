@@ -4724,7 +4724,7 @@ leg->SetFillColor(0);
 leg->SetFillStyle(0);
 
 //TLegendEntry *entry=leg->AddEntry("Graph","Data 0.9 TeV","P");
- TLegendEntry *entry=leg->AddEntry("Graph","0.9 TeV, NSD p+p","P");
+ TLegendEntry *entry=leg->AddEntry("Graph","0.9 TeV pp, NSD","P");
 entry->SetLineColor(1);
 entry->SetLineStyle(1);
 entry->SetLineWidth(1);
@@ -4732,7 +4732,7 @@ entry->SetMarkerColor(1);
 entry->SetMarkerStyle(20);
 entry->SetMarkerSize(marker);
 //TLegendEntry* entry2=leg->AddEntry("","Data 2.36 TeV","P");
- TLegendEntry* entry2=leg->AddEntry("","2.36 TeV, NSD p+p","P");  
+ TLegendEntry* entry2=leg->AddEntry("","2.36 TeV pp, NSD","P");  
 entry2->SetLineColor(1);
 entry2->SetLineStyle(0);
 entry2->SetLineWidth(1);
@@ -4741,7 +4741,7 @@ entry2->SetMarkerStyle(kOpenCircle);
 entry2->SetMarkerSize(marker);
 
 //TLegendEntry* entry3=leg->AddEntry("","Data 7 TeV","P");
- TLegendEntry* entry3=leg->AddEntry("","7 TeV, NSD p+p","P");      
+ TLegendEntry* entry3=leg->AddEntry("","7 TeV pp, NSD","P");      
  entry3->SetLineColor(1);
  entry3->SetLineStyle(0);
  entry3->SetLineWidth(1);
@@ -4750,7 +4750,7 @@ entry2->SetMarkerSize(marker);
  entry3->SetMarkerSize(marker);
 
 
-if(doTsallis) entry=leg->AddEntry("","Tsallis fit","L");
+if(doTsallis) entry=leg->AddEntry("","Tsallis fits","L");
 entry->SetLineColor(1);
 entry->SetLineStyle(1);
 entry->SetLineWidth(1);

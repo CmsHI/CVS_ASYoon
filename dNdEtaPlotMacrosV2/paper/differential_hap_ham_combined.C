@@ -15348,10 +15348,7 @@ void differential_hap_ham_combined(){
    leg->SetMargin(0.28);
 
    
-
-
-   //TLegendEntry *entry=leg->AddEntry("Graph54","Data 7 TeV","P");  
-   TLegendEntry *entry=leg->AddEntry("Graph54","7 TeV, NSD p+p","P"); 
+   TLegendEntry *entry=leg->AddEntry("Graph54","7 TeV pp, NSD","P"); 
    entry->SetMarkerColor(1.0);
 
    entry->SetMarkerStyle(24);

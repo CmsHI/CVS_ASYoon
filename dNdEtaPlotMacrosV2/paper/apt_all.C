@@ -143,7 +143,7 @@ void apt_all(){
    gre->Draw("pz");
 
    TGraph* gre03 = gre->Clone("gre03");
-   gre03->SetMarkerStyle(0);
+   gre03->SetMarkerStyle(22);
    gre03->Draw("pzsame");
    
    // ============================= CDF
@@ -324,7 +324,7 @@ void apt_all(){
    entry->SetMarkerStyle(21);    
    entry->SetMarkerSize(msize);    
 
-   entry=leg->AddEntry("Graph5","CMS NSD (|#eta|<2.4)","P");
+   entry=leg->AddEntry("Graph5","CMS NSD","P");
    entry->SetMarkerStyle(20);  
    entry->SetMarkerColor(kRed+2);
    entry->SetMarkerSize(msize*1.0);  
