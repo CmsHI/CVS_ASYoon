@@ -51,75 +51,21 @@
 
 #include "DataFormats/PatCandidates/interface/Jet.h"
 
-//#include "DataFormats/Common/interface/Handle.h"
-//#include "DataFormats/HLTReco/interface/TriggerObject.h"
+#include "SpectraAna/TrackSpectraAnalyzer/interface/TrackSpectraAnalyzer.h"
 
 
-#include "TNtuple.h"
-#include "TH1D.h"
-#include "TFile.h"
-
-
-//
-// class declaration
-//
-
-class TrackSpectraAnalyzer : public edm::EDAnalyzer {
-   public:
-      explicit TrackSpectraAnalyzer(const edm::ParameterSet&);
-      ~TrackSpectraAnalyzer();
-
-
-   private:
-      virtual void beginJob() ;
-      virtual void analyze(const edm::Event&, const edm::EventSetup&);
-      virtual void endJob() ;
-
-   // ----------member data ---------------------------
-   
-   TNtuple *nt_dndptdeta; 
-   TNtuple *nt_gen_dndptdeta;
-   TNtuple *nt_jet;
-   TNtuple *nt_jettrack;
-
-   TH1D *hTrkPtMB;
-   TH1D *hVtxZ;
-
-   edm::Service<TFileService> fs;
-   
-   bool doOutput_;
-   bool isGEN_, doJet_;
-   double  etaMax_;
-   int32_t nVtxTrkCut_;
-   edm::InputTag src_;
-   edm::InputTag vsrc_;
-   edm::InputTag jsrc_;
-};
-
-//
-// constants, enums and typedefs
-//
-
-//
-// static data member definitions
-//
-
-//
-// constructors and destructor
-//
 TrackSpectraAnalyzer::TrackSpectraAnalyzer(const edm::ParameterSet& iConfig)
-
+   :
+   src_(iConfig.getUntrackedParameter<edm::InputTag>("src")),
+   vsrc_(iConfig.getUntrackedParameter<edm::InputTag>("vsrc")),
+   jsrc_(iConfig.getUntrackedParameter<edm::InputTag>("jsrc")),
+   wantNtuple_(iConfig.getUntrackedParameter<bool>("wantNtuple",true)),
+   isGEN_(iConfig.getUntrackedParameter<bool>("isGEN", true)),
+   doJet_(iConfig.getUntrackedParameter<bool>("doJet", true)),
+   etaCut_(iConfig.getUntrackedParameter<double>("etaCut")),
+   nVtxTrkCut_(iConfig.getUntrackedParameter<int>("nVtxTrkCut"))
 {
-   //now do what ever initialization is needed
-   src_ = iConfig.getUntrackedParameter<edm::InputTag>("src",edm::InputTag("selectTracks"));
-   vsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("vsrc",edm::InputTag("offlinePrimaryVertices"));
-   jsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("jsrc",edm::InputTag("ak5CaloJets"));
-   doOutput_ = iConfig.getUntrackedParameter<bool>("doOutput", true);
-   isGEN_ = iConfig.getUntrackedParameter<bool>("isGEN", true);
-   doJet_ = iConfig.getUntrackedParameter<bool>("doJet", true);
-   etaMax_ = iConfig.getUntrackedParameter<double>("etaMax", 5.0);
-   nVtxTrkCut_ = iConfig.getUntrackedParameter<int>("nVtxTrkCut", 3);
-
+   histograms = new TrackSpectraAnalyzerHist(iConfig);
 }
 
 
@@ -163,7 +109,7 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
    }
    if(numVtxTrk<nVtxTrkCut_) return;
    if(numFake>=1) return;
-   hVtxZ->Fill(bestvz);
+   //hVtxZ->Fill(bestvz);
    //-----------------------   (This part will be in an EDFilter later)    
    
    // get hlt bit
@@ -202,8 +148,13 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       }
       
       for(unsigned it=0; it<sortedpJets.size(); ++it){
-	 nt_jet->Fill(sortedpJets[it]->et(),sortedpJets[it]->eta(),sortedpJets[it]->phi(),
-		      accept[0],accept[1],accept[2],accept[3],accept[4]); 
+	 //nt_jet->Fill(sortedpJets[it]->et(),sortedpJets[it]->eta(),
+	 //accept[0],accept[1],accept[2],accept[3],accept[4]); 
+	 if(accept[0]) histograms->fillJet2DHist(sortedpJets[it]->eta(),sortedpJets[it]->et(),0);
+	 if(accept[1]) histograms->fillJet2DHist(sortedpJets[it]->eta(),sortedpJets[it]->et(),1);
+	 if(accept[2]) histograms->fillJet2DHist(sortedpJets[it]->eta(),sortedpJets[it]->et(),2);
+	 if(accept[3]) histograms->fillJet2DHist(sortedpJets[it]->eta(),sortedpJets[it]->et(),3);
+	 if(accept[4]) histograms->fillJet2DHist(sortedpJets[it]->eta(),sortedpJets[it]->et(),4);
 	 break;             
       }                     
    }
@@ -217,22 +168,36 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       if(!trk.quality(reco::TrackBase::qualityByName(qualityString))) continue;
 
-      if(accept[0]==1) hTrkPtMB->Fill(trk.pt());
-      nt_dndptdeta->Fill(trk.pt(),trk.eta());
+      //if(accept[0]==1) hTrkPtMB->Fill(trk.pt());
+      //if(wantNtuple_)nt_dndptdeta->Fill(trk.pt(),trk.eta());
+      //else hTrkPtEta->Fill(trk.eta(),trk.pt());
+      histograms->fillTrack2DHist(trk.eta(),trk.pt());
 
       // (leading jet)-track                                  
       // even if there's no jet track info saved (needed for MB) 
 
       if(doJet_){
-         double jet_et = 0, jet_eta = 0;
+         float jet_et = 0, jet_eta = 0;
          unsigned index = 0; 
          if(sortedpJets.size()==0) jet_et = 0,jet_eta = 0; 
 	 else jet_et = sortedpJets[index]->et(), jet_eta = sortedpJets[index]->eta(); 
-         nt_jettrack->Fill(trk.pt(),trk.eta(),jet_et,
-                           accept[0],accept[1],accept[2],accept[3],accept[4]); 
+         //if(wantNtuple_) {
+	 //if(fabs(jet_eta)<jetaMax_) nt_jettrack->Fill(trk.pt(),trk.eta(),jet_et,
+	 //accept[0],accept[1],accept[2],accept[3],accept[4]); 
+	 //}else{
+	 //if(fabs(jet_eta)<jetaMax_){
+	    /*
+	    if(accept[0]) hTrkPtEtaMB->Fill(trk.eta(),trk.pt(),jet_et);
+	    if(accept[1]) hTrkPtEta6U->Fill(trk.eta(),trk.pt(),jet_et);
+	    if(accept[2]) hTrkPtEta15U->Fill(trk.eta(),trk.pt(),jet_et);
+	    if(accept[3]) hTrkPtEta30U->Fill(trk.eta(),trk.pt(),jet_et);
+	    if(accept[4]) hTrkPtEta50U->Fill(trk.eta(),trk.pt(),jet_et);
+	    */
+	 // }
+	 //}
       }                                                       
    }
-
+   
    if(isGEN_){
       Handle<GenParticleCollection> genParticles;
       iEvent.getByLabel("genParticles", genParticles);
@@ -243,8 +208,8 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 	 if(gen.status() != 1) continue;
 	 if(gen.collisionId() != 0) continue;
 	 if(gen.charge() == 0) continue;
-	 if(fabs(gen.eta())>etaMax_) continue;
-	 nt_gen_dndptdeta->Fill(gen.pt(),gen.eta());
+	 if(fabs(gen.eta())>etaCut_) continue;
+	 //nt_gen_dndptdeta->Fill(gen.pt(),gen.eta());
       }
    }
 
@@ -264,21 +229,13 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 void 
 TrackSpectraAnalyzer::beginJob()
 {
-   if(doOutput_){
-      nt_dndptdeta = fs->make<TNtuple>("nt_dndptdeta","eta vs pt","pt:eta");
-      hTrkPtMB = fs->make<TH1D>("hTrkPtMB","track p_{T}; p_{T} [GeV/c]", 1000, 0.0, 200.0);
-      hVtxZ = fs->make<TH1D>("hVtxZ","z position of best reconstructed pixel vertex", 80,-20,20);
-      if(isGEN_) nt_gen_dndptdeta = fs->make<TNtuple>("nt_gen_dndptdeta","eta vs pt","pt:eta");
-      if(doJet_) {
-	 nt_jet = fs->make<TNtuple>("nt_jet","jet spectra ntuple","jet:jeta:jphi:mb:jet6:jet15:jet30:jet50");
-	 nt_jettrack = fs->make<TNtuple>("nt_jettrack","jet tracks correlation ntuple","pt:eta:jet:mb:jet6:jet15:jet30:jet50");
-      }
-   }
+   histograms->prepareHist();
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
 void 
 TrackSpectraAnalyzer::endJob() {
+   histograms->writeHist();
 }
 
 //define this as a plug-in
