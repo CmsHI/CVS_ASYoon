@@ -17,13 +17,15 @@ class TrackSpectraAnalyzerHist
    ~TrackSpectraAnalyzerHist();
    
    void prepareHist();
-   void fillTrack2DHist(float eta, float pt);
+   void fillTrack2DHist(float eta, float pt, int type);
    void fillJet2DHist(float jeta, float jet, int tbit);
    void fillTrackJet3DHist(float eta, float pt, float jet, int tbit);
    void writeHist();
    
  private:
    TFile * outputFile;
+
+   bool isGEN_;
 
    double  etaBinW_;
    double  etaMax_;    
@@ -40,8 +42,12 @@ class TrackSpectraAnalyzerHist
 
    std::vector<float> etaBins, ptBins;
    std::vector<float> jetaBins, jetBins;
-   
+   std::vector<float> multBins;
+
+
    TH2F* hTrkPtEta;
+   TH2F* hGenTrkPtEta;
+
    TH2F* hJetEtEtaMB;
    TH2F* hJetEtEta6U;
    TH2F* hJetEtEta15U;
@@ -53,6 +59,7 @@ class TrackSpectraAnalyzerHist
    TH3F* hTrkPtEta15U;
    TH3F* hTrkPtEta30U;
    TH3F* hTrkPtEta50U; 
+
 
 };
 

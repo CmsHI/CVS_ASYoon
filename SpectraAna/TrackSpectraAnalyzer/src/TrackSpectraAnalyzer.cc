@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Wed Apr 28 16:18:39 CEST 2010
-// $Id$
+// $Id: TrackSpectraAnalyzer.cc,v 1.8 2010/05/09 14:54:03 sungho Exp $
 //
 //
 
@@ -60,7 +60,6 @@ TrackSpectraAnalyzer::TrackSpectraAnalyzer(const edm::ParameterSet& iConfig)
    vsrc_(iConfig.getUntrackedParameter<edm::InputTag>("vsrc")),
    jsrc_(iConfig.getUntrackedParameter<edm::InputTag>("jsrc")),
    wantNtuple_(iConfig.getUntrackedParameter<bool>("wantNtuple",true)),
-   isGEN_(iConfig.getUntrackedParameter<bool>("isGEN", true)),
    doJet_(iConfig.getUntrackedParameter<bool>("doJet", true)),
    etaCut_(iConfig.getUntrackedParameter<double>("etaCut")),
    nVtxTrkCut_(iConfig.getUntrackedParameter<int>("nVtxTrkCut"))
@@ -168,10 +167,9 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       if(!trk.quality(reco::TrackBase::qualityByName(qualityString))) continue;
 
-      //if(accept[0]==1) hTrkPtMB->Fill(trk.pt());
       //if(wantNtuple_)nt_dndptdeta->Fill(trk.pt(),trk.eta());
       //else hTrkPtEta->Fill(trk.eta(),trk.pt());
-      histograms->fillTrack2DHist(trk.eta(),trk.pt());
+      histograms->fillTrack2DHist(trk.eta(),trk.pt(),0);
 
       // (leading jet)-track                                  
       // even if there's no jet track info saved (needed for MB) 
@@ -185,15 +183,13 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 	 //if(fabs(jet_eta)<jetaMax_) nt_jettrack->Fill(trk.pt(),trk.eta(),jet_et,
 	 //accept[0],accept[1],accept[2],accept[3],accept[4]); 
 	 //}else{
-	 //if(fabs(jet_eta)<jetaMax_){
-	    /*
-	    if(accept[0]) hTrkPtEtaMB->Fill(trk.eta(),trk.pt(),jet_et);
-	    if(accept[1]) hTrkPtEta6U->Fill(trk.eta(),trk.pt(),jet_et);
-	    if(accept[2]) hTrkPtEta15U->Fill(trk.eta(),trk.pt(),jet_et);
-	    if(accept[3]) hTrkPtEta30U->Fill(trk.eta(),trk.pt(),jet_et);
-	    if(accept[4]) hTrkPtEta50U->Fill(trk.eta(),trk.pt(),jet_et);
-	    */
-	 // }
+	 if(fabs(jet_eta)<etaCut_){
+	    if(accept[0]) histograms->fillTrackJet3DHist(trk.eta(),trk.pt(),jet_et,0);
+	    if(accept[1]) histograms->fillTrackJet3DHist(trk.eta(),trk.pt(),jet_et,1);
+	    if(accept[2]) histograms->fillTrackJet3DHist(trk.eta(),trk.pt(),jet_et,2);
+	    if(accept[3]) histograms->fillTrackJet3DHist(trk.eta(),trk.pt(),jet_et,3);
+	    if(accept[4]) histograms->fillTrackJet3DHist(trk.eta(),trk.pt(),jet_et,4);
+	 }
 	 //}
       }                                                       
    }
@@ -210,6 +206,7 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 	 if(gen.charge() == 0) continue;
 	 if(fabs(gen.eta())>etaCut_) continue;
 	 //nt_gen_dndptdeta->Fill(gen.pt(),gen.eta());
+	 histograms->fillTrack2DHist(gen.eta(),gen.pt(),1);
       }
    }
 
