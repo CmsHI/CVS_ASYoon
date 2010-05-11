@@ -32,7 +32,7 @@ void invariant_all_v2() {
   hDist->SetFillColor(1);
   hDist->SetFillStyle(0);
   hDist->SetLineStyle(0);
-  hDist->SetMarkerStyle(20);
+  hDist->SetMarkerStyle(24);
   hDist->SetMarkerSize(1.25);
   hDist->GetXaxis()->SetTitle("p_{T} [GeV/c]");
   hDist->GetXaxis()->CenterTitle(true);
@@ -60,7 +60,7 @@ void invariant_all_v2() {
    graph->SetName("Graph");
    graph->SetTitle("Graph");
    graph->SetFillColor(1);
-   graph->SetMarkerStyle(20);
+   graph->SetMarkerStyle(24);
    graph->SetMarkerSize(1.25);
    graph->SetPoint(0,0,0);
    graph->SetPoint(1,0.02,1.897359);
@@ -1092,7 +1092,7 @@ void invariant_all_v2() {
    Graph25->SetFillColor(1);
    Graph25->SetFillStyle(0);
    Graph25->SetLineStyle(0);
-   Graph25->SetMarkerStyle(20);
+   Graph25->SetMarkerStyle(24);
    Graph25->SetMarkerSize(1.25);
    Graph25->GetXaxis()->SetLabelFont(42);
    Graph25->GetXaxis()->SetLabelOffset(0.01);
@@ -1117,7 +1117,7 @@ void invariant_all_v2() {
    gre->SetName("Graph");
    gre->SetTitle("Graph");
    gre->SetFillColor(1);
-   gre->SetMarkerStyle(20);
+   gre->SetMarkerStyle(24);
    gre->SetMarkerSize(0.75);
    gre->SetPoint(0,0.15,6.36537);
    gre->SetPointError(0,0,0.2254892);
@@ -2270,7 +2270,7 @@ void invariant_all_v2() {
    gre->SetName("Graph");
    gre->SetTitle("Graph");
    gre->SetFillColor(1);
-   gre->SetMarkerStyle(24);
+   gre->SetMarkerStyle(25);
    gre->SetMarkerSize(0.75);
    gre->SetPoint(0,0.15,8.062429);
    gre->SetPointError(0,0,0.2873511);
@@ -5880,25 +5880,8 @@ leg->SetLineWidth(1);
 leg->SetFillColor(0);
 leg->SetFillStyle(0);
 
-//TLegendEntry *entry=leg->AddEntry("Graph","Data 0.9 TeV","P");
- TLegendEntry *entry=leg->AddEntry("Graph","0.9 TeV pp, NSD","P");
-entry->SetLineColor(1);
-entry->SetLineStyle(1);
-entry->SetLineWidth(1);
-entry->SetMarkerColor(1);
-entry->SetMarkerStyle(20);
-entry->SetMarkerSize(marker);
-//TLegendEntry* entry2=leg->AddEntry("","Data 2.36 TeV","P");
- TLegendEntry* entry2=leg->AddEntry("","2.36 TeV pp, NSD","P");  
-entry2->SetLineColor(1);
-entry2->SetLineStyle(0);
-entry2->SetLineWidth(1);
-entry2->SetMarkerColor(1);
-entry2->SetMarkerStyle(kOpenCircle);
-entry2->SetMarkerSize(marker);
-
-//TLegendEntry* entry3=leg->AddEntry("","Data 7 TeV","P");
- TLegendEntry* entry3=leg->AddEntry("","7 TeV pp, NSD","P");      
+//TLegendEntry* entry3=leg->AddEntry("","Data 7 TeV","P");                                                                                          
+ TLegendEntry* entry3=leg->AddEntry("","7 TeV pp, NSD","P");
  entry3->SetLineColor(1);
  entry3->SetLineStyle(0);
  entry3->SetLineWidth(1);
@@ -5906,6 +5889,25 @@ entry2->SetMarkerSize(marker);
  entry3->SetMarkerStyle(21);
  entry3->SetMarkerSize(marker);
 
+ //TLegendEntry* entry2=leg->AddEntry("","Data 2.36 TeV","P");                                                                                       
+ TLegendEntry* entry2=leg->AddEntry("","2.36 TeV pp, NSD","P");
+ entry2->SetLineColor(1);
+ entry2->SetLineStyle(0);
+ entry2->SetLineWidth(1);
+ entry2->SetMarkerColor(1);
+ entry2->SetMarkerStyle(25);
+ entry2->SetMarkerSize(marker);
+
+
+
+//TLegendEntry *entry=leg->AddEntry("Graph","Data 0.9 TeV","P");
+ TLegendEntry *entry=leg->AddEntry("","0.9 TeV pp, NSD","P");
+entry->SetLineColor(1);
+entry->SetLineStyle(1);
+entry->SetLineWidth(1);
+entry->SetMarkerColor(1);
+entry->SetMarkerStyle(24);
+entry->SetMarkerSize(marker);
 
 if(doTsallis) entry=leg->AddEntry("","Tsallis fits","L");
 entry->SetLineColor(1);
