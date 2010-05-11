@@ -27,7 +27,7 @@ void dNdeta_vs_roots() {
   TH1F *dummy = new TH1F("dummy","dummy",100,9,15000);
   dummy->SetMaximum(7.5);
   dummy->SetMinimum(0);
-  dummy->SetXTitle("#sqrt{s} [GeV]");
+  dummy->SetXTitle("#sqrt{#font[52]{s}} [GeV]");
   dummy->SetYTitle("dN_{ch}/d#eta#cbar_{ #eta#approx0}");
   /*
   dummy->GetYaxis()->SetNdivisions(505);
@@ -584,15 +584,15 @@ void dNdeta_vs_roots() {
     //TLegend *leg2 = new TLegend(0.22,0.34,0.6,0.911,NULL,"brNDC");
     leg2->SetFillColor(0);
     leg2->SetBorderSize(0);
-    leg2->AddEntry(fitISR,"0.161 + 0.201 ln(s)","l");
+    leg2->AddEntry(fitISR,"0.161 + 0.201 ln #font[52]{s}","l");
     //leg2->AddEntry(fitUA5,"2.26 - 0.207 ln(s) + 0.0215 ln^{2}(s)","l");
     // fit with CMS 900, 2360 GeV Points
     //leg2->AddEntry(fitUA5,"3.18 - 0.384 ln(s) + 0.0297 ln^{2}(s)","l");
     //leg2->AddEntry(fitUA5,"3.17 - 0.381 ln(s) + 0.0296 ln^{2}(s)","l");
-    leg2->AddEntry(fitUA5,"2.807 - 0.315 ln(s) + 0.0267 ln^{2}(s)","l"); 
+    leg2->AddEntry(fitUA5,"2.807 - 0.315 ln #font[52]{s} + 0.0267 ln^{2} #font[52]{s}","l"); 
     
     //leg2->AddEntry(fitUA5,"0.929 + 0.0644 exp(#sqrt{ln(s)})","l");
-    leg2->AddEntry(fitUA5inel,"1.54 - 0.096 ln(s) + 0.0155 ln^{2}(s)","l");
+    leg2->AddEntry(fitUA5inel,"1.54 - 0.096 ln #font[52]{s} + 0.0155 ln^{2} #font[52]{s}","l");
     leg2->SetTextSize(0.03);
     leg2->Draw();
 

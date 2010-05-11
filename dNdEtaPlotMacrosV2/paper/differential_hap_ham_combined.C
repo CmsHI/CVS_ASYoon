@@ -25,7 +25,7 @@ void differential_hap_ham_combined(){
    hDist->SetMaximum(90);
    hDist->SetLineStyle(0);
    hDist->GetXaxis()->SetTitle("p_{T} [GeV/c]");
-   hDist->GetYaxis()->SetTitle("d^{ 2 }N_{ch} / d#eta dp_{T} [(GeV/c)^{-1}]");
+   hDist->GetYaxis()->SetTitle("d^{ 2 }N_{ch} / d#eta dp_{T} [(GeV/c)^{-1} ]");
    hDist->GetXaxis()->CenterTitle();
    hDist->GetYaxis()->CenterTitle();
    hDist->GetXaxis()->SetNdivisions(505);
@@ -81,8 +81,9 @@ void differential_hap_ham_combined(){
    TLine *line = new TLine(0,0,2,0);
    line->SetLineStyle(2);
    line->Draw();
-   TLatex *   tex = new TLatex(2.05,0,"|#eta|=0.1");
-   tex->SetLineWidth(2);
+
+   TLatex *   tex = new TLatex(2.05,0,"#font[42]{|#eta| = 0.1}");  
+   tex->SetLineWidth(0.5);
    tex->SetTextSize(tsize);
    tex->Draw();
    
@@ -1346,7 +1347,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,6,2,6);
    line->SetLineStyle(2);
    line->Draw();
-   tex = new TLatex(2.05,6,"|#eta|=0.3");
+   tex = new TLatex(2.05,6,"#font[42]{|#eta| = 0.3}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -2610,7 +2611,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,12,2,12);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,12,"|#eta|=0.5");
+      tex = new TLatex(2.05,12,"#font[42]{|#eta| = 0.5}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -3882,7 +3883,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,18,2,18);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,18,"|#eta|=0.7");
+      tex = new TLatex(2.05,18,"#font[42]{|#eta| = 0.7}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -5154,7 +5155,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,24,2,24);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,24,"|#eta|=0.9");
+      tex = new TLatex(2.05,24,"#font[42]{|#eta| = 0.9}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -6434,7 +6435,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,30,2,30);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,30,"|#eta|=1.1");
+      tex = new TLatex(2.05,30,"#font[42]{|#eta| = 1.1}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -7702,7 +7703,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,36,2,36);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,36,"|#eta|=1.3");
+      tex = new TLatex(2.05,36,"#font[42]{|#eta| = 1.3}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -8962,7 +8963,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,42,2,42);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,42,"|#eta|=1.5");
+      tex = new TLatex(2.05,42,"#font[42]{|#eta| = 1.5}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -10234,7 +10235,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,48,2,48);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,48,"|#eta|=1.7");
+      tex = new TLatex(2.05,48,"#font[42]{|#eta| = 1.7}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -11506,7 +11507,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,54,2,54);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,54,"|#eta|=1.9");
+      tex = new TLatex(2.05,54,"#font[42]{|#eta| = 1.9}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -12770,7 +12771,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,60,2,60);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,60,"|#eta|=2.1");
+      tex = new TLatex(2.05,60,"#font[42]{|#eta| = 2.1}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -14038,7 +14039,7 @@ void differential_hap_ham_combined(){
    line = new TLine(0,66,2,66);
    line->SetLineStyle(2);
    line->Draw();
-      tex = new TLatex(2.05,66,"|#eta|=2.3");
+      tex = new TLatex(2.05,66,"#font[42]{|#eta| = 2.3}");
    tex->SetLineWidth(2);
    tex->SetTextSize(tsize);
    tex->Draw();
@@ -15337,7 +15338,7 @@ void differential_hap_ham_combined(){
    
 
    //TLegendEntry *entry=leg->AddEntry("Graph54","Data 7 TeV","P");                                                                                              
-   TLegendEntry *entry=leg->AddEntry("Graph54","7 TeV, NSD p+p","P");
+   TLegendEntry *entry=leg->AddEntry("Graph54","7 TeV pp, NSD","P");
    entry->SetMarkerColor(1.0);
 
    entry->SetMarkerStyle(24);

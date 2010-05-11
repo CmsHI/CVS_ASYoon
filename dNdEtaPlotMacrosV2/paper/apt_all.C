@@ -4,9 +4,9 @@ void apt_all(){
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
-   Bool_t theory = false;
-   Bool_t pythia = false;
-   Bool_t phojet = false;
+   Bool_t theory = true;
+   Bool_t pythia = true;
+   Bool_t phojet = true;
 
    gROOT->Reset();
    gROOT->ProcessLine(".x rootlogon.C");
@@ -25,7 +25,7 @@ void apt_all(){
    //hDist->SetMaximum(0.7);
    hDist->SetMaximum(0.65);  
    hDist->SetLineStyle(0);
-   hDist->GetXaxis()->SetTitle("#sqrt{s} [GeV]");
+   hDist->GetXaxis()->SetTitle("#sqrt{#font[52]{s}} [GeV]");
    hDist->GetYaxis()->SetTitle("#LTp_{T}#GT [GeV/c]");
    hDist->GetXaxis()->CenterTitle();
    hDist->GetYaxis()->CenterTitle();
@@ -143,7 +143,7 @@ void apt_all(){
    gre->Draw("pz");
 
    TGraph* gre03 = gre->Clone("gre03");
-   gre03->SetMarkerStyle(22);
+   gre03->SetMarkerStyle(0);
    gre03->Draw("pzsame");
    
    // ============================= CDF
@@ -324,7 +324,7 @@ void apt_all(){
    entry->SetMarkerStyle(21);    
    entry->SetMarkerSize(msize);    
 
-   entry=leg->AddEntry("Graph5","CMS NSD","P");
+   entry=leg->AddEntry("Graph5","CMS NSD (|#eta|<2.4)","P");
    entry->SetMarkerStyle(20);  
    entry->SetMarkerColor(kRed+2);
    entry->SetMarkerSize(msize*1.0);  
@@ -353,7 +353,8 @@ void apt_all(){
    //if(theory) TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.26,NULL,"brNDC");
    //TLegend *leg2 = new TLegend(0.411,0.18,0.91,0.33,NULL,"brNDC");     
    //else TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.31,NULL,"brNDC");  
-   TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.31,NULL,"brNDC");
+   //TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.31,NULL,"brNDC");
+   TLegend *leg2 = new TLegend(0.35,0.18,0.91,0.31,NULL,"brNDC"); 
    leg2->SetBorderSize(0);
    leg2->SetTextFont(62);
    leg2->SetTextSize(0.035);
@@ -370,7 +371,7 @@ void apt_all(){
    //TLegendEntry *entry=leg2->AddEntry("func","0.425 - 0.0197 ln(s) + 0.00156 ln^{2}(s)","l");
    //if(theory)TLegendEntry *entry=leg2->AddEntry("func2","0.337 + 0.00652 s^{0.207}","l");
    //TLegendEntry *entry=leg2->AddEntry("func","0.409 - 0.0163 ln(s) + 0.00139 ln^{2}(s)","l");
-   TLegendEntry *entry=leg2->AddEntry("func","0.413 - 0.0171 ln(s) + 0.00143 ln^{2}(s)","l");
+   TLegendEntry *entry=leg2->AddEntry("func","0.413 - 0.0171 ln #font[52]{s} + 0.00143 ln^{2} #font[52]{s}","l");
    
    //TLegendEntry *entry=leg2->AddEntry("func2","0.337 + 0.00652 s^{0.207}","l");
    //TF1 *func2 = new TF1("func2","0.337+6.52e-3*pow(x^2,0.207)",18,100000);
