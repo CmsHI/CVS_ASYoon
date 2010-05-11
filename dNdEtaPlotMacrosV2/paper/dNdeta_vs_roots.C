@@ -46,7 +46,7 @@ void dNdeta_vs_roots() {
 
 
   // ---- fits ----
-  TF1 *fitISR = new TF1("fitISR","0.161+0.201*2*log(x)",12,80);
+  TF1 *fitISR = new TF1("fitISR","0.161+0.201*2*log(x)",13.76,80);
   fitISR->SetLineColor(kBlack);
   fitISR->SetLineWidth(2);
   fitISR->SetLineStyle(3);
@@ -56,7 +56,9 @@ void dNdeta_vs_roots() {
   //TF1 *fitUA5 = new TF1("fitUA5","2.420-0.244*log(x^2)+0.0236*(log(x^2))^2",40,8000);
   //TF1 *fitUA5 = new TF1("fitUA5","3.183-0.384*log(x^2)+0.0297*(log(x^2))^2",40,8000);     
   //TF1 *fitUA5 = new TF1("fitUA5","3.167-0.381*log(x^2)+0.0296*(log(x^2))^2",40,8000);   
-  TF1 *fitUA5 = new TF1("fitUA5","2.807-0.315*log(x^2)+0.0267*(log(x^2))^2",40,8000); 
+  //TF1 *fitUA5 = new TF1("fitUA5","2.807-0.315*log(x^2)+0.0267*(log(x^2))^2",40,8000); 
+  //TF1 *fitUA5 = new TF1("fitUA5","2.70-0.304*log(x^2)+0.0266*(log(x^2))^2",53,8000);    // YenJie's fit
+  TF1 *fitUA5 = new TF1("fitUA5","2.716-0.307*log(x^2)+0.0267*(log(x^2))^2",53,8000);  // YJ's fit updated
   fitUA5->SetLineColor(kBlue);
   if(bw)fitUA5->SetLineColor(kBlack);
   fitUA5->SetLineWidth(2);
@@ -64,7 +66,7 @@ void dNdeta_vs_roots() {
   fitUA5->Draw("same");
 
   // fit to UA5 and CMS inelastic points 
-  TF1 *fitUA5inel = new TF1("fitUA5inel","1.54-2*0.096*log(x)+0.0155*4*log(x)*log(x)",40,8000);
+  TF1 *fitUA5inel = new TF1("fitUA5inel","1.54-2*0.096*log(x)+0.0155*4*log(x)*log(x)",53,8000);
   fitUA5inel->SetLineColor(kGreen);
   if(bw)fitUA5inel->SetLineColor(kBlack);
   fitUA5inel->SetLineWidth(2);
@@ -346,7 +348,8 @@ void dNdeta_vs_roots() {
   Double_t x11[NCMS] =  { 900, 2360, 7000 }; 
   //Double_t y11[NCMS] =  {  3.4984, 4.46, 5.84 };
   //Double_t y11[NCMS] =  {  3.4984, 4.46, 5.82 }; 
-  Double_t y11[NCMS] =  {  3.4984, 4.46, 5.78 };
+  //Double_t y11[NCMS] =  {  3.4984, 4.46, 5.78 };
+  Double_t y11[NCMS] =  {  3.48, 4.47, 5.78 }; 
   Double_t cmsSysErr = (y11[0]+y11[1])/2. *0.037;
 
   // for now we don't show sys error for everyone
@@ -589,7 +592,9 @@ void dNdeta_vs_roots() {
     // fit with CMS 900, 2360 GeV Points
     //leg2->AddEntry(fitUA5,"3.18 - 0.384 ln(s) + 0.0297 ln^{2}(s)","l");
     //leg2->AddEntry(fitUA5,"3.17 - 0.381 ln(s) + 0.0296 ln^{2}(s)","l");
-    leg2->AddEntry(fitUA5,"2.807 - 0.315 ln #font[52]{s} + 0.0267 ln^{2} #font[52]{s}","l"); 
+    leg2->AddEntry(fitUA5,"2.716 - 0.307 ln #font[52]{s} + 0.0267 ln^{2} #font[52]{s}","l"); 
+    // TF1 *fitUA5 = new TF1("fitUA5","2.716-0.307*log(x^2)+0.0267*(log(x^2))^2",53,8000);
+    //TF1 *fitUA5 = new TF1("fitUA5","2.70-0.304*log(x^2)+0.0266*(log(x^2))^2",53,8000);
     
     //leg2->AddEntry(fitUA5,"0.929 + 0.0644 exp(#sqrt{ln(s)})","l");
     leg2->AddEntry(fitUA5inel,"1.54 - 0.096 ln #font[52]{s} + 0.0155 ln^{2} #font[52]{s}","l");
