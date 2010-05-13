@@ -4,9 +4,9 @@ void apt_all(){
 //=========Macro generated from canvas: MyCanvas/My Canvas
 //=========  (Thu Dec  3 18:47:52 2009) by ROOT version5.25/04
    
-   Bool_t theory = true;
-   Bool_t pythia = true;
-   Bool_t phojet = true;
+   Bool_t theory = false;
+   Bool_t pythia = false;
+   Bool_t phojet = false;
 
    gROOT->Reset();
    gROOT->ProcessLine(".x rootlogon.C");
@@ -143,7 +143,7 @@ void apt_all(){
    gre->Draw("pz");
 
    TGraph* gre03 = gre->Clone("gre03");
-   gre03->SetMarkerStyle(0);
+   gre03->SetMarkerStyle(22);
    gre03->Draw("pzsame");
    
    // ============================= CDF
@@ -169,7 +169,7 @@ void apt_all(){
    gre->Draw("pz");
    
    TGraph* gre04 = gre->Clone("gre04");
-   gre04->SetMarkerStyle(0);
+   gre04->SetMarkerStyle(21);
    gre04->Draw("pzsame");
 
    // PYTHIA ATLAS ===============================
@@ -242,8 +242,10 @@ void apt_all(){
 
    gre->SetMarkerStyle(20);
    gre->SetMarkerSize(msize);
-   gre->SetMarkerColor(kRed+2);
-   gre->SetLineColor(kRed+2);
+   //gre->SetMarkerColor(kRed+2);
+   //gre->SetLineColor(kRed+2);
+   gre->SetMarkerColor(kBlack);
+   gre->SetLineColor(kBlack);
 
 
    /*
@@ -265,13 +267,13 @@ void apt_all(){
    gre->SetPointError(2,0,0.0158113);// sqrt(0.005*0.005+0.015*0.015) (stat + sys)
 
    TGraph* greOnT = gre->Clone("greOnT");
-   greOnT->SetMarkerStyle(0);
+   greOnT->SetMarkerStyle(20);
    greOnT->SetLineWidth(2);
    greOnT->Draw("PZsame");
 
    TGraph* greOnT2 = gre->Clone("cmsnsd05");
    gStyle->SetEndErrorSize(3);
-   greOnT2->SetMarkerStyle(0);
+   greOnT2->SetMarkerStyle(20);
    greOnT2->Draw("||");
 
    
@@ -326,7 +328,8 @@ void apt_all(){
 
    entry=leg->AddEntry("Graph5","CMS NSD (|#eta|<2.4)","P");
    entry->SetMarkerStyle(20);  
-   entry->SetMarkerColor(kRed+2);
+   //entry->SetMarkerColor(kRed);
+   entry->SetMarkerColor(kBlack);
    entry->SetMarkerSize(msize*1.0);  
 
    if(theory) entry=leg->AddEntry("func2","Troshin et. al.","l");
