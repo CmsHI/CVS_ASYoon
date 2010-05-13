@@ -97,9 +97,11 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    hMeasuredFinal3->GetYaxis()->SetNdivisions(506);
 
 
-   hMeasuredFinal3->SetMarkerColor(kRed);
+   //hMeasuredFinal3->SetMarkerColor(kRed);
+   hMeasuredFinal3->SetMarkerColor(kBlack);
    hMeasuredFinal3->SetMarkerStyle(20);
-   hMeasuredFinal3->SetLineColor(kRed);
+   //hMeasuredFinal3->SetLineColor(kRed);
+   hMeasuredFinal3->SetLineColor(kBlack);
    hMeasuredFinal3->SetMarkerSize(1.8); 
    
    hMeasuredFinal3->Draw("pz");
@@ -123,8 +125,10 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    TH1F *hMeasuredFinal236 = (TH1F*)hMeasuredFinal3->Clone("hMeasuredFinal236");
    //hMeasuredFinal236->GetXaxis()->SetRange(3,10);
    hMeasuredFinal236->GetXaxis()->SetRange(1,13);
-   hMeasuredFinal236->SetMarkerColor(kRed);
-   hMeasuredFinal236->SetLineColor(kRed);
+   //hMeasuredFinal236->SetMarkerColor(kRed);
+   //hMeasuredFinal236->SetLineColor(kRed);
+   hMeasuredFinal236->SetMarkerColor(kBlack);
+   hMeasuredFinal236->SetLineColor(kBlack);
    hMeasuredFinal236->SetMarkerStyle(20);
    hMeasuredFinal236->SetMarkerSize(1.8);
 
@@ -360,8 +364,10 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
    sysError = 0.04;
    TH1F *hMeasuredFinal7 = (TH1F*)hMeasuredFinal3->Clone("hMeasuredFinal7");
    hMeasuredFinal7->GetXaxis()->SetRange(1,13);
-   hMeasuredFinal7->SetMarkerColor(kRed);
-   hMeasuredFinal7->SetLineColor(kRed);
+   //hMeasuredFinal7->SetMarkerColor(kRed);
+   //hMeasuredFinal7->SetLineColor(kRed);
+   hMeasuredFinal7->SetMarkerColor(kBlack);
+   hMeasuredFinal7->SetLineColor(kBlack);
    hMeasuredFinal7->SetMarkerStyle(20);
    hMeasuredFinal7->SetMarkerSize(1.8);
    
@@ -402,7 +408,7 @@ void dNdEta_ThreeMethodsCombined_BU_Compile(){
 
 
    
-   Float_t ywidth = 0.045*5;
+   Float_t ywidth = 0.045*3;
 
    //TLegend *leg = new TLegend(0.20,0.27,0.53,0.27+ywidth,"","brNDC");   
    //TLegend *leg = new TLegend(0.48,0.27,0.81,0.27+ywidth,"","brNDC");

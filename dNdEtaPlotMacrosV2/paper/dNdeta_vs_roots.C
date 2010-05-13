@@ -6,9 +6,9 @@ void dNdeta_vs_roots() {
 
 
   bool ErrorFlag = true;
-  bool theory = true;
-  bool pythia = true;
-  bool phojet = true;
+  bool theory = false;
+  bool pythia = false;
+  bool phojet = false;
 //  theory = false;
 
   //****************************************************
@@ -379,15 +379,15 @@ void dNdeta_vs_roots() {
   //TGraphBentErrors *cmsnsd = new TGraphBentErrors(NCMS,x11,y11,exl11,exh11,eyl11,eyh11,exld11,exhd11,eyld11,eyhd11); 
 
   cmsnsd->SetMarkerColor(kRed);
-  //if(bw)cmsnsd->SetMarkerColor(kBlack);
-  if(bw)cmsnsd->SetMarkerColor(kRed+2);
+  if(bw)cmsnsd->SetMarkerColor(kBlack);
+  //if(bw)cmsnsd->SetMarkerColor(kRed+2);
   cmsnsd->SetMarkerStyle(kFullStar);
   if(bw)cmsnsd->SetMarkerStyle(20);
   cmsnsd->SetMarkerSize(msize*1.2);
   //cmsnsd->SetMarkerSize(msize*1.2);
   cmsnsd->SetLineColor(kRed+3);
-  //if(bw)cmsnsd->SetLineColor(kBlack);
-  if(bw)cmsnsd->SetLineColor(kRed+2);
+  if(bw)cmsnsd->SetLineColor(kBlack);
+  //if(bw)cmsnsd->SetLineColor(kRed+2);
   //cmsnsd->Draw("PE");
   ua5nsd->Draw("PZsame");
   cmsnsd->Draw("PZsame");
@@ -474,7 +474,7 @@ void dNdeta_vs_roots() {
   starnsd->Draw("PZsame");
 
   TGraph* starnsd04 = starnsd->Clone("starnsd04");
-  starnsd04->SetMarkerStyle(0);
+  starnsd04->SetMarkerStyle(23);
   starnsd04->Draw("PZsame");
 
 
