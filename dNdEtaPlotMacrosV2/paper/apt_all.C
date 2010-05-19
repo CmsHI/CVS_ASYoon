@@ -247,12 +247,6 @@ void apt_all(){
    gre->SetMarkerColor(kBlack);
    gre->SetLineColor(kBlack);
 
-
-   /*
-   gre->SetPoint(0,900,0.44);
-   gre->SetPointError(0,0,0.018);
-   */
-   
    //Now real measurement
    Float_t cmsSysError = 0.028;
    gre->SetPoint(0,900,0.46);
@@ -272,7 +266,7 @@ void apt_all(){
    greOnT->Draw("PZsame");
 
    TGraph* greOnT2 = gre->Clone("cmsnsd05");
-   gStyle->SetEndErrorSize(3);
+   gStyle->SetEndErrorSize(0);
    greOnT2->SetMarkerStyle(20);
    greOnT2->Draw("||");
 
@@ -281,7 +275,7 @@ void apt_all(){
    Graph5->SetMinimum(0.4184);
    Graph5->SetMaximum(0.4616);
    gre->SetHistogram(Graph5);
-   gre->SetMarkerSize(msize*1.2);
+   gre->SetMarkerSize(msize);
    gre->Draw("pz");
    
    TGraph* gre05 = gre->Clone("gre05");
@@ -326,11 +320,11 @@ void apt_all(){
    entry->SetMarkerStyle(21);    
    entry->SetMarkerSize(msize);    
 
-   entry=leg->AddEntry("Graph5","CMS NSD (|#eta|<2.4)","P");
+   entry=leg->AddEntry("Graph5","CMS NSD","P");
    entry->SetMarkerStyle(20);  
    //entry->SetMarkerColor(kRed);
    entry->SetMarkerColor(kBlack);
-   entry->SetMarkerSize(msize*1.0);  
+   entry->SetMarkerSize(msize);  
 
    if(theory) entry=leg->AddEntry("func2","Troshin et. al.","l");
    if(pythia) {
@@ -347,10 +341,6 @@ void apt_all(){
       entry->SetLineWidth(3);
    }
    
-   //entry->SetMarkerStyle(20);
-   //entry->SetMarkerColor(kRed+2);
-   //entry->SetMarkerSize(msize*1.0);
-
    leg->Draw();  
 
    //if(theory) TLegend *leg2 = new TLegend(0.35,0.20,0.91,0.26,NULL,"brNDC");
