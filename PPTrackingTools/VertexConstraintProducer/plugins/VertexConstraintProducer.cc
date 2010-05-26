@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Giuseppe Cerati
 //         Created:  Tue Jul 10 15:05:02 CEST 2007
-// $Id: VertexConstraintProducer.cc,v 1.1 2010/04/06 09:03:44 edwenger Exp $
+// $Id: VertexConstraintProducer.cc,v 1.1 2010/04/27 14:19:59 edwenger Exp $
 //
 //
 
@@ -58,7 +58,9 @@ private:
   virtual void endJob() ;
       
   // ----------member data ---------------------------
-  const edm::ParameterSet iConfig_;
+ const edm::ParameterSet iConfig_;
+ 
+   //InputTag vertex_;
    
 };
 
@@ -102,7 +104,8 @@ void VertexConstraintProducer::produce(edm::Event& iEvent, const edm::EventSetup
   //InputTag srcTag = iConfig_.getParameter<InputTag>("generalTracks");
   Handle<reco::TrackCollection> theTCollection;
   //iEvent.getByLabel(srcTag,theTCollection);
-  iEvent.getByLabel("generalTracks",theTCollection);  
+  //iEvent.getByLabel("generalTracks",theTCollection);  
+  iEvent.getByLabel("selectTracks",theTCollection); 
   
   std::auto_ptr<std::vector<VertexConstraint> > pairs(new std::vector<VertexConstraint>);
   std::auto_ptr<TrackVtxConstraintAssociationCollection> output(new TrackVtxConstraintAssociationCollection);
@@ -111,7 +114,8 @@ void VertexConstraintProducer::produce(edm::Event& iEvent, const edm::EventSetup
 
   edm::Handle<reco::VertexCollection> theVCollection;
   iEvent.getByLabel("offlinePrimaryVertices",theVCollection);
-
+  //iEvent.getByLabel("selectedVertex",theVCollection);     
+  
   const reco::Vertex * validVtx = 0;
   
   //bool  validvertex = false;
