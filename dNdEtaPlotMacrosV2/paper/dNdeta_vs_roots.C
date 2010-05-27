@@ -165,7 +165,7 @@ void dNdeta_vs_roots() {
   */
 
 // ---- UA5 NSD ---
-  Double_t x2[4] =    {    53,   200,   546,   900 }; // checked value on paper
+  Double_t x2[4] =    {    53,   200,   546,   900*0.93 }; // checked value on paper
   Double_t y2[4] =  {  1.93,  2.48,  3.05,  3.48 };
   Double_t exl2[4]= { 0, 0, 0, 0 };
   Double_t exh2[4]= { 0, 0, 0, 0 };
@@ -304,14 +304,12 @@ void dNdeta_vs_roots() {
   cdf04->SetMarkerStyle(0);
   cdf04->Draw("PZsame");
 
-
-
-  // ---- UA1 NSD ---                                                              
-  Double_t xua1[7] =  { 200,  260, 380, 500, 620, 790, 900 };
+  // ---- UA1 NSD ---                         
+  Double_t xua1[7] =  { 200,  260, 380, 500, 620, 790, 900};
   Double_t yua1[7] =  {  2.65, 2.71, 2.94, 3.05, 3.15, 3.41, 3.48 };
   Double_t exlua1[7]= {0,0,0,0,0,0,0  };
-//  Double_t eylua1[7]= {0.08.0.08,0.09,0.09,0.09,0.10,0.10 };
-  Double_t eylua1[7]= {0.29.0.30,0.32,0.34,0.35,0.38,0.38 };
+//Double_t eylua1[7]= {0.08.0.08,0.09,0.09,0.09,0.10,0.10 };
+  Double_t eylua1[7]= {0.29,0.30,0.32,0.34,0.35,0.38,0.38 };
 
   TGraphAsymmErrors *ua1nsd=new TGraphAsymmErrors(7,xua1,yua1,exlua1,exlua1,eylua1,eylua1);
   ua1nsd->SetName("ua1nsd");
@@ -322,7 +320,7 @@ void dNdeta_vs_roots() {
   ua1nsd->Draw("PZsame");
 
   // ---- ALICE NSD ------
-  Double_t x10[2] =  {  900, 2600};
+  Double_t x10[2] =  {  837, 2195};//displaced for visibility
   //Double_t y10[2] =  {  3.51};
   Double_t y10[2] =  {  3.58, 4.43}; //updated
   /*
@@ -345,7 +343,7 @@ void dNdeta_vs_roots() {
 
 // ---- CMS NSD ---
   const int NCMS=3;
-  Double_t x11[NCMS] =  { 900, 2360, 7000 }; 
+  Double_t x11[NCMS] =  { 963, 2525, 7000 }; // displaced for visibility 
   //Double_t y11[NCMS] =  {  3.4984, 4.46, 5.84 };
   //Double_t y11[NCMS] =  {  3.4984, 4.46, 5.82 }; 
   //Double_t y11[NCMS] =  {  3.4984, 4.46, 5.78 };
@@ -401,12 +399,12 @@ void dNdeta_vs_roots() {
 
   // to draw vertical lines at the end 
   TGraph* cmsnsd05 = cmsnsd->Clone("cmsnsd05");
-  gStyle->SetEndErrorSize(3);
+  gStyle->SetEndErrorSize(0);
   cmsnsd05->SetMarkerStyle(0);
   cmsnsd05->Draw("||");
 
   // ---- ALICE INEL ------
-  Double_t x12[2] =  {  900, 2360};
+  Double_t x12[2] =  {  900, 2360}; 
   Double_t y12[2] =  {  3.02, 3.77};
   /*
   Double_t exl12[1]= {  0.22};
