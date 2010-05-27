@@ -50,7 +50,7 @@ void dNdeta_vs_roots() {
   fitISR->SetLineColor(kBlack);
   fitISR->SetLineWidth(2);
   fitISR->SetLineStyle(3);
-  fitISR->Draw("same");
+//  fitISR->Draw("same");
 
 
   //TF1 *fitUA5 = new TF1("fitUA5","2.420-0.244*log(x^2)+0.0236*(log(x^2))^2",40,8000);
@@ -581,11 +581,11 @@ void dNdeta_vs_roots() {
     //TLegend leg2(0.22,0.52,0.5,0.91);
     //TLegend leg2(0.38,0.15,0.89,0.3);
     //TLegend leg2(0.41,0.15,0.91,0.3);
-    TLegend *leg2 = new TLegend(0.39,0.3-0.045*3,0.91,0.3,NULL,"brNDC"); 
+    TLegend *leg2 = new TLegend(0.39,0.25-0.045*2,0.91,0.25,NULL,"brNDC"); 
     //TLegend *leg2 = new TLegend(0.22,0.34,0.6,0.911,NULL,"brNDC");
     leg2->SetFillColor(0);
     leg2->SetBorderSize(0);
-    leg2->AddEntry(fitISR,"0.161 + 0.201 ln #font[52]{s}","l");
+    //leg2->AddEntry(fitISR,"0.161 + 0.201 ln #font[52]{s}","l");
     //leg2->AddEntry(fitUA5,"2.26 - 0.207 ln(s) + 0.0215 ln^{2}(s)","l");
     // fit with CMS 900, 2360 GeV Points
     //leg2->AddEntry(fitUA5,"3.18 - 0.384 ln(s) + 0.0297 ln^{2}(s)","l");
