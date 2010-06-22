@@ -11,7 +11,7 @@ process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 process.load("PhysicsTools.HepMCCandAlgos.genParticles_cfi")
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.118 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('100'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -67,7 +67,7 @@ process.load("edwenger.Skims.Analysis_cff")
 process.ana_step  = cms.Path(process.analysisGEN)
 
 from edwenger.Skims.customise_cfi import *
-process =  enableMinPtHatCut(process)  # activate min pt_hat cut!
+#process =  enableMinPtHatCut(process)  # activate min pt_hat cut!
 process.TFileService = cms.Service("TFileService",
                                    fileName = cms.string('trkhistsGEN.root')
                                    )
