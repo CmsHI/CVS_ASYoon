@@ -8,8 +8,10 @@ import FWCore.ParameterSet.Config as cms
 from edwenger.TrackSpectraAnalyzer.trackspectraanalyzer_cfi import *
 trackAna.src = cms.untracked.InputTag("hiSelectedTracks")
 trackAna.jsrc = cms.untracked.InputTag("patJets")
+trackAna.gsrc = cms.untracked.InputTag("hiGenParticles")
 trackAna.vsrc = cms.untracked.InputTag("hiSelectedVertex")
 trackAna.gjsrc = cms.untracked.InputTag("ak5HiGenJets")
+trackAna.src_evtCorr = cms.untracked.InputTag("hiSelectedTracks") # this is src track for event multiplicity 
 trackAna.setQualityBit = cms.untracked.bool(False)
 
 # tracking efficiency analyzer
