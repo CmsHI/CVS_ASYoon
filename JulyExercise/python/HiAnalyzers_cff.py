@@ -4,15 +4,10 @@ import FWCore.ParameterSet.Config as cms
 
 # clone vertex analyzer to run with various inputs
 
-# track and jet spectra analyzer to run on HI samples
-from edwenger.TrackSpectraAnalyzer.trackspectraanalyzer_cfi import *
-trackAna.src = cms.untracked.InputTag("hiSelectedTracks")
-trackAna.jsrc = cms.untracked.InputTag("patJets")
-trackAna.gsrc = cms.untracked.InputTag("hiGenParticles")
-trackAna.vsrc = cms.untracked.InputTag("hiSelectedVertex")
-trackAna.gjsrc = cms.untracked.InputTag("ak5HiGenJets")
-trackAna.src_evtCorr = cms.untracked.InputTag("hiSelectedTracks") # this is src track for event multiplicity 
-trackAna.setQualityBit = cms.untracked.bool(False)
+# TrackSpectraAnalyzer -> HiTrackSpectraAnalyzer
+from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
+#hitrackAna.src = cms.untracked.InputTag("selectTracks")
+
 
 # tracking efficiency analyzer
 from edwenger.TrkEffAnalyzer.trkEffAnalyzer_cff import *
