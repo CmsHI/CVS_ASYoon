@@ -17,6 +17,7 @@ trackAna.setQualityBit = cms.untracked.bool(False)
 # tracking efficiency analyzer
 from edwenger.TrkEffAnalyzer.trkEffAnalyzer_cff import *
 trkEffAnalyzer.tracks = cms.untracked.InputTag("hiSelectedTracks")
+trkEffAnalyzer.jets = cms.untracked.InputTag('patJets')
 trkEffAnalyzer.vertices = cms.untracked.InputTag("hiSelectedVertex")
 trkEffAnalyzer.fillNtuples = cms.bool(False)
 trkEffAnalyzer.constPtBins = cms.bool(False)
