@@ -17,7 +17,7 @@ cvs co UserCode/SavedFMa/Saved
 # replace with hi-specific 
 rm -r UserCode/edwenger/Skims/python
 mv UserCode/ASYoon/JulyExercise/python UserCode/edwenger/Skims/
-cp UserCode/ASYoon/JulyExercise/test/*.* UserCode/edwenger/Skims/test
+#cp UserCode/ASYoon/JulyExercise/test/*.* UserCode/edwenger/Skims/test
 
 # changes needed for 370
 cp UserCode/ASYoon/JulyExercise/interface/HackedAnalyticalTrackSelector.h UserCode/edwenger/TrkEffAnalyzer/interface
