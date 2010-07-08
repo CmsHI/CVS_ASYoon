@@ -6,17 +6,15 @@ import FWCore.ParameterSet.Config as cms
 
 # TrackSpectraAnalyzer -> HiTrackSpectraAnalyzer
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
-#hitrackAna.src = cms.untracked.InputTag("selectTracks")
+
+hitrackAnaMult = hitrackAna.clone(pixelMultMode=cms.untracked.bool(True)) # use pix mult as occupancy handle
+
 
 
 # tracking efficiency analyzer
-from edwenger.TrkEffAnalyzer.trkEffAnalyzer_cff import *
-trkEffAnalyzer.tracks = cms.untracked.InputTag("hiSelectedTracks")
-trkEffAnalyzer.jets = cms.untracked.InputTag('patJets')
-trkEffAnalyzer.vertices = cms.untracked.InputTag("hiSelectedVertex")
-trkEffAnalyzer.fillNtuples = cms.bool(False)
-trkEffAnalyzer.constPtBins = cms.bool(False)
-
+from edwenger.HiTrkEffAnalyzer.hitrkEffAnalyzer_cff import *
 trackingParticleRecoTrackAsssociation.label_tr = cms.InputTag("hiSelectedTracks")
+
+hitrkEffAnalyzerMult = hitrkEffAnalyzer.clone(pixelMultMode= cms.untracked.bool(True))
 
 # sequences
