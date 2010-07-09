@@ -18,3 +18,8 @@ def disableLowPt(process):
     process.hiAnalysisSeq.remove(process.hipxltrackAnaMult)
     process.hiAnalysisSeq.remove(process.hipxltrkEffAna)
     return process
+
+def disableEffAna(process):
+    process.hiAnalysisSeq.remove(process.hipxltrkEffAna)
+    process.hiAnalysisSeq.remove(process.hitrkEffAna)
+    return process
