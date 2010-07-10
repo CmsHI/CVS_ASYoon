@@ -15,5 +15,7 @@ import PhysicsTools.RecoAlgos.trackingParticleSelector_cfi
 # minHit = cms.int32(0)
 #-----------------------------------------------------------
 
-cutsFullTracks = PhysicsTools.RecoAlgos.trackingParticleSelector_cfi.trackingParticleSelector.clone(ptMin=cms.double(0.8))
+cutsFullTracks = PhysicsTools.RecoAlgos.trackingParticleSelector_cfi.trackingParticleSelector.clone(ptMin=cms.double(0.8),
+                                                                                                    minRapidity = cms.double(-2.5),
+                                                                                                    maxRapidity = cms.double(2.5))
 #cutsPxlLowPtTracks = PhysicsTools.RecoAlgos.trackingParticleSelector_cfi.trackingParticleSelector.clone()
