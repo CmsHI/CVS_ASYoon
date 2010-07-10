@@ -14,6 +14,8 @@ hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"
                                  )
 hipxltrackAnaMult = hipxltrackAna.clone(pixelMultMode=cms.untracked.bool(True))
 
+hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")) #refitted track!
+
 # tracking efficiency analyzer
 from edwenger.HiTrkEffAnalyzer.hitrkEffAnalyzer_cff import *
 trackingParticleRecoTrackAsssociation.label_tr = cms.InputTag("hiSelectedTracks")

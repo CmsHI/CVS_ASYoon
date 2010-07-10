@@ -5,6 +5,6 @@ from edwenger.Skims.HiAnalyzers_cff import *
 hiAnalysisSeq = cms.Sequence(hipxltrackAna*
                              hipxltrackAnaMult*
                              hipxltrkEffAna*
-                             hitrackAna*
+                             (hitrackAna + hirefitTrackAna)*
                              hitrackAnaMult*
                              hitrkEffAna)
