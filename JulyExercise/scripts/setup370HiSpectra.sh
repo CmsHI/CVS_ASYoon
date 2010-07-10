@@ -7,13 +7,16 @@ cvs co UserCode/edwenger/Skims
 
 # centrality related
 cvs co -r 1.5 UserCode/CmsHi/JulyExercise/data/CentralityTables.db # once fixed, move to HEAD
-cvs co -R HEAD RecoHI/HiCentralityAlgos
-cvs co -R HEAD DataFormats/HeavyIonEvent
+cvs co -r HEAD RecoHI/HiCentralityAlgos
+cvs co -r HEAD DataFormats/HeavyIonEvent
  
 # analyzers
 cvs co UserCode/edwenger/VertexAnalyzer
 cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
 cvs co UserCode/edwenger/HiTrkEffAnalyzer
+
+# vertex constraint for refitting
+cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
 
 # july ex. 
 cvs co UserCode/ASYoon/JulyExercise
@@ -32,6 +35,7 @@ mv UserCode/ASYoon/JulyExercise/python UserCode/edwenger/Skims/
 mv UserCode/CmsHi .
 mv UserCode/edwenger .
 mv UserCode/SavedFMa/Saved/ .
+mv UserCode/ASYoon/PbPbTrackingTools/ .
 rm -r UserCode/ASYoon
 rm -r UserCode/SavedFMa
 
