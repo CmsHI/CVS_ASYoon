@@ -60,7 +60,8 @@ private:
   // ----------member data ---------------------------
  const edm::ParameterSet iConfig_;
  
-   //InputTag vertex_;
+ edm::InputTag tracksrc_;
+ edm::InputTag vtxsrc_;
    
 };
 
@@ -82,7 +83,8 @@ VertexConstraintProducer::VertexConstraintProducer(const edm::ParameterSet& iCon
   produces<TrackVtxConstraintAssociationCollection>();
 
   //now do what ever other initialization is needed
-  //vertex_ = iConfig.getUntrackedParameter<edm::InputTag>("offlinePrimaryVertices");
+  tracksrc_ = iConfig.getUntrackedParameter<edm::InputTag>("tracksrc",edm::InputTag("hiSelectedTracks"));
+  vtxsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("vtxsrc",edm::InputTag("hiSelectedVertex"));
 }
 
 
@@ -101,11 +103,8 @@ VertexConstraintProducer::~VertexConstraintProducer()
 void VertexConstraintProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
   using namespace edm;
-  //InputTag srcTag = iConfig_.getParameter<InputTag>("generalTracks");
   Handle<reco::TrackCollection> theTCollection;
-  //iEvent.getByLabel(srcTag,theTCollection);
-  //iEvent.getByLabel("generalTracks",theTCollection);  
-  iEvent.getByLabel("selectTracks",theTCollection); 
+  iEvent.getByLabel(tracksrc_,theTCollection); 
   
   std::auto_ptr<std::vector<VertexConstraint> > pairs(new std::vector<VertexConstraint>);
   std::auto_ptr<TrackVtxConstraintAssociationCollection> output(new TrackVtxConstraintAssociationCollection);
@@ -113,8 +112,7 @@ void VertexConstraintProducer::produce(edm::Event& iEvent, const edm::EventSetup
   edm::RefProd<std::vector<VertexConstraint> > rPairs = iEvent.getRefBeforePut<std::vector<VertexConstraint> >();
 
   edm::Handle<reco::VertexCollection> theVCollection;
-  iEvent.getByLabel("offlinePrimaryVertices",theVCollection);
-  //iEvent.getByLabel("selectedVertex",theVCollection);     
+  iEvent.getByLabel(vtxsrc_,theVCollection);
   
   const reco::Vertex * validVtx = 0;
   
@@ -142,7 +140,6 @@ void VertexConstraintProducer::produce(edm::Event& iEvent, const edm::EventSetup
 
   int index = 0;
   for (reco::TrackCollection::const_iterator i=theTCollection->begin(); i!=theTCollection->end();i++) {
-     //VertexConstraint tmp(GlobalPoint(0,0,0),GlobalError(0.01,0,0.01,0,0,0.001)); 
      VertexConstraint tmp(GlobalPoint(validVtx->position().x(),
 				      validVtx->position().y(),
 				      validVtx->position().z()),
