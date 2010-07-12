@@ -13,7 +13,6 @@ hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"
                                  src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks")
                                  )
 hipxltrackAnaMult = hipxltrackAna.clone(pixelMultMode=cms.untracked.bool(True))
-
 hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")) #refitted track!
 
 # tracking efficiency analyzer --------------------------
@@ -22,8 +21,7 @@ from edwenger.HiTrkEffAnalyzer.hitrkEffAnalyzer_cff import *
 
 # full tracking 
 fulltrackingParticleRecoTrackAsssociation = trackingParticleRecoTrackAsssociation.clone(label_tr=cms.InputTag("hiSelectedTracks"),
-                                                                                        label_tp_effic  = cms.InputTag("cutsFullTracks"),
-                                                                                        label_tp_fake = cms.InputTag("cutsFullTracks"))
+                                                                                        label_tp=cms.InputTag("cutsFullTracks"))
 
 hitrkEffAnalyzer.label_tp_effic = cms.untracked.InputTag("cutsFullTracks")
 hitrkEffAnalyzer.label_tp_fake = cms.untracked.InputTag("cutsFullTracks")
