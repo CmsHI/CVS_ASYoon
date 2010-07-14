@@ -6,7 +6,7 @@ cd $CMSSW_BASE/src
 cvs co UserCode/edwenger/Skims
 
 # centrality related
-cvs co -r 1.5 UserCode/CmsHi/JulyExercise/data/CentralityTables.db # once fixed, move to HEAD
+cvs co -r UserCode/CmsHi/JulyExercise/data/CentralityTables.db
 cvs co -r HEAD RecoHI/HiCentralityAlgos
 cvs co -r HEAD DataFormats/HeavyIonEvent
  
