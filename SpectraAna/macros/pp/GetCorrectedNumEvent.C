@@ -13,6 +13,10 @@
 //   3. lev2 - lev1 + zero bin fraction corrected (MC based)
 //   4. lev3 - lev2 + 123 bins fraction corrected (MC based)
 //   5. full - lev3 + pile-up corrected (estimated pile-up rate based)
+//
+// USAGES
+// *corrF* is a correction factor for 1~3 bins ignored in tight selection, which 
+// can be obtained data-drively from loose selection. 
 //------------------------------------------------------------------------------- 
 
 #if !defined(__CINT__) || defined(__MAKECINT__)
@@ -165,8 +169,12 @@ void GetCorrectedNumEvent(const char *cDir="../root_files/",
    nevt_lev2_mult = nevt_lev1_mult/(1-zerobinF);
    nevt_lev3_mult = nevt_lev1_mult/(1-zottbinF);
 
-   //if(corrF==1) corrF=1;
-   //else corrF = nevt_lev1_mult1toInf/(nevt_lev1_mult1toInf-nevt_lev1_mult1to3);
+   if(strcmp(dir_ana,"looseTrackAna_STD")==0){
+     corrF = nevt_lev1_mult1toInf/(nevt_lev1_mult1toInf-nevt_lev1_mult1to3);
+     cout<<"corrF is calculated and the result is = "<<corrF<<endl;
+   }else{
+     cout<<"corrF is inputed and the value is = "<<corrF<<endl;
+   }
 
    nevt_lev3_mult_data = nevt_lev2_mult*corrF;
 
