@@ -359,42 +359,40 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
       hdndptdetadet_raw->SetBinContent(xbin+1,ybin+1,zbin+1,dn);
       hdndptdetadet_raw->SetBinError(xbin+1,ybin+1,zbin+1,edn);
       
-      if(!isGEN){  // for GEN truth, no correction is needed!
-	 
-	 // efficiency and fake rate ! 
-	 if(eff==0 || fak ==1){
-	    dn = dn;
-	    edn = edn;
-	 }else{
-	    dn = dn*((1-fak)/eff);
-	    edn = edn*((1-fak)/eff);
-	 }
-	 
-	 hdndptdetadet_lev1->SetBinContent(xbin+1,ybin+1,zbin+1,dn);
-	 hdndptdetadet_lev1->SetBinError(xbin+1,ybin+1,zbin+1,edn);
-	 
-	 // secondary !
-	 if(sec==1 || sec==0){
-	    dn = dn, edn = edn; // no correction!                                                                                                        
-	 }else{
-	    dn = dn*(1-sec), edn = edn*(1-sec);
-	 }
-	 
-	 hdndptdetadet_lev2->SetBinContent(xbin+1,ybin+1,zbin+1,dn);
-	 hdndptdetadet_lev2->SetBinError(xbin+1,ybin+1,zbin+1,edn);
-	 
-	 // multiple reconstruction !
-	 if(mlt==1 || mlt==0){
-	    dn = dn, edn = edn; // no correction! 
-	 }else{
-	    dn = dn*(1./(1+mlt)), edn = edn*(1./(1+mlt));
-	 }
-	 
-	 hdndptdetadet_full->SetBinContent(xbin+1,ybin+1,zbin+1,dn);
-	 hdndptdetadet_full->SetBinError(xbin+1,ybin+1,zbin+1,edn);
-      }
-   }
+      // efficiency and fake rate ! if isGEN = true, no correction applied
 
+      if(isGEN || eff==0 || fak ==1){
+	dn = dn;
+	edn = edn;
+      }else{
+	dn = dn*((1-fak)/eff);
+	edn = edn*((1-fak)/eff);
+      }
+      
+      hdndptdetadet_lev1->SetBinContent(xbin+1,ybin+1,zbin+1,dn);
+      hdndptdetadet_lev1->SetBinError(xbin+1,ybin+1,zbin+1,edn);
+      
+      // secondary !
+      if(isGEN || sec==1 || sec==0){
+	dn = dn, edn = edn; // no correction!                                                                                                        
+      }else{
+	dn = dn*(1-sec), edn = edn*(1-sec);
+      }
+      
+      hdndptdetadet_lev2->SetBinContent(xbin+1,ybin+1,zbin+1,dn);
+      hdndptdetadet_lev2->SetBinError(xbin+1,ybin+1,zbin+1,edn);
+      
+      // multiple reconstruction !
+      if(isGEN || mlt==1 || mlt==0){
+	dn = dn, edn = edn; // no correction! 
+      }else{
+	dn = dn*(1./(1+mlt)), edn = edn*(1./(1+mlt));
+      }
+      
+      hdndptdetadet_full->SetBinContent(xbin+1,ybin+1,zbin+1,dn);
+      hdndptdetadet_full->SetBinError(xbin+1,ybin+1,zbin+1,edn);
+   }
+   
    cout<<"\n"<<endl;
    cout<<"[Debugging summary]==================================================="<<endl;
    cout<<"number of total tracks = "<<recTracktotal<<" above pT = "<<pt_thres<<" (GeV/c)"<<endl;
@@ -489,7 +487,7 @@ void drawDebugPlots(){
    call->cd(), call->SetLogx(), call->SetLogy();
    sprintf(yTitle,"dN/dp_{T}");
    sprintf(xTitle,"p_{T} [GeV/c]");
-   dum = GetDummyHist(200,1E-11,1E+2,xTitle,yTitle);
+   dum = GetDummyHist(200,1E-11,1E+9,xTitle,yTitle);
    dum->Draw();
 
    th1Style1(hdndpt_raw,14,28,1.0,14,1.0,1,1);
