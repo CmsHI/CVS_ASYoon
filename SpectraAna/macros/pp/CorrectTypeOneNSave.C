@@ -147,7 +147,7 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
                          bool isGEN=false, bool varBin=false,
                          float ijet=0, float fjet=2000,
                          float ieta=0, float feta=2.4,
-			 double scale_dum=1,
+			 double scaleF=1,
 			 bool debug = true, bool onetothree = false,
 			 bool correc1to3 = false,
                          bool drawFig =true, bool saveFile=false
@@ -155,22 +155,6 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
 {
 
    cout<<"\n"<<"\n"<<endl;
-
-   //double scaleF = 1.13643e+07;
-   //double scaleF = 3.79542505524861872e+08;
-
-   //double scaleF = 1.1805E+07;
-   //double scaleF = 4.0786E+08;
-   //double scaleF = 5.5917e+08;
-   //double scaleF = 45206;
-   //double scaleF = 44223;
-   double scaleF = 1;
-   
-   //double scaleF = 2.3845e+07; //total N_nsd (MB in pr6 and m6rr)
-   //double scaleF = 5.5917e+08; 
-
-   //double scaleF = 2.3326e+07;
-   //double scaleF = 5.4700e+08;
 
    cout<<">>>> scale factor = "<<scaleF<<endl;
    
@@ -426,8 +410,11 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    hdndpt_full->Scale(1./scaleF);
 
    if(correc1to3){
-     fCorr = new TF1("fitFunction","pol4(0)",0.1,5);;
-     fCorr->SetParameters(1.00491e+00,1.56543e-02,-2.78440e-02,1.38738e-02,-2.18304e-03);
+     fCorr = new TF1("fitFunction","pol4(0)",0.1,4.5);
+     fCorr->SetParameters(1.00491e+00,1.56543e-02,-2.78440e-02,1.38738e-02,-2.18304e-03); // 7 TeV DATA
+     //fCorr->SetParameters(1.03943e+00,-6.17730e-02,3.99564e-02,-1.03566e-02,9.37328e-04); // 900 GeV MC
+     //fCorr->SetParameters(1.02381e+00,-1.56535e-02,2.96311e-03,1.34556e-04,-6.10172e-05);// 900 GeV DATA
+
      hdndpt_raw = (TH1D*) correctedFor1to3(hdndpt_raw);
      hdndpt_lev1 = (TH1D*) correctedFor1to3(hdndpt_lev1);
      hdndpt_lev2 = (TH1D*) correctedFor1to3(hdndpt_lev2);
