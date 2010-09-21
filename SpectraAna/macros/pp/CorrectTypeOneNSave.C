@@ -26,6 +26,8 @@
 // is corrected), another correction is applied to the efficincy (or fake) number 
 // by averaging near phase space (pt,jet). The search window for the near phase space 
 // is determined by input ("clevel" in the member function)
+//
+// Also, now one more file is used for correction to deal with higher pT reach!
 //-------------------------------------------------------------------------------------
 
 
@@ -220,7 +222,7 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    TH3::SetDefaultSumw2();
 
 
-   sprintf(outFile,"%sCORR_TEST1_%s_eta_%1.1fto%1.1f_jet_%1.1fto%1.1f_%s_GEN%i_varBin%i_otthist%i_correct1to3i%i.root",
+   sprintf(outFile,"%sCORR_%s_eta_%1.1fto%1.1f_jet_%1.1fto%1.1f_%s_GEN%i_varBin%i_otthist%i_correct1to3i%i.root",
 	   cDirOut,cFile,ieta,feta,ijet,fjet,dir_ana,isGEN,varBin,onetothree,correc1to3);
 
    cout<<"Output file will be "<<outFile<<endl;
@@ -307,8 +309,8 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    // make sure jet et range is quantized with min et range of 20 GeV!
    // so the range has to be at n*20, where n = 1,2,3...
    //float jet_1st, jet_2nd, jet_3rd, jet_4th;
-   //jet_1st = 41, jet_2nd = 61, jet_3rd = 81, jet_4th = 181;  
-   jet_1st = 41, jet_2nd = 81, jet_3rd = 141, jet_4th = 221, jet_5th = 501;
+   jet_1st = 41, jet_2nd = 61, jet_3rd = 81, jet_4th = 181, jet_5th = 201;
+   //jet_1st = 41, jet_2nd = 81, jet_3rd = 141, jet_4th = 221, jet_5th = 501;
 
    // -------------------------------------------------------------------------
    // Below is for the purpose of debugging, i.e. to find how many tracks are
@@ -316,12 +318,7 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    // the correction MC samples!
    // -------------------------------------------------------------------------
 
-   // for eff = 1
-   double deltapTcut = 0.2; // 20% pt window search
-   int minEntry1st = 0;
-   int minEntry = 15;
-
-
+   int minEntry1st = 0; // minimum entries requred in obtaining efficiency/fake
    
    for(int j=0;j<(nbinX*nbinY*nbinZ);j++){
       
@@ -393,16 +390,16 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
 	}
       }
 
-      if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,1,0);
-      if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,2,0);
-      if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,3,0);
+      //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,1,0);
+      //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,2,0);
+      //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,3,0);
       //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,4,0);
       //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,5,0); 
 
-      if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,1,1);
-      if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,2,1);
-      if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,3,1);
-      if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,4,1);
+      //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,1,1);
+      //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,2,1);
+      //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,3,1);
+      //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,4,1);
       //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,5,1);
 
 
