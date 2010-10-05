@@ -1,9 +1,7 @@
 
 
-#inputDir=/home/sungho/plots/7TeV/root_files/
-inputDir=/Users/andreyoon/Research/ana/spectra/pp_spectra/7TeV/root_files/
-outputDir=./rootOutput_aug3/
-#outputDir=.//
+inputDir=/Users/andreyoon/Research/pp7TeV/root_files/
+outputDir=./../rootOutput_postApp/
 
 if [ -d $outputDir ]
     then
@@ -14,45 +12,47 @@ else
 fi
 
 
-#spectraFile=MB-C10-PR9-JMTskim-v0_proc0710_trkAnaNoFilter
-#spectraFile=MB-C10-PR9-MBskim-v0_proc0710_trkAnaNoFilter
-#spectraFile=MB-C10-M6RR-JMTskim-v0_proc0710_trkAnaNoFilte
-#spectraFile=MB-C10-M6RR-MBskim-v0_proc0710_trkAnaNoFilte
-#spectraFile=JMT-R10A-PR1-JMTskim-v0_proc0710_trkAnaNoFilte
+#spectraFile=MB-R10A-Jun14RR-MBskim-v0_proc0907
+#spectraFile=JMT-R10A-Jun14RR-J15Uskim-v0_proc0907
+#spectraFile=TrkHistGEN_aug06_qcdPt170HerwigJim
+#trkCorrFile1=TrkHistMC_july09v2_qcdMBD6TdJuly09V3
+#trkCorrFile2=TrkHistMC_july09v2_qcdPt15dJuly09
+#trkCorrFile3=TrkHistMC_july09v2_qcdPt30dJuly09V2
+#trkCorrFile4=TrkHistMC_july09v2_qcdPt80dJuly09V2
+#trkCorrFile5=TrkHistMC_july09v2_qcdPt170dJuly09
+#trkCorrFile6=TrkHistMC_july09v2_qcdPt170dJuly09
+#trkCorrFile6=TrkHistGEN_aug31_v1_qcdPt300
 
-#spectraFile=TrkHistMC_july09v2_qcdMBD6TdJuly09V3
+#spectraFile=TrkHistMC_july09v2_qcdMBD6TdJuly09V3 
 #spectraFile=TrkHistMC_july09v2_qcdPt30dJuly09V2
 #spectraFile=TrkHistMC_july09v2_qcdPt80dJuly09V2
-#spectraFile=trkhists_r132440
-#spectraFile=trkhists_r132440_v2 # loose track
+#trkCorrFile1=TrkHistMC_july09v2_qcdMBD6TdJuly09V3 
+#trkCorrFile2=TrkHistMC_july09v2_qcdPt15dJuly09 
+#trkCorrFile3=TrkHistMC_july09v2_qcdPt30dJuly09V2 
+#trkCorrFile4=TrkHistMC_july09v2_qcdPt80dJuly09V2 
+#trkCorrFile5=TrkHistMC_july09v2_qcdPt170dJuly09
+#trkCorrFile6=TrkHistMC_july09v2_qcdPt170dJuly09
 
-#spectraFile=TrkHistGEN_aug06_qcdMBP0
-#spectraFile=TrkHistGEN_aug06_qcdMBPY8
-#spectraFile=TrkHistGEN_aug06_qcdPt30Herwig
-#spectraFile=TrkHistGEN_aug06_qcdPt80Herwig
-spectraFile=TrkHistGEN_aug06_qcdPt170HerwigJim
+spectraFile=TrkHistMC_july09v2_qcdMBD6TdJuly09V3_div1
+#spectraFile=TrkHistMC_july09v2_qcdPt30dJuly09V2_div1
+#spectraFile=TrkHistMC_july09v2_qcdPt80dJuly09V2_div1
+trkCorrFile1=TrkHistMC_july09v2_qcdMBD6TdJuly09V3_div2
+trkCorrFile2=TrkHistMC_july09v2_qcdPt15dJuly09_div2
+trkCorrFile3=TrkHistMC_july09v2_qcdPt30dJuly09V2_div2
+trkCorrFile4=TrkHistMC_july09v2_qcdPt80dJuly09V2_div2
+trkCorrFile5=TrkHistMC_july09v2_qcdPt170dJuly09_div2
+trkCorrFile6=TrkHistMC_july09v2_qcdPt170dJuly09_div2
 
-trkCorrFile1=TrkHistMC_july09v2_qcdMBD6TdJuly09V3
-trkCorrFile2=TrkHistMC_july09v2_qcdPt15dJuly09
-trkCorrFile3=TrkHistMC_july09v2_qcdPt30dJuly09V2
-trkCorrFile4=TrkHistMC_july09v2_qcdPt80dJuly09V2
-trkCorrFile5=TrkHistMC_july09v2_qcdPt170dJuly09
-
-
-#spectraFile=TrkHistMC_july04_qcdMBD6T0704vbinV2
-#trkCorrFile1=TrkHistMC_july04_qcdMBD6T0704vbinV2
-#trkCorrFile2=TrkHistMC_july04_qcdPt15d0704vbinV2
-#trkCorrFile3=TrkHistMC_july04_qcdPt15d0704vbinV2
-#trkCorrFile4=TrkHistMC_july04_qcdPt15d0704vbinV2
-#trkCorrFile5=TrkHistMC_july04_qcdPt170d0704vbinV2
-
-
-anaDir=trackAna_STD
+#anaDir=trackAna_STD
+anaDir=trackAna
+#anaDir=preTrackAna
 corDir=trkEffAnalyzer
 
 #anaDir=looseTrackAna_STD
 #corDir=loosetrkEffAnalyzer
 
+#anaDir=looseTrackAna
+#corDir=loosetrkEffAnalyzer
 
 isGEN=false
 varBin=true
@@ -70,6 +70,7 @@ fjet=2000
 ieta=0
 feta=2.4
 
+#scale=6.01167e+06
 scale=1
 
 debug=false
@@ -79,9 +80,11 @@ correc1to3=false
 drawFig=true
 saveFile=true
 
+secOrdCorrLevEf=1
+secOrdCorrLevFak=2
 
 
 #root -l -q  CorrectTypeOneNSave.C++\(\"$inputDir\",\"$outputDir\",\"$spectraFile\",\"$trkCorrFile1\",\"$trkCorrFile2\",\"$trkCorrFile3\",\"$trkCorrFile4\",\"$trkCorrFile5\",\"$anaDir\",\"$corDir\",$isGEN\,$varBin\,$ijet\,$fjet\,$ieta\,$feta\,$scale\,$debug\,$drawFig\,$saveFile\)
 
 
-root -l  CorrectTypeOneNSave.C++\(\"$inputDir\",\"$outputDir\",\"$spectraFile\",\"$trkCorrFile1\",\"$trkCorrFile2\",\"$trkCorrFile3\",\"$trkCorrFile4\",\"$trkCorrFile5\",\"$anaDir\",\"$corDir\",$isGEN\,$varBin\,$ijet\,$fjet\,$ieta\,$feta\,$scale\,$debug\,$onetothree\,$correc1to3\,$drawFig\,$saveFile\)
+root -l  CorrectTypeOneNSave.C++\(\"$inputDir\",\"$outputDir\",\"$spectraFile\",\"$trkCorrFile1\",\"$trkCorrFile2\",\"$trkCorrFile3\",\"$trkCorrFile4\",\"$trkCorrFile5\",\"$trkCorrFile6\",\"$anaDir\",\"$corDir\",$isGEN\,$varBin\,$ijet\,$fjet\,$ieta\,$feta\,$scale\,$secOrdCorrLevEf\,$secOrdCorrLevFak\,$debug\,$onetothree\,$correc1to3\,$drawFig\,$saveFile\)

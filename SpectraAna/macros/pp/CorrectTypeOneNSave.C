@@ -167,7 +167,7 @@ int recTrackWithFakOfOneBin = 0;
 int recTrackWithFakOfZeroBin = 0;
 int recTrackWithHoaxFragBinFak = 0;
 
-double pt_thres = 30.0; //  for debugging
+double pt_thres = 10.0; //  for debugging
 
 //------------------------------------------------------------------------------
 void checkEtaRange(double iEta, double fEta, int EtaMin, int EtaMax);
@@ -207,6 +207,7 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
                          double ijet=0, double fjet=2000,
                          double ieta=0, double feta=2.4,
 			 double scaleF=1,
+			 int hiOrdCorrLevEff=0, int hiOrdCorrLevFak=0,
 			 bool debug = true, bool onetothree = false,
 			 bool correc1to3 = false,
                          bool drawFig =true, bool saveFile=false
@@ -222,8 +223,8 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    TH3::SetDefaultSumw2();
 
 
-   sprintf(outFile,"%sCORR_%s_eta_%1.1fto%1.1f_jet_%1.1fto%1.1f_%s_GEN%i_varBin%i_otthist%i_correct1to3i%i.root",
-	   cDirOut,cFile,ieta,feta,ijet,fjet,dir_ana,isGEN,varBin,onetothree,correc1to3);
+   sprintf(outFile,"%sCORR_%s_eta_%1.1fto%1.1f_jet_%1.1fto%1.1f_%s_GEN%i_varBin%i_otthist%i_correct1to3i%i_corrLevEff%i_corrLevFak%i.root",
+	   cDirOut,cFile,ieta,feta,ijet,fjet,dir_ana,isGEN,varBin,onetothree,correc1to3,hiOrdCorrLevEff,hiOrdCorrLevFak);
 
    cout<<"Output file will be "<<outFile<<endl;
    cout<<"\n"<<endl;
@@ -309,7 +310,8 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    // make sure jet et range is quantized with min et range of 20 GeV!
    // so the range has to be at n*20, where n = 1,2,3...
    //float jet_1st, jet_2nd, jet_3rd, jet_4th;
-   jet_1st = 41, jet_2nd = 61, jet_3rd = 81, jet_4th = 181, jet_5th = 201;
+   //jet_1st = 41, jet_2nd = 61, jet_3rd = 81, jet_4th = 181, jet_5th = 201;
+   jet_1st = 41, jet_2nd = 81, jet_3rd = 121, jet_4th = 221, jet_5th = 501;
    //jet_1st = 41, jet_2nd = 81, jet_3rd = 141, jet_4th = 221, jet_5th = 501;
 
    // -------------------------------------------------------------------------
@@ -317,6 +319,8 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    // not corrected due to the lack of statistics or different fragmentation in 
    // the correction MC samples!
    // -------------------------------------------------------------------------
+
+   int corrLevEff=0, corrLevFak=0;
 
    int minEntry1st = 0; // minimum entries requred in obtaining efficiency/fake
    
@@ -390,17 +394,17 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
 	}
       }
 
-      //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,1,0);
-      //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,2,0);
-      //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,3,0);
-      //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,4,0);
-      //if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,5,0); 
+      corrLevEff = 0, corrLevFak = 0; // set it to 0 for every iteration
 
-      //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,1,1);
-      //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,2,1);
-      //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,3,1);
-      //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,4,1);
-      //if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,5,1);
+      while(hiOrdCorrLevEff>corrLevEff){
+	if(fabs(eff)>98||eff==1) eff = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,eff,eta,feta,nonzeroentries,corrLevEff+1,0);
+	corrLevEff++;
+      }
+
+      while(hiOrdCorrLevFak>corrLevFak){
+	if(fabs(fak)>98||fak==1) fak = GetEffFactorFromAvgNearPhaseS(xbin,ybin,zbin,nbinX,nbinY,nbinZ,pt,jet,fak,eta,feta,nonzeroentries,corrLevFak+1,1); 
+	corrLevFak++;
+      }
 
 
       if(dn>0 && pt>pt_thres && fabs(eta)<feta){ // kinematic cut for debugging
@@ -478,6 +482,14 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
 	hdndptdetadet_full->SetBinContent(xbin+1,ybin+1,zbin+1,dn);
 	hdndptdetadet_full->SetBinError(xbin+1,ybin+1,zbin+1,edn);
    }
+   
+   cout<<"\n"<<endl;
+   cout<<"[Higher order corrections]============================================="<<endl;
+   cout<<"Efficiency corrected up to  "<<corrLevEff<<" times in higher order correction"<<endl;
+   cout<<"Fake rate corrected up to  "<<corrLevFak<<" times in higher order correction"<<endl;
+   cout<<"[Higher order corrections]============================================="<<endl;
+   cout<<"\n"<<endl;
+
 
    printDebug();
    
