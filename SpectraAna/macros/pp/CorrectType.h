@@ -139,8 +139,11 @@ TFile *loadFile(TFile *file, char *cfile){
 
 TH1D *makeItInvHist(TH1D *hmIIH, double deta){
    //TH1D *hmIIH = (TH1D*) hmIIH_pre->Clone("hmIIH"); // is this necessary?
+
+  cout<<"\n[makeItInvHist]--------------------"<<endl;
   cout<<"Pi is "<<TMath::Pi()<<endl;
   cout<<"Eta interval is "<<deta<<endl;
+  cout<<"[makeItInvHist]-------------------- \n"<<endl;
 
    for(int i=0;i<hmIIH->GetNbinsX();i++){
       double pt = hmIIH->GetBinCenter(i+1);
