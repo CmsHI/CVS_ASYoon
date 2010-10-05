@@ -167,7 +167,7 @@ int recTrackWithFakOfOneBin = 0;
 int recTrackWithFakOfZeroBin = 0;
 int recTrackWithHoaxFragBinFak = 0;
 
-double pt_thres = 10.0; //  for debugging
+double pt_thres = 300.0; //  for debugging
 
 //------------------------------------------------------------------------------
 void checkEtaRange(double iEta, double fEta, int EtaMin, int EtaMax);
@@ -304,7 +304,7 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    int  nbinY = hdndptdetadet->GetNbinsY();
    int  nbinZ = hdndptdetadet->GetNbinsZ();
    
-   cout<<"number of bin in x axis = "<<nbinX<<" in y axis = "<<nbinY<<" in z axis = "<<nbinZ<<endl;
+   cout<<"[Check number of bins] number of bin in x axis = "<<nbinX<<" in y axis = "<<nbinY<<" in z axis = "<<nbinZ<<endl;
 
    // jet et range for different samples for trk correction
    // make sure jet et range is quantized with min et range of 20 GeV!
@@ -319,6 +319,8 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    // not corrected due to the lack of statistics or different fragmentation in 
    // the correction MC samples!
    // -------------------------------------------------------------------------
+   cout<<"\n"<<endl;
+   cout<<"[Tracking corrections applied for each entires] ========================================================="<<endl;
 
    int corrLevEff=0, corrLevFak=0;
 
@@ -482,6 +484,9 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
 	hdndptdetadet_full->SetBinContent(xbin+1,ybin+1,zbin+1,dn);
 	hdndptdetadet_full->SetBinError(xbin+1,ybin+1,zbin+1,edn);
    }
+
+   cout<<"[Tracking corrections applied for each entires] ========================================================="<<endl;
+   cout<<"\n"<<endl;
    
    cout<<"\n"<<endl;
    cout<<"[Higher order corrections]============================================="<<endl;
@@ -574,7 +579,7 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
      call->cd(), call->SetLogx(), call->SetLogy();
      sprintf(yTitle,"dN/dp_{T}");
      sprintf(xTitle,"p_{T} [GeV/c]");
-     dum = GetDummyHist(200,1E-11,1E+9,xTitle,yTitle);
+     dum = GetDummyHist(400,1E-11,1E+9,xTitle,yTitle);
      dum->Draw();
 
      th1Style1(hdndpt_raw,14,28,1.0,14,1.0,1,1);
