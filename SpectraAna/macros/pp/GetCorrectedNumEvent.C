@@ -15,6 +15,13 @@
 //   5. full - lev3 + pile-up corrected (estimated pile-up rate based)
 //
 // USAGES
+//
+// 1. first run with looseTrackAna_STD for dir_ana from which corrF is obtained 
+// for 1~3 bin correction (data-driven)
+//
+// 2. and then run with TrackAna_STD for dir_ana and with the value obtained 
+// from the step 1 
+//
 // *corrF* is a correction factor for 1~3 bins ignored in tight selection, which 
 // can be obtained data-drively from loose selection. 
 //------------------------------------------------------------------------------- 
@@ -133,7 +140,7 @@ void GetCorrectedNumEvent(const char *cDir="../root_files/",
    cout<<"\n"<<endl;
    cout<<"============================== NUMBER OF EVENTS ==================================="<<endl;
    cout<<"raw number of events is  "<<nevt_raw<<endl;
-   cout<<"evt sel eff corrected number of event is "<<nevt_lev1<<endl;
+   cout<<"evt sel eff corrected number of event is (please ignore this) "<<nevt_lev1<<endl;
    cout<<"evt sel eff corrected number of event (from multiplicity hist) is "<<nevt_lev1_mult<<endl;
    cout<<"evt sel eff corrected number of event (mult: 1~Inf) is "<<nevt_lev1_mult1toInf<<endl;
    cout<<"evt sel eff corrected number of event (mult: 1~3) is "<<nevt_lev1_mult1to3<<endl;
