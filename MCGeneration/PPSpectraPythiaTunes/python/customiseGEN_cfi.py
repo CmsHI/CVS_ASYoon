@@ -13,6 +13,7 @@ def getPy6ProcParameters(genTypePtHatRange):
         'NSD_20_to_30':['MSEL=1','CKIN(3)=20','CKIN(4)=30'],
         'NSD_30_to_50':['MSEL=1','CKIN(3)=30','CKIN(4)=50'],
         'NSD_50_to_80':['MSEL=1','CKIN(3)=50','CKIN(4)=80'],
+        'NSD_80_to_inf':['MSEL=1','CKIN(3)=80'],
         'NSD_80_to_120':['MSEL=1','CKIN(3)=80','CKIN(4)=120'],
         'NSD_120_to_170':['MSEL=1','CKIN(3)=120','CKIN(4)=170'],
         'NSD_170_to_230':['MSEL=1','CKIN(3)=170','CKIN(4)=230'],
