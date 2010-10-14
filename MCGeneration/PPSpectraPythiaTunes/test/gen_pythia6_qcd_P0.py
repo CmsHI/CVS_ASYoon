@@ -1,4 +1,6 @@
 import FWCore.ParameterSet.Config as cms
+import FWCore.ParameterSet.VarParsing as VarParsing
+import os
 
 process = cms.Process('GEN')
 
@@ -11,7 +13,7 @@ process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 process.load("PhysicsTools.HepMCCandAlgos.genParticles_cfi")
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('100'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -24,6 +26,27 @@ process.options = cms.untracked.PSet(
 )
 # Input source
 process.source = cms.Source("EmptySource")
+
+# ============= Pythia pre-setting ============================
+# setup 'standard'  options
+options = VarParsing.VarParsing ('standard')
+
+# my own variable
+# available processType in customiseGEN_cfi
+options.register('processType',
+                 "NSD_0_to_15",
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.string,
+                 "Pythia process type with pT_hat range")
+
+options.register('sqrtS',
+                 900.0,
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.float,
+                 "Center-of-mass energy")
+
+# get and parse the command line arguments
+options.parseArguments()
 
 
 # ============= Pythia setting  ================================
@@ -50,20 +73,9 @@ process.generator = cms.EDFilter("Pythia6GeneratorFilter",
 process.gen_step = cms.Path(process.generator
                             *process.genParticles)
 
+# update the process parameters and c.o.m energy
 from MCGeneration.PPSpectraPythiaTunes.customiseGEN_cfi import *
-
-updatePy6ProcParameters(process.generator,"NSD_0_to_15")
-#updatePy6ProcParameters(process.generator,"NSD_15_to_20")
-#updatePy6ProcParameters(process.generator,"NSD_20_to_30")
-#updatePy6ProcParameters(process.generator,"NSD_30_to_50")
-#updatePy6ProcParameters(process.generator,"NSD_50_to_80")
-#updatePy6ProcParameters(process.generator,"NSD_80_to_120")
-#updatePy6ProcParameters(process.generator,"NSD_120_to_170")
-#updatePy6ProcParameters(process.generator,"NSD_170_to_230")
-#updatePy6ProcParameters(process.generator,"NSD_230_to_300")
-#updatePy6ProcParameters(process.generator,"NSD_300_to_380")
-#updatePy6ProcParameters(process.generator,"NSD_380_to_470")
-#updatePy6ProcParameters(process.generator,"NSD_470_to_inf")
+updatePy6ProcParameters(process.generator,options.processType,options.sqrtS)
 
 
 # ============= Gen jet ================================
@@ -80,7 +92,7 @@ process.load("edwenger.Skims.Analysis_cff")
 process.ana_step  = cms.Path(process.analysisGEN)
 
 from edwenger.Skims.customise_cfi import *
-#process =  enableMinPtHatCut(process)  # activate min pt_hat cut!
+process =  enableMinPtHatCutAuto(process,options.processType)
 
 process.TFileService = cms.Service("TFileService",
                                    fileName = cms.string('trkhistsGEN.root')
