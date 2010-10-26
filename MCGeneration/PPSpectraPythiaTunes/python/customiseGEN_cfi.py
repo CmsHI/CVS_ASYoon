@@ -48,10 +48,42 @@ def getPy6ProcParameters(genTypePtHatRange):
     print "PYTHIA process parameters: ",para[genTypePtHatRange]
     return para[genTypePtHatRange]
 
+def getPy8ProcParameters(genTypePtHatRange):
+    para = {
+        # 0 to X
+        'NSD_0_to_5':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','SoftQCD:minBias = on','SoftQCD:singleDiffractive = off','SoftQCD:doubleDiffractive = on','PhaseSpace:pTHatMin = 0','PhaseSpace:pTHatMax = 5','Tune:pp 2','Tune:ee 3'],
+        'NSD_0_to_10':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','SoftQCD:minBias = on','SoftQCD:singleDiffractive = off','SoftQCD:doubleDiffractive = on','PhaseSpace:pTHatMin = 0','PhaseSpace:pTHatMax = 10','Tune:pp 2','Tune:ee 3'],
+        'NSD_0_to_15':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','SoftQCD:minBias = on','SoftQCD:singleDiffractive = off','SoftQCD:doubleDiffractive = on','PhaseSpace:pTHatMin = 0','PhaseSpace:pTHatMax = 15','Tune:pp 2','Tune:ee 3'],
+        'NSD_0_to_20':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','SoftQCD:minBias = on','SoftQCD:singleDiffractive = off','SoftQCD:doubleDiffractive = on','PhaseSpace:pTHatMin = 0','PhaseSpace:pTHatMax = 20','Tune:pp 2','Tune:ee 3'],
+        'NSD_0_to_40':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','SoftQCD:minBias = on','SoftQCD:singleDiffractive = off','SoftQCD:doubleDiffractive = on','PhaseSpace:pTHatMin = 0','PhaseSpace:pTHatMax = 40','Tune:pp 2','Tune:ee 3'],
+        # X to Y
+        'NSD_5_to_10':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 5','PhaseSpace:pTHatMax = 10','Tune:pp 2','Tune:ee 3'],
+        'NSD_10_to_20':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 10','PhaseSpace:pTHatMax = 20','Tune:pp 2','Tune:ee 3'],
+        'NSD_20_to_30':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 20','PhaseSpace:pTHatMax = 30','Tune:pp 2','Tune:ee 3'],
+        'NSD_30_to_50':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 30','PhaseSpace:pTHatMax = 50','Tune:pp 2','Tune:ee 3'],
+        'NSD_50_to_80':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 50','PhaseSpace:pTHatMax = 80','Tune:pp 2','Tune:ee 3'],
+        'NSD_80_to_inf':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 80','Tune:pp 2','Tune:ee 3'],
+        'NSD_80_to_120':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 80','PhaseSpace:pTHatMax = 120','Tune:pp 2','Tune:ee 3'],
+        'NSD_120_to_170':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 120','PhaseSpace:pTHatMax = 170','Tune:pp 2','Tune:ee 3'],
+        'NSD_170_to_230':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 170','PhaseSpace:pTHatMax = 230','Tune:pp 2','Tune:ee 3'],
+        'NSD_230_to_300':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 230','PhaseSpace:pTHatMax = 300','Tune:pp 2','Tune:ee 3'],
+        'NSD_300_to_380':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 300','PhaseSpace:pTHatMax = 380','Tune:pp 2','Tune:ee 3'],
+        'NSD_380_to_470':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 380','PhaseSpace:pTHatMax = 470','Tune:pp 2','Tune:ee 3'],
+        'NSD_470_to_inf':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 470','Tune:pp 2','Tune:ee 3']
+        }
+    print "PYTHIA process parameters: ",para[genTypePtHatRange]
+    return para[genTypePtHatRange]
+        
 
 def updatePy6ProcParameters(gen,genTypePtHatRange,sqrtS):
     print "Center-of-mass energy: ",sqrtS
     gen.PythiaParameters.processParameters = getPy6ProcParameters(genTypePtHatRange)
     gen.comEnergy = sqrtS
+
+def updatePy8ProcParameters(gen,genTypePtHatRange,sqrtS):
+    print "Center-of-mass energy: ",sqrtS
+    gen.PythiaParameters.processParameters = getPy8ProcParameters(genTypePtHatRange)
+    gen.comEnergy = sqrtS
+    
 
 
