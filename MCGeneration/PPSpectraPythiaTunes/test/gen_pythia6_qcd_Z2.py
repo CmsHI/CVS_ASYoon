@@ -13,7 +13,7 @@ process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 process.load("PhysicsTools.HepMCCandAlgos.genParticles_cfi")
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('100'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -92,6 +92,7 @@ process.ana_step  = cms.Path(process.analysisGEN)
 
 from edwenger.Skims.customise_cfi import *
 process =  enableMinPtHatCutAuto(process,options.processType)
+process = enable900GeVGENMode(process,options.sqrtS) # for 900 GeV, adjust bining for histogram
 
 process.TFileService = cms.Service("TFileService",
                                    fileName = cms.string('trkhistsGEN.root')
