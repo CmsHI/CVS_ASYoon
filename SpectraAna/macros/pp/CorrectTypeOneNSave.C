@@ -210,7 +210,8 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
 			 int hiOrdCorrLevEff=0, int hiOrdCorrLevFak=0,
 			 bool debug = true, bool onetothree = false,
 			 bool correc1to3 = false,
-                         bool drawFig =true, bool saveFile=false
+                         bool drawFig =true, bool saveFile=false,
+			  int version=0
                          )
 {
 
@@ -223,8 +224,8 @@ void CorrectTypeOneNSave(const char *cDir="../root_files/",
    TH3::SetDefaultSumw2();
 
 
-   sprintf(outFile,"%sCORR_%s_eta_%1.1fto%1.1f_jet_%1.1fto%1.1f_%s_GEN%i_varBin%i_otthist%i_correct1to3i%i_corrLevEff%i_corrLevFak%i.root",
-	   cDirOut,cFile,ieta,feta,ijet,fjet,dir_ana,isGEN,varBin,onetothree,correc1to3,hiOrdCorrLevEff,hiOrdCorrLevFak);
+   sprintf(outFile,"%sCORRv%i_%s_eta_%1.1fto%1.1f_jet_%1.1fto%1.1f_%s_GEN%i_varBin%i_otthist%i_correct1to3i%i_corrLevEff%i_corrLevFak%i.root",
+	   cDirOut,version,cFile,ieta,feta,ijet,fjet,dir_ana,isGEN,varBin,onetothree,correc1to3,hiOrdCorrLevEff,hiOrdCorrLevFak);
 
    cout<<"Output file will be "<<outFile<<endl;
    cout<<"\n"<<endl;

@@ -83,8 +83,7 @@ saveFile=true
 secOrdCorrLevEf=1
 secOrdCorrLevFak=2
 
+version=1
 
-#root -l -q  CorrectTypeOneNSave.C++\(\"$inputDir\",\"$outputDir\",\"$spectraFile\",\"$trkCorrFile1\",\"$trkCorrFile2\",\"$trkCorrFile3\",\"$trkCorrFile4\",\"$trkCorrFile5\",\"$anaDir\",\"$corDir\",$isGEN\,$varBin\,$ijet\,$fjet\,$ieta\,$feta\,$scale\,$debug\,$drawFig\,$saveFile\)
 
-
-root -l  CorrectTypeOneNSave.C++\(\"$inputDir\",\"$outputDir\",\"$spectraFile\",\"$trkCorrFile1\",\"$trkCorrFile2\",\"$trkCorrFile3\",\"$trkCorrFile4\",\"$trkCorrFile5\",\"$trkCorrFile6\",\"$anaDir\",\"$corDir\",$isGEN\,$varBin\,$ijet\,$fjet\,$ieta\,$feta\,$scale\,$secOrdCorrLevEf\,$secOrdCorrLevFak\,$debug\,$onetothree\,$correc1to3\,$drawFig\,$saveFile\)
+root -l  CorrectTypeOneNSave.C++\(\"$inputDir\",\"$outputDir\",\"$spectraFile\",\"$trkCorrFile1\",\"$trkCorrFile2\",\"$trkCorrFile3\",\"$trkCorrFile4\",\"$trkCorrFile5\",\"$trkCorrFile6\",\"$anaDir\",\"$corDir\",$isGEN\,$varBin\,$ijet\,$fjet\,$ieta\,$feta\,$scale\,$secOrdCorrLevEf\,$secOrdCorrLevFak\,$debug\,$onetothree\,$correc1to3\,$drawFig\,$saveFile\,$version\)
