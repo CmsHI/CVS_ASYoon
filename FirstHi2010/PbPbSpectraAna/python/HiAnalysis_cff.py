@@ -5,8 +5,7 @@ from edwenger.HiTrkEffAnalyzer.hitrkEffAnalyzer_cff import *
 
 hiAnalysisSeq = cms.Sequence(hipxltrackAna*
                              hipxltrackAnaMult*
-                             #hipxltrkEffAna*
-                             (hitrackAna + hirefitTrackAna)*
-                             hitrackAnaMult
-                             )
-                             #hitrkEffAna)
+                             hipxltrkEffAna*
+                             (hitrackAna +hirefitTrackAna)*
+                             hitrackAnaMult*
+                             hitrkEffAna)
