@@ -15,6 +15,7 @@ cvs co UserCode/SavedFMa/PatAlgos
 
 # tools
 cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
+cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
 
 # needed for dijetana
 
