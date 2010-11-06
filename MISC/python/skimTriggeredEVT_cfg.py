@@ -25,17 +25,18 @@ process.source = cms.Source("PoolSource",
 
 
 # =============== Other Statements =====================
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(2) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'GR10_P_V12::All' 
 
 # =============== Trigger selection ====================
 from HLTrigger.HLTfilters.hltHighLevel_cfi import hltHighLevel
+process.hltbscHighMult = hltHighLevel.clone(
+        HLTPaths = cms.vstring('HLT_HIL1Tech_BSC_HighMultiplicity'),
+        andOr = cms.bool(True)
+)
 
-hltMinBias = hltHighLevel.clone(
-        HLTPaths = cms.vstring('HLT_L1_BscMinBiasOR_BptxPlusORMinus'),
-            andOr = cms.bool(True)
-        )
+process.eventFilter_step = cms.Path(process.hltbscHighMult)
 
 from HLTrigger.HLTfilters.hltLevel1GTSeed_cfi import hltLevel1GTSeed
 process.bscHighMult = hltLevel1GTSeed.clone(
@@ -55,7 +56,7 @@ process.MessageLogger.categories.append('L1GtTrigReport')
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = cms.untracked.vstring('keep *'),
     SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('eventFilter_step')),
-    fileName = cms.untracked.string('file:/home/sungho/sctch101/data/evtdisplay/input/HIRun2010_run150066_L1Tech_BSC_HighMultiplicity.root')
+    fileName = cms.untracked.string('file:/home/sungho/sctch101/data/evtdisplay/input/HIRun2010_run150066_HLT_HIL1Tech_BSC_HighMultiplicity.root')
 )
 
 process.output_step = cms.EndPath(process.output)
@@ -64,7 +65,7 @@ process.output_step = cms.EndPath(process.output)
 # =============== Schedule =====================
 process.schedule = cms.Schedule(
     process.eventFilter_step,
-    #process.L1AnalyzerEndpath,
+    process.L1AnalyzerEndpath,
     process.output_step
 )
 
