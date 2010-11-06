@@ -3,7 +3,7 @@
 cd $CMSSW_BASE/src
 
 # skiming and ana
-cvs co UserCode/FirstHi2010/PbPbSpectraAna
+cvs co UserCode/ASYoon/FirstHi2010/PbPbSpectraAna
 
 # analyzers
 cvs co UserCode/edwenger/VertexAnalyzer
@@ -22,7 +22,8 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
 # setting and cleanup
 mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
-mv UserCode/FirstHi2010 .
+mv UserCode/ASYoon/FirstHi2010 .
 mv UserCode/SavedFMa/ Saved
 
+#
 #scram b
