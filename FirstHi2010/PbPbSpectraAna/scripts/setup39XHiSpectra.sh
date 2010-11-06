@@ -6,7 +6,7 @@ cd $CMSSW_BASE/src
 cvs co UserCode/ASYoon/FirstHi2010/PbPbSpectraAna
 
 # analyzers
-cvs co UserCode/edwenger/VertexAnalyzer
+cvs co UserCode/edwenger/HiVertexAnalyzer
 cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
 cvs co UserCode/edwenger/HiTrkEffAnalyzer
 cvs co UserCode/SavedFMa/DiJetAna
