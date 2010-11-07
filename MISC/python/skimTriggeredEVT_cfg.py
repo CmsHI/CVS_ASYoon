@@ -24,7 +24,7 @@ process.source = cms.Source("PoolSource",
 
 
 # =============== Other Statements =====================
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10) )
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'GR10_P_V12::All' 
 
@@ -46,16 +46,23 @@ process.eventFilter_step = cms.Path(process.whateverHLT)
 #process.eventFilter_step = cms.Path(process.whateverL1)
 
 # =============== Trigger summary =======================
+# L1
 process.load('L1Trigger.GlobalTriggerAnalyzer.l1GtTrigReport_cfi')
 process.l1GtTrigReport.L1GtRecordInputTag = cms.InputTag( "gtDigis") # simGtDigis
-process.L1AnalyzerEndpath = cms.EndPath( process.l1GtTrigReport )
+
+# HLT
+process.load('HLTrigger.HLTanalyzers.hlTrigReport_cfi')
+process.TriggerAnalyzerEndpath = cms.EndPath(process.l1GtTrigReport*
+                                             process.hlTrigReport)
+
 process.MessageLogger.categories.append('L1GtTrigReport')
+process.MessageLogger.categories.append('HLTrigReport')
                     
 # =============== Output ================================
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = cms.untracked.vstring('keep *'),
     SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('eventFilter_step')),
-    fileName = cms.untracked.string('file:/home/sungho/sctch101/data/evtdisplay/input/HIRun2010_run150308_HLT_HIJet90U.root')
+    fileName = cms.untracked.string('file:/home/sungho/sctch101/data/evtdisplay/input/HIRun2010_run150308_HLT_HIJet90U_test.root')
 )
 
 process.output_step = cms.EndPath(process.output)
@@ -64,7 +71,7 @@ process.output_step = cms.EndPath(process.output)
 # =============== Schedule =====================
 process.schedule = cms.Schedule(
     process.eventFilter_step,
-    process.L1AnalyzerEndpath,
+    process.TriggerAnalyzerEndpath,
     process.output_step
 )
 
