@@ -16,10 +16,9 @@ process.load('Configuration/EventContent/EventContent_cff')
 # =============== 2.36 TeV MC Sample =====================
 process.source = cms.Source("PoolSource",
                             fileNames = cms.untracked.vstring(
-     'rfio:/castor/cern.ch/cms/store/hidata/HIRun2010/HIAllPhysics/RECO/PromptReco-v1/000/150/066/2205E521-D5E8-DF11-B724-001617E30D52.root',
-     'rfio:/castor/cern.ch/cms/store/hidata/HIRun2010/HIAllPhysics/RECO/PromptReco-v1/000/150/066/822BCD17-D5E8-DF11-9B93-001617DBD472.root',
-     'rfio:/castor/cern.ch/cms/store/hidata/HIRun2010/HIAllPhysics/RECO/PromptReco-v1/000/150/066/823338D4-E6E8-DF11-B1C1-0030486730C6.root',
-     'rfio:/castor/cern.ch/cms/store/hidata/HIRun2010/HIAllPhysics/RECO/PromptReco-v1/000/150/066/9A50D64F-D4E8-DF11-AE15-001D09F2910A.root'
+    '/store/express/HIRun2010/HIExpressPhysics/FEVT/Express-v3/000/150/308/FEEBDF87-19EA-DF11-8472-001D09F23944.root',
+    '/store/express/HIRun2010/HIExpressPhysics/FEVT/Express-v3/000/150/308/FE732182-19EA-DF11-BFA8-001D09F2447F.root',
+    '/store/express/HIRun2010/HIExpressPhysics/FEVT/Express-v3/000/150/308/E4EECE82-19EA-DF11-B887-001D09F2441B.root'
     )
 )
 
@@ -31,20 +30,20 @@ process.GlobalTag.globaltag = 'GR10_P_V12::All'
 
 # =============== Trigger selection ====================
 from HLTrigger.HLTfilters.hltHighLevel_cfi import hltHighLevel
-process.hltbscHighMult = hltHighLevel.clone(
-        HLTPaths = cms.vstring('HLT_HIL1Tech_BSC_HighMultiplicity'),
-        andOr = cms.bool(True)
+
+process.whateverHLT = hltHighLevel.clone(
+    HLTPaths = cms.vstring('HLT_HIJet90U'), 
+    andOr = cms.bool(True)
 )
 
-process.eventFilter_step = cms.Path(process.hltbscHighMult)
-
 from HLTrigger.HLTfilters.hltLevel1GTSeed_cfi import hltLevel1GTSeed
-process.bscHighMult = hltLevel1GTSeed.clone(
+process.whateverL1 = hltLevel1GTSeed.clone(
     L1TechTriggerSeeding = cms.bool(True),
     L1SeedsLogicalExpression = cms.string('35')
     )
 
-process.eventFilter_step = cms.Path(process.bscHighMult)
+process.eventFilter_step = cms.Path(process.whateverHLT)
+#process.eventFilter_step = cms.Path(process.whateverL1)
 
 # =============== Trigger summary =======================
 process.load('L1Trigger.GlobalTriggerAnalyzer.l1GtTrigReport_cfi')
@@ -56,7 +55,7 @@ process.MessageLogger.categories.append('L1GtTrigReport')
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = cms.untracked.vstring('keep *'),
     SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('eventFilter_step')),
-    fileName = cms.untracked.string('file:/home/sungho/sctch101/data/evtdisplay/input/HIRun2010_run150066_HLT_HIL1Tech_BSC_HighMultiplicity.root')
+    fileName = cms.untracked.string('file:/home/sungho/sctch101/data/evtdisplay/input/HIRun2010_run150308_HLT_HIJet90U.root')
 )
 
 process.output_step = cms.EndPath(process.output)
