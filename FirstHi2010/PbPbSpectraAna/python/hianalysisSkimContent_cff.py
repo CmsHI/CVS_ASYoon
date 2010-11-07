@@ -19,8 +19,11 @@ analysisSkimContent = cms.PSet(
                                                # jet
                                                'keep *_towerMaker_*_*',
                                                'keep *_selectedPatJets*_*_*',
+
+                                               # low pt tracks
+                                               'keep *_hiLowPtPixelTracks_*_*',
                                                
-                                               # tracks
+                                               # full tracks
                                                'keep recoTracks_generalTracks_*_*RECO',
                                                'keep recoTracks_refitTracks_*_*',
                                                'keep recoRecoChargedCandidates_allTracks_*_*',
