@@ -52,8 +52,11 @@ process.l1GtTrigReport.L1GtRecordInputTag = cms.InputTag( "gtDigis") # simGtDigi
 
 # HLT
 process.load('HLTrigger.HLTanalyzers.hlTrigReport_cfi')
+process.hlTrigReport.HLTriggerResults = cms.InputTag("TriggerResults","","REDIGI") # make sure name
+
 process.TriggerAnalyzerEndpath = cms.EndPath(process.l1GtTrigReport*
                                              process.hlTrigReport)
+
 
 process.MessageLogger.categories.append('L1GtTrigReport')
 process.MessageLogger.categories.append('HLTrigReport')
