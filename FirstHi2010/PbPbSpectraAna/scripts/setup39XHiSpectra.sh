@@ -12,6 +12,12 @@ cvs co UserCode/edwenger/HiTrkEffAnalyzer
 cvs co UserCode/SavedFMa/Saved/DiJetAna
 cvs co UserCode/SavedFMa/Saved/PatAlgos
 
+# centrality
+# https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideHeavyIonCentrality
+cvs co -r V00-00-06 CondFormats/HIObjects
+cvs co -r V00-01-20 DataFormats/HeavyIonEvent
+cvs co -r V00-01-18 RecoHI/HiCentralityAlgos
+cvs co -d CmsHi/Analysis2010 UserCode/CmsHi/Analysis2010
 
 # tools
 cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
