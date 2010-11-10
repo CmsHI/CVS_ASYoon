@@ -66,8 +66,10 @@ def whichCentBins(process,centRange):
 def setAnaSeq(process,mode="AnaOnly"):
     if mode=="AnaOnly":
         process = disableEff(process)
+        print "Ana only (no Eff)"
     if mode=="EffOnly":
         process = enableEffOnly(process)
+        print "Eff only (no Ana)"
     if mode=="ALL":
         print "Ana and Eff both run"
     return process
