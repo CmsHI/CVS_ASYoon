@@ -11,6 +11,7 @@ cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
 cvs co UserCode/edwenger/HiTrkEffAnalyzer
 cvs co UserCode/SavedFMa/Saved/DiJetAna
 cvs co UserCode/SavedFMa/Saved/PatAlgos
+cvs co UserCode/SavedFMa/Saved/Skim
 
 # centrality
 # https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideHeavyIonCentrality
