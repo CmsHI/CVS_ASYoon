@@ -1,10 +1,13 @@
 
-v=$1
-vmax=$2
-try=$3
 
-#i="1"
-j="1"
+if [ -f inputlist.txt ]
+    then
+    rm inputlist.txt
+    echo "inputlist.txt exists so removed"
+else
+    echo "inputlist.txt doesn't exist"
+fi
+
 
 
 
@@ -17,8 +20,7 @@ while read inputline
      echo $targetdir
 
      rfdir ${directory} > list.txt
-     #cat $PWD/list.txt  | awk '{print "rfio:$directory"$9}' > listfiles.txt
-     cat $PWD/list.txt  | awk '{print "rfio:'$directory'"$9}' > listfiles.txt
+     cat $PWD/list.txt  | awk '{print "rfio:'$directory'/"$9}' > listfiles.txt
 
      while read inputlineline
        do
