@@ -49,13 +49,20 @@ def setCentBins(process,ci=0,cf=10):
         print "Centrality bins = ", process.centFilter.selectedBins
     return process
 
+# low -> low edge, up -> up edge
 def whichCentBins(process,centRange):
-    if centRange=="0To10":
+    if centRange=="0To5":
+        setCentBins(process,0,1)
+    elif centRange=="0To10":
         setCentBins(process,0,3)
     elif centRange=="0To20":
         setCentBins(process,0,7)
     elif centRange=="20To40":
-        setCentBins(process,9,15)
+        setCentBins(process,8,15)
+    elif centRange=="30To50":
+        setCentBins(process,12,19)
+    elif centRange=="50To100":
+        setCentBins(process,20,39)
     elif centRange=="60To100":
         setCentBins(process,25,39)
     elif centRange=="ALL":
