@@ -5,7 +5,7 @@ from FirstHi2010.PbPbSpectraAna.HiCentralityInfo_cff import *
 from FirstHi2010.PbPbSpectraAna.HiTrackRefit_cff import *
 from FirstHi2010.PbPbSpectraAna.HiTrackSelection_cff import *
 
-hiextraReco = cms.Sequence(hicentProd*
+hiextraReco = cms.Sequence(#hicentProd*
                            hiLowPtPixelTracks*
                            hitrackRefit*
                            caloCompatibleTracks)
