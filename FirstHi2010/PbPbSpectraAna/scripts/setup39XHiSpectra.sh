@@ -12,6 +12,7 @@ cvs co UserCode/edwenger/HiTrkEffAnalyzer
 cvs co UserCode/SavedFMa/Saved/DiJetAna
 cvs co UserCode/SavedFMa/Saved/PatAlgos
 cvs co UserCode/SavedFMa/Saved/Skim
+cvs co UserCode/MNguyen/PFCandidateTrackAnalyzer
 
 # centrality
 # https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideHeavyIonCentrality
@@ -31,6 +32,9 @@ mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
 mv UserCode/ASYoon/FirstHi2010 .
 mv UserCode/SavedFMa/Saved .
+mv UserCode/MNguyen .
 
 #
-#scram b
+scram b
+
+
