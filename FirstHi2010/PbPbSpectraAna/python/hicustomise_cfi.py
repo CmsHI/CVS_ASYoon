@@ -63,6 +63,12 @@ def whichCentBins(process,centRange):
         setCentBins(process,12,19)
     elif centRange=="50To100":
         setCentBins(process,20,39)
+    elif centRange=="50To60":
+        setCentBins(process,20,23)
+    elif centRange=="60To80":
+        setCentBins(process,24,31)
+    elif centRange=="80To100":
+        setCentBins(process,32,39)
     elif centRange=="60To100":
         setCentBins(process,25,39)
     elif centRange=="ALL":
@@ -79,6 +85,23 @@ def setAnaSeq(process,mode="AnaOnly"):
         print "Eff only (no Ana)"
     if mode=="ALL":
         print "Ana and Eff both run"
+    return process
+
+def customiseLooseCuts(process):
+    process.pfCandidateAnalyzer.minHits=0
+    process.pfCandidateAnalyzer.maxPtErr=1.0
+    process.pfCandidateAnalyzer.maxD0=10.0
+    process.pfCandidateAnalyzer.maxDZ=10.0
+    process.pfCandidateAnalyzer.maxD0Norm=100.0
+    process.pfCandidateAnalyzer.maxDZNorm=100.0
+    process.pfCandidateAnalyzer.pixelSeedOnly=False
+    return process
+                                
+
+def eventFilterRereco(process):
+    process.eventFilter.remove(process.centFilter)
+    process.eventFilter.remove(process.preEvtSelVtxAna)
+    process.eventFilter.remove(process.postEvtSelVtxAna)
     return process
 
 def conditionalTest(process):
