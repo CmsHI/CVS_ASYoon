@@ -28,23 +28,29 @@ process.source = cms.Source ("PoolSource",
 )
 
 # =============== Other Statements =====================
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
 process.GlobalTag.globaltag = 'START39_V4HI::All'
 
-process.Timing = cms.Service("Timing")
+#process.Timing = cms.Service("Timing")
+
+# ntuple output
+process.TFileService = cms.Service("TFileService",
+                                   fileName=cms.string('trkcalohistMC.root')
+                                   )
 
 
 # =============== Import Sequences ===================== 
 process.load("FirstHi2010.PbPbSpectraAna.HiPFRereco_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiEventFilter_cff")
+process.load("edwenger.HiTrkEffAnalyzer.hipfCandAnalyzer_cff")
 
 # =============== Final Paths ==========================
 process.eventFilter_step = cms.Path(process.eventFilter)
 process.anaFilter_step = cms.Path(process.rereco_seq)
-process.rereco_step = cms.Path(process.rereco_seq)
-                               #process.pfCandidateAnalyzer)
+process.rereco_step = cms.Path(process.rereco_seq *
+                               process.hipfCandAnalyzer)
 
 # =============== Customize =======================
 from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
@@ -56,13 +62,11 @@ process.load("FirstHi2010.PbPbSpectraAna.hiPFRerecoSkimContent_cff")
 
 process.output = cms.OutputModule("PoolOutputModule",
     process.PFRerecoSkimContent,
-    #outputCommands = cms.untracked.vstring('keep *'),
     SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('eventFilter_step')),
     dataset = cms.untracked.PSet(
       dataTier = cms.untracked.string('AODSIM'),
       filterName = cms.untracked.string('TrkAnaFilter')),
-    #fileName = cms.untracked.string('trkAnaRerecoSkim.root')
-    fileName = cms.untracked.string('trkAnaRerecoSkim_skim.root')
+    fileName = cms.untracked.string('trkAnaRerecoSkim.root')
 )
 
 process.output_step = cms.EndPath(process.output) 
@@ -74,4 +78,4 @@ process.schedule = cms.Schedule(process.eventFilter_step,
                                 process.rereco_step
                                 )
 
-process.schedule.append(process.output_step)
+#process.schedule.append(process.output_step)
