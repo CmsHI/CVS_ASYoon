@@ -17,7 +17,7 @@ options = VarParsing.VarParsing ('standard')
 
 # my own variable
 options.register('centRange',
-                 "0To10", 
+                 "ALL", # 0To10, 50To100, and etc 
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "Centrality bin range")
@@ -34,7 +34,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(100))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(50))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V4HI::All' 
 
@@ -48,7 +48,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.3 $'),
+        version = cms.untracked.string('$Revision: 1.4 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -62,15 +62,14 @@ process.load("FirstHi2010.PbPbSpectraAna.HiEventFilter_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiExtraReco_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiAnalysis_cff")
 
-
 # =============== Pat jet in HI ========================
 from Saved.DiJetAna.customise_cfi import *
 enableRECO(process,"MC","HI")
 
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
-process.extraReco_step   = cms.Path(process.eventFilter*(process.hiextraReco + process.reco_extra))
-process.ana_step         = cms.Path(process.eventFilter*process.hiAnalysisSeq)
+process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.reco_extra + process.hipfReReco))
+process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
 
 # =============== Customize =======================
 from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
@@ -78,7 +77,8 @@ process = enableSIM(process)    # activate isGEN in analyzers
 process = disableLowPt(process) # disable low pt pixel
 process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 process = enableREDIGI(process) # to run on redigitized 
-process = whichCentBins(process,options.centRange)
+process = whichCentBins(process,options.centRange) # centrality range
+process = setMinPtforPF(process,5) # min pt for PF reco/ana
 
 # =============== Output ================================
 process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
