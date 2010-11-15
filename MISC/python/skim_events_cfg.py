@@ -14,7 +14,7 @@ process.load('Configuration/EventContent/EventContent_cff')
 
 # =============== input file setting =====================
 mylist = FileUtils.loadListFromFile ('run150431.txt')
-mylist.extend ( FileUtils.loadListFromFile ('run150431.txt') )
+#mylist.extend ( FileUtils.loadListFromFile ('run150431.txt') )
 
 # =============== 2.36 TeV MC Sample =====================
 run_list = ['150431:834258-150431:834258',
