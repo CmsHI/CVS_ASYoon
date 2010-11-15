@@ -2,44 +2,14 @@ import FWCore.ParameterSet.Config as cms
 
 # ================ Physics Declared Bit ================
 physDeclFilter = cms.EDFilter("PhysDecl",
-                              applyfilter = cms.untracked.bool(False),
-                              HLTriggerResults = cms.InputTag("TriggerResults","","HLT")
-                              )
+              applyfilter = cms.untracked.bool(False),
+              HLTriggerResults = cms.InputTag("TriggerResults","","HLT")
+              )
 
-
-# ================ L1 Filters =====================
-from L1TriggerConfig.L1GtConfigProducers.L1GtTriggerMaskTechTrigConfig_cff import *
-from HLTrigger.HLTfilters.hltLevel1GTSeed_cfi import hltLevel1GTSeed
-from L1Trigger.Skimmer.l1Filter_cfi import l1Filter
-
-bptxAnd = hltLevel1GTSeed.clone(
-        L1TechTriggerSeeding = cms.bool(True),
-            L1SeedsLogicalExpression = cms.string('0')
-            )
-
-bscOr = hltLevel1GTSeed.clone(
-        L1TechTriggerSeeding = cms.bool(True),
-            L1SeedsLogicalExpression = cms.string('34 OR 40 OR 41')
-            )
-
-bscNoHalo = hltLevel1GTSeed.clone(
-        L1TechTriggerSeeding = cms.bool(True),
-            L1SeedsLogicalExpression = cms.string('NOT (36 OR 37 OR 38 OR 39)')
-            )
-
-bscOrBptxOr = l1Filter.clone(
-        algorithms = ["L1_BscMinBiasOR_BptxPlusORMinus"]
-            )
-
-hfCoinBptxOr = l1Filter.clone(
-    algorithms = ["L1_HcalHfCoincidencePm_BptxAND"]
-    )
-
-# ================ HLT Filters =====================
+# ================ HLT Filters =========================
 from HLTrigger.HLTfilters.hltHighLevel_cfi import hltHighLevel
 
 hltMinBias = hltHighLevel.clone(
-    #HLTPaths = cms.vstring('HLT_HIMinBiasHF'), # HLT_HIMinBiasHF_Core
     HLTPaths = cms.vstring('HLT_HIMinBiasBSC'),
     andOr = cms.bool(True)
     )
@@ -50,29 +20,6 @@ hltJets = hltHighLevel.clone(
     )
 
 
-# ================ Monster Event Rejection ==============
-purityFractionFilter = cms.EDFilter("FilterOutScraping",
-                                    applyfilter = cms.untracked.bool(True),
-                                    debugOn = cms.untracked.bool(False),
-                                    numtrack = cms.untracked.uint32(10),
-                                    thresh = cms.untracked.double(0.25)
-                                    )
+#minBiasBscFilter = cms.Sequence(collisionEventSelection*hltMinBias)
 
-
-# ================ Vertex Filter ========================
-primaryVertexFilter = cms.EDFilter("GoodVertexFilter",
-                                   vertexCollection = cms.InputTag('offlinePrimaryVertices'),
-                                   minimumNDOF = cms.uint32(4),
-                                   maxAbsZ = cms.double(15),
-                                   maxd0 = cms.double(2)
-                                   )
-
-# filter on events without vertex and produce vertex collection
-# containing only the vertex with the most tracks
-from edwenger.HiVertexAnalyzer.HiSelectedVertex_cfi import *
-
-# select only vertices passing a string cut and sort them
-from edwenger.HiVertexAnalyzer.HiGoodVertices_cff import *
-
-#minBiasBscFilter = cms.Sequence(hfCoinBptxOr)
 minBiasBscFilter = cms.Sequence(hltMinBias)
