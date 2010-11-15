@@ -37,8 +37,14 @@ def enableREDIGI(process):
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','REDIGI')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     return process
-    
 
+def setMinPtforPF(process,minpt=10):
+    print "Particle Flow reconstruction with min pT = ", minpt
+    process.trkfilter.ptMin = cms.double(minpt)
+    process.pftrkfilter.ptMin = cms.double(minpt)
+    process.pfCandidateAnalyzer.ptMin = cms.untracked.double(minpt)
+    return process
+    
 def setCentBins(process,ci=0,cf=10):
     if ci==cf:
         print "No centrality selection"
