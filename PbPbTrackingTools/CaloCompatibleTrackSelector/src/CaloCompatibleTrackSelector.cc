@@ -1,40 +1,47 @@
+/*
+
+Based on analytical track selector   
+
+- This is track selector that rejects tracks lie in the incompatible calo-track region.
+- No selection is done other then rejecting those tracks.
+
+*/
+
+
+// Basic inclusion
 #include "PbPbTrackingTools/CaloCompatibleTrackSelector/interface/CaloCompatibleTrackSelector.h"
 #include "SimTracker/Records/interface/TrackAssociatorRecord.h"
 #include "SimTracker/TrackAssociation/interface/TrackAssociatorByHits.h"
+
+#include "DataFormats/ParticleFlowCandidate/interface/PFCandidate.h"
+#include "DataFormats/ParticleFlowReco/interface/PFBlock.h"
+#include "DataFormats/ParticleFlowReco/interface/PFCluster.h"
+#include "DataFormats/ParticleFlowReco/interface/PFClusterFwd.h"
+
+#include "DataFormats/TrackReco/interface/Track.h"
+#include "DataFormats/TrackReco/interface/TrackFwd.h"
+
+#include "SimDataFormats/TrackingAnalysis/interface/TrackingParticle.h"
+#include "SimDataFormats/TrackingAnalysis/interface/TrackingParticleFwd.h"
+#include "DataFormats/RecoCandidate/interface/TrackAssociation.h"
+
+#include "FWCore/Framework/interface/EventSetup.h"
+#include "FWCore/Framework/interface/ESHandle.h"
+
 #include <Math/DistFunc.h>
 #include "TMath.h"
+
 
 using reco::modules::CaloCompatibleTrackSelector;
 
 CaloCompatibleTrackSelector::CaloCompatibleTrackSelector( const edm::ParameterSet & cfg ) :
-    src_( cfg.getParameter<edm::InputTag>( "src" ) ),
-    beamspot_( cfg.getParameter<edm::InputTag>( "beamspot" ) ),
-    vertices_( cfg.getParameter<edm::InputTag>( "vertices" ) ),
-    qualityString_(cfg.getParameter<std::string>("qualityString")),
-    setQualityBit_( false ),
-    qualityToSet_(TrackBase::qualityByName(cfg.getParameter<std::string>("qualityString"))),
-
+    src_(cfg.getParameter<edm::InputTag>("src")),
+    srcPFCand_(cfg.getParameter<edm::InputTag>("srcPFCand")),
     copyExtras_(cfg.getUntrackedParameter<bool>("copyExtras", false)),
     copyTrajectories_(cfg.getUntrackedParameter<bool>("copyTrajectories", false)),
-    keepAllTracks_( cfg.exists("keepAllTracks") ?
-		    cfg.getParameter<bool>("keepAllTracks") :
-		    false )  // as this is what you expect from a well behaved selector
+    keepAllTracks_(cfg.exists("keepAllTracks") ? cfg.getParameter<bool>("keepAllTracks") : false ),  // as this is what you expect from a well behaved selector
+    hasSimInfo_(cfg.getUntrackedParameter<bool>("hasSimInfo_", false))
 {
-   /*
-    if (cfg.exists("qualityBit")) {
-        std::string qualityStr = cfg.getParameter<std::string>("qualityBit");
-        if (qualityStr != "") {
-            setQualityBit_ = true;
-            //qualityToSet_  = TrackBase::qualityByName(cfg.getParameter<std::string>("qualityBit"));
-        }
-    }
-   */
-   
-   if (keepAllTracks_ && !setQualityBit_) throw cms::Exception("Configuration") << 
-      "If you set 'keepAllTracks' to true, you must specify which qualityBit to set.\n";
-   if (setQualityBit_ && (qualityToSet_ == TrackBase::undefQuality)) throw cms::Exception("Configuration") <<
-      "You can't set the quality bit " << cfg.getParameter<std::string>("qualityBit") << " as it is 'undefQuality' or unknown.\n";
-   
    
    std::string alias( cfg.getParameter<std::string>( "@module_label" ) );
    produces<reco::TrackCollection>().setBranchAlias( alias + "Tracks");
@@ -58,49 +65,95 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
     using namespace edm;
     using namespace reco;
 
-    const string qualityString = "highPurity";
-
     Handle<TrackCollection> hSrcTrack;
     Handle< vector<Trajectory> > hTraj;
     Handle< vector<Trajectory> > hTrajP;
     Handle< TrajTrackAssociationCollection > hTTAss;
-
-    // looking for the beam spot
-    edm::Handle<reco::BeamSpot> hBsp;
-    evt.getByLabel(beamspot_, hBsp);
-    reco::BeamSpot vertexBeamSpot;
-    vertexBeamSpot = *hBsp;
-    
-    // Select good primary vertices for use in subsequent track selection
-    edm::Handle<reco::VertexCollection> hVtx;
-    evt.getByLabel(vertices_, hVtx);
-    std::vector<Point> points;
-    selectVertices(*hVtx, points);
-    
-    // get association map
-    //Handle<reco::RecoToSimCollection > rectosimCollection;
-    //evt.getByLabel("trackingParticleRecoTrackAsssociation", rectosimCollection);
-    //const RecoToSimCollection p = *(rectosimCollection.product());
 
     // get track collection
     Handle<edm::View<reco::Track> > trackCollectionH;
     evt.getByLabel(src_,trackCollectionH);
     const edm::View<reco::Track>  tC = *(trackCollectionH.product());
 
-    // get track collection
-    evt.getByLabel( src_, hSrcTrack );
+    // get track collection (new collection to be created)
+    evt.getByLabel(src_,hSrcTrack);
 
     selTracks_ = auto_ptr<TrackCollection>(new TrackCollection());
-    //rTracks_ = evt.getRefBeforePut<TrackCollection>();      
+
+    // get PFCandidates
+
+    Handle<PFCandidateCollection> pfCandidates;
+    evt.getByLabel(srcPFCand_, pfCandidates);
+
+    // loop over all the rec tracks
+
+    bool keepIt = false;
+
+    float dpt = 0;
+
 
     for(edm::View<reco::Track>::size_type i=0; i<tC.size(); ++i) {
        edm::RefToBase<reco::Track> track(trackCollectionH, i);
        const reco::Track & trk = (*hSrcTrack)[i];
 
-       //if(!trk.quality(reco::TrackBase::qualityByName(qualityString_))) continue;
-       selTracks_->push_back(trk);
+       // loop over PF candidates
+       for( unsigned j=0; j<pfCandidates->size(); j++ ) {
+	  const reco::PFCandidate& cand = (*pfCandidates)[j];
+	  cand_type = cand.particleId();
+
+	  if(!(cand_type == PFCandidate::h)) continue; // charged hadron only
+	  reco::TrackRef pftrackRef = cand.trackRef();
+
+	  if(i!=pftrackRef.key()) continue; // matched track (Track <--> PF Cand) only
+
+	  trk_pt = trk.pt();
+
+	  // loop over PF cand's element
+	  sum_ecal=0.0, sum_hcal=0.0, sum_calo=0.0;
+
+	  for(unsigned k=0; k<cand.elementsInBlocks().size(); k++) {
+
+	     PFBlockRef blockRef = cand.elementsInBlocks()[k].first;
+      
+	     unsigned indexInBlock = cand.elementsInBlocks()[k].second;
+	     const edm::OwnVector<  reco::PFBlockElement>&  elements = (*blockRef).elements();
+
+	     switch (elements[indexInBlock].type()) {
+		
+	     case PFBlockElement::ECAL: {
+		reco::PFClusterRef clusterRef = elements[indexInBlock].clusterRef();
+		double eet = clusterRef->energy()/cosh(clusterRef->eta());
+		sum_ecal+=eet;
+		break;
+	     }
+		
+	     case PFBlockElement::HCAL: {
+		reco::PFClusterRef clusterRef = elements[indexInBlock].clusterRef();
+		double eet = clusterRef->energy()/cosh(clusterRef->eta());
+		sum_hcal+=eet;
+		break; 
+	     }       
+	     case PFBlockElement::TRACK: {
+		//This is just the reference to the track itself, since tracks can never be linked to other tracks
+		break; 
+	     }       
+	     default:
+		break;
+	     }
+
+	  } // end of elementsInBlocks()
+
+	  sum_calo = sum_ecal + sum_hcal; // add HCAL and ECAL cal sum
+
+       }
+       
+       if(isCaloCompatible(trk_pt,sum_calo)) selTracks_->push_back(trk);
+
     }
+
     evt.put(selTracks_);
+    
+    //std::cout<<" x tracks are rejected.."<<std::endl;
 
 }
 
@@ -110,6 +163,13 @@ bool CaloCompatibleTrackSelector::selectFakeOrReal(const reco::Track &trk) {
    return true;
 }
 
+bool CaloCompatibleTrackSelector::isCaloCompatible(float pt, float et){
+   
+   return true;
+}
+
+
+/*
 void CaloCompatibleTrackSelector::selectVertices(const reco::VertexCollection &vtxs, std::vector<Point> &points) {
    // Select good primary vertices
    using namespace reco;
@@ -122,5 +182,5 @@ void CaloCompatibleTrackSelector::selectVertices(const reco::VertexCollection &v
       }
    }
 }
-
+*/
 

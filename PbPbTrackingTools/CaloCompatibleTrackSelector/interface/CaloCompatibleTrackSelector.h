@@ -43,22 +43,20 @@ namespace reco { namespace modules {
             typedef math::XYZPoint Point;
             /// process one event
             void produce( edm::Event& evt, const edm::EventSetup& es ) ;
+
             /// return class, or -1 if rejected
-	    bool selectFakeOrReal (const reco::Track &trk);
-            void selectVertices ( const reco::VertexCollection &vtxs, std::vector<Point> &points);
+	    bool selectFakeOrReal(const reco::Track &trk);
+	    bool isCaloCompatible(float pt, float et);
+	    
+	    ///
+            //void selectVertices ( const reco::VertexCollection &vtxs, std::vector<Point> &points);
+
             /// source collection label
             edm::InputTag src_;
-            edm::InputTag beamspot_;
-            edm::InputTag vertices_;
+	    edm::InputTag srcPFCand_;
 
-	    // want fake or real?
-	    bool selectFake_;
-	    // which quality ?
-	    std::string qualityString_;
-
-            /// do I have to set a quality bit?
-            bool setQualityBit_;
-            TrackBase::TrackQuality qualityToSet_;
+	    //
+	    bool hasSimInfo_;
 
             /// copy only the tracks, not extras and rechits (for AOD)
             bool copyExtras_;
@@ -68,30 +66,6 @@ namespace reco { namespace modules {
             /// save all the tracks
             bool keepAllTracks_;
 
-            /// vertex cuts
-            int32_t vtxNumber_;
-            size_t  vtxTracks_;
-            double  vtxChi2Prob_;
-	    
-	    //  parameters for adapted optimal cuts on chi2 and primary vertex compatibility
-	    std::vector<double> res_par_;
-            double  chi2n_par_;
-	    std::vector<double> d0_par1_;
-	    std::vector<double> dz_par1_;
-	    std::vector<double> d0_par2_;
-	    std::vector<double> dz_par2_;
-	    // Boolean indicating if adapted primary vertex compatibility cuts are to be applied.
-            bool applyAdaptedPVCuts_;
-	    
-            /// Impact parameter absolute cuts
-            double max_d0_;
-            double max_z0_;
-	    
-            /// Cuts on numbers of layers with hits/3D hits/lost hits. 
-	    uint32_t min_layers_;
-	    uint32_t min_3Dlayers_;
-	    uint32_t max_lostLayers_;
-	    
             /// storage
             std::auto_ptr<reco::TrackCollection> selTracks_;
 	    /*
@@ -106,6 +80,19 @@ namespace reco { namespace modules {
             edm::RefProd< std::vector<Trajectory> > rTrajectories_;
             std::vector<reco::TrackRef> trackRefs_;
 	    */
+
+	    float cand_type;
+	    float cand_pt;
+	    float cand_eta;
+
+	    float trk_pt;
+
+	    float sum_ecal;
+	    float sum_hcal;
+	    float sum_calo;
+
+
+
     };
 
 } }
