@@ -26,8 +26,12 @@ hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"
 hipxltrackAnaMult = hipxltrackAna.clone(pixelMultMode=cms.untracked.bool(True))
 hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")) #refitted track!
 
-# tracking efficiency analyzer
+
+## tracking efficiency analyzer --------------------------------------
 # defined in edwenger/HiTrkEffAnalyzer/python/hitrkEffAnalyzer_cff.py
+
+## particle flow rereco and ana --------------------------------------
+# defined in edwenger/HiTrkEffAnalyzer/python/hipfCandAnalyzer_cff.py
 
 
 # Sequences
