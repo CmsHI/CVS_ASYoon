@@ -20,6 +20,4 @@ hltJets = hltHighLevel.clone(
     )
 
 
-#minBiasBscFilter = cms.Sequence(collisionEventSelection*hltMinBias)
-
 minBiasBscFilter = cms.Sequence(hltMinBias)
