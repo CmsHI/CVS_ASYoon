@@ -6,9 +6,9 @@ cd $CMSSW_BASE/src
 cvs co UserCode/ASYoon/FirstHi2010/PbPbSpectraAna
 
 # common HI ana stuffs
-cvs co HeavyIonsAnalysis/Configuration/python/collisionEventSelection_cff.py
-cvs co HeavyIonsAnalysis/Configuration/python/hfCoincFilter_cff.py
-cvs co HeavyIonsAnalysis/Configuration/python/analysisProducers_cff.p
+cvs co -r V01-02-09 HeavyIonsAnalysis/Configuration
+# cvs co RecoHI/HiEgammaAlgos (before 392p5)
+
 
 # analyzers
 cvs co UserCode/edwenger/HiVertexAnalyzer
