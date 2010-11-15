@@ -5,8 +5,10 @@ cd $CMSSW_BASE/src
 # skiming and ana
 cvs co UserCode/ASYoon/FirstHi2010/PbPbSpectraAna
 
-# common event selection
-cvs co HeavyIonsAnalysis/Configuration
+# common HI ana stuffs
+cvs co HeavyIonsAnalysis/Configuration/python/collisionEventSelection_cff.py
+cvs co HeavyIonsAnalysis/Configuration/python/hfCoincFilter_cff.py
+cvs co HeavyIonsAnalysis/Configuration/python/analysisProducers_cff.p
 
 # analyzers
 cvs co UserCode/edwenger/HiVertexAnalyzer
