@@ -10,6 +10,8 @@ def enableSIM(process):
     process.hitrackAnaMult.isGEN=True
     process.hipxltrkEffAnalyzer.hasSimInfo=True
     process.hitrkEffAnalyzer.hasSimInfo=True
+    process.pfCandidateAnalyzer.isData=False
+    process.pfCandidateAnalyzer.hasSimInfo=True
     return process
 
 def enableEffOnly(process):
@@ -39,7 +41,7 @@ def enableREDIGI(process):
     return process
 
 def setMinPtforPF(process,minpt=10):
-    print "Particle Flow reconstruction with min pT = ", minpt
+    print "Particle Flow reconstruction/ana with min pT = ", minpt
     process.trkfilter.ptMin = cms.double(minpt)
     process.pftrkfilter.ptMin = cms.double(minpt)
     process.pfCandidateAnalyzer.ptMin = cms.untracked.double(minpt)
