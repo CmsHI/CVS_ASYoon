@@ -5,6 +5,9 @@ cd $CMSSW_BASE/src
 # skiming and ana
 cvs co UserCode/ASYoon/FirstHi2010/PbPbSpectraAna
 
+# common event selection
+cvs co HeavyIonsAnalysis/Configuration
+
 # analyzers
 cvs co UserCode/edwenger/HiVertexAnalyzer
 cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
