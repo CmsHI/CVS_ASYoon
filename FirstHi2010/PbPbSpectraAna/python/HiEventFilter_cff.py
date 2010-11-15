@@ -13,6 +13,7 @@ centFilter = centralityFilter.clone(selectedBins = cms.vint32())
 
 eventFilter = cms.Sequence(centFilter *
                            preEvtSelVtxAna *
-                           minBiasBscFilter *    ## L1 and(or) HLT filter
+                           minBiasBscFilter *    # L1 and(or) HLT filter
+                           collisionEventSelection * #
                            postEvtSelVtxAna)
 
