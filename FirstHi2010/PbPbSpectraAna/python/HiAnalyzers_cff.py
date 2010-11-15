@@ -16,14 +16,13 @@ postSelVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiSelect
 # clone hitrack spectra ana to run with pixel and global
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
 
-hitrackAnaMult = hitrackAna.clone(pixelMultMode=cms.untracked.bool(True)) # use pix mult as occupancy handle
-hicompTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("caloCompatibleTracks"))
+#hirefinedtrkAna = hitrackAna.clone(src=cms.untracked.InputTag("hiRefinedTracks")
+hicompTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("caloCompatibleTracks"))  # place holder for the moment
 
 hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"),
                                  src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks")
                                  )
 
-hipxltrackAnaMult = hipxltrackAna.clone(pixelMultMode=cms.untracked.bool(True))
 hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")) #refitted track!
 
 
