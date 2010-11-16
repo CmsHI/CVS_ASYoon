@@ -7,8 +7,10 @@ process = cms.Process("ANASKIM")
 process.load('Configuration/StandardSequences/Services_cff')
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
 process.load('Configuration/StandardSequences/GeometryExtended_cff')
-process.load('Configuration/StandardSequences/MagneticField_AutoFromDBCurrent_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
+process.load('Configuration.StandardSequences.ReconstructionHeavyIons_cff')
+process.load('Configuration.StandardSequences.GeometryExtended_cff')
+process.load('Configuration.StandardSequences.MagneticField_38T_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 # ============= pre-setting ============================
@@ -34,7 +36,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(50))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V4HI::All' 
 
@@ -48,7 +50,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.4 $'),
+        version = cms.untracked.string('$Revision: 1.5 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -78,7 +80,7 @@ process = disableLowPt(process) # disable low pt pixel
 process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 process = enableREDIGI(process) # to run on redigitized 
 process = whichCentBins(process,options.centRange) # centrality range
-process = setMinPtforPF(process,5) # min pt for PF reco/ana
+process = setMinPtforPF(process,12) # min pt for PF reco/ana
 
 # =============== Output ================================
 process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
