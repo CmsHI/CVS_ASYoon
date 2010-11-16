@@ -4,8 +4,18 @@ from FirstHi2010.PbPbSpectraAna.HiLowPtPxlRereco_cff import *
 from FirstHi2010.PbPbSpectraAna.HiCentralityInfo_cff import *
 from FirstHi2010.PbPbSpectraAna.HiTrackRefit_cff import *
 from FirstHi2010.PbPbSpectraAna.HiTrackSelection_cff import *
+from FirstHi2010.PbPbSpectraAna.HiPFRereco_cff import *
+from edwenger.HiTrkEffAnalyzer.hipfCandAnalyzer_cff import *
+
 
 hiextraReco = cms.Sequence(#hicentProd*
                            hiLowPtPixelTracks*
-                           hitrackRefit*
-                           caloCompatibleTracks)
+                           hitrackRefit
+                           #*(!path)*caloComp
+                           )
+
+
+hipfReReco = cms.Sequence(rereco_seq*
+                          hipfCandAnalyzer*
+                          caloCompatibleTracks)
+
