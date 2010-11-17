@@ -25,6 +25,7 @@ def disableLowPt(process):
 def disableEff(process):
     process.hiAnalysisSeq.remove(process.hipxltrkEffAna)
     process.hiAnalysisSeq.remove(process.hitrkEffAna)
+    process.hiAnalysisSeq.remove(process.hicalotrkEffAna)
     return process
 
 def enableREDIGI(process):
