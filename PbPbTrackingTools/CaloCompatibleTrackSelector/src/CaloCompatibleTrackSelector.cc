@@ -145,7 +145,8 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 	     sum_calo = sum_ecal + sum_hcal; // add HCAL and ECAL cal sum
 	     
 	  }
-	  if(isCaloCompatible(trk_pt,sum_calo)) selTracks_->push_back(trk);
+	  if(thePtMin_ < trk_pt) selTracks_->push_back(trk);
+	  else if(isCaloCompatible(trk_pt,sum_calo)) selTracks_->push_back(trk);
        }
     }
     
@@ -162,32 +163,23 @@ bool CaloCompatibleTrackSelector::selectFakeOrReal(const reco::Track &trk) {
 
 bool CaloCompatibleTrackSelector::isCaloCompatible(float pt, float et){
    
-   // if (fCaloCompatibility(pt)<et) 
-   return true;
+   return (fCaloCompatibility(pt)>et);
 }
 
-float CaloCompatibleTrackSelector::fCaloCompatibility(float pt){
+float CaloCompatibleTrackSelector::fCaloCompatibility(float x){
    
    float a, b, c;
    a = 1.0, b = 1.0, c = 1.0;
 
-   float y = a*pt + b*pt + c;
+   float y = 0;
+
+   if(x<20)
+      y = 3.5;
+   else if(x<30)
+      y = 3.5 + 0.5*(x-15);
+   else
+      y = 3.5 + 0.015*pow(x,1.9);
+
    return y;
 }
-
-
-/*
-void CaloCompatibleTrackSelector::selectVertices(const reco::VertexCollection &vtxs, std::vector<Point> &points) {
-   // Select good primary vertices
-   using namespace reco;
-   int32_t toTake = vtxNumber_; 
-   for (VertexCollection::const_iterator it = vtxs.begin(), ed = vtxs.end(); it != ed; ++it) {
-      if ((it->tracksSize() >= vtxTracks_)  && 
-	  ( (it->chi2() == 0.0) || (TMath::Prob(it->chi2(), static_cast<int32_t>(it->ndof()) ) >= vtxChi2Prob_) ) ) {
-	 points.push_back(it->position()); 
-	 toTake--; if (toTake == 0) break;
-      }
-   }
-}
-*/
 
