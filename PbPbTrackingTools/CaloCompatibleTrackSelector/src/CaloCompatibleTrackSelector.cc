@@ -65,6 +65,8 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
     using namespace edm;
     using namespace reco;
 
+    LogDebug("CaloCompatibleTrackSelector")<<"min pt for selection = "<<thePtMin_<<endl;
+    
     Handle<TrackCollection> hSrcTrack;
     Handle< vector<Trajectory> > hTraj;
     Handle< vector<Trajectory> > hTrajP;
@@ -145,14 +147,16 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 	     sum_calo = sum_ecal + sum_hcal; // add HCAL and ECAL cal sum
 	     
 	  }
-	  if(trk_pt < thePtMin_) selTracks_->push_back(trk);
-	  else if(isCaloCompatible(trk_pt,sum_calo)) selTracks_->push_back(trk);
+	  if(trk_pt < thePtMin_) selTracks_->push_back(trk); // if pt< min pt, keep it
+	  else if(isCaloCompatible(trk_pt,sum_calo)) selTracks_->push_back(trk); // if pt> min pt, calo compatible, keep it
+	  else LogDebug("CaloCompatibleTrackSelector")<<" rejected track pt = "<<trk_pt<<endl;
        }
     }
     
+    LogDebug("CaloCompatibleTrackSelector")<<" number of tracks: (1) before selection = "<<tC.size()
+					   <<" (2) after selection = "<<selTracks_->size()<<endl;
+
     evt.put(selTracks_);
-    
-    //std::cout<<" x tracks are rejected.."<<std::endl;
 
 }
 
@@ -162,7 +166,7 @@ bool CaloCompatibleTrackSelector::selectFakeOrReal(const reco::Track &trk) {
 }
 
 bool CaloCompatibleTrackSelector::isCaloCompatible(float pt, float et){
-   
+
    return (fCaloCompatibility(pt)<et);
 }
 
