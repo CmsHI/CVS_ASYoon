@@ -10,12 +10,11 @@ from edwenger.HiTrkEffAnalyzer.hipfCandAnalyzer_cff import *
 
 # PF re-reco for events with pT>pT'
 hipfReReco = cms.Sequence(rereco_seq*
-                          hipfCandAnalyzer*
-                          caloCompatibleTracks)
+                          hipfCandAnalyzer)
 
 # Extra reco 
 hiextraReco = cms.Sequence(hiLowPtPixelTracks)
 
 
 # Extra track selections/refit/etc..
-hiextraTrack = cms.Sequence(hitrackRefit + caloCompatibleTracks)
+hiextraTrack = cms.Sequence(hitrackRefit + hiCaloCompTracks)

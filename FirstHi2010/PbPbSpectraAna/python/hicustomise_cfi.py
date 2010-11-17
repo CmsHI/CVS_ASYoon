@@ -38,6 +38,7 @@ def setMinPtforPF(process,minpt=10):
     process.trkfilter.ptMin = cms.double(minpt)
     process.pftrkfilter.ptMin = cms.double(minpt)
     process.pfCandidateAnalyzer.ptMin = cms.untracked.double(minpt)
+    process.hiCaloCompTracks.ptMin = cms.untracked.double(minpt)
     return process
     
 def setCentBins(process,ci=0,cf=10):
