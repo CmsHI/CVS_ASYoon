@@ -7,8 +7,10 @@ process = cms.Process("ANASKIM")
 process.load('Configuration/StandardSequences/Services_cff')
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
 process.load('Configuration/StandardSequences/GeometryExtended_cff')
-process.load('Configuration/StandardSequences/MagneticField_AutoFromDBCurrent_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
+process.load('Configuration.StandardSequences.ReconstructionHeavyIons_cff')
+process.load('Configuration.StandardSequences.GeometryExtended_cff')
+process.load('Configuration.StandardSequences.MagneticField_38T_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 # ============= pre-setting ============================
@@ -17,7 +19,7 @@ options = VarParsing.VarParsing ('standard')
 
 # my own variable
 options.register('centRange',
-                 "0To10", 
+                 "ALL", # 0To10, 50To100, and etc 
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "Centrality bin range")
@@ -34,7 +36,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(100))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'GR10_P_V12::All' # GR10_X_V12::All (X=E, P, H)
 
@@ -48,8 +50,8 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
-            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
+        version = cms.untracked.string('$Revision: 1.1 $'),
+            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
@@ -69,8 +71,10 @@ enableRECO(process,"Data","HI")
 
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
-process.extraReco_step   = cms.Path(process.eventFilter*(process.hiextraReco + process.reco_extra))
-process.ana_step         = cms.Path(process.eventFilter*process.hiAnalysisSeq)
+process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.reco_extra + process.hipfReReco))
+process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
+process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
+
 
 # =============== Customize =======================
 from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
@@ -78,10 +82,11 @@ from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
 process = disableLowPt(process) # disable low pt pixel
 process = setAnaSeq(process,"AnaOnly") # EffOnly, AnaOnly, ALL
 #process = enableREDIGI(process) # to run on redigitized 
-process = whichCentBins(process,options.centRange)
+process = whichCentBins(process,options.centRange) # centrality range
+process = setMinPtforPF(process,3) # min pt for PF reco/ana
 
 # =============== Output ================================
-process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
+#process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
 
 #process.output = cms.OutputModule("PoolOutputModule",
 #    #process.analysisSkimContent,
@@ -100,6 +105,8 @@ process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
 process.schedule = cms.Schedule(
     process.eventFilter_step,
     process.extraReco_step,
-    process.ana_step,
-    #process.output_step,
+    process.extraTrks_step,
+    process.ana_step
     )
+
+#process.schedule.append(process.output_step) 
