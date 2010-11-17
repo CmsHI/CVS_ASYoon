@@ -36,7 +36,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V4HI::All' 
 
@@ -50,7 +50,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.6 $'),
+        version = cms.untracked.string('$Revision: 1.7 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -93,7 +93,7 @@ process.output = cms.OutputModule("PoolOutputModule",
     dataset = cms.untracked.PSet(
       dataTier = cms.untracked.string('AODSIM'),
       filterName = cms.untracked.string('TrkAnaFilter')),
-    fileName = cms.untracked.string('trkAnaSkimAODSIM_test2.root')
+    fileName = cms.untracked.string('trkAnaSkimAODSIM.root')
 )
 
 process.output_step = cms.EndPath(process.output)
