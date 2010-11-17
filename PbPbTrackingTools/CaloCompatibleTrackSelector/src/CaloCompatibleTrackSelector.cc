@@ -145,7 +145,7 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 	     sum_calo = sum_ecal + sum_hcal; // add HCAL and ECAL cal sum
 	     
 	  }
-	  if(thePtMin_ < trk_pt) selTracks_->push_back(trk);
+	  if(trk_pt < thePtMin_) selTracks_->push_back(trk);
 	  else if(isCaloCompatible(trk_pt,sum_calo)) selTracks_->push_back(trk);
        }
     }
