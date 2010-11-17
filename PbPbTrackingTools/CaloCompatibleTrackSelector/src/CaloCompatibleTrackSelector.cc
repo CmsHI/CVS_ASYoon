@@ -163,7 +163,7 @@ bool CaloCompatibleTrackSelector::selectFakeOrReal(const reco::Track &trk) {
 
 bool CaloCompatibleTrackSelector::isCaloCompatible(float pt, float et){
    
-   return (fCaloCompatibility(pt)>et);
+   return (fCaloCompatibility(pt)<et);
 }
 
 float CaloCompatibleTrackSelector::fCaloCompatibility(float x){
