@@ -47,6 +47,9 @@ namespace reco { namespace modules {
             /// return class, or -1 if rejected
 	    bool selectFakeOrReal(const reco::Track &trk);
 	    bool isCaloCompatible(float pt, float et);
+
+	    // a functional form of fake rejection in pt-calo space
+	    float fCaloCompatibility(float pt);
 	    
 	    ///
             //void selectVertices ( const reco::VertexCollection &vtxs, std::vector<Point> &points);
@@ -56,15 +59,18 @@ namespace reco { namespace modules {
 	    edm::InputTag srcPFCand_;
 
 	    //
-	    bool hasSimInfo_;
+	    double thePtMin_;
 
             /// copy only the tracks, not extras and rechits (for AOD)
             bool copyExtras_;
             /// copy also trajectories and trajectory->track associations
             bool copyTrajectories_;
 
+	    /// when running on MC with "trackingParticles"
+            bool hasSimInfo_;
+
             /// save all the tracks
-            bool keepAllTracks_;
+            //bool keepAllTracks_;
 
             /// storage
             std::auto_ptr<reco::TrackCollection> selTracks_;

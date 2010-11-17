@@ -37,9 +37,9 @@ using reco::modules::CaloCompatibleTrackSelector;
 CaloCompatibleTrackSelector::CaloCompatibleTrackSelector( const edm::ParameterSet & cfg ) :
     src_(cfg.getParameter<edm::InputTag>("src")),
     srcPFCand_(cfg.getParameter<edm::InputTag>("srcPFCand")),
+    thePtMin_(cfg.getUntrackedParameter<double>("ptMin",10.0)),
     copyExtras_(cfg.getUntrackedParameter<bool>("copyExtras", false)),
     copyTrajectories_(cfg.getUntrackedParameter<bool>("copyTrajectories", false)),
-    keepAllTracks_(cfg.exists("keepAllTracks") ? cfg.getParameter<bool>("keepAllTracks") : false ),  // as this is what you expect from a well behaved selector
     hasSimInfo_(cfg.getUntrackedParameter<bool>("hasSimInfo_", false))
 {
    
@@ -80,77 +80,75 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 
     selTracks_ = auto_ptr<TrackCollection>(new TrackCollection());
 
-    // get PFCandidates
-
+    // get PFCandidates                                                                                                                        
     Handle<PFCandidateCollection> pfCandidates;
-    evt.getByLabel(srcPFCand_, pfCandidates);
-
-    // loop over all the rec tracks
-
-    bool keepIt = false;
-
-    float dpt = 0;
+    bool isPFThere = evt.getByLabel(srcPFCand_, pfCandidates);
 
 
     for(edm::View<reco::Track>::size_type i=0; i<tC.size(); ++i) {
        edm::RefToBase<reco::Track> track(trackCollectionH, i);
        const reco::Track & trk = (*hSrcTrack)[i];
 
-       // loop over PF candidates
-       for( unsigned j=0; j<pfCandidates->size(); j++ ) {
-	  const reco::PFCandidate& cand = (*pfCandidates)[j];
-	  cand_type = cand.particleId();
+       if(!isPFThere){   // if no PFCand, no selection 
 
-	  if(!(cand_type == PFCandidate::h)) continue; // charged hadron only
-	  reco::TrackRef pftrackRef = cand.trackRef();
+	  selTracks_->push_back(trk);
 
-	  if(i!=pftrackRef.key()) continue; // matched track (Track <--> PF Cand) only
+       }else{
 
-	  trk_pt = trk.pt();
-
-	  // loop over PF cand's element
-	  sum_ecal=0.0, sum_hcal=0.0, sum_calo=0.0;
-
-	  for(unsigned k=0; k<cand.elementsInBlocks().size(); k++) {
-
-	     PFBlockRef blockRef = cand.elementsInBlocks()[k].first;
-      
-	     unsigned indexInBlock = cand.elementsInBlocks()[k].second;
-	     const edm::OwnVector<  reco::PFBlockElement>&  elements = (*blockRef).elements();
-
-	     switch (elements[indexInBlock].type()) {
+	  // loop over PF candidates
+	  for( unsigned j=0; j<pfCandidates->size(); j++ ) {
+	     const reco::PFCandidate& cand = (*pfCandidates)[j];
+	     cand_type = cand.particleId();
+	     
+	     if(!(cand_type == PFCandidate::h)) continue; // charged hadron only
+	     reco::TrackRef pftrackRef = cand.trackRef();
+	     
+	     if(i!=pftrackRef.key()) continue; // matched track (Track <--> PF Cand) only
+	     
+	     trk_pt = trk.pt();
+	     
+	     // loop over PF cand's element
+	     sum_ecal=0.0, sum_hcal=0.0, sum_calo=0.0;
+	     
+	     for(unsigned k=0; k<cand.elementsInBlocks().size(); k++) {
 		
-	     case PFBlockElement::ECAL: {
-		reco::PFClusterRef clusterRef = elements[indexInBlock].clusterRef();
-		double eet = clusterRef->energy()/cosh(clusterRef->eta());
-		sum_ecal+=eet;
-		break;
-	     }
+		PFBlockRef blockRef = cand.elementsInBlocks()[k].first;
 		
-	     case PFBlockElement::HCAL: {
-		reco::PFClusterRef clusterRef = elements[indexInBlock].clusterRef();
-		double eet = clusterRef->energy()/cosh(clusterRef->eta());
-		sum_hcal+=eet;
-		break; 
-	     }       
-	     case PFBlockElement::TRACK: {
-		//This is just the reference to the track itself, since tracks can never be linked to other tracks
-		break; 
-	     }       
-	     default:
-		break;
-	     }
-
-	  } // end of elementsInBlocks()
-
-	  sum_calo = sum_ecal + sum_hcal; // add HCAL and ECAL cal sum
-
+		unsigned indexInBlock = cand.elementsInBlocks()[k].second;
+		const edm::OwnVector<  reco::PFBlockElement>&  elements = (*blockRef).elements();
+		
+		switch (elements[indexInBlock].type()) {
+		   
+		case PFBlockElement::ECAL: {
+		   reco::PFClusterRef clusterRef = elements[indexInBlock].clusterRef();
+		   double eet = clusterRef->energy()/cosh(clusterRef->eta());
+		   sum_ecal+=eet;
+		   break;
+		}
+		   
+		case PFBlockElement::HCAL: {
+		   reco::PFClusterRef clusterRef = elements[indexInBlock].clusterRef();
+		   double eet = clusterRef->energy()/cosh(clusterRef->eta());
+		   sum_hcal+=eet;
+		   break; 
+		}       
+		case PFBlockElement::TRACK: {
+		   //This is just the reference to the track itself, since tracks can never be linked to other tracks
+		   break; 
+		}       
+		default:
+		   break;
+		}
+		
+	     } // end of elementsInBlocks()
+	     
+	     sum_calo = sum_ecal + sum_hcal; // add HCAL and ECAL cal sum
+	     
+	  }
+	  if(isCaloCompatible(trk_pt,sum_calo)) selTracks_->push_back(trk);
        }
-       
-       if(isCaloCompatible(trk_pt,sum_calo)) selTracks_->push_back(trk);
-
     }
-
+    
     evt.put(selTracks_);
     
     //std::cout<<" x tracks are rejected.."<<std::endl;
@@ -159,13 +157,22 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 
 bool CaloCompatibleTrackSelector::selectFakeOrReal(const reco::Track &trk) {
    using namespace std;
-   //cout<<"Hey"<<endl;
    return true;
 }
 
 bool CaloCompatibleTrackSelector::isCaloCompatible(float pt, float et){
    
+   // if (fCaloCompatibility(pt)<et) 
    return true;
+}
+
+float CaloCompatibleTrackSelector::fCaloCompatibility(float pt){
+   
+   float a, b, c;
+   a = 1.0, b = 1.0, c = 1.0;
+
+   float y = a*pt + b*pt + c;
+   return y;
 }
 
 
