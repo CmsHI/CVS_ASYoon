@@ -31,12 +31,12 @@ options.parseArguments()
 # =============== 2.76 TeV MC Sample =====================
 
 process.source = cms.Source("PoolSource",
-   fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hiReco_RAW2DIGI_RECODEBUG_55_1_txh.root')
+   fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hiReco_RAW2DIGI_RECO_55_1_txh.root')
 )
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V4HI::All' 
 
@@ -50,7 +50,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.5 $'),
+        version = cms.untracked.string('$Revision: 1.6 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -71,6 +71,7 @@ enableRECO(process,"MC","HI")
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
 process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.reco_extra + process.hipfReReco))
+process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
 
 # =============== Customize =======================
@@ -80,29 +81,31 @@ process = disableLowPt(process) # disable low pt pixel
 process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 process = enableREDIGI(process) # to run on redigitized 
 process = whichCentBins(process,options.centRange) # centrality range
-process = setMinPtforPF(process,12) # min pt for PF reco/ana
+process = setMinPtforPF(process,3) # min pt for PF reco/ana
 
 # =============== Output ================================
 process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
 
-#process.output = cms.OutputModule("PoolOutputModule",
-#    #process.analysisSkimContent,
-#    outputCommands = cms.untracked.vstring('keep *'),
-#    SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('eventFilter_step')),
-#    dataset = cms.untracked.PSet(
-#      dataTier = cms.untracked.string('AODSIM'),
-#      filterName = cms.untracked.string('TrkAnaFilter')),
-#    fileName = cms.untracked.string('trkAnaSkimAODSIM_test.root')
-#)
+process.output = cms.OutputModule("PoolOutputModule",
+    #process.analysisSkimContent,
+    outputCommands = cms.untracked.vstring('keep *'),
+    SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('eventFilter_step')),
+    dataset = cms.untracked.PSet(
+      dataTier = cms.untracked.string('AODSIM'),
+      filterName = cms.untracked.string('TrkAnaFilter')),
+    fileName = cms.untracked.string('trkAnaSkimAODSIM_test2.root')
+)
 
-#process.output_step = cms.EndPath(process.output)
+process.output_step = cms.EndPath(process.output)
 
 # =============== Schedule =====================
 
 process.schedule = cms.Schedule(
     process.eventFilter_step,
     process.extraReco_step,
+    process.extraTrks_step,
     process.ana_step
     )
 
-#process.schedule.append(process.output_step)
+process.schedule.append(process.output_step)
+

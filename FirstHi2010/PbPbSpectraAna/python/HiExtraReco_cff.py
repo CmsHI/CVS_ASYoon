@@ -8,14 +8,14 @@ from FirstHi2010.PbPbSpectraAna.HiPFRereco_cff import *
 from edwenger.HiTrkEffAnalyzer.hipfCandAnalyzer_cff import *
 
 
-hiextraReco = cms.Sequence(#hicentProd*
-                           hiLowPtPixelTracks*
-                           hitrackRefit
-                           #*(!path)*caloComp
-                           )
-
-
+# PF re-reco for events with pT>pT'
 hipfReReco = cms.Sequence(rereco_seq*
                           hipfCandAnalyzer*
                           caloCompatibleTracks)
 
+# Extra reco 
+hiextraReco = cms.Sequence(hiLowPtPixelTracks)
+
+
+# Extra track selections/refit/etc..
+hiextraTrack = cms.Sequence(hitrackRefit + caloCompatibleTracks)
