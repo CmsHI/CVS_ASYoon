@@ -34,6 +34,14 @@ def enableREDIGI(process):
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     return process
 
+def usehiSelectedTracks(process):
+    print "hiSelectedTracks is used!"
+    process.trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiSelectedTracks")
+    process.hiCaloCompTracks.src = cms.InputTag("hiSelectedTracks")
+    process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiSelectedTracks')
+    process.pfCandidateAnalyzer.Tracks = cms.InputTag("hiSelectedTracks")
+    return process
+
 def setMinPtforPF(process,minpt=10):
     print "Particle Flow reconstruction/ana with min pT = ", minpt
     process.trkfilter.ptMin = cms.double(minpt)
