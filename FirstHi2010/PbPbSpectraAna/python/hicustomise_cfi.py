@@ -8,6 +8,8 @@ def enableSIM(process):
     process.hitrkEffAnalyzer.hasSimInfo=True
     process.pfCandidateAnalyzer.isData=False
     process.pfCandidateAnalyzer.hasSimInfo=True
+    process.pfCandidateAnalyzer_test.isData=False
+    process.pfCandidateAnalyzer_test.hasSimInfo=True
     return process
 
 def enableEffOnly(process):
