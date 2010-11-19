@@ -30,6 +30,7 @@ Based on analytical track selector
 
 #include <Math/DistFunc.h>
 #include "TMath.h"
+#include <TF1.h>
 
 
 using reco::modules::CaloCompatibleTrackSelector;
@@ -40,7 +41,8 @@ CaloCompatibleTrackSelector::CaloCompatibleTrackSelector( const edm::ParameterSe
     thePtMin_(cfg.getUntrackedParameter<double>("ptMin",10.0)),
     copyExtras_(cfg.getUntrackedParameter<bool>("copyExtras", false)),
     copyTrajectories_(cfg.getUntrackedParameter<bool>("copyTrajectories", false)),
-    hasSimInfo_(cfg.getUntrackedParameter<bool>("hasSimInfo_", false))
+    hasSimInfo_(cfg.getUntrackedParameter<bool>("hasSimInfo_", false)),
+    funcCaloComp_(cfg.getParameter<std::string>("funcCaloComp"))
 {
    
    std::string alias( cfg.getParameter<std::string>( "@module_label" ) );
@@ -54,6 +56,8 @@ CaloCompatibleTrackSelector::CaloCompatibleTrackSelector( const edm::ParameterSe
       produces< TrajTrackAssociationCollection >().setBranchAlias( alias + "TrajectoryTrackAssociations");
    }
    
+   fCaloComp = new TF1("fCaloComp",funcCaloComp_.c_str(),0,200); // a function that defines track-calo (in)compatible region 
+
 }
 
 CaloCompatibleTrackSelector::~CaloCompatibleTrackSelector() {
@@ -66,6 +70,7 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
     using namespace reco;
 
     LogDebug("CaloCompatibleTrackSelector")<<"min pt for selection = "<<thePtMin_<<endl;
+
     
     Handle<TrackCollection> hSrcTrack;
     Handle< vector<Trajectory> > hTraj;
@@ -148,7 +153,7 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 	     
 	  }
 	  if(trk_pt < thePtMin_) selTracks_->push_back(trk); // if pt< min pt, keep it
-	  else if(isCaloCompatible(trk_pt,sum_calo)) selTracks_->push_back(trk); // if pt> min pt, calo compatible, keep it
+	  else if(fCaloComp->Eval(trk_pt)<sum_calo) selTracks_->push_back(trk); // if calo sum > function(pt), keep it
 	  else LogDebug("CaloCompatibleTrackSelector")<<" rejected track pt = "<<trk_pt<<endl;
        }
     }
@@ -160,16 +165,21 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 
 }
 
-bool CaloCompatibleTrackSelector::selectFakeOrReal(const reco::Track &trk) {
-   using namespace std;
-   return true;
-}
 
+/*
 bool CaloCompatibleTrackSelector::isCaloCompatible(float pt, float et){
 
-   return (fCaloCompatibility(pt)<et);
+   //return (fCaloCompatibility(pt)<et);
+   return (fCaloComp->Eval(x)<et);
 }
+*/
 
+/*
+float CaloCompatibleTrackSelector::fCaloCompatibility(float x){
+   return fCaloComp->Eval(x);
+}
+*/
+/*
 float CaloCompatibleTrackSelector::fCaloCompatibility(float x){
    
    float a, b, c;
@@ -177,13 +187,11 @@ float CaloCompatibleTrackSelector::fCaloCompatibility(float x){
 
    float y = 0;
 
-   if(x<20)
-      y = 3.5;
-   else if(x<30)
-      y = 3.5 + 0.5*(x-15);
-   else
-      y = 3.5 + 0.015*pow(x,1.9);
+   if(x<14)
+      y = 0;
+   else 
+      y = 1.2*pow(x-10,8.7/9)*(2+1./(exp(-1.*(x-14))-1));
 
    return y;
 }
-
+*/

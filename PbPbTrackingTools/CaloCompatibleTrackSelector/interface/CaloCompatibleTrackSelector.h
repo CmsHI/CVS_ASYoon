@@ -28,6 +28,8 @@
 #include "TrackingTools/PatternTools/interface/Trajectory.h"
 #include "TrackingTools/PatternTools/interface/TrajTrackAssociation.h"
 
+// ROOT includes
+#include "TF1.h"
 
 namespace reco { namespace modules {
 
@@ -45,11 +47,10 @@ namespace reco { namespace modules {
             void produce( edm::Event& evt, const edm::EventSetup& es ) ;
 
             /// return class, or -1 if rejected
-	    bool selectFakeOrReal(const reco::Track &trk);
-	    bool isCaloCompatible(float pt, float et);
+	    //bool isCaloCompatible(float pt, float et);
 
 	    // a functional form of fake rejection in pt-calo space
-	    float fCaloCompatibility(float pt);
+	    //float fCaloCompatibility(float pt);
 	    
 	    ///
             //void selectVertices ( const reco::VertexCollection &vtxs, std::vector<Point> &points);
@@ -69,6 +70,9 @@ namespace reco { namespace modules {
 	    /// when running on MC with "trackingParticles"
             bool hasSimInfo_;
 
+	    // string of functional form
+	    std::string funcCaloComp_;
+	    
             /// save all the tracks
             //bool keepAllTracks_;
 
@@ -96,8 +100,9 @@ namespace reco { namespace modules {
 	    float sum_ecal;
 	    float sum_hcal;
 	    float sum_calo;
-
-
+	    
+	    // TF1         
+	    TF1 *fCaloComp;
 
     };
 
