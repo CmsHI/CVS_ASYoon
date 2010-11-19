@@ -30,7 +30,6 @@ Based on analytical track selector
 
 #include <Math/DistFunc.h>
 #include "TMath.h"
-#include <TF1.h>
 
 
 using reco::modules::CaloCompatibleTrackSelector;
@@ -152,8 +151,11 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 	     sum_calo = sum_ecal + sum_hcal; // add HCAL and ECAL cal sum
 	     
 	  }
+	  
+	  float compatible_calo = (fCaloComp->Eval(trk_pt)!=fCaloComp->Eval(trk_pt)) ? 0 : fCaloComp->Eval(trk_pt); // protect agains NaN
+
 	  if(trk_pt < thePtMin_) selTracks_->push_back(trk); // if pt< min pt, keep it
-	  else if(fCaloComp->Eval(trk_pt)<sum_calo) selTracks_->push_back(trk); // if calo sum > function(pt), keep it
+	  else if(compatible_calo < sum_calo) selTracks_->push_back(trk); // if calo sum > function(pt), keep it
 	  else LogDebug("CaloCompatibleTrackSelector")<<" rejected track pt = "<<trk_pt<<endl;
        }
     }
@@ -166,32 +168,4 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 }
 
 
-/*
-bool CaloCompatibleTrackSelector::isCaloCompatible(float pt, float et){
 
-   //return (fCaloCompatibility(pt)<et);
-   return (fCaloComp->Eval(x)<et);
-}
-*/
-
-/*
-float CaloCompatibleTrackSelector::fCaloCompatibility(float x){
-   return fCaloComp->Eval(x);
-}
-*/
-/*
-float CaloCompatibleTrackSelector::fCaloCompatibility(float x){
-   
-   float a, b, c;
-   a = 1.0, b = 1.0, c = 1.0;
-
-   float y = 0;
-
-   if(x<14)
-      y = 0;
-   else 
-      y = 1.2*pow(x-10,8.7/9)*(2+1./(exp(-1.*(x-14))-1));
-
-   return y;
-}
-*/
