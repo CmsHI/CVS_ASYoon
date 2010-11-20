@@ -16,8 +16,9 @@ postSelVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiSelect
 # clone hitrack spectra ana to run with pixel and global
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
 
-#hirefinedtrkAna = hitrackAna.clone(src=cms.untracked.InputTag("hiRefinedTracks")
-hicaloTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiCaloCompTracks")) 
+hicaloTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiCaloCompTracks"),
+                                  src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks")
+                                  ) 
 
 hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"),
                                  src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks")
