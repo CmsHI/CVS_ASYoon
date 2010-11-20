@@ -43,6 +43,9 @@ def usehiSelectedTracks(process):
     process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiSelectedTracks')
     process.pfCandidateAnalyzer.Tracks = cms.InputTag("hiSelectedTracks")
     process.hitrackAna.src = cms.untracked.InputTag("hiSelectedTracks")
+    process.hitrackAna.src_evtCorr = cms.untracked.InputTag("hiSelectedTracks")
+    process.hiextraTrack.remove(process.hiGoodTracksSelection)
+    process.heavyIonTracking.remove(process.hiGoodTracksSelection)
     return process
 
 def setMinPtforPF(process,minpt=10):
