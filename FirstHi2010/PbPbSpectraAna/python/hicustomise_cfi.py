@@ -53,6 +53,7 @@ def setMinPtforPF(process,minpt=10):
     process.trkfilter.ptMin = cms.double(minpt)
     process.pftrkfilter.ptMin = cms.double(minpt)
     process.pfCandidateAnalyzer.ptMin = cms.untracked.double(minpt)
+    process.pfCandidateAnalyzer_test.ptMin = cms.untracked.double(minpt)
     process.hiCaloCompTracks.ptMin = cms.untracked.double(minpt)
     return process
     
@@ -70,6 +71,7 @@ def setCentBins(process,ci=0,cf=10):
 def whichCentBins(process,centRange):
     if centRange=="0To5":
         setCentBins(process,0,1)
+        #process.hiCaloCompTracks.funcCaloComp = cms.string("(x>14) * (1.2*pow(TMath::Abs(x-10),8.7/9)) * (2+1./(exp(-1*(x-13))-1))")
     elif centRange=="0To10":
         setCentBins(process,0,3)
     elif centRange=="0To20":
@@ -91,7 +93,13 @@ def whichCentBins(process,centRange):
     elif centRange=="ALL":
         setCentBins(process,0,0)
     return process
-            
+
+#def setFuncCaloComp(process,centRange):
+#    if centRange=="0To5":
+#        process.hiCaloCompTracks.funcCaloComp = cms.string("(x>14) * (1.2*pow(TMath::Abs(x-10),8.7/9)) * (2+1./(exp(-1*(x-13))-1))")
+#    elif centRange=="0To10":
+#        
+#    return process
 
 def setAnaSeq(process,mode="AnaOnly"):
     if mode=="AnaOnly":
