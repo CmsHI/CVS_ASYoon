@@ -13,12 +13,12 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Sun Nov 21 14:51:53 CET 2010
-// $Id$
+// $Id: GenSimSpectraValidator.cc,v 1.1 2010/11/21 16:52:06 sungho Exp $
 //
 //
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
-#include "SpectraAna/interface/GenSimSpectraValidator/GenSimSpectraValidator.h"
+#include "SpectraAna/GenSimSpectraValidator/interface/GenSimSpectraValidator.h"
 
 
 
