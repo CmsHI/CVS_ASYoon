@@ -50,7 +50,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
+        version = cms.untracked.string('$Revision: 1.3 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -65,13 +65,9 @@ process.load("FirstHi2010.PbPbSpectraAna.HiExtraReco_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiAnalysis_cff")
 
 
-# =============== Pat jet in HI ========================
-from Saved.DiJetAna.customise_cfi import *
-enableRECO(process,"Data","HI")
-
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
-process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.reco_extra + process.hipfReReco))
+process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
 process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
 

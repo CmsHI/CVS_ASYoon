@@ -14,9 +14,7 @@ cvs co -r V01-02-09 HeavyIonsAnalysis/Configuration
 cvs co UserCode/edwenger/HiVertexAnalyzer
 cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
 cvs co UserCode/edwenger/HiTrkEffAnalyzer
-cvs co UserCode/SavedFMa/Saved/DiJetAna
-cvs co UserCode/SavedFMa/Saved/PatAlgos
-cvs co UserCode/SavedFMa/Saved/Skim
+
 
 # centrality
 # https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideHeavyIonCentrality
@@ -35,7 +33,6 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
 mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
 mv UserCode/ASYoon/FirstHi2010 .
-mv UserCode/SavedFMa/Saved .
 
 #
 scram b
