@@ -36,6 +36,10 @@ def enableREDIGI(process):
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     return process
 
+def runOn384p2(process):
+    process.eventFilter.remove(process.minBiasBscFilter)
+    return process
+    
 def usehiSelectedTracks(process):
     print "hiSelectedTracks is used!"
     process.trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiSelectedTracks")
