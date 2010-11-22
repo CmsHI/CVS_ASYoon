@@ -106,12 +106,8 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
    if(!centrality_) centrality_ = new CentralityProvider(iSetup);
    centrality_->newEvent(iEvent,iSetup);
 
-   /*
    int bin = centrality_->getBin();
-   std::cout<<"cent bin = "<<bin<<std::endl;
    hCentBinDist->Fill(bin);
-   */
-
 
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;
