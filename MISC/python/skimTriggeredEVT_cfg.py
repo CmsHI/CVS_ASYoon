@@ -1,4 +1,5 @@
 import FWCore.ParameterSet.Config as cms
+import glob
 import os
 
 process = cms.Process("SKIM")
