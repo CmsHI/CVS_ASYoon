@@ -3,7 +3,7 @@
 cd $CMSSW_BASE/src
 
 # skiming and ana
-cvs co UserCode/ASYoon/FirstHi2010/PbPbSpectraAna
+cvs co UserCode/ASYoon/FirstHi2010
 
 # common HI ana stuffs
 cvs co -r V01-02-09 HeavyIonsAnalysis/Configuration
