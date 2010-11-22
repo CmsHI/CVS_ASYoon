@@ -8,12 +8,12 @@
  Description: simple centrality distribution analyzer
 
  Implementation:
-     [Notes on implementation]
+    see /CMSSW/RecoHI/HiCentralityAlgos/test/AnalyzerWithCentrality.cc
 */
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id$
+// $Id: CentralityDistAna.cc,v 1.1 2010/11/22 10:52:45 sungho Exp $
 //
 //
 
@@ -38,9 +38,9 @@
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 
 // ROOT includes
-#include "TH1.h"
+#include "TH1F.h"
 #include "TFile.h"
-
+using namespace std;
 
 //
 // class declaration
@@ -77,8 +77,8 @@ class CentralityDistAna : public edm::EDAnalyzer {
 //
 // constructors and destructor
 //
-CentralityDistAna::CentralityDistAna(const edm::ParameterSet& iConfig)
-
+CentralityDistAna::CentralityDistAna(const edm::ParameterSet& iConfig) :
+   centrality_(0)
 {
    //now do what ever initialization is needed
 
@@ -103,13 +103,14 @@ void
 CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
-
    if(!centrality_) centrality_ = new CentralityProvider(iSetup);
    centrality_->newEvent(iEvent,iSetup);
 
+   /*
    int bin = centrality_->getBin();
+   std::cout<<"cent bin = "<<bin<<std::endl;
    hCentBinDist->Fill(bin);
-   
+   */
 
 
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
