@@ -22,6 +22,13 @@ process.source = cms.Source("PoolSource",
     )
 )
 
+# ============== python glob example ====================
+#process.source = cms.Source("PoolSource",
+#       fileNames = cms.untracked.vstring()
+#)
+
+#for file in glob.glob("__DIR__/Hydjet_Quenched_MinBias_2760GeV_cfi_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT*.root"):
+#           process.source.fileNames.append('dcache:%s' % file)
 
 # =============== Other Statements =====================
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10) )
