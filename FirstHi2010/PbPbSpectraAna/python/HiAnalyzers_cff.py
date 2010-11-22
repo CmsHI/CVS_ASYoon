@@ -13,6 +13,11 @@ postAdpVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiPixelA
 postMedVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiPixelMedianVertex"))
 postSelVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiSelectedVertex"))
 
+# clone cent bin analyzer
+from FirstHi2010.CentralityDistAna.centralitydistana_cfi import *
+preCentDist = centbindist.clone()
+postCentDist = centbindist.clone()
+
 # clone hitrack spectra ana to run with pixel and global
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
 
@@ -37,11 +42,13 @@ hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")) 
 # Sequences
 preEvtSelVtxAna = cms.Sequence(preAdpVtxAna*
                                preMedVtxAna*
-                               preSelVtxAna)
-
+                               preSelVtxAna*
+                               preCentDist)
+                               
 postEvtSelVtxAna = cms.Sequence(postAdpVtxAna*
                                 postMedVtxAna*
-                                postSelVtxAna)
+                                postSelVtxAna*
+                                postCentDist)
                               
 
 
