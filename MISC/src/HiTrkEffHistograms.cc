@@ -5,6 +5,7 @@
 #include "TFile.h"
 #include "TH2F.h"
 #include "TH3F.h"
+#include "TMath.h"
 
 #include <iostream>
 #include <cmath>
@@ -96,7 +97,7 @@ HiTrkEffHistograms::declareHistograms()
     // jet et bins
     static float jetMin = 0.0;
     static float jetMax = 50; // good to be matched with ana 
-    static float jetWidth = 2;
+    static float jetWidth = 1;
 
     for(double jet = jetMin; jet < jetMax + jetWidth/2; jet += jetWidth)
        jetBins.push_back(jet);

@@ -23,7 +23,6 @@
 #include "edwenger/HiTrkEffAnalyzer/interface/HiTrkEffAnalyzer.h"
 #include "DataFormats/HeavyIonEvent/interface/Centrality.h"
 
-
 #include <stdio.h>
 #include <math.h>
 
@@ -41,7 +40,10 @@ HiTrkEffAnalyzer::HiTrkEffAnalyzer(const edm::ParameterSet& iConfig)
   doAssociation_(iConfig.getUntrackedParameter<bool>("doAssociation",true)),
   hasSimInfo_(iConfig.getUntrackedParameter<bool>("hasSimInfo",false)),
   pixelMultMode_(iConfig.getUntrackedParameter<bool>("pixelMultMode",false)),
-  useJetEt_(iConfig.getUntrackedParameter<bool>("useJetEt",true))
+  useJetEt_(iConfig.getUntrackedParameter<bool>("useJetEt",true)),
+  nearJetMode_(iConfig.getUntrackedParameter<int>("nearJetMode",0)),
+  binsEtaPhi_(iConfig.getUntrackedParameter<std::vector<int> >("binsEtaPhi")),
+  centrality_(0)
 {
 
   histograms = new HiTrkEffHistograms(iConfig);
@@ -73,22 +75,29 @@ HiTrkEffAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 
   LogDebug("HiTrkEffAnalyzer") <<" number of rec tracks = "<<trackCollection->size()<<std::endl;
 
-  // Centrality information ----------------------                                                                                                                                                   
+  // Centrality information ----------------------
   double pixelMult = 0.0;
-
   if(pixelMultMode_){
      pixelMult = 1200;
   } 
 
+  if(!centrality_) centrality_ = new CentralityProvider(iSetup);
+  centrality_->newEvent(iEvent,iSetup);
+  float cent = (float) centrality_->getBin();
+
   // PAT jet, to get leading jet ET
 
   float jet_et = 0.0;
+  float jet_eta_near=0.0, jet_eta_away=0.0;
+  float jet_phi_near=0.0, jet_phi_away=0.0;
+
+  std::vector<const pat::Jet *> sortedJets;
 
   if(useJetEt_){
      edm::Handle<std::vector<pat::Jet> > jets;
      iEvent.getByLabel(jetTags_, jets);
      
-     std::vector<const pat::Jet *> sortedJets;
+     //std::vector<const pat::Jet *> sortedJets;
      
      for(unsigned it=0; it<jets->size(); ++it){
 	const pat::Jet* jts = &((*jets)[it]);
@@ -97,8 +106,8 @@ HiTrkEffAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
      }
      
      for(unsigned it=0; it<sortedJets.size(); ++it){
-	jet_et = sortedJets[it]->et();
-	break;
+	if(it==0) jet_et = sortedJets[it]->et(), jet_eta_near = sortedJets[it]->eta(), jet_phi_near = sortedJets[it]->phi();
+	if(it==1) jet_eta_away =sortedJets[it]->eta(), jet_phi_away = sortedJets[it]->phi();
      }
   }
 
@@ -109,7 +118,7 @@ HiTrkEffAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 
      edm::RefToBase<reco::Track> track(trackCollection, j);
      reco::Track* tr=const_cast<reco::Track*>(track.get());
-
+     
      hNtrkEtaPhi->Fill(tr->eta(),tr->phi());
   }
 
@@ -160,7 +169,31 @@ HiTrkEffAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       TrackingParticle* tp=const_cast<TrackingParticle*>(tpr.get());
       
       if(tp->status() < 0 || tp->charge()==0) continue; //only charged primaries
-      
+
+      // dR of tracks with respect leading and sub-leading jet ------------------------------------
+      if(useJetEt_){
+
+	 float deta_near = jet_eta_near - tp->eta();
+	 float deta_away = jet_eta_away - tp->eta();
+	 
+	 float dphi_near = jet_phi_near - tp->phi();
+	 float dphi_away = jet_phi_away - tp->phi();
+
+	 if(fabs(dphi_near)>(TMath::Pi()))
+	    dphi_near = (dphi_near>0) ? dphi_near - (float) 2.*TMath::Pi() : dphi_near + (float) 2.*TMath::Pi(); 
+
+	 if(fabs(dphi_away)>(TMath::Pi()))
+	    dphi_away = (dphi_away>0) ? dphi_away - (float) 2.*TMath::Pi() : dphi_away + (float) 2.*TMath::Pi();
+	 
+	 float dR_near = TMath::Sqrt(deta_near*deta_near + dphi_near*dphi_near);
+	 float dR_away = TMath::Sqrt(deta_away*deta_away + dphi_away*dphi_away);
+	 
+	 if(nearJetMode_ == 1 && dR_near>0.7) continue; // only tracks around leading jet
+	 if(nearJetMode_ == 2 && dR_away>0.7) continue; // only tracks around sub-leading jet 
+	 if(nearJetMode_ == 3 && (dR_near<0.7 || dR_away<0.7)) continue; // only tracks outside leading,sub-leading jets
+      }
+      //---------------------------------------------------------------------------------------------
+
       std::vector<std::pair<edm::RefToBase<reco::Track>, double> > rt;
       const reco::Track* mtr=0;
       size_t nrec=0;
@@ -171,10 +204,18 @@ HiTrkEffAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	if(nrec) mtr = rt.begin()->first.get();      
       }
 
-      int sbin = hNtrkEtaPhi->FindBin(tp->eta(),tp->phi());
+      int eta_bin = hNtrkEtaPhi->GetXaxis()->FindBin(tp->eta());
+      int phi_bin = hNtrkEtaPhi->GetYaxis()->FindBin(tp->phi());
       float slocaltrkmult 
-	 = hNtrkEtaPhi->GetBinContent(sbin);
+	 = hNtrkEtaPhi->GetBinContent(eta_bin,phi_bin);
       
+      /*
+      if(nearJetMode_ == 0) {
+	 std::cout<<"found bin x = "<<eta_bin<<" found bin y = "<<phi_bin<<std::endl;
+	 std::cout<<"local track density = "<<slocaltrkmult<<std::endl;
+      }
+      */
+
       SimTrack_t s = setSimTrack(*tp, *mtr, nrec, slocaltrkmult);
       histograms->fillSimHistograms(s);  
       
@@ -195,6 +236,29 @@ HiTrkEffAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
     edm::RefToBase<reco::Track> track(trackCollection, i);
     reco::Track* tr=const_cast<reco::Track*>(track.get());
     
+    // dR of tracks with respect leading and sub-leading jet -------------------------------------
+    if(useJetEt_){
+       float deta_near = jet_eta_near - tr->eta();
+       float deta_away = jet_eta_away - tr->eta();
+
+       float dphi_near = jet_phi_near - tr->phi();
+       float dphi_away = jet_phi_away - tr->phi();
+
+       if(fabs(dphi_near)>(TMath::Pi()))
+	  dphi_near = (dphi_near>0) ? dphi_near - (float) 2.*TMath::Pi() : dphi_near + (float) 2.*TMath::Pi();
+
+       if(fabs(dphi_away)>(TMath::Pi()))
+	  dphi_away = (dphi_away>0) ? dphi_away - (float) 2.*TMath::Pi() : dphi_away + (float) 2.*TMath::Pi();
+
+       float dR_near = TMath::Sqrt(deta_near*deta_near + dphi_near*dphi_near);
+       float dR_away = TMath::Sqrt(deta_away*deta_away + dphi_away*dphi_away);
+
+       if(nearJetMode_ == 1 && dR_near>0.7) continue; // only tracks around leading jet                                                                   
+       if(nearJetMode_ == 2 && dR_away>0.7) continue; // only tracks around sub-leading jet                                                               
+       if(nearJetMode_ == 3 && (dR_near<0.7 || dR_away<0.7)) continue; // only tracks outside leading,sub-leading jets
+    }
+    //---------------------------------------------------------------------------------------------
+
     std::vector<std::pair<TrackingParticleRef, double> > tp;
     const TrackingParticle *mtp=0;
     size_t nsim=0;
@@ -205,9 +269,12 @@ HiTrkEffAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       if(nsim) mtp = tp.begin()->first.get();       
     }
 
-    int rbin = hNtrkEtaPhi->FindBin(tr->eta(),tr->phi());
+    int eta_bin = hNtrkEtaPhi->GetXaxis()->FindBin(tr->eta());
+    int phi_bin = hNtrkEtaPhi->GetYaxis()->FindBin(tr->phi());
     float rlocaltrkmult 
-       = hNtrkEtaPhi->GetBinContent(rbin);
+       = hNtrkEtaPhi->GetBinContent(eta_bin,phi_bin);
+
+    hCentVsLocalTrkDen->Fill(cent,rlocaltrkmult);
 
     RecTrack_t r = setRecTrack(*tr, *mtp, nsim, rlocaltrkmult);
     histograms->fillRecHistograms(r); 
@@ -228,7 +295,8 @@ HiTrkEffAnalyzer::beginJob()
 {
 
   histograms->declareHistograms();
-  hNtrkEtaPhi = f->make<TH2F>("hNtrkEtaPhi","local track density grid",25,-2.5,2.5,32,-3.2,3.2); 
+  hNtrkEtaPhi = f->make<TH2F>("hNtrkEtaPhi","local track density grid",binsEtaPhi_[0],-2.5,2.5, binsEtaPhi_[1],-3.2,3.2); 
+  hCentVsLocalTrkDen = f->make<TH2F>("hCentVsLocalTrkDen","centrality vs loc. trk. density;centrality;#rho_{trk}",40,0,40,50,0,50);
 
 }
 

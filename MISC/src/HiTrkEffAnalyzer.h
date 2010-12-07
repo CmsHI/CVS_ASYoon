@@ -18,6 +18,7 @@
 #include "DataFormats/BeamSpot/interface/BeamSpot.h"
 #include "Geometry/TrackerGeometryBuilder/interface/TrackerGeometry.h"
 #include "edwenger/HiTrkEffAnalyzer/interface/HiTrkEffHistograms.h"
+#include "DataFormats/HeavyIonEvent/interface/CentralityProvider.h"
 
 #include "TH2F.h"
 
@@ -56,16 +57,21 @@ class HiTrkEffAnalyzer : public edm::EDAnalyzer {
       bool hasSimInfo_;
       bool pixelMultMode_;
       bool useJetEt_;
+      int32_t nearJetMode_;
+      std::vector<int32_t> binsEtaPhi_;
       
       HiTrkEffHistograms *histograms;
       edm::Service<TFileService> f;
       
       TH2F *hNtrkEtaPhi;
+      TH2F *hCentVsLocalTrkDen;
 
       enum { BPix1=0, BPix2=1, BPix3=2,
 	     FPix1_neg=3, FPix2_neg=4,
 	     FPix1_pos=5, FPix2_pos=6,
 	     nLayers=7};
+
+      CentralityProvider * centrality_;
 
 };
 
