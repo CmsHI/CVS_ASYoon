@@ -25,14 +25,10 @@ hitrackAna.pixelMultMode = cms.untracked.bool(True)
 
 hicaloTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiCaloCompTracks"),
                                   src_evtCorr=cms.untracked.InputTag("hiCaloCompTracks"),
-                                  doJet = cms.untracked.bool(True),
-                                  pixelMultMode = cms.untracked.bool(True)
                                   ) 
 
 hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"),
                                  src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks"),
-                                 doJet = cms.untracked.bool(True),
-                                 pixelMultMode = cms.untracked.bool(True)
                                  )
 
 hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks"),
