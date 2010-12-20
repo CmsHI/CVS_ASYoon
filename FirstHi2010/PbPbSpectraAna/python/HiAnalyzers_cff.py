@@ -20,16 +20,25 @@ postCentDist = centbindist.clone()
 
 # clone hitrack spectra ana to run with pixel and global
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
+hitrackAna.doJet = cms.untracked.bool(True)
+hitrackAna.pixelMultMode = cms.untracked.bool(True)
 
 hicaloTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiCaloCompTracks"),
-                                  src_evtCorr=cms.untracked.InputTag("hiCaloCompTracks")
+                                  src_evtCorr=cms.untracked.InputTag("hiCaloCompTracks"),
+                                  doJet = cms.untracked.bool(True),
+                                  pixelMultMode = cms.untracked.bool(True)
                                   ) 
 
 hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"),
-                                 src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks")
+                                 src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks"),
+                                 doJet = cms.untracked.bool(True),
+                                 pixelMultMode = cms.untracked.bool(True)
                                  )
 
-hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")) #refitted track!
+hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks"),
+                                   doJet = cms.untracked.bool(True),
+                                   pixelMultMode = cms.untracked.bool(True)
+                                   ) #refitted track!
 
 
 ## tracking efficiency analyzer --------------------------------------
