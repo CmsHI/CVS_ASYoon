@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id: CentralityDistAna.cc,v 1.1 2010/11/22 10:52:45 sungho Exp $
+// $Id: CentralityDistAna.cc,v 1.3 2010/11/22 11:21:01 sungho Exp $
 //
 //
 
@@ -39,6 +39,7 @@
 
 // ROOT includes
 #include "TH1F.h"
+#include "TH2F.h"
 #include "TFile.h"
 using namespace std;
 
@@ -63,7 +64,7 @@ class CentralityDistAna : public edm::EDAnalyzer {
    edm::Service<TFileService> fs;
 
    TH1F *hCentBinDist;
-   
+   TH2F *hCentBinPxlHitDist;
 };
 
 //
@@ -107,7 +108,11 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
    centrality_->newEvent(iEvent,iSetup);
 
    int bin = centrality_->getBin();
+   float pixelhit = centrality_->raw()->multiplicityPixel();
+   pixelhit = pixelhit/100.; // renormaliztion so that 120K -> 1200
+
    hCentBinDist->Fill(bin);
+   hCentBinPxlHitDist->Fill(bin,pixelhit);
 
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;
@@ -126,7 +131,8 @@ void
 CentralityDistAna::beginJob()
 {
    hCentBinDist = fs->make<TH1F>("hCentBinDist","Centrality bin distribution",40,0,40);
-
+   hCentBinPxlHitDist = fs->make<TH2F>("hCentBinPxlHitDist","Centrality bin vs pixel hit multiplicity;centrality bin;0.01*Nhit_{pixel}",
+				       40,0,40, 600,0,1200);
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
