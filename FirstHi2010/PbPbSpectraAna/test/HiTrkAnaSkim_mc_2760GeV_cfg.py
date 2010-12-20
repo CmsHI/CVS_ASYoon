@@ -51,7 +51,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.9 $'),
+        version = cms.untracked.string('$Revision: 1.10 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -65,9 +65,16 @@ process.load("FirstHi2010.PbPbSpectraAna.HiEventFilter_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiExtraReco_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiAnalysis_cff")
 
+# =============== Pat jet in HI ========================
+process.load("Saved.DiJetAna.ExtraReco_cff")
+process.load("Saved.DiJetAna.dijetAna_cff")
+
+from Saved.DiJetAna.customise_cfi import *
+enableRECO(process,"MC","HI")
+
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
-process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
+process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.dj_reco_extra + process.hipfReReco))
 process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
 
@@ -80,7 +87,7 @@ process = disableLowPt(process) # disable low pt pixel
 process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 process = enableREDIGI(process) # to run on redigitized 
 process = whichCentBins(process,options.centRange) # centrality range
-process = setMinPtforPF(process,3) # min pt for PF reco/ana
+process = setMinPtforPF(process,12) # min pt for PF reco/ana
 
 # =============== Output ================================
 #process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
