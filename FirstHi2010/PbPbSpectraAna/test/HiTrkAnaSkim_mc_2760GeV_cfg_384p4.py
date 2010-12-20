@@ -51,7 +51,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
+        version = cms.untracked.string('$Revision: 1.3 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_384p4.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -75,7 +75,7 @@ enableRECO(process,"MC","HI")
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
 process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
-process.patJetReco_step  = cms.Path(process.eventFilter * process.dj_reco_extra)
+process.extraJets_step  = cms.Path(process.eventFilter * process.dj_reco_extra)
 process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
 
@@ -89,7 +89,7 @@ process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 #process = enableREDIGI(process) # to run on redigitized 
 process = runOn384p2(process) # to run on 384
 process = whichCentBins(process,options.centRange) # centrality range
-process = setMinPtforPF(process,12) # min pt for PF reco/ana
+process = setMinPtforPF(process,100) # min pt for PF reco/ana
 
 # =============== Output ================================
 #process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
@@ -111,7 +111,7 @@ process = setMinPtforPF(process,12) # min pt for PF reco/ana
 process.schedule = cms.Schedule(
     process.eventFilter_step,
     process.extraReco_step,
-    process.patJetReco_step,
+    process.extraJets_step,
     process.extraTrks_step,
     process.ana_step
     )
