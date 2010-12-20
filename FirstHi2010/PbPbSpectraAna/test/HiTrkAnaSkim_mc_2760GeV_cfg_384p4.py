@@ -37,7 +37,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(7))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V4HI::All' 
 
@@ -51,7 +51,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_384p4.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -74,7 +74,8 @@ enableRECO(process,"MC","HI")
 
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
-process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.dj_reco_extra + process.hipfReReco))
+process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
+process.patJetReco_step  = cms.Path(process.eventFilter * process.dj_reco_extra)
 process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
 
@@ -110,6 +111,7 @@ process = setMinPtforPF(process,12) # min pt for PF reco/ana
 process.schedule = cms.Schedule(
     process.eventFilter_step,
     process.extraReco_step,
+    process.patJetReco_step,
     process.extraTrks_step,
     process.ana_step
     )
