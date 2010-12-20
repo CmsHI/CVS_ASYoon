@@ -37,6 +37,7 @@ def enableREDIGI(process):
     return process
 
 def runOn384p2(process):
+    print "runOn384p2 option is enabled!"
     process.eventFilter.remove(process.minBiasBscFilter)
     return process
     
