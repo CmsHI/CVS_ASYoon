@@ -31,14 +31,24 @@ def disableEff(process):
     return process
 
 def enableREDIGI(process):
+    print "enableREDIGI option is enabled (REDIGI)!"
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','REDIGI')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','REDIGI')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     return process
 
 def runOn384p2(process):
-    print "runOn384p2 option is enabled!"
-    process.eventFilter.remove(process.minBiasBscFilter)
+    print "runOn384p2 option is enabled (HLT_HIMinBiasCalo and HISIGNAL)!"
+    process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasCalo')  # HLT_HIMinBiasBSC is not available
+    process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','HISIGNAL')
+    process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','HISIGNAL')
+    process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     return process
     
 def usehiSelectedTracks(process):
