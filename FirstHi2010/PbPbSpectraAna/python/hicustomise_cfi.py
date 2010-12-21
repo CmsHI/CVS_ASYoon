@@ -91,6 +91,8 @@ def whichCentBins(process,centRange):
         setCentBins(process,0,3)
     elif centRange=="0To20":
         setCentBins(process,0,7)
+    elif centRange=="0To30":
+        setCentBins(process,0,11)
     elif centRange=="20To40":
         setCentBins(process,8,15)
     elif centRange=="30To50":
@@ -104,7 +106,9 @@ def whichCentBins(process,centRange):
     elif centRange=="80To100":
         setCentBins(process,32,39)
     elif centRange=="60To100":
-        setCentBins(process,25,39)
+        setCentBins(process,45,39)
+    elif centRange=="30To100":
+        setCentBins(process,12,39)
     elif centRange=="ALL":
         setCentBins(process,0,0)
     return process
