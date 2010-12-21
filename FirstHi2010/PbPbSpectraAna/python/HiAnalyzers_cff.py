@@ -26,15 +26,14 @@ hitrackAna.pixelMultMode = cms.untracked.bool(True)
 hitrackAna.neededTrigSpectra = cms.untracked.vint32(0,1,1,0,0) #Jet35U and 50U
 
 hicaloTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiCaloCompTracks"),
-                                  src_evtCorr=cms.untracked.InputTag("hiCaloCompTracks"),
+                                  src_evtCorr=cms.untracked.InputTag("hiCaloCompTracks")
                                   ) 
 
 hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"),
-                                 src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks"),
+                                 src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks")
                                  )
 
-hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks"),
-                                   doJet = cms.untracked.bool(True)
+hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")
                                    ) #refitted track!
 
 
