@@ -34,8 +34,7 @@ hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"
                                  )
 
 hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks"),
-                                   doJet = cms.untracked.bool(True),
-                                   pixelMultMode = cms.untracked.bool(True)
+                                   doJet = cms.untracked.bool(True)
                                    ) #refitted track!
 
 
