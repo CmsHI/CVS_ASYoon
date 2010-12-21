@@ -50,6 +50,17 @@ def runOn384p2(process):
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     return process
+
+def runOn393(process):
+    print "runOn393 option is enabled (minBiasBscFilter removed)!"
+    process.eventFilter.remove(process.minBiasBscFilter)
+    process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
+    process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
+    process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    return process
     
 def usehiSelectedTracks(process):
     print "hiSelectedTracks is used!"
