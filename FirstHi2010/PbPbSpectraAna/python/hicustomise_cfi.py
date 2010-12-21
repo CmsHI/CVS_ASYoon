@@ -86,13 +86,16 @@ def setCentBins(process,ci=0,cf=10):
 def whichCentBins(process,centRange):
     if centRange=="0To5":
         setCentBins(process,0,1)
-        #process.hiCaloCompTracks.funcCaloComp = cms.string("(x>14) * (1.2*pow(TMath::Abs(x-10),8.7/9)) * (2+1./(exp(-1*(x-13))-1))")
     elif centRange=="0To10":
         setCentBins(process,0,3)
     elif centRange=="0To20":
         setCentBins(process,0,7)
     elif centRange=="0To30":
         setCentBins(process,0,11)
+    elif centRange=="5To10":
+        setCentBins(process,2,3)
+    elif centRange=="10To30":
+        setCentBins(process,4,11)
     elif centRange=="20To40":
         setCentBins(process,8,15)
     elif centRange=="30To50":
