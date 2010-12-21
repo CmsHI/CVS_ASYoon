@@ -21,7 +21,7 @@ postCentDist = centbindist.clone()
 # clone hitrack spectra ana to run with pixel and global
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
 hitrackAna.doJet = cms.untracked.bool(True)
-hitrackAna.triggerNeeded = cms.untracked.bool(True)
+hitrackAna.triggerNeeded = cms.untracked.bool(False)
 hitrackAna.pixelMultMode = cms.untracked.bool(True)
 hitrackAna.neededTrigSpectra = cms.untracked.vint32(0,1,1,0,0) #Jet35U and 50U
 
