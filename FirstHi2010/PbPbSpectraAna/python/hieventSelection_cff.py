@@ -10,7 +10,7 @@ physDeclFilter = cms.EDFilter("PhysDecl",
 from HLTrigger.HLTfilters.hltHighLevel_cfi import hltHighLevel
 
 hltMinBias = hltHighLevel.clone(
-    HLTPaths = cms.vstring('HLT_HIMinBiasBSC'),
+    HLTPaths = cms.vstring('HLT_HIMinBiasHfOrBSC_Core'),
     andOr = cms.bool(True)
     )
 
