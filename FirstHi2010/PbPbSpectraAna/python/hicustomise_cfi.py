@@ -40,8 +40,16 @@ def enableREDIGI(process):
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     return process
 
+def runOnCore(process):
+    # hmm.. do we need similar list as in runOn384p2"
+    print "runOnCore option is enabled (HLT_HIMinBiasHfOrBSC_Core)!"
+    process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasHfOrBSC_Core')
+    return process
+
 def runOn384p2(process):
+    list = ['HLT_HIMinBiasCalo','HLT_HIJet35U','HLT_HIJet50U','HLT_HIJet75U','HLT_HIJet90U']
     print "runOn384p2 option is enabled (HLT_HIMinBiasCalo and HISIGNAL)!"
+    print "hlt list for track analyzer = ",list
     process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasCalo')  # HLT_HIMinBiasBSC is not available
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','HISIGNAL')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','HISIGNAL')
@@ -49,6 +57,10 @@ def runOn384p2(process):
     process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.hitrackAna.hltNames = cms.untracked.vstring(list)
+    process.hicaloTrackAna.hltNames = cms.untracked.vstring(list)
+    process.hipxltrackAna.hltNames = cms.untracked.vstring(list)
+    process.hirefitTrackAna.hltNames = cms.untracked.vstring(list)
     return process
 
 def runOn393(process):
