@@ -5,6 +5,9 @@ cd $CMSSW_BASE/src
 # skiming and ana
 cvs co UserCode/ASYoon/FirstHi2010
 
+# hiGoodMergedTracks
+cvs co -d Appeltel/PixelTracksRun2010 UserCode/Appeltel/PixelTracksRun2010 
+
 # common HI ana stuffs
 cvs co -r V01-02-09 HeavyIonsAnalysis/Configuration
 # cvs co RecoHI/HiEgammaAlgos (before 392p5)
