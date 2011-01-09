@@ -32,8 +32,7 @@ options.parseArguments()
 # =============== 2.76 TeV MC Sample =====================
 
 process.source = cms.Source("PoolSource",
-   #fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hiReco_RAW2DIGI_RECO_55_1_txh.root')
-   fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hydjet_393_start39_v7hi_D42A5DEB.root')
+   fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hiReco_RAW2DIGI_RECO_55_1_txh.root')
 )
 
 # =============== Other Statements =====================
@@ -52,7 +51,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.13 $'),
+        version = cms.untracked.string('$Revision: 1.14 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
