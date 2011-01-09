@@ -20,8 +20,7 @@ def enableEffOnly(process):
     process.hiAnalysisSeq.remove(process.hirefitTrackAna)
     return process
 
-def disableLowPt(process):
-    process.hiextraReco.remove(process.hiLowPtPixelTracks)
+def disableLowPtAna(process):
     process.hiAnalysisSeq.remove(process.hipxltrackAna)
     process.hiAnalysisSeq.remove(process.hipxltrkEffAna)
     return process
