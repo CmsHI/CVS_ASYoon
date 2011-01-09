@@ -10,7 +10,8 @@ def enableSIM(process):
     process.pfCandidateAnalyzer.hasSimInfo=True
     process.pfCandidateAnalyzer_test.isData=False
     process.pfCandidateAnalyzer_test.hasSimInfo=True
-    process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasBSC')  # default HLTPath is not available for MC
+    process.eventFilter.remove(process.minBiasBscFilter) # assuming MC is MB
+    #process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasBSC')  # default HLTPath is not available for MC
     return process
 
 def enableEffOnly(process):
