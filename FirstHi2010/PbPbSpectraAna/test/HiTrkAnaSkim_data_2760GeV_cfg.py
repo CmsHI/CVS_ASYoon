@@ -51,7 +51,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.5 $'),
+        version = cms.untracked.string('$Revision: 1.6 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -88,7 +88,7 @@ from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
 process = disableLowPt(process) # disable low pt pixel
 process = setAnaSeq(process,"AnaOnly") # EffOnly, AnaOnly, ALL
 process = whichCentBins(process,options.centRange) # centrality range
-process = setMinPtforPF(process,100) # min pt for PF reco/ana
+process = setMinPtforPF(process,200) # min pt for PF reco/ana
 
 # =============== Output ================================
 #process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")

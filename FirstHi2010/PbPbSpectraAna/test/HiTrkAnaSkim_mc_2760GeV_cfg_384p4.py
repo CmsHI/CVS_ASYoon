@@ -37,7 +37,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(7))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V4HI::All' 
 
@@ -51,7 +51,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.3 $'),
+        version = cms.untracked.string('$Revision: 1.4 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_384p4.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -89,7 +89,7 @@ process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 #process = enableREDIGI(process) # to run on redigitized 
 process = runOn384p2(process) # to run on 384
 process = whichCentBins(process,options.centRange) # centrality range
-process = setMinPtforPF(process,100) # min pt for PF reco/ana
+process = setMinPtforPF(process,200) # min pt for PF reco/ana
 
 # =============== Output ================================
 #process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
