@@ -3,8 +3,12 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.StandardSequences.ReconstructionHeavyIons_cff import *
 from RecoHI.Configuration.Reconstruction_hiPF_cff import *
 from edwenger.HiTrkEffAnalyzer.TrackSelections_cff import *
+from Appeltel.PixelTracksRun2010.HiLowPtPixelTracksFromReco_cff import *
+from Appeltel.PixelTracksRun2010.HiMultipleMergedTracks_cff import *
+
 
 trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiGoodTracks")
+#trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiGoodMergedTracks")
 trackerDrivenElectronSeeds.UseQuality = cms.bool(False)
 particleFlow.vertexCollection = cms.InputTag("hiSelectedVertex")
 
@@ -29,6 +33,9 @@ rechits = cms.Sequence(siPixelRecHits * siStripMatchedRecHits)
 pfreco = cms.Sequence(rechits * heavyIonTracking * HiParticleFlowReco)
 
 heavyIonTracking *= hiGoodTracksSelection
+heavyIonTracking *= conformalPixelTrackReco
+heavyIonTracking *= hiGoodMergedTracks
+                             
 HiParticleFlowReco.remove(recoPFJets) # PF jets are not needed
 
 # HI rereco with PF reco is only performed on events with high pt tracks
