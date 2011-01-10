@@ -116,6 +116,8 @@ def whichCentBins(process,centRange):
         setCentBins(process,0,7)
     elif centRange=="0To30":
         setCentBins(process,0,11)
+    elif centRange=="0To50":
+        setCentBins(process,0,19)
     elif centRange=="5To10":
         setCentBins(process,2,3)
     elif centRange=="10To30":
