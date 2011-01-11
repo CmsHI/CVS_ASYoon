@@ -71,6 +71,17 @@ HiTrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup&
    else if(evtEffCorrType_==2)
       etaCut_evtSel = 0.8;
 
+   //----- centrality information ----------------------                                                                                                                                     
+   centrality_ = new CentralityProvider(iSetup);
+   centrality_->newEvent(iEvent,iSetup);
+   int cbin = centrality_->getBin();
+
+   if(pixelMultMode_){
+      pixelMult_ = centrality_->raw()->multiplicityPixel();
+      pixelMult_ = pixelMult_/100.; // scale it (120K -> 1200)                                                                                                                               
+      hPxlMultDist->Fill(pixelMult_);
+   }
+
    if(!pureGENmode_){  // if pure GEN, skip through to the GEN ana part
 
      //float nevt = 1.0; // comment out unused variable (EAW)
@@ -95,16 +106,6 @@ HiTrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup&
 	 } 
       }
 
-      //----- centrality information ----------------------
-      centrality_ = new CentralityProvider(iSetup);
-      centrality_->newEvent(iEvent,iSetup);
-      int cbin = centrality_->getBin();
-
-      if(pixelMultMode_){
-	 pixelMult_ = centrality_->raw()->multiplicityPixel();
-	 pixelMult_ = pixelMult_/100.; // scale it (120K -> 1200)
-	 hPxlMultDist->Fill(pixelMult_);
-      }
       //----- loop over pat jets and store in a vector -----
       if(doJet_){
 
@@ -204,7 +205,6 @@ HiTrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup&
 		  if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1])
 		     hTrkPtEtaJetEt_Cent[i]->Fill(trk.eta(),trk.pt(),occHandle_,1./evt_sel_eff);
 	       }
-
 	    }
 
 
@@ -293,6 +293,18 @@ HiTrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup&
 	    hGenTrkPtEtaJetEt->Fill(gen.eta(),gen.pt(),occGENHandle_); 
 	    hGenTrkPtEtaJetEt_vbin->Fill(gen.eta(),gen.pt(),occGENHandle_);
 
+	    // centrality binned spectra
+            for(unsigned i=0;i<neededCentBins_.size();i++){
+               if(i==0){
+                  if(cbin<=neededCentBins_[i+1])
+                     hGenTrkPtEtaJetEt_Cent[i]->Fill(gen.eta(),gen.pt(),occGENHandle_);
+               }else{
+                  if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1])
+                     hGenTrkPtEtaJetEt_Cent[i]->Fill(gen.eta(),gen.pt(),occGENHandle_);
+               }
+            }
+
+	    // extra
 	    if(includeExtra_) {
 	       hGenTrkPtEtaJetEtW->Fill(gen.eta(),gen.pt(),occGENHandle_,(1./gen.pt())); // weighted by pT
 	       hGenTrkPtEtaJetEtW_vbin->Fill(gen.eta(),gen.pt(),occGENHandle_,(1./gen.pt()));
@@ -441,13 +453,19 @@ HiTrackSpectraAnalyzer::beginJob()
       hGenTrkPtEtaJetEt_vbin = subDir.make<TH3F>("hGenTrkPtEtaJetEt_vbin","eta vs pt vs jet;#eta;p_{T} (GeV/c);E_{T} (GeV/c)",
 						 etaBins.size()-1, &etaBins[0],ptBins.size()-1, &ptBins[0],jetBins.size()-1, &jetBins[0]);
 
+      for(unsigned i=0;i<neededCentBins_.size()-1;i++){
+         hGenTrkPtEtaJetEt_Cent.push_back( subDir.make<TH3F>("","eta vs pt vs jet;#eta;p_{T} (GeV/c);E_{T} (GeV/c)",
+							     etaBins.size()-1, &etaBins[0],ptBins.size()-1, &ptBins[0],jetBins.size()-1, &jetBins[0]) );
+         if(i==0) hGenTrkPtEtaJetEt_Cent[i]->SetName(Form("hGenTrkPtEtaJetEt_vbin_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+         else hGenTrkPtEtaJetEt_Cent[i]->SetName(Form("hGenTrkPtEtaJetEt_vbin_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+      }
+
       if(includeExtra_) {
 	 hGenTrkPtEtaJetEtW = subDir.make<TH3F>("hGenTrkPtEtaJetEtW","eta vs pt vs jet;#eta;p_{T} (GeV/c);E_{T} (GeV/c)",
 						nbinsEta, -1.*etaHistMax, etaHistMax, 1000, 0.0, 200.0, 50, 0.0, 1000.0);
 	 hGenTrkPtEtaJetEtW_vbin = subDir.make<TH3F>("hGenTrkPtEtaJetEtW_vbin","eta vs pt vs jet;#eta;p_{T} (GeV/c);E_{T} (GeV/c)",
 						     etaBins.size()-1, &etaBins[0],ptBins.size()-1, &ptBins[0],jetBins.size()-1, &jetBins[0]);
       }
-
 
       // Set Sumw2()
       /*
