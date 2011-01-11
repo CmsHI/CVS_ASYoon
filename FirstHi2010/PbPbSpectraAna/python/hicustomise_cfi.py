@@ -20,6 +20,13 @@ def enableEffOnly(process):
     process.hiAnalysisSeq.remove(process.hirefitTrackAna)
     return process
 
+def disableLowPt(process):
+    print "No low pt ana (no low pt re-reco as well unlesss hiGoodMergedTracks is used)!"
+    process.hiextraReco.remove(process.conformalPixelTrackReco)
+    process.hiAnalysisSeq.remove(process.hipxltrackAna)
+    process.hiAnalysisSeq.remove(process.hipxltrkEffAna)
+    return process
+
 def disableLowPtAna(process):
     process.hiAnalysisSeq.remove(process.hipxltrackAna)
     process.hiAnalysisSeq.remove(process.hipxltrkEffAna)
@@ -85,6 +92,19 @@ def usehiSelectedTracks(process):
     process.hitrackAna.src_evtCorr = cms.untracked.InputTag("hiSelectedTracks")
     process.hiextraTrack.remove(process.hiGoodTracksSelection)
     process.heavyIonTracking.remove(process.hiGoodTracksSelection)
+    return process
+
+def usehiGoodMergedTracks(process):
+    print "hiGoodMergedTracks is used (except PF re-reco)! --> re-reco of conformalPixelTrackReco!"
+    print "make sure disableLowPt comes before usehiGoodMergedTracks"
+    #process.trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiSelectedTracks")
+    process.hiCaloCompTracks.src = cms.InputTag("hiGoodMergedTracks")
+    process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiGoodMergedTracks')
+    process.pfCandidateAnalyzer.Tracks = cms.InputTag("hiGoodMergedTracks")
+    process.hitrackAna.src = cms.untracked.InputTag("hiGoodMergedTracks")
+    process.hitrackAna.src_evtCorr = cms.untracked.InputTag("hiGoodMergedTracks")
+    process.hiextraReco *= process.conformalPixelTrackReco
+    process.hiGoodTracksSelection *= process.hiGoodMergedTracks
     return process
 
 def setMinPtforPF(process,minpt=10):
