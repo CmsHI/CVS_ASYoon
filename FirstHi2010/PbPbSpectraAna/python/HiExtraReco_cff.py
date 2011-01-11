@@ -21,7 +21,5 @@ hipfReReco = cms.Sequence(rereco_seq*
 
 # Extra track selections/refit/etc..
 hiextraTrack = cms.Sequence(hiGoodTracksSelection
-                            #*conformalPixelTrackReco 
-                            *hiGoodMergedTracks
                             *hiCaloCompTracks
                             *hipfCandAnalyzer_test)

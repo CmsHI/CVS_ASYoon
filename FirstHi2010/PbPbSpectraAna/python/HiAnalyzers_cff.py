@@ -29,8 +29,8 @@ hicaloTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiCaloCompTracks")
                                   src_evtCorr=cms.untracked.InputTag("hiCaloCompTracks")
                                   ) 
 
-hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiLowPtPixelTracks"),
-                                 src_evtCorr=cms.untracked.InputTag("hiLowPtPixelTracks")
+hipxltrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiConformalPixelTracks"),
+                                 src_evtCorr=cms.untracked.InputTag("hiConformalPixelTracks")
                                  )
 
 hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")
