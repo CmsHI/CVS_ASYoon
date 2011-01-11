@@ -92,9 +92,11 @@ class HiTrackSpectraAnalyzer : public edm::EDAnalyzer {
    TH3F *hGenTrkPtEtaJetEt_vbin;
    TH3F *hGenTrkPtEtaJetEtW_vbin;
 
+   std::vector<TH1F*> hNevt_Cent;
    std::vector<TH3F*> hTrkPtEtaJetEt_Trig;
    std::vector<TH3F*> hTrkPtEtaJetEt_Cent;
    std::vector<TH3F*> hGenTrkPtEtaJetEt_Cent;
+
 
    //evt sel eff. correction
    TF1 *evtSelEff;

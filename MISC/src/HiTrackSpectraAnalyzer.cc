@@ -223,6 +223,17 @@ HiTrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup&
 	 if(mult==2) hNevt_mult2->Fill(evt_sel_eff);
 	 if(mult==3) hNevt_mult3->Fill(evt_sel_eff);
 
+	 // centrality binned number of events
+	 for(unsigned i=0;i<neededCentBins_.size();i++){
+	    if(i==0){
+	       if(cbin<=neededCentBins_[i+1])
+		  hNevt_Cent[i]->Fill(evt_sel_eff);
+	    }else{
+	       if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1])
+		  hNevt_Cent[i]->Fill(evt_sel_eff);
+	    }
+	 }
+
       }// end of skip evt
 
    } // end of if(pureGENmode_)
@@ -406,16 +417,12 @@ HiTrackSpectraAnalyzer::beginJob()
                                                           etaBins.size()-1, &etaBins[0],ptBins.size()-1, &ptBins[0],jetBins.size()-1, &jetBins[0]) );
 	 if(i==0) hTrkPtEtaJetEt_Cent[i]->SetName(Form("hTrkPtEtaJetEt_vbin_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));  
 	 else hTrkPtEtaJetEt_Cent[i]->SetName(Form("hTrkPtEtaJetEt_vbin_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
-      }
 
-      /*
-      for(unsigned i=0;i<neededCentBins_.size();i++){
-         hTrkPtEtaJetEt_Cent.push_back( subDir.make<TH3F>("","eta vs pt vs jet;#eta;p_{T} (GeV/c);E_{T} (GeV/c)",
-                                                          etaBins.size()-1, &etaBins[0],ptBins.size()-1, &ptBins[0],jetBins.size()-1, &jetBins[0]) );
-         if(i==0) hTrkPtEtaJetEt_Cent[i]->SetName(Form("hTrkPtEtaJetEt_cbin%dto%d",0,neededCentBins_[i]));
-	 else hTrkPtEtaJetEt_Cent[i]->SetName(Form("hTrkPtEtaJetEt_cbin%dto%d",neededCentBins_[i-1]+1,neededCentBins_[i]));
+	 // this is Nevt histogram for different centrality 
+	 hNevt_Cent.push_back(fs->make<TH1F>("","evt sel eff", 102, -0.02, 2.02));
+	 if(i==0) hNevt_Cent[i]->SetName(Form("hNevt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 else hNevt_Cent[i]->SetName(Form("hNevt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
       }
-      */
 
       if(includeExtra_) {
 	 hTrkPtEta = fs->make<TH2F>("hTrkPtEta","eta vs pt;#eta;p_{T} (GeV/c)", nbinsEta, -1.*etaHistMax, etaHistMax, 1000, 0.0, 200.0);
