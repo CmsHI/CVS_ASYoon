@@ -8,7 +8,6 @@ from Appeltel.PixelTracksRun2010.HiMultipleMergedTracks_cff import *
 
 
 trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiGoodTracks")
-#trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiGoodMergedTracks")
 trackerDrivenElectronSeeds.UseQuality = cms.bool(False)
 particleFlow.vertexCollection = cms.InputTag("hiSelectedVertex")
 
