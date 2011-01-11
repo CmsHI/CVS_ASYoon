@@ -196,7 +196,7 @@ HiTrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup&
             }
 
 	    // centrality binned spectra
-	    for(unsigned i=1;i<neededCentBins_.size();i++){
+	    for(unsigned i=0;i<neededCentBins_.size();i++){
 	       if(i==0){
 		  if(cbin<=neededCentBins_[i+1]) 
 		     hTrkPtEtaJetEt_Cent[i]->Fill(trk.eta(),trk.pt(),occHandle_,1./evt_sel_eff);
@@ -388,6 +388,7 @@ HiTrackSpectraAnalyzer::beginJob()
       }
 
       // cross check by summing all binned spectra and compare with "MB"
+      // test by running on binned selection
       for(unsigned i=0;i<neededCentBins_.size()-1;i++){
 	 hTrkPtEtaJetEt_Cent.push_back( subDir.make<TH3F>("","eta vs pt vs jet;#eta;p_{T} (GeV/c);E_{T} (GeV/c)",
                                                           etaBins.size()-1, &etaBins[0],ptBins.size()-1, &ptBins[0],jetBins.size()-1, &jetBins[0]) );
