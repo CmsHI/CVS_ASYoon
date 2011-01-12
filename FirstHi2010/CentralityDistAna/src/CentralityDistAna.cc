@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id: CentralityDistAna.cc,v 1.5 2011/01/11 17:37:14 sungho Exp $
+// $Id: CentralityDistAna.cc,v 1.6 2011/01/11 20:42:44 sungho Exp $
 //
 //
 
@@ -64,7 +64,14 @@ class CentralityDistAna : public edm::EDAnalyzer {
    edm::Service<TFileService> fs;
 
    TH1F *hCentBinDist;
+   TH1F *hCentBinDistNcollWeighted;
+   TH1F *hCentBinDistNpartWeighted;
+   TH1F *hNcollValueAtCent;
    TH2F *hCentBinPxlHitDist;
+   
+
+   std::vector<int32_t> neededCentBins_;
+
 };
 
 //
@@ -82,6 +89,8 @@ CentralityDistAna::CentralityDistAna(const edm::ParameterSet& iConfig) :
    centrality_(0)
 {
    //now do what ever initialization is needed
+   neededCentBins_ = iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins");
+
 
 }
 
@@ -108,11 +117,26 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
    centrality_->newEvent(iEvent,iSetup);
 
    int bin = centrality_->getBin();
-   float pixelhit = centrality_->raw()->multiplicityPixel();
-   pixelhit = pixelhit/100.; // renormaliztion so that 120K -> 1200
+   float npartMean = centrality_->NpartMean();
+   float ncollMean = centrality_->NcollMean();
 
+   // 
    hCentBinDist->Fill(bin);
+   hCentBinDistNpartWeighted->Fill(bin,npartMean);
+   hCentBinDistNcollWeighted->Fill(bin,ncollMean);
+
+   // fill once to check Ncoll(cent. bin) 
+   int hbin = hNcollValueAtCent->GetXaxis()->FindBin(bin);
+   if(hNcollValueAtCent->GetBinContent(hbin)==0) hNcollValueAtCent->Fill(bin,ncollMean);
+   
+   // correlation variable
+   float pixelhit = centrality_->raw()->multiplicityPixel();
+   pixelhit = pixelhit/100.; // renormaliztion so that 120K -> 1200     
+
    hCentBinPxlHitDist->Fill(bin,pixelhit);
+
+
+   
 
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
    Handle<ExampleData> pIn;
@@ -130,9 +154,15 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 void 
 CentralityDistAna::beginJob()
 {
-   hCentBinDist = fs->make<TH1F>("hCentBinDist","Centrality bin distribution",40,-0.5,39.5);
+   hCentBinDist = fs->make<TH1F>("hCentBinDist","Centrality bin distribution; centrality bin",40,-0.5,39.5);
+   hCentBinDistNcollWeighted = fs->make<TH1F>("hCentBinDistNcollWeighted",
+					      "Centrality bin distribution weighted by N_{coll};centrality bin",40,-0.5,39.5);
+   hCentBinDistNpartWeighted = fs->make<TH1F>("hCentBinDistNpartWeighted",
+					      "Centrality bin distribution weighted by N_{part};centrality bin",40,-0.5,39.5);
+   hNcollValueAtCent = fs->make<TH1F>("hNcollValueAtCent","N_{coll} value;centrality bin",40,-0.5,39.5);
    hCentBinPxlHitDist = fs->make<TH2F>("hCentBinPxlHitDist","Centrality bin vs pixel hit multiplicity;centrality bin;0.01*Nhit_{pixel}",
 				       40,-0.5,39.5, 600,0,1200);
+   
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
