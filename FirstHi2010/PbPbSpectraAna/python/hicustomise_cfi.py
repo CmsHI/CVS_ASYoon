@@ -10,8 +10,9 @@ def enableSIM(process):
     process.pfCandidateAnalyzer.hasSimInfo=True
     process.pfCandidateAnalyzer_test.isData=False
     process.pfCandidateAnalyzer_test.hasSimInfo=True
-    process.eventFilter.remove(process.minBiasBscFilter) # assuming MC is MB
+    process.minBiasBscFilter.remove(process.hltMinBias) # assuming MC is 100% MB
     #process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasBSC')  # default HLTPath is not available for MC
+    print "hltMinBias is removed from minBiasBscFilter check what's left:", process.minBiasBscFilter 
     return process
 
 def enableEffOnly(process):
@@ -93,6 +94,15 @@ def usehiSelectedTracks(process):
     process.hiextraTrack.remove(process.hiGoodTracksSelection)
     process.heavyIonTracking.remove(process.hiGoodTracksSelection)
     return process
+
+
+### this is for selecting jet events instead of prescaled MB
+def enableHLTJet(process,hltname='HLT_HIJet50U'):
+    process.hltJets.HLTPaths = [hltname]
+    process.minBiasBscFilter.replace(process.hltMinBias,process.hltJets)
+    print "Skim jet HLT path: ", process.hltJets.HLTPaths, "and minBiasBscFilter: ", process.minBiasBscFilter
+    return process
+                            
 
 def usehiGoodMergedTracks(process):
     print "hiGoodMergedTracks is used (except PF re-reco)! --> re-reco of conformalPixelTrackReco!"

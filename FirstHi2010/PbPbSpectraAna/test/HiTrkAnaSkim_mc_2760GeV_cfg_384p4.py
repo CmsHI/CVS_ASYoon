@@ -51,8 +51,8 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.6 $'),
-            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_384p4.py,v $'),
+        version = cms.untracked.string('$Revision: 1.7 $'),
+            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_384p4.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
@@ -82,6 +82,7 @@ process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
 
 # =============== Customize =======================
 from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
+#process = enableHLTJet(process,"HLT_HIJet50U")
 #process = usehiSelectedTracks(process) # use hiSelectedTracks instead
 process = enableSIM(process)    # activate isGEN in analyzers
 process = disableLowPt(process) # disable low pt pixel
