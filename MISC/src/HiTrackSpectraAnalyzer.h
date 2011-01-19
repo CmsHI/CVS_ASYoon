@@ -72,9 +72,10 @@ class HiTrackSpectraAnalyzer : public edm::EDAnalyzer {
 
    TH1F *hGenNevt;
 
-
    TH2F *hTrkPtEta;
    TH2F *hGenTrkPtEta;
+
+   TH2F *hCentJetEt;
    
    TH3F *hTrkPtEtaJetEt;
    TH3F *hTrkPtEtaJetEtW;
@@ -93,6 +94,7 @@ class HiTrackSpectraAnalyzer : public edm::EDAnalyzer {
    TH3F *hGenTrkPtEtaJetEtW_vbin;
 
    std::vector<TH1F*> hNevt_Cent;
+   std::vector<TH1F*> hJet0Pt_Cent;
    std::vector<TH3F*> hTrkPtEtaJetEt_Trig;
    std::vector<TH3F*> hTrkPtEtaJetEt_Cent;
    std::vector<TH3F*> hGenTrkPtEtaJetEt_Cent;
@@ -137,7 +139,7 @@ class HiTrackSpectraAnalyzer : public edm::EDAnalyzer {
    
    std::vector<int32_t> neededTrigSpectra_;
    std::vector<int32_t> neededCentBins_;
-   std::vector<double> etaBins, ptBins, jetBins;
+   std::vector<double> etaBins, ptBins, jetBins, centBins;
 
    CentralityProvider * centrality_;
       
