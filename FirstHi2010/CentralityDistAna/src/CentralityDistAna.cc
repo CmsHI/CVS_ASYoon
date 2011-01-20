@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id: CentralityDistAna.cc,v 1.6 2011/01/11 20:42:44 sungho Exp $
+// $Id: CentralityDistAna.cc,v 1.7 2011/01/12 17:01:03 sungho Exp $
 //
 //
 
@@ -113,9 +113,11 @@ void
 CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
+
    if(!centrality_) centrality_ = new CentralityProvider(iSetup);
    centrality_->newEvent(iEvent,iSetup);
 
+   
    int bin = centrality_->getBin();
    float npartMean = centrality_->NpartMean();
    float ncollMean = centrality_->NcollMean();
