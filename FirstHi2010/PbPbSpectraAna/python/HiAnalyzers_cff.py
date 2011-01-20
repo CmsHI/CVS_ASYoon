@@ -13,6 +13,28 @@ postAdpVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiPixelA
 postMedVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiPixelMedianVertex"))
 postSelVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiSelectedVertex"))
 
+# clone hi track validator
+#from SimTracker.TrackAssociation.TrackAssociatorByHits_cfi import *
+#from SimTracker.TrackAssociation.trackingParticleRecoTrackAsssociation_cfi import *
+#TrackAssociatorByHits.SimToRecoDenominator = cms.string('reco')
+
+from PbPbTrackingTools.HiTrackValidator.hitrackvalidator_cfi import *
+from edwenger.HiTrkEffAnalyzer.HiTPCuts_cff import *
+hiseltrkval = hitrkvalidator.clone()
+hiseltrkval_fake = hiseltrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
+                                     hasSimInfo=cms.untracked.bool(True),
+                                     selectFake=cms.untracked.bool(True))
+higoodtrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodTracks"))
+higoodtrkval_fake = higoodtrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
+                                       hasSimInfo=cms.untracked.bool(True),
+                                       selectFake=cms.untracked.bool(True))
+
+hiseltrkval_fakeOnly = cms.Sequence(cutsTPForFak*
+                                hiseltrkval_fake)
+higoodtrkval_fakeOnly = cms.Sequence(cutsTPForFak*
+                                 higoodtrkval_fake)
+
+
 # clone cent bin analyzer
 from FirstHi2010.CentralityDistAna.centralitydistana_cfi import *
 preCentDist = centbindist.clone()

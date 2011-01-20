@@ -7,5 +7,6 @@ hiAnalysisSeq = cms.Sequence(hipxltrackAna*
                              hipxltrkEffAna*
                              #(hitrackAna + hirefitTrackAna + hicompTrackAna)*
                              #(hitrackAna + hirefitTrackAna)
+                             (hiseltrkval + higoodtrkval)* # hitrack validator 
                              (hitrackAna + hicaloTrackAna)*
                              (hitrkEffAna + hicalotrkEffAna))
