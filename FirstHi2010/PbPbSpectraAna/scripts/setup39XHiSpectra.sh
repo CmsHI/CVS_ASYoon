@@ -35,6 +35,7 @@ cvs co -d CmsHi/Analysis2010 UserCode/CmsHi/Analysis2010
 # tools
 cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
 cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
+cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
 
 # needed for dijetana
 
