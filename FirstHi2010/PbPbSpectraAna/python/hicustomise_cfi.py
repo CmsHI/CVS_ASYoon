@@ -6,6 +6,8 @@ def enableSIM(process):
     process.hitrackAna.isGEN=True
     process.hipxltrkEffAnalyzer.hasSimInfo=True
     process.hitrkEffAnalyzer.hasSimInfo=True
+    process.hiAnalysisSeq.replace(process.hiseltrkval,process.hiseltrkval+process.hiseltrkval_fakeOnly)
+    process.hiAnalysisSeq.replace(process.higoodtrkval,process.higoodtrkval+process.higoodtrkval_fakeOnly)
     process.pfCandidateAnalyzer.isData=False
     process.pfCandidateAnalyzer.hasSimInfo=True
     process.pfCandidateAnalyzer_test.isData=False
@@ -70,6 +72,10 @@ def runOn384p2(process):
     process.hicaloTrackAna.hltNames = cms.untracked.vstring(list)
     process.hipxltrackAna.hltNames = cms.untracked.vstring(list)
     process.hirefitTrackAna.hltNames = cms.untracked.vstring(list)
+    process.hiseltrkval.useQaulityStr = cms.untracked.bool(False)
+    process.hiseltrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.higoodtrkval.useQaulityStr =cms.untracked.bool(False)
+    process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(False)
     return process
 
 def runOn393(process):
