@@ -37,7 +37,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V4HI::All' 
 
@@ -45,13 +45,13 @@ process.GlobalTag.globaltag = 'START39_V4HI::All'
 process.HeavyIonGlobalParameters = cms.PSet(
     centralitySrc = cms.InputTag("hiCentrality"),
     centralityVariable = cms.string("HFhits"),
-    nonDefaultGlauberModel = cms.string("")
+    nonDefaultGlauberModel = cms.string("Hydjet_2760GeV")
 )
 from CmsHi.Analysis2010.CommonFunctions_cff import *
-overrideCentrality(process)
+#overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.17 $'),
+        version = cms.untracked.string('$Revision: 1.18 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )

@@ -32,12 +32,14 @@ options.parseArguments()
 # =============== 2.76 TeV MC Sample =====================
 
 process.source = cms.Source("PoolSource",
-   fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/Pyquen_DiJet_Embedded_Pt30_MC_38Y_V12-v2_0047A650-86E1-DF11-9F52-00151796D660.root')
+              fileNames = cms.untracked.vstring(
+    'file:/home/sungho/sctch101/mc/firsthi2010/Pyquen_DiJet_Embedded_Pt30_MC_38Y_V12-v2_0047A650-86E1-DF11-9F52-00151796D660.root',
+    'file:/home/sungho/sctch101/mc/firsthi2010/Pyquen_DiJet_Embedded_Pt30_MC_38Y_V12-v2_84DEA8E1-63E1-DF11-BD3F-0024E86E8CF1.root')
 )
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(-1))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V4HI::All' 
 
@@ -45,13 +47,13 @@ process.GlobalTag.globaltag = 'START39_V4HI::All'
 process.HeavyIonGlobalParameters = cms.PSet(
     centralitySrc = cms.InputTag("hiCentrality"),
     centralityVariable = cms.string("HFhits"),
-    nonDefaultGlauberModel = cms.string("")
+    nonDefaultGlauberModel = cms.string("Hydjet_2760GeV")
 )
 from CmsHi.Analysis2010.CommonFunctions_cff import *
-overrideCentrality(process)
+#overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.7 $'),
+        version = cms.untracked.string('$Revision: 1.8 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_384p4.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
