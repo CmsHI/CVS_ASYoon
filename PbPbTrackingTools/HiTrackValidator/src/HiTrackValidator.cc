@@ -84,8 +84,14 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	 isFake = true;
       }
 
-      if(etaMax_<trk.eta()) continue; // only for a given eta range
       if(selectFake_ && !isFake) continue; // fill histograms for fake tracks only
+
+      // basic kinematic variable
+      double pt = trk.pt(), eta = trk.eta(), phi = trk.phi();
+
+      hEtaPhi->Fill(eta,phi);
+
+      if(etaMax_<eta) continue; // only for a given eta range
 
       // basic hit level quality varialbes
       uint32_t nlayers     = trk.hitPattern().trackerLayersWithMeasurement();
@@ -95,7 +101,6 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       uint32_t nhits = trk.numberOfValidHits();
 
       // basic track level quality variables
-      double pt = trk.pt(), eta = trk.eta(), phi = trk.phi(); 
       double relpterr = trk.ptError()/pt, chi2n =  trk.normalizedChi2();
 
       // compatibility variables
@@ -238,6 +243,11 @@ HiTrackValidator::beginJob()
    hdzErrd0ErrPV = f->make<TH2D>("hdzErrd0ErrPVt","dz error vs d0 error (vz error summed);dz error;d0 error", 60,0.0,1.2, 60,0.0,1.2);
    hdzOverdzErrd0Err = f->make<TH2D>("hdzOverdzErrd0Err","dz/dzError vs d0/d0Error", 80,-10.0,10.0, 80,-10.0,10.0);
    hdzOverdzErrd0ErrPV = f->make<TH2D>("hdzOverdzErrd0ErrPV","dz/dzError with PV error vs d0/d0Error with PV error", 80,-10.0,10.0, 80,-10.0,10.0);
+
+   // kinematic distributions
+   hEtaPhi = f->make<TH2D>("hEtaPhi","eta vs phi;#eta;#phi", 20,-2.65,2.65, 40,-1.05*TMath::Pi(),1.05*TMath::Pi());
+   
+
 }
 
 // ------------ method called once each job just after ending the event loop  ------------

@@ -64,6 +64,7 @@ class HiTrackValidator : public edm::EDAnalyzer {
       bool selectFake_;
       bool useQaulityStr_;
 
+      // 
       TH1D *hVtxSize;
       TH1D *hNlayers;
       TH1D *hNlayers3D;
@@ -95,6 +96,9 @@ class HiTrackValidator : public edm::EDAnalyzer {
       TH2D *hdzErrd0ErrPV;
       TH2D *hdzOverdzErrd0Err;
       TH2D *hdzOverdzErrd0ErrPV;
+
+      // kinematic distributions
+      TH2D *hEtaPhi;
 
       std::vector<double> ptBins;
 
