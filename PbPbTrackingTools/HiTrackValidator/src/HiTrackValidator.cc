@@ -352,6 +352,7 @@ HiTrackValidator::beginJob()
 
 	 hdzOverdzErrd0Err_Cent[i]->SetName(Form("hdzOverdzErrd0Err_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hEtaPhi_Cent[i]->SetName(Form("hEtaPhi_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 
       }else{
          hNvalidHits_Cent[i]->SetName(Form("hNvalidHits_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
@@ -372,6 +373,7 @@ HiTrackValidator::beginJob()
 
 	 hdzOverdzErrd0Err_Cent[i]->SetName(Form("hdzOverdzErrd0Err_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hEtaPhi_Cent[i]->SetName(Form("hEtaPhi_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
       }
 
    }
