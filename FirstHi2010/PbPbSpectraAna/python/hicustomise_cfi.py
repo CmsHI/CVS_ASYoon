@@ -89,6 +89,27 @@ def runOn393(process):
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     return process
+
+def runOn393DataMixMC(process):
+    print "runOn393DataMixMC option is enabled (the whole event filtering removed)!"
+    process.eventFilter.remove(process.minBiasBscFilter)
+    process.eventFilter.remove(process.collisionEventSelection)
+    process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
+    process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
+    process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hitrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hitrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.hicaloTrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hicaloTrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.hipxltrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hipxltrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.hirefitTrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hirefitTrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    return process
+
     
 def usehiSelectedTracks(process):
     print "hiSelectedTracks is used!"
