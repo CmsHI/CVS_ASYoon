@@ -8,6 +8,7 @@
 <use name=RecoVertex/PrimaryVertexProducer>
 <use name=SimTracker/Records>
 <use name=SimTracker/TrackAssociation>
+<use name=DataFormats/HeavyIonEvent>
 <flags EDM_PLUGIN=1>
 <export>
    <lib name=PbPbTrackingToolsHiTrackValidator>

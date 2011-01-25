@@ -9,5 +9,6 @@ hitrkvalidator = cms.EDAnalyzer('HiTrackValidator',
       etaMax=cms.untracked.double(1.0),
       hasSimInfo=cms.untracked.bool(False),
       selectFake=cms.untracked.bool(False),
-      useQaulityStr=cms.untracked.bool(True)
+      useQaulityStr=cms.untracked.bool(True),
+      neededCentBins = cms.untracked.vint32(0,1,3,11,19,39)
 )
