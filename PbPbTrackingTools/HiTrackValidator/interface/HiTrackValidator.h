@@ -31,6 +31,9 @@
 #include "DataFormats/RecoCandidate/interface/TrackAssociation.h"
 #include "SimTracker/TrackAssociation/interface/TrackAssociatorByHits.h"
 
+// centrality
+#include "DataFormats/HeavyIonEvent/interface/CentralityProvider.h"
+
 
 
 // ROOT includes
@@ -58,13 +61,15 @@ class HiTrackValidator : public edm::EDAnalyzer {
       edm::InputTag simtrklabel_;
       edm::InputTag associatorMap_;
 
+      CentralityProvider * centrality_;
+
       double etaMax_;
 
       bool hasSimInfo_;
       bool selectFake_;
       bool useQaulityStr_;
 
-      // 
+      // quality cuts distribution 
       TH1D *hVtxSize;
       TH1D *hNlayers;
       TH1D *hNlayers3D;
@@ -77,6 +82,14 @@ class HiTrackValidator : public edm::EDAnalyzer {
       TH1D *hvzErr, *hvtErr;
       TH1D *hdzOverdzErr, *hd0Overd0Err;
       TH1D *hdzOverdzErrPV, *hd0Overd0ErrPV;
+
+      std::vector<TH1D*> hNvalidHits_Cent;
+      std::vector<TH1D*> hChi2n_Cent;
+      std::vector<TH1D*> hRelPtErr_Cent;
+      std::vector<TH1D*> hdzErrPV_Cent;
+      std::vector<TH1D*> hd0ErrPV_Cent;
+      std::vector<TH1D*> hdzOverdzErrPV_Cent;
+      std::vector<TH1D*> hd0Overd0ErrPV_Cent;
 
       // as a function of pt
       TH2D *hNlayersdPt;
@@ -91,15 +104,29 @@ class HiTrackValidator : public edm::EDAnalyzer {
       TH2D *hdzOverdzErrdPt, *hd0Overd0ErrdPt;
       TH2D *hdzOverdzErrPVdPt, *hd0Overd0ErrPVdPt;
 
+      std::vector<TH2D*> hNvalidHitsdPt_Cent;
+      std::vector<TH2D*> hChi2ndPt_Cent;
+      std::vector<TH2D*> hRelPtErrdPt_Cent;
+      std::vector<TH2D*> hdzErrPVdPt_Cent;
+      std::vector<TH2D*> hd0ErrPVdPt_Cent;
+      std::vector<TH2D*> hdzOverdzErrPVdPt_Cent;
+      std::vector<TH2D*> hd0Overd0ErrPVdPt_Cent;
+
       // correlations
       TH2D *hdzErrd0Err;
       TH2D *hdzErrd0ErrPV;
       TH2D *hdzOverdzErrd0Err;
       TH2D *hdzOverdzErrd0ErrPV;
 
+      std::vector<TH2D*> hdzOverdzErrd0Err_Cent;
+      std::vector<TH2D*> hdzOverdzErrd0ErrPV_Cent;
+      
       // kinematic distributions
       TH2D *hEtaPhi;
+      std::vector<TH2D*> hEtaPhi_Cent;
 
       std::vector<double> ptBins;
+      std::vector<int32_t> neededCentBins_;
+
 
 };

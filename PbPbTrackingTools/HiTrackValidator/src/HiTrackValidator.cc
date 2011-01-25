@@ -13,7 +13,9 @@ HiTrackValidator::HiTrackValidator(const edm::ParameterSet& iConfig)
    etaMax_(iConfig.getUntrackedParameter<double>("etaMax")),
    hasSimInfo_(iConfig.getUntrackedParameter<bool>("hasSimInfo")),
    selectFake_(iConfig.getUntrackedParameter<bool>("selectFake")),
-   useQaulityStr_(iConfig.getUntrackedParameter<bool>("useQaulityStr"))
+   useQaulityStr_(iConfig.getUntrackedParameter<bool>("useQaulityStr")),
+   neededCentBins_(iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins")),
+   centrality_(0)
 {
 
 }
@@ -43,6 +45,11 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
    if(vtxs.size()!=0) isPV = true;
    hVtxSize->Fill(vtxs.size());
 
+
+   //------- Centrality information --------
+   centrality_ = new CentralityProvider(iSetup);
+   centrality_->newEvent(iEvent,iSetup);
+   int cbin = centrality_->getBin();
 
    //------ Sim tracks -------------------
    edm::Handle<TrackingParticleCollection>  TPCollectionHfake;
@@ -90,8 +97,20 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       double pt = trk.pt(), eta = trk.eta(), phi = trk.phi();
 
       hEtaPhi->Fill(eta,phi);
+      
+      // centrality binned
+      for(unsigned i=0;i<neededCentBins_.size();i++){
+	 if(i==0){
+	    if(cbin<=neededCentBins_[i+1]) 
+	       hEtaPhi_Cent[i]->Fill(eta,phi);
+	 }else{
+	    if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1])
+	       hEtaPhi_Cent[i]->Fill(eta,phi);
+	 }
+      }
 
       if(etaMax_<eta) continue; // only for a given eta range
+
 
       // basic hit level quality varialbes
       uint32_t nlayers     = trk.hitPattern().trackerLayersWithMeasurement();
@@ -147,7 +166,6 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       hdzOverdzErrPV->Fill(dzOverdZErrPV);
       hd0Overd0ErrPV->Fill(d0Overd0ErrPV);
 
-
       // histogram filling 2D
       hNlayersdPt->Fill(pt,nlayers);
       hNlayers3DdPt->Fill(pt,nlayers3D);
@@ -171,6 +189,50 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       hdzErrd0ErrPV->Fill(dzErrPV,d0ErrPV);
       hdzOverdzErrd0Err->Fill(dzOverdZErr,d0Overd0Err);
       hdzOverdzErrd0ErrPV->Fill(dzOverdZErrPV,d0Overd0ErrPV);
+
+
+      // centrality binned
+      for(unsigned i=0;i<neededCentBins_.size();i++){
+         if(i==0){
+            if(cbin<=neededCentBins_[i+1]){
+	       hNvalidHits_Cent[i]->Fill(nhits);
+	       hChi2n_Cent[i]->Fill(chi2n);
+	       hRelPtErr_Cent[i]->Fill(relpterr);
+	       hdzErrPV_Cent[i]->Fill(dzErrPV);
+	       hd0ErrPV_Cent[i]->Fill(d0ErrPV);
+	       hdzOverdzErrPV_Cent[i]->Fill(dzOverdZErrPV);
+	       hd0Overd0ErrPV_Cent[i]->Fill(d0Overd0ErrPV);
+	       hNvalidHitsdPt_Cent[i]->Fill(pt,nhits);
+	       hChi2ndPt_Cent[i]->Fill(pt,chi2n);
+	       hRelPtErrdPt_Cent[i]->Fill(pt,relpterr);
+	       hdzErrPVdPt_Cent[i]->Fill(pt,dzErrPV);
+	       hd0ErrPVdPt_Cent[i]->Fill(pt,d0ErrPV);
+	       hdzOverdzErrPVdPt_Cent[i]->Fill(pt,dzOverdZErrPV);
+	       hd0Overd0ErrPVdPt_Cent[i]->Fill(pt,d0Overd0ErrPV);
+	       hdzOverdzErrd0Err_Cent[i]->Fill(dzOverdZErr,d0Overd0Err);
+	       hdzOverdzErrd0ErrPV_Cent[i]->Fill(dzOverdZErrPV,d0Overd0ErrPV);
+	    }
+         }else{
+            if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1]){
+	       hNvalidHits_Cent[i]->Fill(nhits);
+	       hChi2n_Cent[i]->Fill(chi2n);
+	       hRelPtErr_Cent[i]->Fill(relpterr);
+	       hdzErrPV_Cent[i]->Fill(dzErrPV);
+	       hd0ErrPV_Cent[i]->Fill(d0ErrPV);
+	       hdzOverdzErrPV_Cent[i]->Fill(dzOverdZErrPV);
+	       hd0Overd0ErrPV_Cent[i]->Fill(d0Overd0ErrPV);
+	       hNvalidHitsdPt_Cent[i]->Fill(pt,nhits);
+	       hChi2ndPt_Cent[i]->Fill(pt,chi2n);
+	       hRelPtErrdPt_Cent[i]->Fill(pt,relpterr);
+	       hdzErrPVdPt_Cent[i]->Fill(pt,dzErrPV);
+	       hd0ErrPVdPt_Cent[i]->Fill(pt,d0ErrPV);
+	       hdzOverdzErrPVdPt_Cent[i]->Fill(pt,dzOverdZErrPV);
+	       hd0Overd0ErrPVdPt_Cent[i]->Fill(pt,d0Overd0ErrPV);
+	       hdzOverdzErrd0Err_Cent[i]->Fill(dzOverdZErr,d0Overd0Err);
+	       hdzOverdzErrd0ErrPV_Cent[i]->Fill(dzOverdZErrPV,d0Overd0ErrPV);
+	    }
+         }
+      }
 
 
    }
@@ -219,7 +281,7 @@ HiTrackValidator::beginJob()
    hd0Overd0Err = f->make<TH1D>("hd0Overd0Err","d0/d0Error; d0/d0Error", 80,-10.0,10.0);
    hdzOverdzErrPV =  f->make<TH1D>("hdzOverdzErrPV","dz/dzError with PV error; dz/dzError", 80,-10.0,10.0);
    hd0Overd0ErrPV = f->make<TH1D>("hd0Overd0ErrPV","d0/d0Error with PV error; d0/d0Error", 80,-10.0,10.0);
-   
+
    // as a function of pt
    hNlayersdPt = f->make<TH2D>("hNlayersdPt","number of layers with tracker hits vs p_{T}; p_{T};N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
    hNlayers3DdPt = f->make<TH2D>("hNlayers3DdPt","number of layers with tracker hits vs p_{T}; p_{T};N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
@@ -246,7 +308,73 @@ HiTrackValidator::beginJob()
 
    // kinematic distributions
    hEtaPhi = f->make<TH2D>("hEtaPhi","eta vs phi;#eta;#phi", 20,-2.65,2.65, 40,-1.05*TMath::Pi(),1.05*TMath::Pi());
-   
+
+
+   // centrality binned histogram 
+   for(unsigned i=0;i<neededCentBins_.size()-1;i++){
+
+      hNvalidHits_Cent.push_back(f->make<TH1D>("","number of valid hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
+      hChi2n_Cent.push_back(f->make<TH1D>("","normalized track chi2;chi^{2}/ndof", 60,0.0,5.0));
+      hRelPtErr_Cent.push_back(f->make<TH1D>("","relative track p_{T} error; p_{T} err/p_{T}", 100,0.0,0.4));
+      hdzErrPV_Cent.push_back(f->make<TH1D>("","dz error with vz error summed ; dz error", 60,0.0,1.2));
+      hd0ErrPV_Cent.push_back(f->make<TH1D>("","d0 error; d0 error", 60,0.0,1.2));
+      hdzOverdzErrPV_Cent.push_back(f->make<TH1D>("","dz/dzError with PV error; dz/dzError", 80,-10.0,10.0));
+      hd0Overd0ErrPV_Cent.push_back(f->make<TH1D>("","d0/d0Error with PV error; d0/d0Error", 80,-10.0,10.0));
+
+      hNvalidHitsdPt_Cent.push_back(f->make<TH2D>("","number of valid hits vs p_{T}; p_{T}; N_{hits}",150,0.0,150.0, nmaxhits,0.,(double)nmaxhits));
+      hChi2ndPt_Cent.push_back(f->make<TH2D>("","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 60,0.0,5.0));
+      hRelPtErrdPt_Cent.push_back(f->make<TH2D>("","relative track p_{T} error vs p_{T}; p_{T}; p_{T} err/p_{T}", 150,0.0,150.0, 100,0.0,0.4));
+      hdzErrPVdPt_Cent.push_back(f->make<TH2D>("","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 60,0.0,1.2));
+      hd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 60,0.0,1.2));
+      hdzOverdzErrPVdPt_Cent.push_back(f->make<TH2D>("","dz/dzError with PV error vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0));
+      hd0Overd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0/d0Error with PV error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0));
+
+      hdzOverdzErrd0Err_Cent.push_back(f->make<TH2D>("","dz/dzError vs d0/d0Error", 80,-10.0,10.0, 80,-10.0,10.0));
+      hdzOverdzErrd0ErrPV_Cent.push_back(f->make<TH2D>("","dz/dzError with PV error vs d0/d0Error with PV error", 80,-10.0,10.0, 80,-10.0,10.0));
+      hEtaPhi_Cent.push_back(f->make<TH2D>("","eta vs phi;#eta;#phi", 20,-2.65,2.65, 40,-1.05*TMath::Pi(),1.05*TMath::Pi()));
+      
+      if(i==0){
+         hNvalidHits_Cent[i]->SetName(Form("hNvalidHits_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+         hChi2n_Cent[i]->SetName(Form("hChi2n_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+         hRelPtErr_Cent[i]->SetName(Form("hRelPtErr_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+         hdzErrPV_Cent[i]->SetName(Form("hdzErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+         hd0ErrPV_Cent[i]->SetName(Form("hd0ErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+         hdzOverdzErrPV_Cent[i]->SetName(Form("hdzOverdzErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+         hd0Overd0ErrPV_Cent[i]->SetName(Form("hd0Overd0ErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 
+	 hNvalidHitsdPt_Cent[i]->SetName(Form("hNvalidHitsdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hChi2ndPt_Cent[i]->SetName(Form("hChi2ndPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hRelPtErrdPt_Cent[i]->SetName(Form("hRelPtErrdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hdzErrPVdPt_Cent[i]->SetName(Form("hdzErrPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hd0ErrPVdPt_Cent[i]->SetName(Form("hd0ErrPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hdzOverdzErrPVdPt_Cent[i]->SetName(Form("hdzOverdzErrPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hd0Overd0ErrPVdPt_Cent[i]->SetName(Form("hd0Overd0ErrPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+
+	 hdzOverdzErrd0Err_Cent[i]->SetName(Form("hdzOverdzErrd0Err_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+
+      }else{
+         hNvalidHits_Cent[i]->SetName(Form("hNvalidHits_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hChi2n_Cent[i]->SetName(Form("hChi2n_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hRelPtErr_Cent[i]->SetName(Form("hRelPtErr_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hdzErrPV_Cent[i]->SetName(Form("hdzErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hd0ErrPV_Cent[i]->SetName(Form("hd0ErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hdzOverdzErrPV_Cent[i]->SetName(Form("hdzOverdzErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hd0Overd0ErrPV_Cent[i]->SetName(Form("hd0Overd0ErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+
+	 hNvalidHitsdPt_Cent[i]->SetName(Form("hNvalidHitsdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hChi2ndPt_Cent[i]->SetName(Form("hChi2ndPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hRelPtErrdPt_Cent[i]->SetName(Form("hRelPtErrdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hdzErrPVdPt_Cent[i]->SetName(Form("hdzErrPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hd0ErrPVdPt_Cent[i]->SetName(Form("hd0ErrPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hdzOverdzErrPVdPt_Cent[i]->SetName(Form("hdzOverdzErrPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hd0Overd0ErrPVdPt_Cent[i]->SetName(Form("hd0Overd0ErrPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+
+	 hdzOverdzErrd0Err_Cent[i]->SetName(Form("hdzOverdzErrd0Err_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+      }
+
+   }
 
 }
 
