@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id: CentralityDistAna.cc,v 1.7 2011/01/12 17:01:03 sungho Exp $
+// $Id: CentralityDistAna.cc,v 1.8 2011/01/20 20:34:25 sungho Exp $
 //
 //
 
@@ -66,6 +66,9 @@ class CentralityDistAna : public edm::EDAnalyzer {
    TH1F *hCentBinDist;
    TH1F *hCentBinDistNcollWeighted;
    TH1F *hCentBinDistNpartWeighted;
+   TH1F *hHFhitSumDist;
+   TH1F *hHFtowerSumDist;
+
    TH1F *hNcollValueAtCent;
    TH2F *hCentBinPxlHitDist;
    
@@ -119,13 +122,20 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
    
    int bin = centrality_->getBin();
+
+   float hf = centrality_->raw()->EtHFhitSum();
+   float hft = centrality_->raw()->EtHFtowerSum();
+
    float npartMean = centrality_->NpartMean();
    float ncollMean = centrality_->NcollMean();
 
-   // 
+   // centrality variable distribution
    hCentBinDist->Fill(bin);
    hCentBinDistNpartWeighted->Fill(bin,npartMean);
    hCentBinDistNcollWeighted->Fill(bin,ncollMean);
+
+   hHFhitSumDist->Fill(hf);
+   hHFtowerSumDist->Fill(hft);
 
    // fill once to check Ncoll(cent. bin) 
    int hbin = hNcollValueAtCent->GetXaxis()->FindBin(bin);
@@ -161,6 +171,8 @@ CentralityDistAna::beginJob()
 					      "Centrality bin distribution weighted by N_{coll};centrality bin",40,-0.5,39.5);
    hCentBinDistNpartWeighted = fs->make<TH1F>("hCentBinDistNpartWeighted",
 					      "Centrality bin distribution weighted by N_{part};centrality bin",40,-0.5,39.5);
+   hHFhitSumDist = fs->make<TH1F>("hHFhitSumDist","HF hit energy sum distribution; Total energy in HF",160,0.0,200);
+   hHFtowerSumDist = fs->make<TH1F>("hHFtowerSumDist","HF tower energy sum distribution; Total tower energy in HF",160,0.0,200);
    hNcollValueAtCent = fs->make<TH1F>("hNcollValueAtCent","N_{coll} value;centrality bin",40,-0.5,39.5);
    hCentBinPxlHitDist = fs->make<TH2F>("hCentBinPxlHitDist","Centrality bin vs pixel hit multiplicity;centrality bin;0.01*Nhit_{pixel}",
 				       40,-0.5,39.5, 600,0,1200);
