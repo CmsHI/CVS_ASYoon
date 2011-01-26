@@ -77,6 +77,7 @@ class HiTrackValidator : public edm::EDAnalyzer {
       TH1D *hNvalidHits;
       TH1D *hChi2n;
       TH1D *hRelPtErr;
+      TH1D *hdzPV, *hd0PV;
       TH1D *hdzErr, *hd0Err;
       TH1D *hdzErrPV, *hd0ErrPV;
       TH1D *hvzErr, *hvtErr;
@@ -86,6 +87,8 @@ class HiTrackValidator : public edm::EDAnalyzer {
       std::vector<TH1D*> hNvalidHits_Cent;
       std::vector<TH1D*> hChi2n_Cent;
       std::vector<TH1D*> hRelPtErr_Cent;
+      std::vector<TH1D*> hdzPV_Cent;
+      std::vector<TH1D*> hd0PV_Cent;
       std::vector<TH1D*> hdzErrPV_Cent;
       std::vector<TH1D*> hd0ErrPV_Cent;
       std::vector<TH1D*> hdzOverdzErrPV_Cent;
@@ -98,6 +101,7 @@ class HiTrackValidator : public edm::EDAnalyzer {
       TH2D *hNvalidHitsdPt;
       TH2D *hChi2ndPt;
       TH2D *hRelPtErrdPt;
+      TH2D *hdzPVdPt, *hd0PVdPt;
       TH2D *hdzErrdPt, *hd0ErrdPt;
       TH2D *hdzErrPVdPt, *hd0ErrPVdPt;
       TH2D *hvzErrdPt, *hvtErrdPt;
@@ -107,6 +111,8 @@ class HiTrackValidator : public edm::EDAnalyzer {
       std::vector<TH2D*> hNvalidHitsdPt_Cent;
       std::vector<TH2D*> hChi2ndPt_Cent;
       std::vector<TH2D*> hRelPtErrdPt_Cent;
+      std::vector<TH2D*> hdzPVdPt_Cent;
+      std::vector<TH2D*> hd0PVdPt_Cent;
       std::vector<TH2D*> hdzErrPVdPt_Cent;
       std::vector<TH2D*> hd0ErrPVdPt_Cent;
       std::vector<TH2D*> hdzOverdzErrPVdPt_Cent;
