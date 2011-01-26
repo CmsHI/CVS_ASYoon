@@ -155,6 +155,8 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       hNvalidHits->Fill(nhits);
       hChi2n->Fill(chi2n);
       hRelPtErr->Fill(relpterr);
+      hdzPV->Fill(dz);
+      hd0PV->Fill(d0);
       hdzErr->Fill(dzE);
       hd0Err->Fill(d0E);
       hdzErrPV->Fill(dzErrPV);
@@ -173,6 +175,8 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       hNvalidHitsdPt->Fill(pt,nhits);
       hChi2ndPt->Fill(pt,chi2n);
       hRelPtErrdPt->Fill(pt,relpterr);
+      hdzPVdPt->Fill(pt,dz);
+      hd0PVdPt->Fill(pt,d0);
       hdzErrdPt->Fill(pt,dzE);
       hd0ErrdPt->Fill(pt,d0E);
       hdzErrPVdPt->Fill(pt,dzErrPV);
@@ -198,6 +202,8 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	       hNvalidHits_Cent[i]->Fill(nhits);
 	       hChi2n_Cent[i]->Fill(chi2n);
 	       hRelPtErr_Cent[i]->Fill(relpterr);
+	       hdzPV_Cent[i]->Fill(dz);
+               hd0PV_Cent[i]->Fill(d0);
 	       hdzErrPV_Cent[i]->Fill(dzErrPV);
 	       hd0ErrPV_Cent[i]->Fill(d0ErrPV);
 	       hdzOverdzErrPV_Cent[i]->Fill(dzOverdZErrPV);
@@ -205,6 +211,8 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	       hNvalidHitsdPt_Cent[i]->Fill(pt,nhits);
 	       hChi2ndPt_Cent[i]->Fill(pt,chi2n);
 	       hRelPtErrdPt_Cent[i]->Fill(pt,relpterr);
+	       hdzPVdPt_Cent[i]->Fill(pt,dz);
+               hd0PVdPt_Cent[i]->Fill(pt,d0);
 	       hdzErrPVdPt_Cent[i]->Fill(pt,dzErrPV);
 	       hd0ErrPVdPt_Cent[i]->Fill(pt,d0ErrPV);
 	       hdzOverdzErrPVdPt_Cent[i]->Fill(pt,dzOverdZErrPV);
@@ -217,6 +225,8 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	       hNvalidHits_Cent[i]->Fill(nhits);
 	       hChi2n_Cent[i]->Fill(chi2n);
 	       hRelPtErr_Cent[i]->Fill(relpterr);
+	       hdzPV_Cent[i]->Fill(dz);
+               hd0PV_Cent[i]->Fill(d0);
 	       hdzErrPV_Cent[i]->Fill(dzErrPV);
 	       hd0ErrPV_Cent[i]->Fill(d0ErrPV);
 	       hdzOverdzErrPV_Cent[i]->Fill(dzOverdZErrPV);
@@ -224,6 +234,8 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	       hNvalidHitsdPt_Cent[i]->Fill(pt,nhits);
 	       hChi2ndPt_Cent[i]->Fill(pt,chi2n);
 	       hRelPtErrdPt_Cent[i]->Fill(pt,relpterr);
+	       hdzPVdPt_Cent[i]->Fill(pt,dz);
+               hd0PVdPt_Cent[i]->Fill(pt,d0);
 	       hdzErrPVdPt_Cent[i]->Fill(pt,dzErrPV);
 	       hd0ErrPVdPt_Cent[i]->Fill(pt,d0ErrPV);
 	       hdzOverdzErrPVdPt_Cent[i]->Fill(pt,dzOverdZErrPV);
@@ -271,10 +283,12 @@ HiTrackValidator::beginJob()
    hNvalidHits = f->make<TH1D>("hNvalidHits","number of valid hits; N_{hits}", nmaxhits,0.,(double)nmaxhits);
    hChi2n = f->make<TH1D>("hChi2n","normalized track chi2;chi^{2}/ndof", 60,0.0,5.0);
    hRelPtErr = f->make<TH1D>("hRelPtErr","relative track p_{T} error; p_{T} err/p_{T}", 100,0.0,0.4);
-   hdzErr = f->make<TH1D>("hdzErr","dz error; dz error", 60,0.0,1.2);
-   hd0Err = f->make<TH1D>("hd0Err","d0 error; d0 error", 60,0.0,1.2);
-   hdzErrPV = f->make<TH1D>("hdzErrPV","dz error with vz error summed ; dz error", 60,0.0,1.2);
-   hd0ErrPV = f->make<TH1D>("hd0ErrPV","d0 error with vz error summed ; d0 error", 60,0.0,1.2);
+   hdzPV = f->make<TH1D>("hdzPV","dz ; dz", 100,-1.5,1.5);
+   hd0PV = f->make<TH1D>("hd0PV","d0 ; d0", 100,-1.5,1.5);
+   hdzErr = f->make<TH1D>("hdzErr","dz error; dz error", 80,0.0,0.8);
+   hd0Err = f->make<TH1D>("hd0Err","d0 error; d0 error", 80,0.0,0.8);
+   hdzErrPV = f->make<TH1D>("hdzErrPV","dz error with vz error summed ; dz error", 80,0.0,0.8);
+   hd0ErrPV = f->make<TH1D>("hd0ErrPV","d0 error with vz error summed ; d0 error", 80,0.0,0.8);
    hvzErr = f->make<TH1D>("hvzErr","vz error; vz error", 100,0.0, 0.08);
    hvtErr = f->make<TH1D>("hvtErr","vxy error; vxy error", 100,0.0, 0.08);
    hdzOverdzErr = f->make<TH1D>("hdzOverdzErr","dz/dzError; dz/dzError", 80,-10.0,10.0);
@@ -289,10 +303,12 @@ HiTrackValidator::beginJob()
    hNvalidHitsdPt = f->make<TH2D>("hNvalidHitsdPt","number of valid hits vs p_{T}; p_{T}; N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
    hChi2ndPt = f->make<TH2D>("hChi2ndPt","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 60,0.0,5.0);
    hRelPtErrdPt = f->make<TH2D>("hRelPtErrdPt","relative track p_{T} error vs p_{T}; p_{T}; p_{T} err/p_{T}", 150,0.0,150.0, 100,0.0,0.4);
-   hdzErrdPt = f->make<TH2D>("hdzErrdPt","dz error vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 60,0.0,1.2);
-   hd0ErrdPt = f->make<TH2D>("hd0ErrdPt","d0 error vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 60,0.0,1.2);
-   hdzErrPVdPt = f->make<TH2D>("hdzErrPVdPt","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 60,0.0,1.2);
-   hd0ErrPVdPt = f->make<TH2D>("hd0ErrPVdPt","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 60,0.0,1.2);
+   hdzPVdPt = f->make<TH2D>("hdzPVdPt","dz vs p_{T}; p_{T}; dz", 150,0.0,150.0, 100,-1.5,1.5);
+   hd0PVdPt = f->make<TH2D>("hd0PVdPt","d0 vs p_{T}; p_{T}; d0", 150,0.0,150.0, 100,-1.5,1.5);
+   hdzErrdPt = f->make<TH2D>("hdzErrdPt","dz error vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8);
+   hd0ErrdPt = f->make<TH2D>("hd0ErrdPt","d0 error vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 80,0.0,0.8);
+   hdzErrPVdPt = f->make<TH2D>("hdzErrPVdPt","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8);
+   hd0ErrPVdPt = f->make<TH2D>("hd0ErrPVdPt","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 80,0.0,0.8);
    hvzErrdPt =  f->make<TH2D>("hvzErrdPt","vz error vs p_{T}; p_{T}; vz error", 150,0.0,150.0, 100,0.0,0.08);
    hvtErrdPt = f->make<TH2D>("hvtErrdPt","vxy error vs p_{T}; p_{T}; vxy error", 150,0.0,150.0, 100,0.0,0.08);
    hdzOverdzErrdPt = f->make<TH2D>("hdzOverdzErrdPt","dz/dzError vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0);
@@ -301,8 +317,8 @@ HiTrackValidator::beginJob()
    hd0Overd0ErrPVdPt = f->make<TH2D>("hd0Overd0ErrPVdPt","d0/d0Error with PV error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0);
    
    // correlation
-   hdzErrd0Err = f->make<TH2D>("hdzErrd0Err","dz error vs d0 error;dz error;d0 error", 60,0.0,1.2, 60,0.0,1.2);
-   hdzErrd0ErrPV = f->make<TH2D>("hdzErrd0ErrPVt","dz error vs d0 error (vz error summed);dz error;d0 error", 60,0.0,1.2, 60,0.0,1.2);
+   hdzErrd0Err = f->make<TH2D>("hdzErrd0Err","dz error vs d0 error;dz error;d0 error", 80,0.0,0.8, 80,0.0,0.8);
+   hdzErrd0ErrPV = f->make<TH2D>("hdzErrd0ErrPVt","dz error vs d0 error (vz error summed);dz error;d0 error", 80,0.0,0.8, 80,0.0,0.8);
    hdzOverdzErrd0Err = f->make<TH2D>("hdzOverdzErrd0Err","dz/dzError vs d0/d0Error", 80,-10.0,10.0, 80,-10.0,10.0);
    hdzOverdzErrd0ErrPV = f->make<TH2D>("hdzOverdzErrd0ErrPV","dz/dzError with PV error vs d0/d0Error with PV error", 80,-10.0,10.0, 80,-10.0,10.0);
 
@@ -316,16 +332,20 @@ HiTrackValidator::beginJob()
       hNvalidHits_Cent.push_back(f->make<TH1D>("","number of valid hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
       hChi2n_Cent.push_back(f->make<TH1D>("","normalized track chi2;chi^{2}/ndof", 60,0.0,5.0));
       hRelPtErr_Cent.push_back(f->make<TH1D>("","relative track p_{T} error; p_{T} err/p_{T}", 100,0.0,0.4));
-      hdzErrPV_Cent.push_back(f->make<TH1D>("","dz error with vz error summed ; dz error", 60,0.0,1.2));
-      hd0ErrPV_Cent.push_back(f->make<TH1D>("","d0 error; d0 error", 60,0.0,1.2));
+      hdzPV_Cent.push_back(f->make<TH1D>("","dz ; dz ", 100,-1.5,1.5));
+      hd0PV_Cent.push_back(f->make<TH1D>("","d0 ; d0 ", 100,-1.5,1.5));
+      hdzErrPV_Cent.push_back(f->make<TH1D>("","dz error with vz error summed ; dz error", 80,0.0,0.8));
+      hd0ErrPV_Cent.push_back(f->make<TH1D>("","d0 error; d0 error", 80,0.0,0.8));
       hdzOverdzErrPV_Cent.push_back(f->make<TH1D>("","dz/dzError with PV error; dz/dzError", 80,-10.0,10.0));
       hd0Overd0ErrPV_Cent.push_back(f->make<TH1D>("","d0/d0Error with PV error; d0/d0Error", 80,-10.0,10.0));
 
       hNvalidHitsdPt_Cent.push_back(f->make<TH2D>("","number of valid hits vs p_{T}; p_{T}; N_{hits}",150,0.0,150.0, nmaxhits,0.,(double)nmaxhits));
-      hChi2ndPt_Cent.push_back(f->make<TH2D>("","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 60,0.0,5.0));
+      hChi2ndPt_Cent.push_back(f->make<TH2D>("","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 80,0.0,0.8));
       hRelPtErrdPt_Cent.push_back(f->make<TH2D>("","relative track p_{T} error vs p_{T}; p_{T}; p_{T} err/p_{T}", 150,0.0,150.0, 100,0.0,0.4));
-      hdzErrPVdPt_Cent.push_back(f->make<TH2D>("","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 60,0.0,1.2));
-      hd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 60,0.0,1.2));
+      hdzPVdPt_Cent.push_back(f->make<TH2D>("","dz vs p_{T}; p_{T}; dz", 150,0.0,150.0, 100,-1.5,1.5));
+      hd0PVdPt_Cent.push_back(f->make<TH2D>("","d0 vs p_{T}; p_{T}; d0r", 150,0.0,150.0, 100,-1.5,1.5));
+      hdzErrPVdPt_Cent.push_back(f->make<TH2D>("","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8));
+      hd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 80,0.0,0.8));
       hdzOverdzErrPVdPt_Cent.push_back(f->make<TH2D>("","dz/dzError with PV error vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0));
       hd0Overd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0/d0Error with PV error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0));
 
@@ -337,6 +357,8 @@ HiTrackValidator::beginJob()
          hNvalidHits_Cent[i]->SetName(Form("hNvalidHits_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
          hChi2n_Cent[i]->SetName(Form("hChi2n_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
          hRelPtErr_Cent[i]->SetName(Form("hRelPtErr_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hdzPV_Cent[i]->SetName(Form("hdzPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+         hd0PV_Cent[i]->SetName(Form("hd0PV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
          hdzErrPV_Cent[i]->SetName(Form("hdzErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
          hd0ErrPV_Cent[i]->SetName(Form("hd0ErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
          hdzOverdzErrPV_Cent[i]->SetName(Form("hdzOverdzErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
@@ -345,6 +367,8 @@ HiTrackValidator::beginJob()
 	 hNvalidHitsdPt_Cent[i]->SetName(Form("hNvalidHitsdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hChi2ndPt_Cent[i]->SetName(Form("hChi2ndPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hRelPtErrdPt_Cent[i]->SetName(Form("hRelPtErrdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hdzPVdPt_Cent[i]->SetName(Form("hdzPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+         hd0PVdPt_Cent[i]->SetName(Form("hd0PVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hdzErrPVdPt_Cent[i]->SetName(Form("hdzErrPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hd0ErrPVdPt_Cent[i]->SetName(Form("hd0ErrPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hdzOverdzErrPVdPt_Cent[i]->SetName(Form("hdzOverdzErrPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
@@ -358,6 +382,8 @@ HiTrackValidator::beginJob()
          hNvalidHits_Cent[i]->SetName(Form("hNvalidHits_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hChi2n_Cent[i]->SetName(Form("hChi2n_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hRelPtErr_Cent[i]->SetName(Form("hRelPtErr_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hdzPV_Cent[i]->SetName(Form("hdzPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hd0PV_Cent[i]->SetName(Form("hd0PV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hdzErrPV_Cent[i]->SetName(Form("hdzErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hd0ErrPV_Cent[i]->SetName(Form("hd0ErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hdzOverdzErrPV_Cent[i]->SetName(Form("hdzOverdzErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
@@ -366,6 +392,8 @@ HiTrackValidator::beginJob()
 	 hNvalidHitsdPt_Cent[i]->SetName(Form("hNvalidHitsdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hChi2ndPt_Cent[i]->SetName(Form("hChi2ndPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hRelPtErrdPt_Cent[i]->SetName(Form("hRelPtErrdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hdzPVdPt_Cent[i]->SetName(Form("hdzPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hd0PVdPt_Cent[i]->SetName(Form("hd0PVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hdzErrPVdPt_Cent[i]->SetName(Form("hdzErrPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hd0ErrPVdPt_Cent[i]->SetName(Form("hd0ErrPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hdzOverdzErrPVdPt_Cent[i]->SetName(Form("hdzOverdzErrPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
