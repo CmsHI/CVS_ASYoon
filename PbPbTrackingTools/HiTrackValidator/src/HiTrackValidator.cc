@@ -323,7 +323,7 @@ HiTrackValidator::beginJob()
    hdzOverdzErrd0ErrPV = f->make<TH2D>("hdzOverdzErrd0ErrPV","dz/dzError with PV error vs d0/d0Error with PV error", 80,-10.0,10.0, 80,-10.0,10.0);
 
    // kinematic distributions
-   hEtaPhi = f->make<TH2D>("hEtaPhi","eta vs phi;#eta;#phi", 20,-2.65,2.65, 40,-1.05*TMath::Pi(),1.05*TMath::Pi());
+   hEtaPhi = f->make<TH2D>("hEtaPhi","eta vs phi;#eta;#phi", 40,-2.65,2.65, 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
 
 
    // centrality binned histogram 
