@@ -20,8 +20,8 @@ postSelVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiSelect
 
 from PbPbTrackingTools.HiTrackValidator.hitrackvalidator_cfi import *
 from edwenger.HiTrkEffAnalyzer.HiTPCuts_cff import *
-hiseltrkval = hitrkvalidator.clone()
-hiseltrkval_fake = hiseltrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
+hihightrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiHighPtTracks"))
+hihightrkval_fake = hihightrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
                                      hasSimInfo=cms.untracked.bool(True),
                                      selectFake=cms.untracked.bool(True))
 higoodtrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodTracks"))
@@ -29,10 +29,10 @@ higoodtrkval_fake = higoodtrkval.clone(simtrklabel = cms.untracked.InputTag("cut
                                        hasSimInfo=cms.untracked.bool(True),
                                        selectFake=cms.untracked.bool(True))
 
-hiseltrkval_fakeOnly = cms.Sequence(cutsTPForFak*
-                                hiseltrkval_fake)
+hihightrkval_fakeOnly = cms.Sequence(cutsTPForFak*
+                                     hihightrkval_fake)
 higoodtrkval_fakeOnly = cms.Sequence(cutsTPForFak*
-                                 higoodtrkval_fake)
+                                     higoodtrkval_fake)
 
 
 # clone cent bin analyzer
@@ -46,6 +46,10 @@ hitrackAna.doJet = cms.untracked.bool(True)
 hitrackAna.triggerNeeded = cms.untracked.bool(True)
 hitrackAna.pixelMultMode = cms.untracked.bool(False)
 hitrackAna.neededTrigSpectra = cms.untracked.vint32(0,1,1,0,0) #Jet35U and 50U
+
+hihightrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiHighPtTracks"),
+                                  src_evtCorr=cms.untracked.InputTag("hiHighPtTracks")
+                                  )
 
 hicaloTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiCaloCompTracks"),
                                   src_evtCorr=cms.untracked.InputTag("hiCaloCompTracks")

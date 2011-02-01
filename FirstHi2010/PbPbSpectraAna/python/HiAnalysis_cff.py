@@ -3,10 +3,8 @@ import FWCore.ParameterSet.Config as cms
 from FirstHi2010.PbPbSpectraAna.HiAnalyzers_cff import *
 from edwenger.HiTrkEffAnalyzer.hitrkEffAnalyzer_cff import *
 
-hiAnalysisSeq = cms.Sequence(hipxltrackAna*
+hiAnalysisSeq = cms.Sequence(hipxltrackAna*                    # low pt pixel track
                              hipxltrkEffAna*
-                             #(hitrackAna + hirefitTrackAna + hicompTrackAna)*
-                             #(hitrackAna + hirefitTrackAna)
-                             (higoodtrkval)* # hitrack validator 
-                             (hitrackAna + hicaloTrackAna)*
-                             (hiseltrkEffAna + hitrkEffAna))
+                             (hihightrkval    + higoodtrkval)* # hitrack validator 
+                             (hihightrackAna  + hitrackAna)*
+                             (hihightrkEffAna + hitrkEffAna))
