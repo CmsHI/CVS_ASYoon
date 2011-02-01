@@ -74,7 +74,7 @@ overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
         version = cms.untracked.string('$Revision: 1.1 $'),
-            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_393DataMixMC.py,v $'),
+            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_393DataMixMC_VAR.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
@@ -97,8 +97,9 @@ enableDataMixMC(process)  # to run on DataMixMC
 
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
-process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
-process.extraJets_step  = cms.Path(process.eventFilter * process.dj_reco_extra)
+#process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
+process.extraReco_step   = cms.Path(process.eventFilter * process.hiextraReco)
+process.extraJets_step  = cms.Path(process.eventFilter  * process.dj_reco_extra)
 process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
 
@@ -114,7 +115,7 @@ process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 #process = enableREDIGI(process) # to run on redigitized 
 process = runOn393DataMixMC(process)
 process = whichCentBins(process,options.centRange) # centrality range
-process = setMinPtforPF(process,200) # min pt for PF reco/ana
+#process = setMinPtforPF(process,200) # min pt for PF reco/ana
 
 # =============== Output ================================
 #process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
