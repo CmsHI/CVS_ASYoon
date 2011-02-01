@@ -4,9 +4,11 @@ import FWCore.ParameterSet.Config as cms
 def enableSIM(process):
     process.hipxltrackAna.isGEN=True
     process.hitrackAna.isGEN=True
+    process.hihightrackAna.isGEN=True
     process.hipxltrkEffAnalyzer.hasSimInfo=True
     process.hitrkEffAnalyzer.hasSimInfo=True
-    process.hiAnalysisSeq.replace(process.hiseltrkval,process.hiseltrkval+process.hiseltrkval_fakeOnly)
+    process.hihightrkEffAnalyzer.hasSimInfo=True
+    process.hiAnalysisSeq.replace(process.hihightrkval,process.hihightrkval+process.hihightrkval_fakeOnly)
     process.hiAnalysisSeq.replace(process.higoodtrkval,process.higoodtrkval+process.higoodtrkval_fakeOnly)
     process.pfCandidateAnalyzer.isData=False
     process.pfCandidateAnalyzer.hasSimInfo=True
@@ -20,6 +22,7 @@ def enableSIM(process):
 def enableEffOnly(process):
     process.hiAnalysisSeq.remove(process.hipxltrackAna)
     process.hiAnalysisSeq.remove(process.hitrackAna)
+    process.hiAnalysisSeq.remove(process.hihightrackAna)
     process.hiAnalysisSeq.remove(process.hirefitTrackAna)
     return process
 
@@ -37,7 +40,7 @@ def disableLowPtAna(process):
 
 def disableEff(process):
     process.hiAnalysisSeq.remove(process.hipxltrkEffAna)
-    process.hiAnalysisSeq.remove(process.hiseltrkEffAna)
+    process.hiAnalysisSeq.remove(process.hihightrkEffAna)
     process.hiAnalysisSeq.remove(process.hitrkEffAna)
     process.hiAnalysisSeq.remove(process.hicalotrkEffAna)
     return process
@@ -47,6 +50,7 @@ def enableREDIGI(process):
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','REDIGI')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','REDIGI')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
@@ -66,15 +70,17 @@ def runOn384p2(process):
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','HISIGNAL')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','HISIGNAL')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hitrackAna.hltNames = cms.untracked.vstring(list)
+    process.hihightrackAna.hltNames = cms.untracked.vstring(list)
     process.hicaloTrackAna.hltNames = cms.untracked.vstring(list)
     process.hipxltrackAna.hltNames = cms.untracked.vstring(list)
     process.hirefitTrackAna.hltNames = cms.untracked.vstring(list)
-    process.hiseltrkval.useQaulityStr = cms.untracked.bool(False)
-    process.hiseltrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.hihightrkval.useQaulityStr = cms.untracked.bool(False)
+    process.hihightrkval_fake.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(False)
     return process
@@ -85,6 +91,7 @@ def runOn393(process):
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
@@ -97,11 +104,37 @@ def runOn393DataMixMC(process):
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hitrackAna.gsrc=cms.untracked.InputTag("genParticles")
     process.hitrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.hihightrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hihightrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.hicaloTrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hicaloTrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.hipxltrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hipxltrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.hirefitTrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hirefitTrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    return process
+
+def runOn393NewDataMixMC(process):
+    print "runOn393NewDataMixMC option is enabled (the whole event filtering removed)!"
+    process.eventFilter.remove(process.minBiasBscFilter)
+    process.eventFilter.remove(process.collisionEventSelection)
+    process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECOMIX')
+    process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECOMIX')
+    process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.hitrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hitrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.hihightrackAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.hihightrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hicaloTrackAna.gsrc=cms.untracked.InputTag("genParticles")
     process.hicaloTrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hipxltrackAna.gsrc=cms.untracked.InputTag("genParticles")
@@ -119,6 +152,8 @@ def usehiSelectedTracks(process):
     process.pfCandidateAnalyzer.Tracks = cms.InputTag("hiSelectedTracks")
     process.hitrackAna.src = cms.untracked.InputTag("hiSelectedTracks")
     process.hitrackAna.src_evtCorr = cms.untracked.InputTag("hiSelectedTracks")
+    #process.hihightrackAna.src = cms.untracked.InputTag("hiSelectedTracks")
+    #process.hihightrackAna.src_evtCorr = cms.untracked.InputTag("hiSelectedTracks")
     process.hiextraTrack.remove(process.hiGoodTracksSelection)
     process.heavyIonTracking.remove(process.hiGoodTracksSelection)
     return process
@@ -141,6 +176,8 @@ def usehiGoodMergedTracks(process):
     process.pfCandidateAnalyzer.Tracks = cms.InputTag("hiGoodMergedTracks")
     process.hitrackAna.src = cms.untracked.InputTag("hiGoodMergedTracks")
     process.hitrackAna.src_evtCorr = cms.untracked.InputTag("hiGoodMergedTracks")
+    #process.hihightrackAna.src = cms.untracked.InputTag("hiGoodMergedTracks")
+    #process.hihightrackAna.src_evtCorr = cms.untracked.InputTag("hiGoodMergedTracks")
     process.hiextraReco *= process.conformalPixelTrackReco
     process.hiGoodTracksSelection *= process.hiGoodMergedTracks
     return process
