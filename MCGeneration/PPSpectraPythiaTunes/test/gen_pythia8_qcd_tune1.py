@@ -13,7 +13,7 @@ process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 process.load("PhysicsTools.HepMCCandAlgos.genParticles_cfi")
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('100'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -34,7 +34,7 @@ options = VarParsing.VarParsing ('standard')
 # my own variable
 # available processType in customiseGEN_cfi
 options.register('processType',
-                 "NSD_0_to_15", 
+                 "ENSD_0_to_15", 
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "Pythia process type with pT_hat range")
