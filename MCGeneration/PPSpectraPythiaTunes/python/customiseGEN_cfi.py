@@ -52,6 +52,8 @@ def getPy6ProcParameters(genTypePtHatRange):
 
 def getPy8ProcParameters(genTypePtHatRange):
     para = {
+        # 0 to X (MB)
+        'NSD_0_to_10':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','SoftQCD:minBias = on','SoftQCD:singleDiffractive = on','SoftQCD:doubleDiffractive = on','PhaseSpace:pTHatMin = 0','PhaseSpace:pTHatMax = 10','Tune:pp 2','Tune:ee 3'],
         # 0 to X (Explicit)
         'ENSD_0_to_5':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','SoftQCD:minBias = on','SoftQCD:singleDiffractive = off','SoftQCD:doubleDiffractive = on','PhaseSpace:pTHatMin = 0','PhaseSpace:pTHatMax = 5','Tune:pp 2','Tune:ee 3'],
         'ENSD_0_to_10':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','SoftQCD:minBias = on','SoftQCD:singleDiffractive = off','SoftQCD:doubleDiffractive = on','PhaseSpace:pTHatMin = 0','PhaseSpace:pTHatMax = 10','Tune:pp 2','Tune:ee 3'],
