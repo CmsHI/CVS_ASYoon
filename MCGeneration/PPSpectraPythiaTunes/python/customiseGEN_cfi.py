@@ -66,6 +66,7 @@ def getPy8ProcParameters(genTypePtHatRange):
         'ENSD_0_to_40':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','SoftQCD:minBias = on','SoftQCD:singleDiffractive = off','SoftQCD:doubleDiffractive = on','PhaseSpace:pTHatMin = 0','PhaseSpace:pTHatMax = 40','Tune:pp 2','Tune:ee 3'],
         # X to Y
         'NSD_5_to_10':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 5','PhaseSpace:pTHatMax = 10','Tune:pp 2','Tune:ee 3'],
+        'NSD_15_to_20':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 15','PhaseSpace:pTHatMax = 20','Tune:pp 2','Tune:ee 3'],
         'NSD_10_to_20':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 10','PhaseSpace:pTHatMax = 20','Tune:pp 2','Tune:ee 3'],
         'NSD_20_to_30':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 20','PhaseSpace:pTHatMax = 30','Tune:pp 2','Tune:ee 3'],
         'NSD_30_to_50':['Main:timesAllowErrors = 10000','ParticleDecays:limitTau0 = on','ParticleDecays:tauMax = 10','HardQCD:all = on','PhaseSpace:pTHatMin = 30','PhaseSpace:pTHatMax = 50','Tune:pp 2','Tune:ee 3'],
