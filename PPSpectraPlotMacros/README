@@ -1,0 +1,7 @@
+This is a repository where the macros used for the plots in QCD-10-008 analysis are stored. 
+Although the macros are not supposed to work out of the box as the location of the input files 
+are probably different then in the local use case, upon putting correct location of the files, 
+the macros should run. An example root files (mostly the final root files used in the analysis) 
+are stored in "rootfiles" directory as well.
+
+- February 23, 2011 Andre Yoon 
