@@ -51,7 +51,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.11 $'),
+        version = cms.untracked.string('$Revision: 1.12 $'),
             name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -91,7 +91,7 @@ process = enableHLTJet(process,"HLT_HIJet50U_Core")
 process = disableLowPt(process) # disable low pt pixel
 #process = usehiGoodMergedTracks(process) # use hiGoodMergedTracks instead
 process = setAnaSeq(process,"AnaOnly") # EffOnly, AnaOnly, ALL
-process = whichCentBins(process,options.centRange) # centrality range
+process = whichCentBinMode(process,0) # centrality binning
 #process = setMinPtforPF(process,200) # min pt for PF reco/ana
 
 # =============== Output ================================
