@@ -5,3 +5,13 @@ the macros should run. An example root files (mostly the final root files used i
 are stored in "rootfiles" directory as well.
 
 - February 23, 2011 Andre Yoon 
+
+Macros used for the interpolation can be found in svn (QCD-10-008)
+
+papers/QCD-10-008/trunk/macros/interpolation
+
+.x plot_all_nlo.C
+.x plot_all.C(1)
+.x plot_all.C(0)
+
+- February 24, 2011 Andre Yoon
