@@ -11,8 +11,7 @@ from HeavyIonsAnalysis.Configuration.collisionEventSelection_cff import *
 # see FirstHi2010/PbPbSpectraAna/python/hicustomise_cfi.py 
 centFilter = centralityFilter.clone(selectedBins = cms.vint32())
 
-eventFilter = cms.Sequence(centFilter *
-                           preEvtSelVtxAna *
+eventFilter = cms.Sequence(preEvtSelVtxAna *
                            minBiasBscFilter *    # L1 and(or) HLT filter
                            collisionEventSelection * #
                            postEvtSelVtxAna)
