@@ -190,6 +190,24 @@ def setMinPtforPF(process,minpt=10):
     process.pfCandidateAnalyzer_test.ptMin = cms.untracked.double(minpt)
     process.hiCaloCompTracks.ptMin = cms.untracked.double(minpt)
     return process
+
+def whichCentBinMode(process,cbinMode=0):
+    if cbinMode==0 :
+        cbins=[0,1,3,11,19,39]
+        print "Centrality bins = ", cbins
+    if cbinMode==1 :
+        cbins=[0,1,3,11,19,23,27,31,35,39]
+        print "Centrality bins = ", cbins
+    process.hitrackAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.hihightrackAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.hicaloTrackAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.hipxltrackAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.hirefitTrackAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.hitrkEffAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
+    process.hihightrkEffAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
+    process.preCentDist.neededCentBins = cms.untracked.vint32(cbins)
+    process.postCentDist.neededCentBins = cms.untracked.vint32(cbins)
+    return process
     
 def setCentBins(process,ci=0,cf=10):
     if ci==cf:
