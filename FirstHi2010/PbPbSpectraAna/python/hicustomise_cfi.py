@@ -164,6 +164,7 @@ def enableHLTJet(process,hltname='HLT_HIJet50U'):
     process.hltJets.HLTPaths = [hltname]
     process.minBiasBscFilter.replace(process.hltMinBias,process.hltJets)
     print "Skim jet HLT path: ", process.hltJets.HLTPaths, "and minBiasBscFilter: ", process.minBiasBscFilter
+    process.eventFilter*=process.hiEcalRecHitSpikeFilter
     return process
                             
 

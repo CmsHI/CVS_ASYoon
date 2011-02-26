@@ -21,3 +21,8 @@ hltJets = hltHighLevel.clone(
 
 
 minBiasBscFilter = cms.Sequence(hltMinBias)
+
+# ================ Spike Cleaning =========================
+from CmsHi.PhotonAnalysis.hiEcalRecHitSpikeFilter_cfi import *
+hiEcalRecHitSpikeFilter.minEt = 20.0
+
