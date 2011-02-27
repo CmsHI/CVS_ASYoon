@@ -51,23 +51,39 @@ void PlotLinearInt(bool save=false){
   float ymin, ymax;
   float ymin_r, ymax_r;
 
-  xt_min = 0.00, xt_max = 8.1;
+  xt_min = 0.4, xt_max = 10.1;
   ymin = 3e3, ymax = 2e23;    
-  ymin_r = 0.001, ymax_r = 0.08;
+  ymin_r = 0.0025, ymax_r = 0.22;
 
 
-  TFile *fData = new TFile("../rootOutput_postApp_3rd/feb222011/output_interpolation.root");
+  TFile *fData = new TFile("../rootOutput_postApp_3rd/feb252010/output_interpolation.root");
 
-  TGraph *tg_data_3gev = (TGraph*) fData->Get("gXS2");
-  TGraph *tg_data_9gev = (TGraph*) fData->Get("gXS5");
+  TGraphErrors *tg_data_900_3gev = (TGraphErrors*) fData->Get("gXS900_2");
+  TGraphErrors *tg_data_900_9gev = (TGraphErrors*) fData->Get("gXS900_5");
   
+  TGraphErrors *tg_data_1960_3gev = (TGraphErrors*) fData->Get("gXS1960_2");
+  TGraphErrors *tg_data_1960_9gev = (TGraphErrors*) fData->Get("gXS1960_5");
+
+  TGraphErrors *tg_data_7000_3gev = (TGraphErrors*) fData->Get("gXS7000_2");
+  TGraphErrors *tg_data_7000_9gev = (TGraphErrors*) fData->Get("gXS7000_5");
+
+  TGraphErrors *tg_data_630_3gev = (TGraphErrors*) fData->Get("gXS630_2");
+  
+  TGraphErrors *tg_data_1800_3gev = (TGraphErrors*) fData->Get("gXS1800_2");
+
+  TGraphErrors *tg_data_2360_3gev = (TGraphErrors*) fData->Get("gXS2360_2");
+
   TF1 *tf1_fit_3gev = (TF1*) fData->Get("fitXS2");
   TF1 *tf1_fit_9gev = (TF1*) fData->Get("fitXS5");
   
   TH1F *th1_dum_3gev = (TH1F*) fData->Get("dumXS2");
   TH1F *th1_dum_9gev = (TH1F*) fData->Get("dumXS5");
 
+  TGraphErrors *tg_int_2760_3gev = (TGraphErrors*) fData->Get("gXS2_2");
+  TGraphErrors *tg_int_2760_9gev = (TGraphErrors*) fData->Get("gXS2_5");
+
   TGraphErrors *tg_xt_9GeV = (TGraphErrors*) fData->Get("gXS1_5");
+
 
   // canvas setting
   TCanvas *call1 = new TCanvas("call1","call1",510,670);
@@ -90,6 +106,7 @@ void PlotLinearInt(bool save=false){
 
   // ----- pad 1               
   pp1->cd();
+  pp1->SetLogx(), pp1->SetLogy();
 
   char xTitle[100],yTitle[100];
 
@@ -104,11 +121,18 @@ void PlotLinearInt(bool save=false){
   setUpperPad(dum1);
   dum1->Draw("");
 
-  float msize =0.9;     
+  float msize = 1.3;
   //tf1_fit_3gev->SetLineStyle(9);
   //tf1_fit_3gev->SetLineWidth(2.0);
   tf1_fit_3gev->Draw("same");
-  th1Style1(tg_data_3gev,1,20,msize,1,1.5,1,1);
+  th1Style1(tg_data_630_3gev,18,27,msize,18,1.5,1,1);
+  th1Style1(tg_data_900_3gev,2,20,msize,2,1.5,1,1);
+  th1Style1(tg_data_1800_3gev,17,28,msize,17,1.5,1,1);
+  th1Style1(tg_data_1960_3gev,19,30,msize,19,1.5,1,1);
+  th1Style1(tg_data_2360_3gev,24,20,msize,24,1.5,1,1);    
+  th1Style1(tg_data_7000_3gev,1,20,msize,1,1.5,1,1);
+  th1Style1(tg_int_2760_3gev,4,25,msize,4,1.5,1,1);
+
 
   putCMSPrel();
   putA();
@@ -121,26 +145,25 @@ void PlotLinearInt(bool save=false){
   //if(!onlyCMS) putA();
   //else putB();
 
-  /*
-  TLegend *leg2 = new TLegend(0.21,0.51,0.62,0.78); 
-  leg2->SetColumnSeparation(0.04);
-  leg2->SetBorderSize(0); 
-  leg2->SetFillStyle(0); 
-  leg2->SetTextSize(0.038); 
-  leg2->SetHeader("   pp(#bar{p}) #rightarrow 0.5(h^{+}+h^{-}) + X (|#eta|<1.0)"); 
-  leg2->AddEntry(tf1_fit_3gev,"3rd order polynomial","l");    
-  leg2->AddEntry(tg_data_3gev,"#sqrt{s} = 0.63, 1.86, 1.96 (CDF)","pl");
-  leg2->AddEntry(tg_data_3gev,"#sqrt{s} = 0.9, 7.0 (CMS)","pl");
-  leg2->AddEntry(tg_xt_9GeV,"#sqrt{s} = 2.76 (x_{T} scaling interp.)","pl");
-  leg2->Draw("");
-  */
+  TLegend *leg1 = new TLegend(0.19,0.50,0.52,0.76);
+  //leg1->SetNColumns(2);
+  //leg1->SetColumnSeparation(0.04);
+  leg1->SetBorderSize(0);
+  leg1->SetFillStyle(0);
+  leg1->SetTextSize(0.040);
+  leg1->SetHeader("   #sqrt{s} = 2.76");
+  leg1->AddEntry(tg_int_2760_3gev,"Linear interp. (2^{nd} polynomial)","pl"); 
+  leg1->AddEntry(tg_xt_9GeV,"x_{T} scaling interp.","pl");
+  leg1->Draw("");
 
   // ----- pad 2         
   pp1_1->cd();
+  pp1_1->SetLogx(), pp1_1->SetLogy();
+
 
   sprintf(yTitle,"Ed^{3}#sigma/dp^{3} [mb GeV^{-2}c^{3}] x 10^{3}");
 
-  ymin_r = 0.0, ymax_r = 1.55E-4;
+  ymin_r = 3E-6, ymax_r = 8E-4;
 
   dum1_1 = GetDummyHist(xt_min,xt_max,ymin_r,ymax_r,xTitle,yTitle,false);
   dum1_1->GetXaxis()->SetNdivisions(908);
@@ -149,27 +172,36 @@ void PlotLinearInt(bool save=false){
   setUpperPad(dum1_1);
   dum1_1->Draw(""); 
 
-  
+
   tf1_fit_9gev->Draw("same");
-  th1Style1(tg_data_9gev,1,20,msize,1,1.5,1,1);
+  th1Style1(tg_data_900_9gev,2,20,msize,2,1.5,1,1);
+  th1Style1(tg_data_1960_9gev,19,30,msize,19,1.5,1,1);
+  th1Style1(tg_data_7000_9gev,1,20,msize,1,1.5,1,1);
+  th1Style1(tg_int_2760_9gev,4,25,msize,4,1.5,1,1);
   th1Style1(tg_xt_9GeV,4,24,msize,4,1.5,1,1);
 
   pt2->Draw();
 
 
-
-  TLegend *leg2 = new TLegend(0.19,0.60,0.68,0.96);
+  TLegend *leg2 = new TLegend(0.19,0.62,0.68,0.98);
+  leg2->SetNColumns(2);
   leg2->SetColumnSeparation(0.04);
   leg2->SetBorderSize(0);
   leg2->SetFillStyle(0);
   leg2->SetTextSize(0.038);
   leg2->SetHeader("   pp(#bar{p}) #rightarrow 0.5(h^{+}+h^{-}) + X (|#eta|<1.0)");
-  leg2->AddEntry(tf1_fit_3gev,"2^{nd} order polynomial","l");
-  leg2->AddEntry(tg_data_3gev,"#sqrt{s} = 0.63, 1.8, 1.96 (CDF)","pl");
-  leg2->AddEntry(tg_data_3gev,"#sqrt{s} = 0.9, 7.0 (CMS)","pl");
-  leg2->AddEntry(tg_xt_9GeV,"#sqrt{s} = 2.76 (x_{T} scaling interp.)","pl");
+  leg2->AddEntry(tg_data_630_3gev,"#sqrt{s} = 0.63 (CDF)","pl");
+  leg2->AddEntry(tg_data_900_3gev,"#sqrt{s} = 0.9 (CMS)","pl");
+  leg2->AddEntry(tg_data_1800_3gev,"#sqrt{s} = 1.8 (CDF)","pl");
+  leg2->AddEntry(tg_data_1960_3gev,"#sqrt{s} = 1.96 (CDF)","pl");
+  leg2->AddEntry(tg_data_2360_3gev,"#sqrt{s} = 2.36 (CMS)","pl");
+  //leg2->AddEntry(tg_int_2760_3gev,"#sqrt{s} = 2.76 (Linear interp.)","pl");
+  leg2->AddEntry(tg_data_7000_3gev,"#sqrt{s} = 7.0 (CMS)","pl");
+  //leg2->AddEntry(tg_data_3gev,"#sqrt{s} = 0.63, 1.8, 1.96 (CDF)","pl");
+  //leg2->AddEntry(tg_data_3gev,"#sqrt{s} = 0.9, 7.0 (CMS)","pl");
+  //leg2->AddEntry(tg_xt_9GeV,"#sqrt{s} = 2.76 (x_{T} scaling interp.)","pl");
+  //leg2->AddEntry(tf1_fit_3gev,"2^{nd} order polynomial","l");
   leg2->Draw("");
-
 
   if(save){
     printCanvases(call1, "linear_xsect_inter_v1",1);
