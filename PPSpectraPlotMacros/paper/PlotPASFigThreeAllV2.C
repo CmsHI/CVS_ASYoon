@@ -80,7 +80,7 @@ void PlotPASFigThreeAllV2(bool save=false){
       ymin = 6E-4, ymax = 3E+2;
       ymin_r = 0.97, ymax_r = 1.03;
    }else{
-      pt_min = 0.5, pt_max = 390;
+      pt_min = 0.4, pt_max = 220;
       ymin = 2E-13, ymax = 3E+4;
       ymin_r = 0.65, ymax_r = 1.35;
    }
@@ -189,7 +189,7 @@ void PlotPASFigThreeAllV2(bool save=false){
    pp1->SetLogy();
    pp1->SetLogx();
 
-   dum1 = GetDummyHist(0,pt_max,ymin,ymax,"p_{T}","(1/N_{evt}) dN/dp_{T}",false);
+   dum1 = GetDummyHist(pt_min,pt_max,ymin,ymax,"p_{T}","(1/N_{evt}) dN/dp_{T}",false);
    dum1->GetYaxis()->SetNdivisions(908);
    dum1->Draw("");
 
@@ -261,7 +261,7 @@ void PlotPASFigThreeAllV2(bool save=false){
    pp1_1->cd();
    pp1_1->SetLogx();
    
-   dum1_1 = GetDummyHist(0,pt_max,ymin_r,ymax_r,"p_{T} [GeV/c]","Ratio",false);
+   dum1_1 = GetDummyHist(pt_min,pt_max,ymin_r,ymax_r,"p_{T} [GeV/c]","Ratio",false);
    //dum1_1 = GetDummyHist(0,pt_max,ymin_r,ymax_r,"p_{T}","MB / Combined",false); 
    setLowerPad(dum1_1);
    dum1_1->Draw("");
@@ -274,7 +274,7 @@ void PlotPASFigThreeAllV2(bool save=false){
    hdndpt_all_full_dum = (TH1D*) hdndpt_all_full->Clone("hdndpt_all_full_dum");
    hdndpt_mb_full_dum = (TH1D*) hdndpt_mb_full->Clone("hdndpt_mb_full_dum"); 
    hdndpt_all_full_dum->Divide(hdndpt_mb_full_dum);
-   //th1Style1(hdndpt_all_full_dum,1,20,1.0,1,1.5,1,1); 
+   th1Style1(hdndpt_all_full_dum,1,20,1.0,1,1.5,1,1); 
 
    hdndpt_all_full_dum2 = (TH1D*) hdndpt_all_full->Clone("hdndpt_all_full_dum2");
    hdndpt_jmt_full_dum = (TH1D*) hdndpt_jmt_full->Clone("hdndpt_jmt_full_dum");
