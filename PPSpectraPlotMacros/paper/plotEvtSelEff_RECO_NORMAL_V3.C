@@ -182,7 +182,7 @@ void plotEvtSelEff_RECO_NORMAL_V3() {
   tex->SetTextSize(0.04);
   tex->SetLineWidth(2);
   tex->SetNDC();
-  tex->Draw();
+  //tex->Draw();
 
   TLatex * texA;
   texA = new TLatex(0.2,0.88,"(a)");
@@ -261,7 +261,7 @@ void plotEvtSelEff_RECO_NORMAL_V3() {
   }
   leg3->Draw();
 
-  tex->Draw();
+  //tex->Draw();
   texB->Draw();
 
   
