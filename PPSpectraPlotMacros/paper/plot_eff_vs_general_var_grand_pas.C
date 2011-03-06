@@ -331,10 +331,14 @@ void plot_eff_vs_general_var_grand_pas(Bool_t rebin=false, Bool_t range=false){
    int mstyle=24;
    int mstylef=25;
 
+   mstyle = 30;
+   mstylef = mstyle;
    th1Style1(Eff1Skm,color,mstyle,binsize,color,1,1,dopt);       
    th1Style1(FR1Skm,color,mstylef,binsize,color,1,1,dopt);
 
    color = 16;
+   mstyle = 2;
+   mstylef = mstyle;
    th1Style1(Eff2Skm,color,mstyle,binsize,color,1,1,dopt);
    th1Style1(FR2Skm,color,mstylef,binsize,color,1,1,dopt);
 
@@ -342,6 +346,8 @@ void plot_eff_vs_general_var_grand_pas(Bool_t rebin=false, Bool_t range=false){
    //th1Style1(FR3Skm,color,25,binsize,color,1,1,dopt);
 
    color = 17; 
+   mstyle = 3;
+   mstylef = mstyle;
    th1Style1(Eff4Skm,color,mstyle,binsize,color,1,1,dopt);
    th1Style1(FR4Skm,color,mstylef,binsize,color,1,1,dopt);
 
@@ -349,28 +355,36 @@ void plot_eff_vs_general_var_grand_pas(Bool_t rebin=false, Bool_t range=false){
    //th1Style1(FR5,color,25,binsize,color,1,1,1);
 
    color = 18;
+   mstyle = 24;
+   mstylef = mstyle;
    th1Style1(Eff6Skm,color,mstyle,binsize,color,1,1,dopt);
    th1Style1(FR6Skm,color,mstylef,binsize,color,1,1,dopt);
 
    color = 19;
+   mstyle = 25;
+   mstylef = mstyle;
    th1Style1(Eff7Skm,color,mstyle,binsize,color,1,1,dopt);
    th1Style1(FR7Skm,color,mstylef,binsize,color,1,1,dopt);
 
    color = 20;
+   mstyle = 26;
+   mstylef = mstyle;
    th1Style1(Eff8Skm,color,mstyle,binsize,color,1,1,dopt);
    th1Style1(FR8Skm,color,mstylef,binsize,color,1,1,dopt);
 
    color = 21;
    //th1Style1(Eff9,color,mstyle,binsize,color,1,1,1);
    //th1Style1(FR9,color,mstylef,binsize,color,1,1,1);
-
+   mstyle = 27;
+   mstylef = mstyle;
    th1Style1(Eff10Skm,color,mstyle,binsize,color,1,1,dopt);
    th1Style1(FR10Skm,color,mstylef,binsize,color,1,1,dopt);
 
    color = 22;
    //th1Style1(Eff11Skm,color,20,binsize,color,1,1,dopt);
    //th1Style1(FR11Skm,color,mstylef,binsize,color,1,1,dopt);
-
+   mstyle = 28;
+   mstylef = mstyle;
    th1Style1(Eff12Skm,color,mstyle,binsize,color,1,1,dopt);
    th1Style1(FR12Skm,color,mstylef,binsize,color,1,1,dopt);
 
@@ -524,7 +538,7 @@ void plot_eff_vs_general_var_grand_pas(Bool_t rebin=false, Bool_t range=false){
    ctex->SetTextSize(0.037);
    ctex->SetLineWidth(2);
    ctex->SetNDC();
-   ctex->Draw();
+   //ctex->Draw();
 
    TLatex * texA;
    texA = new TLatex(0.2,0.90,"(b)");
