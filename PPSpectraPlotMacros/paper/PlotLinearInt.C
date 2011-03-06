@@ -155,7 +155,7 @@ void PlotLinearInt(bool save=false){
   leg1->SetFillStyle(0);
   leg1->SetTextSize(0.040);
   //leg1->SetHeader("   #sqrt{s} = 2.76");
-  leg1->AddEntry(tg_int_2760_3gev,"Linear interp.","p"); 
+  leg1->AddEntry(tg_int_2760_3gev,"#sqrt{s} = 2.76 TeV interpolated value","p"); 
   leg1->AddEntry(tg_xt_9GeV,"x_{T} scaling interp.","p");
   //leg1->Draw("");
 
