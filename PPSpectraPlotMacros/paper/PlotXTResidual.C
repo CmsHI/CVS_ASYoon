@@ -174,15 +174,15 @@ void PlotXTResidual(bool save=false){
   //TLegend *leg1 = new TLegend(0.19,0.47,0.59,0.79);
   //TLegend *leg1 = new TLegend(0.22,0.47,0.61,0.7);
   TLegend *leg1 = new TLegend(0.27,0.59,0.66,0.88); 
-  //leg1->SetNColumns(2);
+  //leg1->SetNColumns(3);
   leg1->SetColumnSeparation(0.04);
   leg1->SetBorderSize(0);
   leg1->SetFillStyle(0);
   leg1->SetTextSize(0.031);
   //leg1->SetHeader("     Data");
-  leg1->AddEntry(tg_rat_cms_7000,"CMS 7 TeV","pl");
-  leg1->AddEntry(tg_rat_cms_900,"CMS 0.9 TeV","pl");
-  leg1->AddEntry(tg_rat_cdf_1960,"CDF 1.96 TeV","pl");
+  leg1->AddEntry(tg_rat_cms_7000,"CMS 7 TeV","p");
+  leg1->AddEntry(tg_rat_cms_900,"CMS 0.9 TeV","p");
+  leg1->AddEntry(tg_rat_cdf_1960,"CDF 1.96 TeV","p");
   leg1->AddEntry(tp_error_band,"2.76 TeV x_{T} interpolation","f");
   leg1->Draw();
   
@@ -225,13 +225,14 @@ void PlotXTResidual(bool save=false){
   th1Style1(tg_rat_nlo_1960,19,20,msize,19,2.5,1,2);
 
 
-  TLegend *leg2 = new TLegend(0.22,0.62,0.62,0.96);  
-  leg2->SetNColumns(2);
+  //TLegend *leg2 = new TLegend(0.22,0.62,0.62,0.96);  
+  TLegend *leg2 = new TLegend(0.22,0.733,0.75,0.98);    
+  leg2->SetNColumns(3);
   leg2->SetColumnSeparation(0.00);
   leg2->SetBorderSize(0); 
   leg2->SetFillStyle(0); 
   leg2->SetTextSize(0.05); 
-  leg2->SetMargin(0.3);
+  leg2->SetMargin(0.25);
   //leg2->SetHeader("   pp(#bar{p}) #rightarrow 0.5(h^{+}+h^{-}) + X (|#eta|<1.0)"); 
   //leg2->SetHeader("#sqrt{s}/GeV)^{4.9}Ed^{3}#sigma/dp^{3}  #sqrt{s} = 0.9, 1.96, 2.75, 7  /  #sqrt{s} = 2.75 ");
   leg2->SetHeader("   #sqrt{s} = 0.9, 1.96, 2.75, 7  /  #sqrt{s} = 2.75 "); 

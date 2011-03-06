@@ -125,15 +125,15 @@ void PlotXT(bool save=false){
   leg2->SetFillStyle(0);
   leg2->SetTextSize(0.031);
   leg2->SetHeader("   pp(#bar{p}) #rightarrow 0.5(h^{+}+h^{-}) + X (|#eta|<1.0)");
-  leg2->AddEntry(tgxtspec7,"CMS 7 TeV","pl");
-  leg2->AddEntry(tgxtspec8,"CMS 0.9 TeV","pl");
+  leg2->AddEntry(tgxtspec7,"CMS 7 TeV","p");
+  leg2->AddEntry(tgxtspec8,"CMS 0.9 TeV","p");
   if(!onlyCMS){
-  leg2->AddEntry(tgxtspec6,"CDF 1.96 TeV","pl");
-  leg2->AddEntry(tgxtspec5,"CDF 1.8 TeV","pl");
-  leg2->AddEntry(tgxtspec4,"CDF 0.63 TeV","pl");
-  leg2->AddEntry(tgxtspec3,"UA1 0.90 TeV (|#eta|<2.5)","pl");
-  leg2->AddEntry(tgxtspec2,"UA1 0.50 TeV (|#eta|<2.5)","pl");
-  leg2->AddEntry(tgxtspec1,"UA1 0.20 TeV (|#eta|<2.5)","pl");
+  leg2->AddEntry(tgxtspec6,"CDF 1.96 TeV","p");
+  leg2->AddEntry(tgxtspec5,"CDF 1.8 TeV","p");
+  leg2->AddEntry(tgxtspec4,"CDF 0.63 TeV","p");
+  leg2->AddEntry(tgxtspec3,"UA1 0.90 TeV (|#eta|<2.5)","p");
+  leg2->AddEntry(tgxtspec2,"UA1 0.50 TeV (|#eta|<2.5)","p");
+  leg2->AddEntry(tgxtspec1,"UA1 0.20 TeV (|#eta|<2.5)","p");
   }
   leg2->Draw();
   
