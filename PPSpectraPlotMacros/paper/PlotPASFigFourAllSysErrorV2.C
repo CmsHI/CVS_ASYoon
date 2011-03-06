@@ -248,7 +248,7 @@ void PlotPASFigFourAllSysErrorV2(bool save=false){
    if(atlas) leg1->AddEntry(tdndpt6,"PYTHIA Atlas","l");
    leg1->Draw();
 
-   putCMSPrel();
+   //putCMSPrel();
    //putIntLum();
    putB();
 

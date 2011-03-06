@@ -242,7 +242,7 @@ void PlotPASFigFourAllSysError900GeV(bool save=false){
 
    leg1->Draw();
 
-   putCMSPrel();
+   //putCMSPrel();
    //putIntLum();
    putA();
 
