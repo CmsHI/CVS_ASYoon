@@ -232,27 +232,27 @@ void PlotPASFigThreeAllV2(bool save=false){
    th1Style1(hdndpt_all_full,1,20,1.0,1,1.0,1,1);
 
 
-   leg1 = new TLegend(0.20,0.055,0.65,0.26);
+   leg1 = new TLegend(0.20,0.055,0.73,0.27);
    leg1->SetMargin(0.3), leg1->SetBorderSize(1);
    leg1->SetFillColor(kWhite);
-   leg1->SetTextSize(0.025), leg1->SetMargin(0.2);
+   leg1->SetTextSize(0.031), leg1->SetMargin(0.2);
    leg1->AddEntry(hdndpt_mb_part,"HLT MB (E_{T} < 60 GeV)","lf");
    leg1->AddEntry(hdndpt_jmt_part,"HLT, E_{T}^{un} > 15 GeV (60 #leq E_{T} < 120 GeV)","lf");
    leg1->AddEntry(hdndpt_jmt_sec_part,"HLT, E_{T}^{un} > 50 GeV (120 #leq E_{T})","lf");
    leg1->Draw();
 
-   leg2 = new TLegend(0.50,0.6,0.94,0.83);
+   leg2 = new TLegend(0.48,0.62,0.92,0.90);
    leg2->SetMargin(0.3), leg2->SetBorderSize(0);
    leg2->SetFillColor(kWhite), leg2->SetFillStyle(0);
-   leg2->SetTextSize(0.030), leg1->SetMargin(0.2);
+   leg2->SetTextSize(0.032), leg1->SetMargin(0.2);
    leg2->SetHeader("   #sqrt{s} = 7 TeV  |#eta|<2.4  #scale[0.7]{#int}Ldt = 2.96 pb^{-1}");
-   leg2->AddEntry(hdndpt_all_full,"Combined samples","pl");
-   leg2->AddEntry(hdndpt_mb_full,"HLT MB (all E_{T})","pl");
-   leg2->AddEntry(hdndpt_jmt_full,"HLT, E_{T}^{un} > 15 GeV (E_{T} #geq 60)","pl");
+   leg2->AddEntry(hdndpt_all_full,"Combined samples","p");
+   leg2->AddEntry(hdndpt_mb_full,"HLT MB (all E_{T})","p");
+   leg2->AddEntry(hdndpt_jmt_full,"HLT, E_{T}^{un} > 15 GeV (E_{T} #geq 60)","p");
    leg2->Draw();
 
 
-   putCMSPrel();
+   //putCMSPrel();
    //putIntLum();
 
    putB();
@@ -285,7 +285,7 @@ void PlotPASFigThreeAllV2(bool save=false){
    leg3->SetMargin(0.3), leg3->SetBorderSize(0);
    leg3->SetFillColor(kWhite);
    leg3->SetFillStyle(0);
-   leg3->SetTextSize(0.05), leg3->SetMargin(0.2);
+   leg3->SetTextSize(0.061), leg3->SetMargin(0.2);
    leg3->AddEntry(hdndpt_all_full_dum,"Combined/MB","pl");
    leg3->AddEntry(hdndpt_all_full_dum2,"Combined/HLT, E_{T}^{un} > 15 GeV (E_{T} #geq 60)","pl");
    leg3->Draw();
