@@ -53,10 +53,12 @@ void PlotLinearInt(bool save=false){
 
   xt_min = 0.4, xt_max = 10.1;
   ymin = 3e3, ymax = 2e23;    
-  ymin_r = 0.0025, ymax_r = 0.22;
+  //ymin_r = 0.0025, ymax_r = 0.22;
+  ymin_r = 0.0025, ymax_r = 0.52;
 
 
-  TFile *fData = new TFile("../rootOutput_postApp_3rd/feb252010/output_interpolation.root");
+  //TFile *fData = new TFile("../rootOutput_postApp_3rd/feb252010/output_interpolation.root");
+  TFile *fData = new TFile("../rootOutput_postApp_3rd/feb282011/output_interpolation.root");
 
   TGraphErrors *tg_data_900_3gev = (TGraphErrors*) fData->Get("gXS900_2");
   TGraphErrors *tg_data_900_9gev = (TGraphErrors*) fData->Get("gXS900_5");
@@ -134,7 +136,7 @@ void PlotLinearInt(bool save=false){
   th1Style1(tg_int_2760_3gev,4,25,msize,4,1.5,1,1);
 
 
-  putCMSPrel();
+  //putCMSPrel();
   putA();
   pt1->Draw();
 
@@ -145,16 +147,35 @@ void PlotLinearInt(bool save=false){
   //if(!onlyCMS) putA();
   //else putB();
 
-  TLegend *leg1 = new TLegend(0.19,0.50,0.52,0.76);
+  //TLegend *leg1 = new TLegend(0.19,0.50,0.52,0.76);
+  TLegend *leg1 = new TLegend(0.19,0.75,0.52,0.95);
   //leg1->SetNColumns(2);
   //leg1->SetColumnSeparation(0.04);
   leg1->SetBorderSize(0);
   leg1->SetFillStyle(0);
   leg1->SetTextSize(0.040);
-  leg1->SetHeader("   #sqrt{s} = 2.76");
-  leg1->AddEntry(tg_int_2760_3gev,"Linear interp. (2^{nd} polynomial)","pl"); 
-  leg1->AddEntry(tg_xt_9GeV,"x_{T} scaling interp.","pl");
-  leg1->Draw("");
+  //leg1->SetHeader("   #sqrt{s} = 2.76");
+  leg1->AddEntry(tg_int_2760_3gev,"Linear interp.","p"); 
+  leg1->AddEntry(tg_xt_9GeV,"x_{T} scaling interp.","p");
+  //leg1->Draw("");
+
+  //TLegend *leg2 = new TLegend(0.19,0.62,0.68,0.98);
+  TLegend *leg2 = new TLegend(0.24,0.50,0.73,0.86);
+  leg2->SetNColumns(2);
+  leg2->SetColumnSeparation(0.04);
+  leg2->SetBorderSize(0);
+  leg2->SetFillStyle(0);
+  leg2->SetTextSize(0.041);
+  leg2->SetHeader("   pp(#bar{p}) #rightarrow 0.5(h^{+}+h^{-}) + X (|#eta|<1.0)");
+  leg2->AddEntry(tg_data_7000_3gev,"CMS 7 TeV","p");
+  leg2->AddEntry(tg_data_2360_3gev,"CMS 2.36 TeV","p");
+  leg2->AddEntry(tg_data_900_3gev,"CMS 0.9 TeV","p");
+  leg2->AddEntry(tg_data_1960_3gev,"CDF 1.96 TeV","p");
+  leg2->AddEntry(tg_data_1800_3gev,"CDF 1.8 TeV","p");
+  leg2->AddEntry(tg_data_630_3gev,"CDF 0.63 TeV","p");
+  leg2->Draw(""); 
+
+
 
   // ----- pad 2         
   pp1_1->cd();
@@ -163,7 +184,8 @@ void PlotLinearInt(bool save=false){
 
   sprintf(yTitle,"Ed^{3}#sigma/dp^{3} [mb GeV^{-2}c^{3}] x 10^{3}");
 
-  ymin_r = 3E-6, ymax_r = 8E-4;
+  //ymin_r = 3E-6, ymax_r = 8E-4;
+  ymin_r = 3E-6, ymax_r = 3E-4;
 
   dum1_1 = GetDummyHist(xt_min,xt_max,ymin_r,ymax_r,xTitle,yTitle,false);
   dum1_1->GetXaxis()->SetNdivisions(908);
@@ -182,7 +204,7 @@ void PlotLinearInt(bool save=false){
 
   pt2->Draw();
 
-
+  /*
   TLegend *leg2 = new TLegend(0.19,0.62,0.68,0.98);
   leg2->SetNColumns(2);
   leg2->SetColumnSeparation(0.04);
@@ -201,7 +223,11 @@ void PlotLinearInt(bool save=false){
   //leg2->AddEntry(tg_data_3gev,"#sqrt{s} = 0.9, 7.0 (CMS)","pl");
   //leg2->AddEntry(tg_xt_9GeV,"#sqrt{s} = 2.76 (x_{T} scaling interp.)","pl");
   //leg2->AddEntry(tf1_fit_3gev,"2^{nd} order polynomial","l");
-  leg2->Draw("");
+  //leg2->Draw("");
+  */
+
+  leg1->Draw("");
+
 
   if(save){
     printCanvases(call1, "linear_xsect_inter_v1",1);

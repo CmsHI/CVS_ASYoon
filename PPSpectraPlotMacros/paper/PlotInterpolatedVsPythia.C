@@ -8,7 +8,7 @@
 
 #include "utilities.h"
 #include "commonStyle.h"
-//#include "cms7TeV_lowpt.h"
+#include "alice_pp_ref_cent_70to80.h"
 
 
 #include "TLine.h"
@@ -20,9 +20,10 @@ TFile *file0=0, *file1=0, *file2=0, *file3=0, *file4=0, *file5=0, *file6=0, *fil
 
 TH1D *hdndpt0=0, *hdndpt1=0, *hdndpt2=0, *hdndpt3=0, *hdndpt4=0, *hdndpt5=0, *hdndpt6=0, *hdndpt7=0;
 
-TH1D *hdndpt1_cln=0, *hdndpt2_cln=0, *hdndpt3_cln=0, *hdndpt4_cln=0, *hdndpt5_cln=0, *hdndpt6_cln=0, *hdndpt7_cln=0;
-TH1D *hdndpt1_div=0, *hdndpt2_div=0, *hdndpt3_div=0, *hdndpt4_div=0, *hdndpt5_div=0, *hdndpt6_div=0, *hdndpt7_div=0;
-TH1D *hdndpt1_2_cln=0, *hdndpt1_3_cln=0, *hdndpt1_4_cln=0, *hdndpt1_5_cln=0, *hdndpt1_6_cln=0, *hdndpt1_7_cln=0;
+TH1D *hdndpt1_cln=0, *hdndpt2_cln=0, *hdndpt3_cln=0, *hdndpt4_cln=0, *hdndpt5_cln=0, *hdndpt6_cln=0, *hdndpt7_cln=0, *hdndpt8_cln=0;
+TH1D *hdndpt1_div=0, *hdndpt2_div=0, *hdndpt3_div=0, *hdndpt4_div=0, *hdndpt5_div=0, *hdndpt6_div=0, *hdndpt7_div=0, *hdndpt8_div=0;
+TH1D *hdndpt1_2_cln=0, *hdndpt1_3_cln=0, *hdndpt1_4_cln=0, *hdndpt1_5_cln=0, *hdndpt1_6_cln=0, *hdndpt1_7_cln=0, *hdndpt1_8_cln=0;
+TH1D *hdndpt_ppAlice_cln=0;
 
 TGraphErrors *tdndpt1=0, *tdndpt2=0, *tdndpt3=0, *tdndpt4=0, *tdndpt5=0, *tdndpt6=0, *tdndpt7=0;
 
@@ -98,7 +99,8 @@ void PlotInterpolatedVsPythia(bool save=false){
    
    // file loading -----------------------------------------
    file1 = (TFile*) loadFile(file1,
-			     "../rootOutput_postApp_3rd/feb222011/output_interpolation.root");
+			     "../rootOutput_postApp_3rd/feb282011/output_interpolation.root"); 
+			     //"../rootOutput_postApp_3rd/feb222011/output_interpolation.root");
 			     //"../rootOutput_postApp_3rd/feb212011/best_global_pt_fit_2760-1.root");
                              //"./../rootOutput_postApp_3rd/feb162011/best_global_pt_fit_2760.root");
 			     //"./../rootOutput_postApp_3rd/feb132011/interpolated_spectra_linear_and_xt_feb132011.root");
@@ -202,10 +204,19 @@ void PlotInterpolatedVsPythia(bool save=false){
    hdndpt7->Scale(56.47);
    rescaleNLO(hdndpt7);
 
-   
-   // Normalization 
-   //float N_evt = 1.13643e+07;
-   //hdndpt1->Scale(sigma_nsd);
+   //ALICE pp reference
+   float ncoll = 15.7;
+   float xsection_nn = 64;  // https://twiki.cern.ch/twiki/bin/view/Main/LHCGlauberBaseline
+
+   TGraphErrors* ppAlice = ALICE_PP_70To80(xsection_nn/ncoll);
+   TSpline3* ts_ppAlice = new TSpline3("ts_ppAlice",ppAlice);
+
+   TH1D *hdndpt1_div=0, *hdndpt_ppAlice=0;
+   TH1D *hdndpt1_cln = (TH1D*) hdndpt1->Clone("hdndpt1_cln");
+   TH1D *hdndpt1_cln2 = (TH1D*) hdndpt1->Clone("hdndpt1_cln2");
+
+   hdndpt1_div = (TH1D*) ratio_hist_to_tspline(hdndpt1_cln,ts_ppAlice,1.0,19.0);
+   hdndpt_ppAlice = (TH1D*) recastTStoTH(hdndpt1_cln2,ts_ppAlice,1.0,19.0);
 
    //--------------------------- CMS measurement ---------------------------
    cms_7000GeV = (TGraphErrors*) CMS_7TEV(1);
@@ -245,6 +256,7 @@ void PlotInterpolatedVsPythia(bool save=false){
    tasydndpt1->SetMarkerSize(1.0); tasydndpt1->SetFillStyle(fillsty), tasydndpt1->SetFillColor(kGray);
    tasydndpt1->Draw("2");
 
+   th1Style1(hdndpt_ppAlice,1,25,1.1,1,1,1,1);
    th1Style1(hdndpt1,1,20,1.0,1,1.5,1,1);  // draw the measurement on top of everything
 
 
@@ -261,10 +273,11 @@ void PlotInterpolatedVsPythia(bool save=false){
    leg1->AddEntry(tdndpt5,"PYTHIA ProQ20","l");
    leg1->AddEntry(tdndpt4,"PYTHIA 8","l");
    leg1->AddEntry(tdndpt7,"NLO rescaled CMS 7 TeV (F. Arleo et al.)","l");
+   leg1->AddEntry(hdndpt_ppAlice,"ALICE (scaled by #sigma_{mb} = 64 mb)","pl");
    if(atlas) leg1->AddEntry(tdndpt6,"PYTHIA Atlas","l");
    leg1->Draw();
 
-   putCMSPrel();
+   //putCMSPrel();
    //putIntLum();
    putB();
    
@@ -286,18 +299,22 @@ void PlotInterpolatedVsPythia(bool save=false){
    hdndpt1_4_cln = (TH1D*) hdndpt1->Clone("hdndpt1_4_cln");
    hdndpt1_5_cln = (TH1D*) hdndpt1->Clone("hdndpt1_5_cln");
    hdndpt1_7_cln = (TH1D*) hdndpt1->Clone("hdndpt1_7_cln");
+   hdndpt1_8_cln = (TH1D*) hdndpt1->Clone("hdndpt1_8_cln");
+
 
    hdndpt2_cln = (TH1D*) hdndpt2->Clone("hdndpt2_cln");
    hdndpt3_cln = (TH1D*) hdndpt3->Clone("hdndpt3_cln");
    hdndpt4_cln = (TH1D*) hdndpt4->Clone("hdndpt4_cln");
    hdndpt5_cln = (TH1D*) hdndpt5->Clone("hdndpt5_cln");
    hdndpt7_cln = (TH1D*) hdndpt7->Clone("hdndpt7_cln");
+   hdndpt_ppAlice_cln = (TH1D*) hdndpt_ppAlice->Clone("hdndpt_ppAlice_cln");
 
    hdndpt1_2_cln->Divide(hdndpt2_cln); //hdndpt2_cln->Divide(hdndpt1_2_cln);
    hdndpt1_3_cln->Divide(hdndpt3_cln);
    hdndpt1_4_cln->Divide(hdndpt4_cln);
    hdndpt1_5_cln->Divide(hdndpt5_cln);
    hdndpt1_7_cln->Divide(hdndpt7_cln);
+   hdndpt1_8_cln->Divide(hdndpt_ppAlice_cln);
 
    if(atlas){
      hdndpt1_6_cln = (TH1D*) hdndpt1->Clone("hdndpt1_6_cln");
@@ -314,6 +331,8 @@ void PlotInterpolatedVsPythia(bool save=false){
    tsyserr->Draw("3");
    //hsyserr->Draw("pzsame");          
 
+   th1Style1(hdndpt1_8_cln,1,25,0.8,1,1,1,1); // alice
+
    //th1Style1(cms_7000GeV_div,13,30,1.0,13,1,1,1);
    th1Style1(hdndpt1_2_cln,2,20,1.0,2,2.0,1,3);
    //th1Style1(hdndpt2_cln,2,20,1.0,2,2.0,1,3); 
@@ -323,6 +342,8 @@ void PlotInterpolatedVsPythia(bool save=false){
    th1Style1(hdndpt1_4_cln,6,20,1.0,6,2.0,4,3);
    th1Style1(hdndpt1_5_cln,20,20,1.0,20,2.0,9,3);
    th1Style1(hdndpt1_7_cln,21,20,1.0,21,2.0,5,3);
+
+   //th1Style1(hdndpt1_div,1,26,1.3,1,1,1,1);  // alice
    if(atlas)  th1Style1(hdndpt1_6_cln,20,20,1.0,20,2.0,5,3);
 
 
