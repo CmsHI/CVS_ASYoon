@@ -108,10 +108,10 @@ void PlotXT(bool save=false){
   float msize =0.9;
   if(!onlyCMS){
     th1Style1(tgxtspec1,14,3,msize,14,1.5,1,1);
-    th1Style1(tgxtspec2,19,25,msize,19,1.5,1,1);
+    th1Style1(tgxtspec2,15,25,msize,15,1.5,1,1);
     th1Style1(tgxtspec3,16,26,msize,16,1.5,1,1);
     th1Style1(tgxtspec4,18,27,msize,18,1.5,1,1);
-    th1Style1(tgxtspec6,15,30,msize,15,1.5,1,1);
+    th1Style1(tgxtspec6,19,30,msize,19,1.5,1,1);
     th1Style1(tgxtspec5,17,28,msize,17,1.5,1,1);
   }
   th1Style1(tgxtspec7,1,20,msize,1,1.5,1,1);
