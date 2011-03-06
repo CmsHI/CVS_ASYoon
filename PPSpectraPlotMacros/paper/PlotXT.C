@@ -108,10 +108,10 @@ void PlotXT(bool save=false){
   float msize =0.9;
   if(!onlyCMS){
     th1Style1(tgxtspec1,14,3,msize,14,1.5,1,1);
-    th1Style1(tgxtspec2,15,25,msize,15,1.5,1,1);
+    th1Style1(tgxtspec2,19,25,msize,19,1.5,1,1);
     th1Style1(tgxtspec3,16,26,msize,16,1.5,1,1);
     th1Style1(tgxtspec4,18,27,msize,18,1.5,1,1);
-    th1Style1(tgxtspec6,19,30,msize,19,1.5,1,1);
+    th1Style1(tgxtspec6,15,30,msize,15,1.5,1,1);
     th1Style1(tgxtspec5,17,28,msize,17,1.5,1,1);
   }
   th1Style1(tgxtspec7,1,20,msize,1,1.5,1,1);
@@ -137,8 +137,8 @@ void PlotXT(bool save=false){
   }
   leg2->Draw();
   
-  putCMSPrel();
-  putIntLum();
+  //putCMSPrel();
+  //putIntLum();
   //putIntLum2();
   if(!onlyCMS) putA();
   else putB();
@@ -183,7 +183,7 @@ void putCMSPrel(){
 void putIntLum(){
   //tex2 = new TLatex(0.66,0.83,"#intLdt = 10.2 nb^{-1} for 7 TeV");
   //tex2->SetTextSize(0.032);
-  tex2 = new TLatex(0.46,0.83,"#intLdt = 240 #mub^{-1} (2.96 pb^{-1}) for 0.9 (7) TeV");  
+  tex2 = new TLatex(0.46,0.83,"#intLdt = 231 #mub^{-1} (2.96 pb^{-1}) for 0.9 (7) TeV");  
   tex2->SetTextSize(0.028); 
   tex2->SetLineWidth(2);
   tex2->SetNDC();
@@ -191,7 +191,7 @@ void putIntLum(){
 }
 
 void putIntLum2(){
-  tex3 = new TLatex(0.66,0.73,"#intLdt = 240 #mub^{-1} for 0.9 TeV");
+  tex3 = new TLatex(0.66,0.73,"#intLdt = 231 #mub^{-1} for 0.9 TeV");
   //tex3->SetTextSize(0.032);
   tex3->SetTextSize(0.025);
   tex3->SetLineWidth(2);
