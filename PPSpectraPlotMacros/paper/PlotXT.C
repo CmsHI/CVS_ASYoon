@@ -125,8 +125,8 @@ void PlotXT(bool save=false){
   leg2->SetFillStyle(0);
   leg2->SetTextSize(0.031);
   leg2->SetHeader("   pp(#bar{p}) #rightarrow 0.5(h^{+}+h^{-}) + X (|#eta|<1.0)");
-  leg2->AddEntry(tgxtspec7,"CMS 7 TeV","p");
-  leg2->AddEntry(tgxtspec8,"CMS 0.9 TeV","p");
+  leg2->AddEntry(tgxtspec7,"CMS 7 TeV (2.96 pb^{-1})","p");
+  leg2->AddEntry(tgxtspec8,"CMS 0.9 TeV (231 #mub^{-1})","p");
   if(!onlyCMS){
   leg2->AddEntry(tgxtspec6,"CDF 1.96 TeV","p");
   leg2->AddEntry(tgxtspec5,"CDF 1.8 TeV","p");
