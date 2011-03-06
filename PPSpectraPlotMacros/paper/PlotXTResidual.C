@@ -180,8 +180,8 @@ void PlotXTResidual(bool save=false){
   leg1->SetFillStyle(0);
   leg1->SetTextSize(0.031);
   //leg1->SetHeader("     Data");
-  leg1->AddEntry(tg_rat_cms_7000,"CMS 7 TeV","p");
-  leg1->AddEntry(tg_rat_cms_900,"CMS 0.9 TeV","p");
+  leg1->AddEntry(tg_rat_cms_7000,"CMS 7 TeV (2.96 pb^{-1})","p");
+  leg1->AddEntry(tg_rat_cms_900,"CMS 0.9 TeV (231 #mub^{-1})","p");
   leg1->AddEntry(tg_rat_cdf_1960,"CDF 1.96 TeV","p");
   leg1->AddEntry(tp_error_band,"2.76 TeV x_{T} interpolation","f");
   leg1->Draw();
