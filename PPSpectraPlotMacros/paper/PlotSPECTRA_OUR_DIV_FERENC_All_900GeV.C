@@ -139,17 +139,19 @@ void PlotSPECTRA_OUR_DIV_FERENC_All_900GeV(bool save=false){
 
    
    //leg1 = new TLegend(0.46,0.48,0.96,0.84);
-   leg1 = new TLegend(0.48,0.48,0.90,0.84);
+   //leg1 = new TLegend(0.48,0.48,0.90,0.84);
+   //leg1 = new TLegend(0.46,0.47,0.88,0.83);
+   leg1 = new TLegend(0.46,0.54,0.88,0.90);
    leg1->SetBorderSize(0), leg1->SetFillStyle(0);
    leg1->SetTextSize(0.034);
    leg1->SetHeader("     #sqrt{s} = 0.9 TeV,  |#eta|<2.4");
    //leg1->AddEntry(hdndpt1,"CMS (2010 data)","pl");
    leg1->AddEntry(hdndpt1,"CMS     #scale[0.7]{#int}Ldt = 231 #mub^{-1}","pl");
-   leg1->AddEntry(cms_900GeV,"CMS (PRL 105, 022002)","pl");
-   leg1->AddEntry(cms_900GeV_tsalis,"Tsallis fit (PRL 105, 022002)","l");
+   leg1->AddEntry(cms_900GeV,"CMS (JHEP 02 (2010) 041)","pl");
+   leg1->AddEntry(cms_900GeV_tsalis,"Tsallis fit (JHEP 02 (2010) 041)","l");
    leg1->Draw();
 
-   putCMSPrel();
+   //putCMSPrel();
    //putIntLum();
 
    putA();
