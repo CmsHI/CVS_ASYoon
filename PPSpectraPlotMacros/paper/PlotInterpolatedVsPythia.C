@@ -267,7 +267,8 @@ void PlotInterpolatedVsPythia(bool save=false){
    leg1->SetFillColor(kWhite), leg1->SetFillStyle(0);
    leg1->SetTextSize(0.039), leg1->SetMargin(0.3);
    leg1->SetHeader("    #sqrt{s} = 2.76 TeV,   |#eta|<1.0");
-   leg1->AddEntry(tasydndpt1,"Interp. (linear and x_{T} scaling)","plf");
+   //leg1->AddEntry(tasydndpt1,"Interp. (linear and x_{T} scaling)","plf");
+   leg1->AddEntry(tasydndpt1,"CMS Interpolation","plf");
    leg1->AddEntry(tdndpt2,"PYTHIA D6T","l");
    leg1->AddEntry(tdndpt3,"PYTHIA Perugia0","l");
    leg1->AddEntry(tdndpt5,"PYTHIA ProQ20","l");
