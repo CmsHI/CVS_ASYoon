@@ -195,16 +195,16 @@ void PlotPASFigThreeAllV2(bool save=false){
 
    
    hdndpt_mb_part->SetFillStyle(1001);
-   hdndpt_mb_part->SetFillColor(kAzure-4);
-   hdndpt_mb_part->SetLineColor(kAzure-4);
+   hdndpt_mb_part->SetFillColor(kBlue-10);
+   hdndpt_mb_part->SetLineColor(kBlue-3);
 
    hdndpt_jmt_part->SetFillStyle(1001);
-   hdndpt_jmt_part->SetLineColor(kPink-4);
-   hdndpt_jmt_part->SetFillColor(kPink-4);
+   hdndpt_jmt_part->SetLineColor(kRed+1);
+   hdndpt_jmt_part->SetFillColor(kRed-10);
      
    hdndpt_jmt_sec_part->SetFillStyle(1001);
-   hdndpt_jmt_sec_part->SetLineColor(kSpring-4);
-   hdndpt_jmt_sec_part->SetFillColor(kSpring-4);
+   hdndpt_jmt_sec_part->SetLineColor(kGreen+3);
+   hdndpt_jmt_sec_part->SetFillColor(kGreen-8);
 
    hdndpt_jmt_part->Add(hdndpt_jmt_sec_part);
    hdndpt_mb_part->Add(hdndpt_jmt_part);
