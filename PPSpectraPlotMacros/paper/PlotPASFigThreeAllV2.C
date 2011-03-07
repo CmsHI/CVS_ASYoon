@@ -194,17 +194,17 @@ void PlotPASFigThreeAllV2(bool save=false){
    dum1->Draw("");
 
    
-   hdndpt_mb_part->SetFillStyle(3001);
-   hdndpt_mb_part->SetFillColor(kAzure-2);
-   hdndpt_mb_part->SetLineColor(kAzure-2);
+   hdndpt_mb_part->SetFillStyle(1001);
+   hdndpt_mb_part->SetFillColor(kAzure-4);
+   hdndpt_mb_part->SetLineColor(kAzure-4);
 
-   hdndpt_jmt_part->SetFillStyle(3001);
-   hdndpt_jmt_part->SetLineColor(kPink-2);
-   hdndpt_jmt_part->SetFillColor(kPink-2);
+   hdndpt_jmt_part->SetFillStyle(1001);
+   hdndpt_jmt_part->SetLineColor(kPink-4);
+   hdndpt_jmt_part->SetFillColor(kPink-4);
      
-   hdndpt_jmt_sec_part->SetFillStyle(3001);
-   hdndpt_jmt_sec_part->SetLineColor(kSpring-2);
-   hdndpt_jmt_sec_part->SetFillColor(kSpring-2);
+   hdndpt_jmt_sec_part->SetFillStyle(1001);
+   hdndpt_jmt_sec_part->SetLineColor(kSpring-4);
+   hdndpt_jmt_sec_part->SetFillColor(kSpring-4);
 
    hdndpt_jmt_part->Add(hdndpt_jmt_sec_part);
    hdndpt_mb_part->Add(hdndpt_jmt_part);
@@ -236,9 +236,9 @@ void PlotPASFigThreeAllV2(bool save=false){
    leg1->SetMargin(0.3), leg1->SetBorderSize(1);
    leg1->SetFillColor(kWhite);
    leg1->SetTextSize(0.031), leg1->SetMargin(0.2);
-   leg1->AddEntry(hdndpt_mb_part,"HLT MB (E_{T} < 60 GeV)","lf");
-   leg1->AddEntry(hdndpt_jmt_part,"HLT, E_{T}^{un} > 15 GeV (60 #leq E_{T} < 120 GeV)","lf");
-   leg1->AddEntry(hdndpt_jmt_sec_part,"HLT, E_{T}^{un} > 50 GeV (120 #leq E_{T})","lf");
+   leg1->AddEntry(hdndpt_mb_part,"HLT MB (E_{T} < 60 GeV)","f");
+   leg1->AddEntry(hdndpt_jmt_part,"HLT, E_{T}^{un} > 15 GeV (60 #leq E_{T} < 120 GeV)","f");
+   leg1->AddEntry(hdndpt_jmt_sec_part,"HLT, E_{T}^{un} > 50 GeV (120 #leq E_{T})","f");
    leg1->Draw();
 
    leg2 = new TLegend(0.44,0.65,0.88,0.90);
