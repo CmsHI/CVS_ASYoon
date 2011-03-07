@@ -123,8 +123,8 @@ void PlotXTResidual(bool save=false){
   dum1->Draw("");
 
   int fillsty = 3001;
-  tp_error_band->SetLineColor(kWhite);
-  //tp_error_band->SetLineWidth(2.5);
+  tp_error_band->SetLineColor(kBlue);
+  tp_error_band->SetLineWidth(1.0);
   tp_error_band->SetFillStyle(fillsty), tp_error_band->SetFillColor(kGray+1);
   tp_error_band->Draw("f");
 
@@ -183,7 +183,7 @@ void PlotXTResidual(bool save=false){
   leg1->AddEntry(tg_rat_cms_7000,"CMS 7 TeV (2.96 pb^{-1})","p");
   leg1->AddEntry(tg_rat_cms_900,"CMS 0.9 TeV (231 #mub^{-1})","p");
   leg1->AddEntry(tg_rat_cdf_1960,"CDF 1.96 TeV","p");
-  leg1->AddEntry(tp_error_band,"2.76 TeV x_{T} interpolation","f");
+  leg1->AddEntry(tp_error_band,"2.76 TeV x_{T} interpolation","fl");
   leg1->Draw();
   
 
@@ -235,7 +235,7 @@ void PlotXTResidual(bool save=false){
   leg2->SetMargin(0.25);
   //leg2->SetHeader("   pp(#bar{p}) #rightarrow 0.5(h^{+}+h^{-}) + X (|#eta|<1.0)"); 
   //leg2->SetHeader("#sqrt{s}/GeV)^{4.9}Ed^{3}#sigma/dp^{3}  #sqrt{s} = 0.9, 1.96, 2.75, 7  /  #sqrt{s} = 2.75 ");
-  leg2->SetHeader("   #sqrt{s} = 0.9, 1.96, 2.75, 7  /  #sqrt{s} = 2.75 "); 
+  leg2->SetHeader("   #sqrt{s} = 0.9, 1.96, 7 TeV /  #sqrt{s} = 2.75 TeV"); 
   leg2->AddEntry(tg_rat_nlo_900,"#sqrt{s} = 0.9 TeV","l"); 
   leg2->AddEntry(tg_rat_nlo_1960,"#sqrt{s} = 1.96 TeV","l");
   //leg2->AddEntry(tg_rat_nlo_2750,"#sqrt{s} = 2.75 TeV","l");
