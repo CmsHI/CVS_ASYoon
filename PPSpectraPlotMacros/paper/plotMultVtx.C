@@ -51,8 +51,8 @@ void plotMultVtxPAS() {
   texB->SetNDC();
   texB->Draw();
 
-  pas->Print("./fig/multPrimVtxZ.gif");
-  pas->Print("./fig/multPrimVtxZ.pdf");
+  pas->Print("./fig/multVtxZ_bothGood.gif");
+  pas->Print("./fig/multVtxZ_bothGood.pdf");
 
 }
 
