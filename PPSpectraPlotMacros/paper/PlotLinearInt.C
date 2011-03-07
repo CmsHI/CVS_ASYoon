@@ -160,18 +160,18 @@ void PlotLinearInt(bool save=false){
   //leg1->Draw("");
 
   //TLegend *leg2 = new TLegend(0.19,0.62,0.68,0.98);
-  TLegend *leg2 = new TLegend(0.24,0.50,0.73,0.86);
+  TLegend *leg2 = new TLegend(0.23,0.50,0.77,0.86);
   leg2->SetNColumns(2);
-  leg2->SetColumnSeparation(0.04);
+  leg2->SetColumnSeparation(0.05);
   leg2->SetBorderSize(0);
   leg2->SetFillStyle(0);
   leg2->SetTextSize(0.041);
   leg2->SetHeader("   pp(#bar{p}) #rightarrow 0.5(h^{+}+h^{-}) + X (|#eta|<1.0)");
-  leg2->AddEntry(tg_data_7000_3gev,"CMS 7 TeV","p");
-  leg2->AddEntry(tg_data_2360_3gev,"CMS 2.36 TeV","p");
-  leg2->AddEntry(tg_data_900_3gev,"CMS 0.9 TeV","p");
+  leg2->AddEntry(tg_data_7000_3gev,"CMS 7 TeV (2.96 pb^{-1})","p");
   leg2->AddEntry(tg_data_1960_3gev,"CDF 1.96 TeV","p");
+  leg2->AddEntry(tg_data_2360_3gev,"CMS 2.36 TeV (0.2 #mub^{-1})","p");
   leg2->AddEntry(tg_data_1800_3gev,"CDF 1.8 TeV","p");
+  leg2->AddEntry(tg_data_900_3gev,"CMS 0.9 TeV (231 #mub^{-1})","p");
   leg2->AddEntry(tg_data_630_3gev,"CDF 0.63 TeV","p");
   leg2->Draw(""); 
 

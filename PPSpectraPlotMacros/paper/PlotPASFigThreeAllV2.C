@@ -245,7 +245,7 @@ void PlotPASFigThreeAllV2(bool save=false){
    leg2->SetMargin(0.3), leg2->SetBorderSize(0);
    leg2->SetFillColor(kWhite), leg2->SetFillStyle(0);
    leg2->SetTextSize(0.032), leg1->SetMargin(0.2);
-   leg2->SetHeader("  CMS #sqrt{s} = 7 TeV  |#eta|<2.4  #scale[0.7]{#int}Ldt = 2.96 pb^{-1}");
+   leg2->SetHeader(" CMS    #sqrt{s} = 7 TeV  |#eta|<2.4  #scale[0.7]{#int}Ldt = 2.96 pb^{-1}");
    leg2->AddEntry(hdndpt_all_full,"Combined samples","p");
    leg2->AddEntry(hdndpt_mb_full,"HLT MB (all E_{T})","p");
    leg2->AddEntry(hdndpt_jmt_full,"HLT, E_{T}^{un} > 15 GeV (E_{T} #geq 60)","p");

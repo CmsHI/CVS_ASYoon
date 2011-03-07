@@ -41,10 +41,10 @@ void PlotXT(bool save=false){
   float xt_min, xt_max;
   float ymin, ymax;
   
-  xt_min = 0.00005, xt_max = 0.3;
+  xt_min = 0.00005, xt_max = 0.2;
   //ymin = 8e2, ymax = 8e22;
   //ymin = 7e4, ymax = 2e23; 
-  ymin = 7e3, ymax = 2e23;    
+  ymin = 7e3, ymax = 2e21;    
 
   // file loading
   /*

@@ -38,7 +38,7 @@ void plotMultVtxPAS() {
   tex2->SetNDC();
   tex2->Draw();
 
-  TLatex *tex3 = new TLatex(0.27,0.88,"#sqrt{s} = 7 TeV");
+  TLatex *tex3 = new TLatex(0.27,0.88,"CMS  #sqrt{s} = 7 TeV");
   tex3->SetTextSize(0.033);
   tex3->SetLineWidth(2);
   tex3->SetNDC();
