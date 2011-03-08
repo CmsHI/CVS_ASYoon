@@ -18,11 +18,12 @@ process.load('Configuration/EventContent/EventContent_cff')
 options = VarParsing.VarParsing ('standard')
 
 # my own variable
-options.register('centRange',
-                 "ALL", # 0To10, 50To100, and etc 
+options.register('centBins',
+                 0, # by default
                  VarParsing.VarParsing.multiplicity.singleton,
-                 VarParsing.VarParsing.varType.string,
-                 "Centrality bin range")
+                 VarParsing.VarParsing.varType.int,
+                 "Centrality binning scenario")
+
 
 # get and parse the command line arguments
 options.parseArguments()
@@ -51,8 +52,8 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.13 $'),
-            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg.py,v $'),
+        version = cms.untracked.string('$Revision: 1.14 $'),
+            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
@@ -91,7 +92,7 @@ from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
 process = disableLowPt(process) # disable low pt pixel
 #process = usehiGoodMergedTracks(process) # use hiGoodMergedTracks instead
 process = setAnaSeq(process,"AnaOnly") # EffOnly, AnaOnly, ALL
-process = whichCentBinMode(process,1) # centrality binning
+process = whichCentBinMode(process,options.centBins) # centrality binning
 #process = setMinPtforPF(process,200) # min pt for PF reco/ana
 
 # =============== Output ================================
