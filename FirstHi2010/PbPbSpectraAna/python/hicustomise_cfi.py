@@ -208,6 +208,12 @@ def whichCentBinMode(process,cbinMode=0):
     process.hihightrkEffAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
     process.preCentDist.neededCentBins = cms.untracked.vint32(cbins)
     process.postCentDist.neededCentBins = cms.untracked.vint32(cbins)
+    process.preAdpVtxAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.preMedVtxAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.preSelVtxAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.postAdpVtxAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.postMedVtxAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.postSelVtxAna.neededCentBins = cms.untracked.vint32(cbins)
     return process
     
 def setCentBins(process,ci=0,cf=10):
