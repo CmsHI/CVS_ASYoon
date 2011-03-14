@@ -265,13 +265,24 @@ def whichCentBins(process,centRange):
 def constraintOnLJetEta(process):
     # contraint jet eta acceptance within tracker acceptance 
     print "Constraint on the leading jet eta !"
-    process.hitrkEffAnalyzer.trkAcceptedJet = cms.untracked.bool(False)
-    process.hihightrkEffAnalyzer.trkAcceptedJet = cms.untracked.bool(False)
-    process.hitrackAna.trkAcceptedJet = cms.untracked.bool(False)
-    process.hihightrackAna.trkAcceptedJet = cms.untracked.bool(False)
-    process.hicaloTrackAna.trkAcceptedJet = cms.untracked.bool(False)
-    process.hipxltrackAna.trkAcceptedJet = cms.untracked.bool(False)
-    process.hirefitTrackAna.trkAcceptedJet = cms.untracked.bool(False)
+    process.hitrkEffAnalyzer.trkAcceptedJet = cms.untracked.bool(True)
+    process.hihightrkEffAnalyzer.trkAcceptedJet = cms.untracked.bool(True)
+    process.hitrackAna.trkAcceptedJet = cms.untracked.bool(True)
+    process.hihightrackAna.trkAcceptedJet = cms.untracked.bool(True)
+    process.hicaloTrackAna.trkAcceptedJet = cms.untracked.bool(True)
+    process.hipxltrackAna.trkAcceptedJet = cms.untracked.bool(True)
+    process.hirefitTrackAna.trkAcceptedJet = cms.untracked.bool(True)
+    return process
+
+def useSubLeadingJet(process):
+    print "Sub-leading jet is used in event classificaiton !"
+    process.hitrkEffAnalyzer.useSubLeadingJet = cms.untracked.bool(True)
+    process.hihightrkEffAnalyzer.useSubLeadingJet = cms.untracked.bool(True)
+    process.hitrackAna.useSubLeadingJet = cms.untracked.bool(True)
+    process.hihightrackAna.useSubLeadingJet = cms.untracked.bool(True)
+    process.hicaloTrackAna.useSubLeadingJet = cms.untracked.bool(True)
+    process.hipxltrackAna.useSubLeadingJet = cms.untracked.bool(True)
+    process.hirefitTrackAna.useSubLeadingJet = cms.untracked.bool(True)
     return process
 
 def setAnaSeq(process,mode="AnaOnly"):
