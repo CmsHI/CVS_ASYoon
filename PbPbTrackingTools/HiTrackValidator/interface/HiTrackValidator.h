@@ -83,6 +83,7 @@ class HiTrackValidator : public edm::EDAnalyzer {
       TH1D *hvzErr, *hvtErr;
       TH1D *hdzOverdzErr, *hd0Overd0Err;
       TH1D *hdzOverdzErrPV, *hd0Overd0ErrPV;
+      TH1D *hEta, *hPhi, *hPt;
 
       std::vector<TH1D*> hNvalidHits_Cent;
       std::vector<TH1D*> hChi2n_Cent;
@@ -93,6 +94,10 @@ class HiTrackValidator : public edm::EDAnalyzer {
       std::vector<TH1D*> hd0ErrPV_Cent;
       std::vector<TH1D*> hdzOverdzErrPV_Cent;
       std::vector<TH1D*> hd0Overd0ErrPV_Cent;
+      std::vector<TH1D*> hEta_Cent;
+      std::vector<TH1D*> hPhi_Cent;
+      std::vector<TH1D*> hPt_Cent;
+
 
       // as a function of pt
       TH2D *hNlayersdPt;

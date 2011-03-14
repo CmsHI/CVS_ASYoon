@@ -97,15 +97,26 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       double pt = trk.pt(), eta = trk.eta(), phi = trk.phi();
 
       hEtaPhi->Fill(eta,phi);
-      
+      hEta->Fill(eta);
+      hPhi->Fill(phi);
+      hPt->Fill(pt);
+
       // centrality binned
       for(unsigned i=0;i<neededCentBins_.size();i++){
 	 if(i==0){
-	    if(cbin<=neededCentBins_[i+1]) 
+	    if(cbin<=neededCentBins_[i+1]){
 	       hEtaPhi_Cent[i]->Fill(eta,phi);
+	       hEta_Cent[i]->Fill(eta);
+	       hPhi_Cent[i]->Fill(phi);
+	       hPt_Cent[i]->Fill(pt);
+	    }
 	 }else{
-	    if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1])
+	    if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1]){
 	       hEtaPhi_Cent[i]->Fill(eta,phi);
+	       hEta_Cent[i]->Fill(eta);
+               hPhi_Cent[i]->Fill(phi);
+	       hPt_Cent[i]->Fill(pt);
+	    }
 	 }
       }
 
@@ -324,7 +335,9 @@ HiTrackValidator::beginJob()
 
    // kinematic distributions
    hEtaPhi = f->make<TH2D>("hEtaPhi","eta vs phi;#eta;#phi", 40,-2.65,2.65, 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
-
+   hEta = f->make<TH1D>("hEta","eta distribution; #eta", 60,-2.65,2.65);
+   hPhi = f->make<TH1D>("hPhi","phi distribution; #phi", 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
+   hPt = f->make<TH1D>("hPt","pt distribution; p_{T} [GeV/c]",100,0.0,20);
 
    // centrality binned histogram 
    for(unsigned i=0;i<neededCentBins_.size()-1;i++){
@@ -352,6 +365,10 @@ HiTrackValidator::beginJob()
       hdzOverdzErrd0Err_Cent.push_back(f->make<TH2D>("","dz/dzError vs d0/d0Error", 80,-10.0,10.0, 80,-10.0,10.0));
       hdzOverdzErrd0ErrPV_Cent.push_back(f->make<TH2D>("","dz/dzError with PV error vs d0/d0Error with PV error", 80,-10.0,10.0, 80,-10.0,10.0));
       hEtaPhi_Cent.push_back(f->make<TH2D>("","eta vs phi;#eta;#phi", 20,-2.65,2.65, 40,-1.05*TMath::Pi(),1.05*TMath::Pi()));
+
+      hEta_Cent.push_back(f->make<TH1D>("","eta distribution; #eta", 60,-2.65,2.65));
+      hPhi_Cent.push_back(f->make<TH1D>("","phi distribution; #phi", 80,-1.05*TMath::Pi(),1.05*TMath::Pi()));
+      hPt_Cent.push_back(f->make<TH1D>("","pt distribution; p_{T} [GeV/c]",100,0.0,20));
       
       if(i==0){
          hNvalidHits_Cent[i]->SetName(Form("hNvalidHits_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
@@ -378,6 +395,10 @@ HiTrackValidator::beginJob()
 	 hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hEtaPhi_Cent[i]->SetName(Form("hEtaPhi_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 
+	 hEta_Cent[i]->SetName(Form("hEta_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hPhi_Cent[i]->SetName(Form("hPhi_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hPt_Cent[i]->SetName(Form("hPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+
       }else{
          hNvalidHits_Cent[i]->SetName(Form("hNvalidHits_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hChi2n_Cent[i]->SetName(Form("hChi2n_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
@@ -402,6 +423,10 @@ HiTrackValidator::beginJob()
 	 hdzOverdzErrd0Err_Cent[i]->SetName(Form("hdzOverdzErrd0Err_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hEtaPhi_Cent[i]->SetName(Form("hEtaPhi_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+
+	 hEta_Cent[i]->SetName(Form("hEta_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hPhi_Cent[i]->SetName(Form("hPhi_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+         hPt_Cent[i]->SetName(Form("hPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
       }
 
    }
