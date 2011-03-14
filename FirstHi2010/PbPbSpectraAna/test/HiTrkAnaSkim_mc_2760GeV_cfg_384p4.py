@@ -18,11 +18,11 @@ process.load('Configuration/EventContent/EventContent_cff')
 options = VarParsing.VarParsing ('standard')
 
 # my own variable
-options.register('centRange',
-                 "ALL", # 0To10, 50To100, and etc 
+options.register('centBins',
+                 0, # by default
                  VarParsing.VarParsing.multiplicity.singleton,
-                 VarParsing.VarParsing.varType.string,
-                 "Centrality bin range")
+                 VarParsing.VarParsing.varType.int,
+                 "Centrality binning scenario")
 
 # get and parse the command line arguments
 options.parseArguments()
@@ -53,8 +53,8 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.10 $'),
-            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_384p4.py,v $'),
+        version = cms.untracked.string('$Revision: 1.11 $'),
+            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_384p4.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
@@ -93,7 +93,9 @@ process = disableLowPt(process) # disable low pt pixel
 process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 #process = enableREDIGI(process) # to run on redigitized 
 process = runOn384p2(process) # to run on 384
-process = whichCentBinMode(process,0) # centrality binning
+process = whichCentBinMode(process,options.centBins) # centrality binning
+#process = constraintOnLJetEta(process) # constraint on leading jet eta
+#process = useSubLeadingJet(process) # use sub leading jet  
 #process = setMinPtforPF(process,200) # min pt for PF reco/ana
 
 # =============== Output ================================

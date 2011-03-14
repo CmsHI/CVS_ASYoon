@@ -51,8 +51,8 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.19 $'),
-            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
+        version = cms.untracked.string('$Revision: 1.20 $'),
+            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
@@ -90,7 +90,9 @@ process = disableLowPt(process) # disable low pt pixel
 #process = usehiGoodMergedTracks(process) # use hiGoodMergedTracks instead
 process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 process = enableREDIGI(process) # to run on redigitized 
-process = whichCentBins(process,options.centRange) # centrality range
+process = whichCentBinMode(process,options.centBins) # centrality binning
+#process = constraintOnLJetEta(process) # constraint on leading jet eta
+#process = useSubLeadingJet(process) # use sub leading jet
 #process = setMinPtforPF(process,200) # min pt for PF reco/ana
 
 # =============== Output ================================
