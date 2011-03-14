@@ -262,12 +262,17 @@ def whichCentBins(process,centRange):
         setCentBins(process,0,0)
     return process
 
-#def setFuncCaloComp(process,centRange):
-#    if centRange=="0To5":
-#        process.hiCaloCompTracks.funcCaloComp = cms.string("(x>14) * (1.2*pow(TMath::Abs(x-10),8.7/9)) * (2+1./(exp(-1*(x-13))-1))")
-#    elif centRange=="0To10":
-#        
-#    return process
+def constraintOnLJetEta(process):
+    # contraint jet eta acceptance within tracker acceptance 
+    print "Constraint on the leading jet eta !"
+    process.hitrkEffAnalyzer.trkAcceptedJet = cms.untracked.bool(False)
+    process.hihightrkEffAnalyzer.trkAcceptedJet = cms.untracked.bool(False)
+    process.hitrackAna.trkAcceptedJet = cms.untracked.bool(False)
+    process.hihightrackAna.trkAcceptedJet = cms.untracked.bool(False)
+    process.hicaloTrackAna.trkAcceptedJet = cms.untracked.bool(False)
+    process.hipxltrackAna.trkAcceptedJet = cms.untracked.bool(False)
+    process.hirefitTrackAna.trkAcceptedJet = cms.untracked.bool(False)
+    return process
 
 def setAnaSeq(process,mode="AnaOnly"):
     if mode=="AnaOnly":
