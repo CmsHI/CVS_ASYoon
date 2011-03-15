@@ -18,11 +18,11 @@ process.load('Configuration/EventContent/EventContent_cff')
 options = VarParsing.VarParsing ('standard')
 
 # my own variable
-options.register('centRange',
-                 "ALL", # 0To10, 50To100, and etc 
+options.register('centBins',
+                 0, # by default
                  VarParsing.VarParsing.multiplicity.singleton,
-                 VarParsing.VarParsing.varType.string,
-                 "Centrality bin range")
+                 VarParsing.VarParsing.varType.int,
+                 "Centrality binning scenario")
 
 # get and parse the command line arguments
 options.parseArguments()
@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.9 $'),
+        version = cms.untracked.string('$Revision: 1.10 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_393.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
