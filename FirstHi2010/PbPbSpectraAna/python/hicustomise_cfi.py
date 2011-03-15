@@ -69,7 +69,6 @@ def runOnCore(process):
     return process
 
 def runOn384p2(process):
-    #list = ['HLT_HIMinBiasCalo','HLT_HIJet35U','HLT_HIJet50U','HLT_HIJet75U','HLT_HIJet90U']
     list = ['HLT_HIMinBiasCalo','HLT_HIJet35U']
     print "runOn384p2 option is enabled (HLT_HIMinBiasCalo and HISIGNAL)!"
     print "hlt list for track analyzer = ",list
@@ -98,8 +97,10 @@ def runOn384p2(process):
     process.postEvtAna.trignames = cms.untracked.vstring(list)
     return process
 
-def runOn393(process):
-    print "runOn393 option is enabled (minBiasBscFilter removed)!"
+def runOn395(process):
+    list = ['HLT_HIMinBiasHF','HLT_HIJet35U','HLT_HIJet50U']
+    print "runOn395 option is enabled (minBiasBscFilter removed)!"
+    print "hlt list for track analyzer = ",list
     process.eventFilter.remove(process.minBiasBscFilter)
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','HLT')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','HLT')
@@ -111,6 +112,33 @@ def runOn393(process):
     process.preTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
     process.postTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
     process.postEvtAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.hitrackAna.hltNames = cms.untracked.vstring(list)
+    process.hihightrackAna.hltNames = cms.untracked.vstring(list)
+    process.hicaloTrackAna.hltNames = cms.untracked.vstring(list)
+    process.hipxltrackAna.hltNames = cms.untracked.vstring(list)
+    process.hirefitTrackAna.hltNames = cms.untracked.vstring(list)
+    process.hihightrkval.useQaulityStr = cms.untracked.bool(False)
+    process.hihightrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.higoodtrkval.useQaulityStr =cms.untracked.bool(False)
+    process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.preTrgAna.trignames = cms.untracked.vstring(list)
+    process.postTrgAna.trignames = cms.untracked.vstring(list)
+    process.postEvtAna.trignames = cms.untracked.vstring(list)
+    return process
+
+def runOn393(process):
+    print "runOn393 option is enabled (minBiasBscFilter removed)!"
+    process.eventFilter.remove(process.minBiasBscFilter)
+    process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
+    process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
+    process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.preTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.postTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.postEvtAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     return process
 
 def runOn393DataMixMC(process):
