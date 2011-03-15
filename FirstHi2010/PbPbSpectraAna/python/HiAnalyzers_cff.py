@@ -18,6 +18,12 @@ postSelVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiSelect
 #from SimTracker.TrackAssociation.trackingParticleRecoTrackAsssociation_cfi import *
 #TrackAssociatorByHits.SimToRecoDenominator = cms.string('reco')
 
+# clone hi event selection analyzer
+from edwenger.HiEvtSelAnalyzer.hievtselanalyzer_cfi import *
+preTrgAna = hievtselanalyzer.clone()
+postTrgAna = hievtselanalyzer.clone()
+postEvtAna = hievtselanalyzer.clone()
+
 from PbPbTrackingTools.HiTrackValidator.hitrackvalidator_cfi import *
 from edwenger.HiTrkEffAnalyzer.HiTPCuts_cff import *
 hihightrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiHighPtTracks"))
@@ -37,8 +43,9 @@ higoodtrkval_fakeOnly = cms.Sequence(cutsTPForFak*
 
 # clone cent bin analyzer
 from FirstHi2010.CentralityDistAna.centralitydistana_cfi import *
-preCentDist = centbindist.clone()
-postCentDist = centbindist.clone()
+preTrigCentDist = centbindist.clone()
+postTrigCentDist = centbindist.clone()
+postEvtCentDist = centbindist.clone()
 
 # clone hitrack spectra ana to run with pixel and global
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
@@ -71,16 +78,16 @@ hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")
 
 
 # Sequences
-preEvtSelVtxAna = cms.Sequence(preAdpVtxAna*
-                               preMedVtxAna*
-                               preSelVtxAna*
-                               preCentDist)
-                               
-postEvtSelVtxAna = cms.Sequence(postAdpVtxAna*
-                                postMedVtxAna*
-                                postSelVtxAna*
-                                postCentDist)
-                              
+preTrgTest = cms.Sequence(preTrgAna*
+                          (preAdpVtxAna+preMedVtxAna+preSelVtxAna)*
+                          preTrigCentDist)
+
+postTrgTest = cms.Sequence(preTrgAna*
+                           postTrigCentDist)
+
+postEvtSelTest = cms.Sequence(postEvtAna*
+                              (postAdpVtxAna+postMedVtxAna+postSelVtxAna)*
+                              postEvtCentDist)
 
 
 

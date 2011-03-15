@@ -2,6 +2,9 @@ import FWCore.ParameterSet.Config as cms
 
 
 def enableSIM(process):
+    process.preTrgAna.isGEN=True
+    process.postTrgAna.isGEN=True
+    process.postEvtAna.isGEN=True
     process.hipxltrackAna.isGEN=True
     process.hitrackAna.isGEN=True
     process.hihightrackAna.isGEN=True
@@ -54,6 +57,9 @@ def enableREDIGI(process):
     process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.preTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.postTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.postEvtAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     return process
 
 def runOnCore(process):
@@ -74,6 +80,9 @@ def runOn384p2(process):
     process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.preTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.postTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.postEvtAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hitrackAna.hltNames = cms.untracked.vstring(list)
     process.hihightrackAna.hltNames = cms.untracked.vstring(list)
     process.hicaloTrackAna.hltNames = cms.untracked.vstring(list)
@@ -83,18 +92,24 @@ def runOn384p2(process):
     process.hihightrkval_fake.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.preTrgAna.trignames = cms.untracked.bool(False)
+    process.postTrgAna.trignames = cms.untracked.bool(False)
+    process.postEvtAna.trignames = cms.untracked.bool(False)
     return process
 
 def runOn393(process):
     print "runOn393 option is enabled (minBiasBscFilter removed)!"
     process.eventFilter.remove(process.minBiasBscFilter)
-    process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
-    process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
-    process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
-    process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
-    process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
-    process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
-    process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','HLT')
+    process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','HLT')
+    process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.preTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.postTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.postEvtAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
     return process
 
 def runOn393DataMixMC(process):
@@ -108,6 +123,9 @@ def runOn393DataMixMC(process):
     process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.preTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.postTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.postEvtAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hitrackAna.gsrc=cms.untracked.InputTag("genParticles")
     process.hitrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hihightrackAna.gsrc=cms.untracked.InputTag("genParticles")
@@ -131,6 +149,9 @@ def runOn393NewDataMixMC(process):
     process.hicaloTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
     process.hipxltrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
     process.hirefitTrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.preTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.postTrgAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.postEvtAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
     process.hitrackAna.gsrc=cms.untracked.InputTag("genParticles")
     process.hitrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hihightrackAna.gsrc=cms.untracked.InputTag("genParticles")
@@ -206,14 +227,18 @@ def whichCentBinMode(process,cbinMode=0):
     process.hirefitTrackAna.neededCentBins = cms.untracked.vint32(cbins)
     process.hitrkEffAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
     process.hihightrkEffAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
-    process.preCentDist.neededCentBins = cms.untracked.vint32(cbins)
-    process.postCentDist.neededCentBins = cms.untracked.vint32(cbins)
+    process.preTrigCentDist.neededCentBins = cms.untracked.vint32(cbins)
+    process.postTrigCentDist.neededCentBins = cms.untracked.vint32(cbins)
+    process.postEvtCentDist.neededCentBins = cms.untracked.vint32(cbins)
     process.preAdpVtxAna.neededCentBins = cms.untracked.vint32(cbins)
     process.preMedVtxAna.neededCentBins = cms.untracked.vint32(cbins)
     process.preSelVtxAna.neededCentBins = cms.untracked.vint32(cbins)
     process.postAdpVtxAna.neededCentBins = cms.untracked.vint32(cbins)
     process.postMedVtxAna.neededCentBins = cms.untracked.vint32(cbins)
     process.postSelVtxAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.preTrgAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.preTrgAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.postEvtAna.neededCentBins = cms.untracked.vint32(cbins)
     return process
     
 def setCentBins(process,ci=0,cf=10):
