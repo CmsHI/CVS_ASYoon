@@ -82,7 +82,7 @@ preTrgTest = cms.Sequence(preTrgAna*
                           (preAdpVtxAna+preMedVtxAna+preSelVtxAna)*
                           preTrigCentDist)
 
-postTrgTest = cms.Sequence(preTrgAna*
+postTrgTest = cms.Sequence(postTrgAna*
                            postTrigCentDist)
 
 postEvtSelTest = cms.Sequence(postEvtAna*
