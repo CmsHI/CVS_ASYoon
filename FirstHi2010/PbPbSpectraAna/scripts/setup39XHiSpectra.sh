@@ -12,6 +12,12 @@ cvs co -d Appeltel/PixelTracksRun2010 UserCode/Appeltel/PixelTracksRun2010
 cvs co -r V01-02-09 HeavyIonsAnalysis/Configuration
 # cvs co RecoHI/HiEgammaAlgos (before 392p5)
 
+# spike cleaning and broken code cleaning..
+cvs co -d CmsHi/PhotonAnalysis UserCode/CmsHi/PhotonAnalysis
+rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.cc
+rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.h
+rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.cc
+rm CmsHi/PhotonAnalysis/plugins/ultiPhotonAnalyzer.h
 
 # analyzers
 cvs co UserCode/edwenger/HiVertexAnalyzer
