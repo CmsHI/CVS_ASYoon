@@ -17,6 +17,7 @@ cvs co -r V01-02-09 HeavyIonsAnalysis/Configuration
 cvs co UserCode/edwenger/HiVertexAnalyzer
 cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
 cvs co UserCode/edwenger/HiTrkEffAnalyzer
+cvs co UserCode/edwenger/HiEvtSelAnalyzer
 
 # for jet
 # see  /UserCode/SavedFMa/Saved/Skim/scripts for up-to-date package co
