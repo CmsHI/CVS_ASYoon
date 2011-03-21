@@ -244,16 +244,18 @@ def setMinPtforPF(process,minpt=10):
 
 def whichCentBinMode(process,cbinMode=0):
     if cbinMode==0 :
+        # 0~5,5~10,10~30,30~50,50~90
         cbins=[0,1,3,11,19,35] # cut off 90~100% bin
         print "Centrality bins = ", cbins
     if cbinMode==1 :
-        cbins=[0,1,3,11,19,23,27,31,35] # cut off 90~100% bin
+        # 0~5,5~10,10~30,30~50,50~70,70~90
+        cbins=[0,1,3,11,19,27,35] # cut off 90~100% bin
         print "Centrality bins = ", cbins
     if cbinMode==3 :
         cbins=[0,1,3,11,19,39] 
         print "Centrality bins = ", cbins
     if cbinMode==4 :
-        cbins=[0,1,3,11,19,23,27,31,35,39] 
+        cbins=[0,1,3,11,19,27,39]
         print "Centrality bins = ", cbins
     process.hitrackAna.neededCentBins = cms.untracked.vint32(cbins)
     process.hihightrackAna.neededCentBins = cms.untracked.vint32(cbins)
