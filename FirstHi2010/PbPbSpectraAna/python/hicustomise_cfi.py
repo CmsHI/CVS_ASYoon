@@ -276,6 +276,10 @@ def whichCentBinMode(process,cbinMode=0):
     process.preTrgAna.neededCentBins = cms.untracked.vint32(cbins)
     process.preTrgAna.neededCentBins = cms.untracked.vint32(cbins)
     process.postEvtAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.hihightrkval.neededCentBins = cms.untracked.vint32(cbins)
+    process.hihightrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodtrkval.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodtrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
     return process
     
 def setCentBins(process,ci=0,cf=10):
