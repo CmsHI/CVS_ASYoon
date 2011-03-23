@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(200))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(80))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'GR10_P_V12::All' # GR10_X_V12::All (X=E, P, H)
 
@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.15 $'),
+        version = cms.untracked.string('$Revision: 1.16 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -87,13 +87,14 @@ process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
 
 # =============== Customize =======================
 from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
+process = runOnCore(process) # to run on core, not needed if below is on
 #process = enableHLTJet(process,"HLT_HIJet35U_Core")
 #process = usehiSelectedTracks(process) # use hiSelectedTracks instead 
 process = disableLowPt(process) # disable low pt pixel
 #process = usehiGoodMergedTracks(process) # use hiGoodMergedTracks instead
 process = setAnaSeq(process,"AnaOnly") # EffOnly, AnaOnly, ALL
 process = whichCentBinMode(process,options.centBins) # centrality binning
-#process = constraintOnLJetEta(process) # constraint on leading jet eta
+process = constraintOnLJetEta(process) # constraint on leading jet eta
 #process = useSubLeadingJet(process) # use sub leading jet
 #process = setMinPtforPF(process,200) # min pt for PF reco/ana
 
