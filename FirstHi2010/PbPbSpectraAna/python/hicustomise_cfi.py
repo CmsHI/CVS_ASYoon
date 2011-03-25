@@ -252,7 +252,8 @@ def whichCentBinMode(process,cbinMode=0):
         cbins=[0,1,3,11,19,27,35] # cut off 90~100% bin
         print "Centrality bins = ", cbins
     if cbinMode==3 :
-        cbins=[0,1,3,11,19,39] 
+        # 0~5,5~10,10~30,30~50,50~60,60~70,70~80,80~90
+        cbins=[0,1,3,11,19,23,27,31,35]
         print "Centrality bins = ", cbins
     if cbinMode==4 :
         cbins=[0,1,3,11,19,27,39]
