@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.10 $'),
+        version = cms.untracked.string('$Revision: 1.11 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_393.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -88,6 +88,7 @@ from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
 #process = usehiSelectedTracks(process) # use hiSelectedTracks instead
 process = enableSIM(process)    # activate isGEN in analyzers
 process = disableLowPt(process) # disable low pt pixel
+process = disableJetEtCutOnAna(process) # remove trackAna with jet Et cuts
 #process = usehiGoodMergedTracks(process) # use hiGoodMergedTracks instead 
 process = setAnaSeq(process,"ALL") # EffOnly, AnaOnly, ALL
 #process = enableREDIGI(process) # to run on redigitized 
