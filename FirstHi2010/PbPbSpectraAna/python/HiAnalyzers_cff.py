@@ -54,9 +54,14 @@ hitrackAna.triggerNeeded = cms.untracked.bool(True)
 hitrackAna.pixelMultMode = cms.untracked.bool(False)
 hitrackAna.neededTrigSpectra = cms.untracked.vint32(0,1,1,0,0) #Jet35U and 50U
 
+hitrackAna_jetMode1 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,80)) # jet Et cut
+hitrackAna_jetMode2 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,100))
+
 hihightrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiHighPtTracks"),
                                   src_evtCorr=cms.untracked.InputTag("hiHighPtTracks")
                                   )
+hihightrackAna_jetMode1 = hihightrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,80))
+hihightrackAna_jetMode2 = hihightrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,100))
 
 hicaloTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiCaloCompTracks"),
                                   src_evtCorr=cms.untracked.InputTag("hiCaloCompTracks")
