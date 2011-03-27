@@ -38,6 +38,7 @@ def enableEffOnly(process):
     return process
 
 def disableJetEtCutOnAna(process):
+    print "*_jetMode* analzyers are removed!"
     process.hiAnalysisSeq.remove(process.hitrackAna_jetMode1)
     process.hiAnalysisSeq.remove(process.hitrackAna_jetMode2)
     process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode1)
