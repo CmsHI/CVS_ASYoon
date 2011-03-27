@@ -215,6 +215,22 @@ def enableHLTJet(process,hltname='HLT_HIJet50U'):
     process.minBiasBscFilter.replace(process.hltMinBias,process.hltJets)
     print "Skim jet HLT path: ", process.hltJets.HLTPaths, "and minBiasBscFilter: ", process.minBiasBscFilter
     process.eventFilter*=process.hiEcalRecHitSpikeFilter
+    if hltname=="HLT_HIJet35U":
+        jetcut1=[80,100]
+        jetcut2=[100,120]
+        print "Jet Et cuts on spectra analyzer: cut 1 = ", jetcut1, " cut 2 = ", jetcut2
+        process.hitrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.hitrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
+        process.hihightrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.hihightrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
+    if hltname=="HLT_HIJet50U":
+        jetcut1=[100,9000]
+        jetcut2=[120,9000]
+        print "Jet Et cuts on spectra analyzer: cut 1 = ", jetcut1, " cut 2 = ", jetcut2
+        process.hitrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.hitrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
+        process.hihightrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.hihightrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
     return process
                             
 
