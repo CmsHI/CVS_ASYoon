@@ -17,7 +17,7 @@ cvs co -d CmsHi/PhotonAnalysis UserCode/CmsHi/PhotonAnalysis
 rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.cc
 rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.h
 rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.cc
-rm CmsHi/PhotonAnalysis/plugins/ultiPhotonAnalyzer.h
+rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.h
 
 # analyzers
 cvs co UserCode/edwenger/HiVertexAnalyzer
