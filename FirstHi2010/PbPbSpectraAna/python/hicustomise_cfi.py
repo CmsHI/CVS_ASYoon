@@ -352,7 +352,7 @@ def enableHLTJet(process,hltname='HLT_HIJet50U'):
         process.hiAnalysisSeq.replace(process.hitrackAna_jetMode2,process.hitrackAna_jetMode2
                                       +process.hitrackAna_jetMode3+process.hitrackAna_jetMode4)
         process.hiAnalysisSeq.replace(process.hihightrackAna_jetMode2,process.hihightrackAna_jetMode2
-                                      +process.hihightrackAna_jetMode3+process.hitrackAna_jetMode4)
+                                      +process.hihightrackAna_jetMode3+process.hihightrackAna_jetMode4)
     if hltname.find('Jet50U') >= 0:
         jetcut1=[100,9000]
         jetcut2=[120,9000]
