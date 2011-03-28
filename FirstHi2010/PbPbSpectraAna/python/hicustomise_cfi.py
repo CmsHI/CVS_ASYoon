@@ -30,6 +30,7 @@ def enableSIM(process):
     print "hltMinBias is removed from minBiasBscFilter check what's left:", process.minBiasBscFilter 
     return process
 
+    
 def enableEffOnly(process):
     process.hiAnalysisSeq.remove(process.hipxltrackAna)
     process.hiAnalysisSeq.remove(process.hitrackAna)
@@ -226,6 +227,8 @@ def runOn393DataMixMC(process):
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hitrackAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hitrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hitrackAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.hitrackAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hihightrackAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hihightrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
