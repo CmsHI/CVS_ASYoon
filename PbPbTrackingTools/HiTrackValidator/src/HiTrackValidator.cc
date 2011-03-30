@@ -14,6 +14,7 @@ HiTrackValidator::HiTrackValidator(const edm::ParameterSet& iConfig)
    hasSimInfo_(iConfig.getUntrackedParameter<bool>("hasSimInfo")),
    selectFake_(iConfig.getUntrackedParameter<bool>("selectFake")),
    useQaulityStr_(iConfig.getUntrackedParameter<bool>("useQaulityStr")),
+   fiducialCut_(iConfig.getUntrackedParameter<bool>("fiducialCut",false)),
    neededCentBins_(iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins")),
    centrality_(0)
 {
@@ -66,6 +67,11 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       theAssociatorByHits = (const TrackAssociatorByHits*) theAssociator.product();  
       recSimColl= theAssociatorByHits->associateRecoToSim(trackCollection,TPCollectionHfake,&iEvent); // to find fake
    }
+
+   //------- Get tracker geometry -------------
+   edm::ESHandle<TrackerGeometry> tracker;
+   iSetup.get<TrackerDigiGeometryRecord>().get(tracker);
+   theTracker = tracker.product();
    
    //------- Tracks -----------------------
    edm::Handle<std::vector<reco::Track> > tracks;
@@ -75,9 +81,11 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 
 
    for(unsigned it=0; it<tracks->size(); ++it){
+      
 
       const reco::Track & trk = (*tracks)[it];
 
+      if(fiducialCut_ && hitDeadPXF(trk)) continue; // if track hits the dead region, igonore it;
       if(useQaulityStr_ && !trk.quality(reco::TrackBase::qualityByName(qualityString))) continue;
 
       // rec to sim association
@@ -436,6 +444,46 @@ HiTrackValidator::beginJob()
 // ------------ method called once each job just after ending the event loop  ------------
 void 
 HiTrackValidator::endJob() {
+}
+
+//
+bool
+HiTrackValidator::hitDeadPXF(const reco::Track& tr){
+
+   //-----------------------------------------------
+   // For a given track, check whether this contains 
+   // hits on the dead region in the forward pixel 
+   //-----------------------------------------------
+
+   
+   bool hitDeadRegion = false;
+
+   for(trackingRecHit_iterator recHit = tr.recHitsBegin();recHit!= tr.recHitsEnd(); recHit++){
+
+      if((*recHit)->isValid()){
+
+	 DetId detId = (*recHit)->geographicalId();
+	 if(!theTracker->idToDet(detId)) continue;
+
+	 Int_t diskLayerNum=0, bladeLayerNum=0, hcylLayerNum=0;
+	  
+	 unsigned int subdetId = static_cast<unsigned int>(detId.subdetId());
+
+	 if (subdetId == PixelSubdetector::PixelEndcap){
+	        
+	    PixelEndcapName pxfname(detId.rawId());
+	    diskLayerNum = pxfname.diskName();
+	    bladeLayerNum = pxfname.bladeName();
+	    hcylLayerNum = pxfname.halfCylinder();
+	        
+	    // hard-coded now based on /UserCode/Appeltel/PixelFiducialRemover/pixelfiducialremover_cfg.py
+	    if((bladeLayerNum==4 || bladeLayerNum==5 || bladeLayerNum==6) &&
+	       (diskLayerNum==2) && (hcylLayerNum==4)) hitDeadRegion = true;
+	 }
+	  
+      }// end of isValid
+   }
+   return hitDeadRegion;
 }
 
 //define this as a plug-in

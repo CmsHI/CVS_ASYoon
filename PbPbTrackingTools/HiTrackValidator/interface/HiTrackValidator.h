@@ -31,6 +31,13 @@
 #include "DataFormats/RecoCandidate/interface/TrackAssociation.h"
 #include "SimTracker/TrackAssociation/interface/TrackAssociatorByHits.h"
 
+// Pixel hit information
+#include "Geometry/TrackerGeometryBuilder/interface/TrackerGeometry.h"
+#include "DataFormats/SiPixelDetId/interface/PixelSubdetector.h"
+#include "DataFormats/SiPixelDetId/interface/PXBDetId.h"
+#include "DataFormats/SiPixelDetId/interface/PXFDetId.h"
+#include "DataFormats/SiPixelDetId/interface/PixelEndcapName.h"
+
 // centrality
 #include "DataFormats/HeavyIonEvent/interface/CentralityProvider.h"
 
@@ -50,6 +57,7 @@ class HiTrackValidator : public edm::EDAnalyzer {
       virtual void analyze(const edm::Event&, const edm::EventSetup&);
       virtual void endJob() ;
 
+      bool hitDeadPXF(const reco::Track&);
       typedef math::XYZPoint Point;
 
       // ----------member data ---------------------------
@@ -61,14 +69,19 @@ class HiTrackValidator : public edm::EDAnalyzer {
       edm::InputTag simtrklabel_;
       edm::InputTag associatorMap_;
 
-      CentralityProvider * centrality_;
-
       double etaMax_;
 
       bool hasSimInfo_;
       bool selectFake_;
       bool useQaulityStr_;
+      bool fiducialCut_;
+      
+      std::vector<int32_t> neededCentBins_;
 
+      CentralityProvider * centrality_;
+      
+      const TrackerGeometry * theTracker;
+      
       // quality cuts distribution 
       TH1D *hVtxSize;
       TH1D *hNlayers;
@@ -137,7 +150,6 @@ class HiTrackValidator : public edm::EDAnalyzer {
       std::vector<TH2D*> hEtaPhi_Cent;
 
       std::vector<double> ptBins;
-      std::vector<int32_t> neededCentBins_;
 
 
 };
