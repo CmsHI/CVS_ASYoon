@@ -26,11 +26,14 @@ cvs co UserCode/edwenger/HiTrkEffAnalyzer
 cvs co UserCode/edwenger/HiEvtSelAnalyzer
 
 # for jet
-# see  /UserCode/SavedFMa/Saved/Skim/scripts for up-to-date package co
-# also /UserCode/SavedFMa/Saved/DiJetAna/test/dijetAna_cfg.py
-cvs co UserCode/SavedFMa/Saved/DiJetAna
-cvs co UserCode/SavedFMa/Saved/PatAlgos
-cvs co UserCode/SavedFMa/Saved/Skim
+# see  /UserCode/SavedFMa/Saved/QM11Ana/scripts for up-to-date package co
+cvs co -r V05-01-09 RecoJets/JetProducers
+cvs co		    RecoHI/HiJetAlgos
+cvs co -d	    Saved/QM11Ana UserCode/SavedFMa/Saved/QM11Ana
+cvs co -d	    Saved/DiJetAna UserCode/SavedFMa/Saved/DiJetAna
+cvs co -d	    MNguyen/InclusiveJetAnalyzer UserCode/MNguyen/InclusiveJetAnalyzer
+cvs co -d	    MitHig/PixelTrackletAnalyzer UserCode/MitHig/PixelTrackletAnalyzer
+rm -rf MitHig/PixelTrackletAnalyzer/src/PixelHitAnalyzer.cc
 
 # centrality
 # https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideHeavyIonCentrality
@@ -51,4 +54,3 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
 mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
 mv UserCode/ASYoon/FirstHi2010 .
-mv UserCode/SavedFMa/Saved .
