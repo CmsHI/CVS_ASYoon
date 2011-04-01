@@ -16,6 +16,17 @@ def enableSIM(process):
     process.hihightrackAna_jetMode2.isGEN=True
     process.hihightrackAna_jetMode3.isGEN=True
     process.hihightrackAna_jetMode4.isGEN=True
+    process.hipxltrackAna.fiducialCut=True
+    process.hitrackAna.fiducialCut=True
+    process.hitrackAna_jetMode1.fiducialCut=True
+    process.hitrackAna_jetMode2.fiducialCut=True
+    process.hitrackAna_jetMode3.fiducialCut=True
+    process.hitrackAna_jetMode4.fiducialCut=True
+    process.hihightrackAna.fiducialCut=True
+    process.hihightrackAna_jetMode1.fiducialCut=True
+    process.hihightrackAna_jetMode2.fiducialCut=True
+    process.hihightrackAna_jetMode3.fiducialCut=True
+    process.hihightrackAna_jetMode4.fiducialCut=True
     process.hipxltrkEffAnalyzer.hasSimInfo=True
     process.hitrkEffAnalyzer.hasSimInfo=True
     process.hihightrkEffAnalyzer.hasSimInfo=True
