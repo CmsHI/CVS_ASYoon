@@ -18,11 +18,11 @@ process.load('Configuration/EventContent/EventContent_cff')
 options = VarParsing.VarParsing ('standard')
 
 # my own variable
-options.register('centRange',
-                 "ALL", # 0To10, 50To100, and etc 
+options.register('centBins',
+                 0, # by default
                  VarParsing.VarParsing.multiplicity.singleton,
-                 VarParsing.VarParsing.varType.string,
-                 "Centrality bin range")
+                 VarParsing.VarParsing.varType.int,
+                 "Centrality binning scenario")
 
 # get and parse the command line arguments
 options.parseArguments()
@@ -33,12 +33,13 @@ options.parseArguments()
 
 process.source = cms.Source("PoolSource",
    #fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hydjet_393_start39_v7hi_D42A5DEB.root')
-    fileNames = cms.untracked.vstring('dcache:/pnfs/cmsaf.mit.edu/t2bat/cms/store/user/krajczar/mix/MinBias_DijetUnquenched80_d20101126_Offset_30_RECO/Mixed_30_RECO_Mixed_30_DIGI_FE622F66-EBF0-DF11-8447-003048F118D4.root')
+    #fileNames = cms.untracked.vstring('dcache:/pnfs/cmsaf.mit.edu/t2bat/cms/store/user/krajczar/mix/MinBias_DijetUnquenched80_d20101126_Offset_30_RECO/Mixed_30_RECO_Mixed_30_DIGI_FE622F66-EBF0-DF11-8447-003048F118D4.root')
+fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/dijetMixed_recotest_numEvent10.root')
 )
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(-1))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V4HI::All' 
 
@@ -52,7 +53,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.5 $'),
+        version = cms.untracked.string('$Revision: 1.6 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_393DataMixMC.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
