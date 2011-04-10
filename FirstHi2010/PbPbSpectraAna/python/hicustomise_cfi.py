@@ -232,7 +232,7 @@ def runOn393(process):
 def runOn393DataMixMC(process):
     print "runOn393DataMixMC option is enabled (the whole event filtering removed)!"
     process.eventFilter.remove(process.minBiasBscFilter)
-    process.eventFilter.remove(process.collisionEventSelection)
+    process.primaryVertexFilter.cut=cms.string("!isFake && abs(z) <= 15 && position.Rho <= 2")
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
@@ -285,7 +285,7 @@ def runOn393DataMixMC(process):
 def runOn393NewDataMixMC(process):
     print "runOn393NewDataMixMC option is enabled (the whole event filtering removed)!"
     process.eventFilter.remove(process.minBiasBscFilter)
-    process.eventFilter.remove(process.collisionEventSelection)
+    process.primaryVertexFilter.cut=cms.string("!isFake && abs(z) <= 15 && position.Rho <= 2")
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECOMIX')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECOMIX')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
