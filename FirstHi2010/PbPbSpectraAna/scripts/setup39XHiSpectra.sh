@@ -25,6 +25,10 @@ cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
 cvs co UserCode/edwenger/HiTrkEffAnalyzer
 cvs co UserCode/edwenger/HiEvtSelAnalyzer
 
+cvs co -D "2011-04-07" UserCode/edwenger/HiTrackSpectraAnalyzer/python/hitrackspectraanalyzer_cfi.py  # for <399
+cvs co -D "2011-04-07" UserCode/edwenger/HiTrkEffAnalyzer/python/hitrkEffAnalyzer_cfi.py 
+ 
+
 # for jet
 # see  /UserCode/SavedFMa/Saved/Skim/scripts for up-to-date package co
 # also /UserCode/SavedFMa/Saved/DiJetAna/test/dijetAna_cfg.py
