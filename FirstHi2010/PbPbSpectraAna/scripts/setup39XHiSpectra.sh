@@ -4,6 +4,7 @@ cd $CMSSW_BASE/src
 
 # skiming and ana
 cvs co UserCode/ASYoon/FirstHi2010
+cvs co -r 1.6 UserCode/ASYoon/FirstHi2010/CentralityDistAna/python/centralitydistana_cfi.py # for < 399
 
 # hiGoodMergedTracks
 cvs co -d Appeltel/PixelTracksRun2010 UserCode/Appeltel/PixelTracksRun2010 
