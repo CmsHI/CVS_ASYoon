@@ -16,5 +16,6 @@ eventFilter = cms.Sequence(preTrgTest *
                            minBiasBscFilter *    # L1 and(or) HLT filter
                            postTrgTest *
                            collisionEventSelection * #
-                           postEvtSelTest)
+                           postEvtSelTest *
+                           spikeCleaning)   # ECAL and HCAL spike cleaning
 

@@ -19,6 +19,13 @@ rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.h
 rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.cc
 rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.h
 
+# hcal spike cleaning
+addpkg RecoLocalCalo/HcalRecAlgos
+cvs co -r V00-07-21 RecoLocalCalo/HcalRecAlgos/src/HBHETimingShapedFlag.cc
+cvs co -r V00-07-21 RecoLocalCalo/HcalRecAlgos/interface/HBHETimingShapedFlag.h
+cvs co -r V00-00-18 JetMETAnalysis/HcalReflagging
+cvs co -d HcalFilter UserCode/MTonjes/HcalFilter
+
 # analyzers
 cvs co UserCode/edwenger/HiVertexAnalyzer
 cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
