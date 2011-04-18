@@ -6,6 +6,7 @@
 <use name=CommonTools/UtilAlgos>
 <use name=DataFormats/HeavyIonEvent>
 <use name=DataFormats/Common>
+<use name=DataFormats/JetReco>
 <use name=CondFormats/HIObjects>
 <flags EDM_PLUGIN=1>
 <export>

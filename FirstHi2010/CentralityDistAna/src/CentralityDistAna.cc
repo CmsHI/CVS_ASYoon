@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id: CentralityDistAna.cc,v 1.10 2011/01/25 10:56:49 sungho Exp $
+// $Id: CentralityDistAna.cc,v 1.11 2011/03/13 16:08:28 sungho Exp $
 //
 //
 
@@ -32,6 +32,8 @@
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/Utilities/interface/InputTag.h"
 #include "FWCore/ServiceRegistry/interface/Service.h"
+
+#include "DataFormats/PatCandidates/interface/Jet.h"
 
 #include "DataFormats/HeavyIonEvent/interface/CentralityProvider.h"
 
@@ -73,8 +75,24 @@ class CentralityDistAna : public edm::EDAnalyzer {
    TH1F *hHFhitValueAtCent;
    TH2F *hCentBinPxlHitDist;
    
+   // With jet ET thresholds 
+   TH1F *hCentBinDist_Jet35;
+   TH1F *hCentBinDist_Jet50;
+   TH1F *hCentBinDist_Jet60;
+   TH1F *hCentBinDist_Jet80;
+   TH1F *hCentBinDist_Jet100;
+   
+   TH1F *hHFhitSumDist_Jet35;
+   TH1F *hHFhitSumDist_Jet50;
+   TH1F *hHFhitSumDist_Jet60;
+   TH1F *hHFhitSumDist_Jet80;
+   TH1F *hHFhitSumDist_Jet100;
+
+   edm::InputTag jsrc_;
 
    std::vector<int32_t> neededCentBins_;
+
+   bool useJetThreshold_;
 
 };
 
@@ -93,9 +111,9 @@ CentralityDistAna::CentralityDistAna(const edm::ParameterSet& iConfig) :
    centrality_(0)
 {
    //now do what ever initialization is needed
+   jsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("jsrc",edm::InputTag("ak5CaloJets"));
    neededCentBins_ = iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins");
-
-
+   useJetThreshold_ = iConfig.getUntrackedParameter<bool>("useJetThreshold");
 }
 
 
@@ -118,9 +136,21 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 {
    using namespace edm;
 
+   double jetet=0.0;
+
+   // if true, get Jet
+   if(useJetThreshold_){
+      edm::Handle<reco::CandidateView> jets;
+      iEvent.getByLabel(jsrc_,jets);
+
+      for(unsigned it=0; it<jets->size(); ++it){
+	 const reco::Candidate* jet = &((*jets)[it]);
+	 jetet = jet->et();
+      }
+   }
+
    if(!centrality_) centrality_ = new CentralityProvider(iSetup);
    centrality_->newEvent(iEvent,iSetup);
-
    
    int bin = centrality_->getBin();
 
@@ -137,6 +167,14 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
    hHFhitSumDist->Fill(hf/1000.);  // scaled it by 1000 GeV 
    hHFtowerSumDist->Fill(hft);
+
+   if(useJetThreshold_){
+      if(jetet>=35)  hCentBinDist_Jet35->Fill(bin),  hHFhitSumDist_Jet35->Fill(hf/1000.);
+      if(jetet>=50)  hCentBinDist_Jet50->Fill(bin),  hHFhitSumDist_Jet50->Fill(hf/1000.);
+      if(jetet>=60)  hCentBinDist_Jet60->Fill(bin),  hHFhitSumDist_Jet60->Fill(hf/1000.);
+      if(jetet>=80)  hCentBinDist_Jet80->Fill(bin),  hHFhitSumDist_Jet80->Fill(hf/1000.);
+      if(jetet>=100) hCentBinDist_Jet100->Fill(bin), hHFhitSumDist_Jet100->Fill(hf/1000.);
+   }
 
    // fill once to check Ncoll(cent. bin), HFhits(cent. bin) 
    int hbin = hNcollValueAtCent->GetXaxis()->FindBin(bin);
@@ -181,6 +219,20 @@ CentralityDistAna::beginJob()
    hHFhitValueAtCent = fs->make<TH1F>("hHFhitValueAtCent","HF hit energy value;centrality bin",40,-0.5,39.5);
    hCentBinPxlHitDist = fs->make<TH2F>("hCentBinPxlHitDist","Centrality bin vs pixel hit multiplicity;centrality bin;0.01*Nhit_{pixel}",
 				       40,-0.5,39.5, 600,0,1200);
+
+   if(useJetThreshold_){
+      hCentBinDist_Jet35 = fs->make<TH1F>("hCentBinDist_Jet35","Centrality bin distribution; centrality bin",40,-0.5,39.5);
+      hCentBinDist_Jet50 = fs->make<TH1F>("hCentBinDist_Jet50","Centrality bin distribution; centrality bin",40,-0.5,39.5);
+      hCentBinDist_Jet60 = fs->make<TH1F>("hCentBinDist_Jet60","Centrality bin distribution; centrality bin",40,-0.5,39.5);
+      hCentBinDist_Jet80 = fs->make<TH1F>("hCentBinDist_Jet80","Centrality bin distribution; centrality bin",40,-0.5,39.5);
+      hCentBinDist_Jet100 = fs->make<TH1F>("hCentBinDist_Jet100","Centrality bin distribution; centrality bin",40,-0.5,39.5);
+
+      hHFhitSumDist_Jet35 = fs->make<TH1F>("hHFhitSumDist_Jet35","HF hit energy sum distribution; Total energy in HF (TeV)",160,0.0,200);
+      hHFhitSumDist_Jet50 = fs->make<TH1F>("hHFhitSumDist_Jet50","HF hit energy sum distribution; Total energy in HF (TeV)",160,0.0,200);
+      hHFhitSumDist_Jet60 = fs->make<TH1F>("hHFhitSumDist_Jet60","HF hit energy sum distribution; Total energy in HF (TeV)",160,0.0,200);
+      hHFhitSumDist_Jet80 = fs->make<TH1F>("hHFhitSumDist_Jet80","HF hit energy sum distribution; Total energy in HF (TeV)",160,0.0,200);
+      hHFhitSumDist_Jet100 = fs->make<TH1F>("hHFhitSumDist_Jet100","HF hit energy sum distribution; Total energy in HF (TeV)",160,0.0,200);
+   }
    
 }
 

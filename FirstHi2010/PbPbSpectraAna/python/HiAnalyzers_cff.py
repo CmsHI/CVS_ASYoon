@@ -46,6 +46,7 @@ from FirstHi2010.CentralityDistAna.centralitydistana_cfi import *
 preTrigCentDist = centbindist.clone()
 postTrigCentDist = centbindist.clone()
 postEvtCentDist = centbindist.clone()
+extraCentDist = centbindist.clone(useJetThreshold = cms.untracked.bool(True)) # jet required
 
 # clone hitrack spectra ana to run with pixel and global
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
