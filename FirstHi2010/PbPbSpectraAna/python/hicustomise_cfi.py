@@ -16,17 +16,6 @@ def enableSIM(process):
     process.hihightrackAna_jetMode2.isGEN=True
     process.hihightrackAna_jetMode3.isGEN=True
     process.hihightrackAna_jetMode4.isGEN=True
-    process.hipxltrackAna.fiducialCut=True
-    process.hitrackAna.fiducialCut=True
-    process.hitrackAna_jetMode1.fiducialCut=True
-    process.hitrackAna_jetMode2.fiducialCut=True
-    process.hitrackAna_jetMode3.fiducialCut=True
-    process.hitrackAna_jetMode4.fiducialCut=True
-    process.hihightrackAna.fiducialCut=True
-    process.hihightrackAna_jetMode1.fiducialCut=True
-    process.hihightrackAna_jetMode2.fiducialCut=True
-    process.hihightrackAna_jetMode3.fiducialCut=True
-    process.hihightrackAna_jetMode4.fiducialCut=True
     process.hipxltrkEffAnalyzer.hasSimInfo=True
     process.hitrkEffAnalyzer.hasSimInfo=True
     process.hihightrkEffAnalyzer.hasSimInfo=True
@@ -118,8 +107,9 @@ def runOnCore(process):
 
 def runOn384p2(process):
     list = ['HLT_HIMinBiasCalo','HLT_HIJet35U']
-    print "runOn384p2 option is enabled (HLT_HIMinBiasCalo and HISIGNAL)!"
+    print "runOn384p2 option is enabled (HLT_HIMinBiasCalo and HISIGNAL + spike cleaning removed)!"
     print "hlt list for track analyzer = ",list
+    process.eventFilter.remove(process.spikeCleaning)
     process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasCalo')  # HLT_HIMinBiasBSC is not available
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','HISIGNAL')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','HISIGNAL')
@@ -163,9 +153,10 @@ def runOn384p2(process):
 
 def runOn395(process):
     list = ['HLT_HIMinBiasHF','HLT_HIJet35U','HLT_HIJet50U']
-    print "runOn395 option is enabled (minBiasBscFilter removed)!"
+    print "runOn395 option is enabled (minBiasBscFilter and spike cleaning removed)!"
     print "hlt list for track analyzer = ",list
     process.eventFilter.remove(process.minBiasBscFilter)
+    process.eventFilter.remove(process.spikeCleaning)
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','HLT')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','HLT')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
@@ -207,8 +198,9 @@ def runOn395(process):
     return process
 
 def runOn393(process):
-    print "runOn393 option is enabled (minBiasBscFilter removed)!"
+    print "runOn393 option is enabled (minBiasBscFilter and spike cleaning removed)!"
     process.eventFilter.remove(process.minBiasBscFilter)
+    process.eventFilter.remove(process.spikeCleaning)
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
     process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
@@ -232,6 +224,8 @@ def runOn393(process):
 def runOn393DataMixMC(process):
     print "runOn393DataMixMC option is enabled (the whole event filtering removed)!"
     process.eventFilter.remove(process.minBiasBscFilter)
+    process.eventFilter.remove(process.spikeCleaning)
+    process.eventFilter.remove(process.collisionEventSelection)
     process.primaryVertexFilter.cut=cms.string("!isFake && abs(z) <= 15 && position.Rho <= 2")
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECO')
@@ -285,6 +279,8 @@ def runOn393DataMixMC(process):
 def runOn393NewDataMixMC(process):
     print "runOn393NewDataMixMC option is enabled (the whole event filtering removed)!"
     process.eventFilter.remove(process.minBiasBscFilter)
+    process.eventFilter.remove(process.spikeCleaning)
+    process.eventFilter.remove(process.collisionEventSelection)
     process.primaryVertexFilter.cut=cms.string("!isFake && abs(z) <= 15 && position.Rho <= 2")
     process.hltMinBias.TriggerResultsTag=cms.InputTag('TriggerResults','','RECOMIX')
     process.hltJets.TriggerResultsTag=cms.InputTag('TriggerResults','','RECOMIX')
@@ -356,7 +352,6 @@ def enableHLTJet(process,hltname='HLT_HIJet50U'):
     process.hltJets.HLTPaths = [hltname]
     process.minBiasBscFilter.replace(process.hltMinBias,process.hltJets)
     print "Skim jet HLT path: ", process.hltJets.HLTPaths, "and minBiasBscFilter: ", process.minBiasBscFilter
-    process.eventFilter*=process.hiEcalRecHitSpikeFilter
     if hltname.find('Jet35U') >= 0:
         jetcut1=[80,100]
         jetcut2=[100,120]
