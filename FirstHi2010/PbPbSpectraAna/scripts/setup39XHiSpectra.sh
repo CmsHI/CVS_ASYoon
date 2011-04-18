@@ -33,8 +33,8 @@ cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
 cvs co UserCode/edwenger/HiTrkEffAnalyzer
 cvs co UserCode/edwenger/HiEvtSelAnalyzer
 
-cvs co -D "2011-04-07" UserCode/edwenger/HiTrackSpectraAnalyzer/python/hitrackspectraanalyzer_cfi.py  # for <399
-cvs co -D "2011-04-07" UserCode/edwenger/HiTrkEffAnalyzer/python/hitrkEffAnalyzer_cfi.py 
+cvs co -D "2011-04-02" UserCode/edwenger/HiTrackSpectraAnalyzer/python/hitrackspectraanalyzer_cfi.py  # for <399
+cvs co -D "2011-04-02" UserCode/edwenger/HiTrkEffAnalyzer/python/hitrkEffAnalyzer_cfi.py 
  
 
 # for jet
@@ -64,3 +64,5 @@ mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
 mv UserCode/ASYoon/FirstHi2010 .
 mv UserCode/SavedFMa/Saved .
+
+scram b
