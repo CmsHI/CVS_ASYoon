@@ -218,6 +218,9 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       for(unsigned i=0;i<neededCentBins_.size();i++){
          if(i==0){
             if(cbin<=neededCentBins_[i+1]){
+	       hNlayers_Cent[i]->Fill(nlayers);
+	       hNlayers3D_Cent[i]->Fill(nlayers3D);
+	       hNlayersLost_Cent[i]->Fill(nlayersLost);
 	       hNvalidHits_Cent[i]->Fill(nhits);
 	       hChi2n_Cent[i]->Fill(chi2n);
 	       hRelPtErr_Cent[i]->Fill(relpterr);
@@ -241,6 +244,9 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	    }
          }else{
             if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1]){
+	       hNlayers_Cent[i]->Fill(nlayers);
+	       hNlayers3D_Cent[i]->Fill(nlayers3D);
+	       hNlayersLost_Cent[i]->Fill(nlayersLost);
 	       hNvalidHits_Cent[i]->Fill(nhits);
 	       hChi2n_Cent[i]->Fill(chi2n);
 	       hRelPtErr_Cent[i]->Fill(relpterr);
@@ -350,6 +356,9 @@ HiTrackValidator::beginJob()
    // centrality binned histogram 
    for(unsigned i=0;i<neededCentBins_.size()-1;i++){
 
+      hNlayers_Cent.push_back(f->make<TH1D>("","number of layers with tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
+      hNlayers3D_Cent.push_back(f->make<TH1D>("","number of layers with pixel and tracker mono and streohits; N_{hits}",nmaxhits,0.,(double)nmaxhits));
+      hNlayersLost_Cent.push_back(f->make<TH1D>("","number of layers with no tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
       hNvalidHits_Cent.push_back(f->make<TH1D>("","number of valid hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
       hChi2n_Cent.push_back(f->make<TH1D>("","normalized track chi2;chi^{2}/ndof", 60,0.0,5.0));
       hRelPtErr_Cent.push_back(f->make<TH1D>("","relative track p_{T} error; p_{T} err/p_{T}", 100,0.0,0.4));
@@ -379,6 +388,9 @@ HiTrackValidator::beginJob()
       hPt_Cent.push_back(f->make<TH1D>("","pt distribution; p_{T} [GeV/c]",100,0.0,20));
       
       if(i==0){
+	 hNlayers_Cent[i]->SetName(Form("hNlayers_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hNlayers3D_Cent[i]->SetName(Form("hNlayers3D_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 hNlayersLost_Cent[i]->SetName(Form("hNlayersLost_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
          hNvalidHits_Cent[i]->SetName(Form("hNvalidHits_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
          hChi2n_Cent[i]->SetName(Form("hChi2n_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
          hRelPtErr_Cent[i]->SetName(Form("hRelPtErr_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
@@ -408,6 +420,9 @@ HiTrackValidator::beginJob()
 	 hPt_Cent[i]->SetName(Form("hPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 
       }else{
+	 hNlayers_Cent[i]->SetName(Form("hNlayers_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hNlayers3D_Cent[i]->SetName(Form("hNlayers3D_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 hNlayersLost_Cent[i]->SetName(Form("hNlayersLost_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hNvalidHits_Cent[i]->SetName(Form("hNvalidHits_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hChi2n_Cent[i]->SetName(Form("hChi2n_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hRelPtErr_Cent[i]->SetName(Form("hRelPtErr_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
