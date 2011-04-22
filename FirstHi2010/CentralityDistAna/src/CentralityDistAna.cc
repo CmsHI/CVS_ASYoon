@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id: CentralityDistAna.cc,v 1.11 2011/03/13 16:08:28 sungho Exp $
+// $Id: CentralityDistAna.cc,v 1.12 2011/04/18 15:33:45 sungho Exp $
 //
 //
 
@@ -34,6 +34,7 @@
 #include "FWCore/ServiceRegistry/interface/Service.h"
 
 #include "DataFormats/PatCandidates/interface/Jet.h"
+#include "RecoJets/JetAlgorithms/interface/JetAlgoHelper.h"
 
 #include "DataFormats/HeavyIonEvent/interface/CentralityProvider.h"
 
@@ -138,17 +139,26 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
    double jetet=0.0;
 
-   // if true, get Jet
+   // Get jet
    if(useJetThreshold_){
+
       edm::Handle<reco::CandidateView> jets;
       iEvent.getByLabel(jsrc_,jets);
 
+      vector<const reco::Candidate *> sortedJets;
+
       for(unsigned it=0; it<jets->size(); ++it){
 	 const reco::Candidate* jet = &((*jets)[it]);
-	 jetet = jet->et();
+
+	 sortedJets.push_back(jet);
+	 sortByEtRef (&sortedJets);
       }
+
+      if(sortedJets.size()!=0) jetet = sortedJets[0]->et(); // leading jet
    }
 
+
+   // Get centrality information
    if(!centrality_) centrality_ = new CentralityProvider(iSetup);
    centrality_->newEvent(iEvent,iSetup);
    
