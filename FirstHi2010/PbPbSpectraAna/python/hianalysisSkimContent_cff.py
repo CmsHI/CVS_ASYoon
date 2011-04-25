@@ -3,12 +3,8 @@ import FWCore.ParameterSet.Config as cms
 analysisSkimContent = cms.PSet(
         outputCommands = cms.untracked.vstring('drop *',
                                                # event
-                                               'keep *_hiSelectedVertex_*_*',
-                                               'keep *_hiPixelAdaptiveVertex_*_*',
-                                               'keep *_hiPixelMedianVertex_*_*',
                                                'keep *_offlineBeamSpot_*_*',
-                                               'keep *_TriggerResults_*_HLT',
-                                               'keep *_TriggerResults_*_REDIGI',
+                                               'keep *_TriggerResults_*_*',
                                                'keep L1GlobalTriggerReadoutRecord_gtDigis_*_*RECO',
                                                
                                                # mc gen info
@@ -16,21 +12,34 @@ analysisSkimContent = cms.PSet(
                                                'keep *_hiGenParticles_*_*',
                                                'keep GenEventInfoProduct_*_*_*',
                                                
+                                               # centrality
+                                               'keep *_hiCentrality_*_*',
+
+                                               # pixel and strip
+                                               'keep *_siPixelClusters_*_*',
+                                               'keep *_siStripClusters_*_*',
+                                               'keep *_simSiPixelDigis_*_*',
+                                               'keep *_simSiStripDigis_*_*',
+
+                                               # ecal/hcal rec hit (needed for spike cleaning)
+                                               'keep *_*_EcalRecHitsEB_*',
+                                               'keep *_hbhereco_*_*',
+
                                                # jet
                                                'keep *_towerMaker_*_*',
                                                'keep *_patJets_*_*',
 
-                                               # low pt tracks
-                                               'keep recoTracks_hiLowPtPixelTracks_*_*',
+                                               # vertex
+                                               'keep *_hiSelectedVertex_*_*',
+                                               'keep *_hiPixelAdaptiveVertex_*_*',
+                                               'keep *_hiPixelMedianVertex_*_*',
                                                
                                                # full tracks
-                                               'keep recoTracks_generalTracks_*_*RECO',
-                                               'keep recoTracks_refitTracks_*_*',
-                                               'keep recoRecoChargedCandidates_allTracks_*_*',
-                                               'keep recoTracks_caloCompatibleTracks*_*_*',
+                                               'keep *_hiGlobalPrimTracks_*_*',
+                                               'keep *_hiSelectedTracks_*_*',
                                                
                                                # sim track matching
                                                'keep *_trackingParticleRecoTrackAsssociation_*_*',
-                                               'keep TrackingParticles_mergedtruth_MergedTrackTruth_*'
+                                               'keep *_mergedtruth_MergedTrackTruth_*'
                                                )
         )
