@@ -46,14 +46,14 @@ process.GlobalTag.globaltag = 'START39_V7HI::All'
 process.HeavyIonGlobalParameters = cms.PSet(
     centralitySrc = cms.InputTag("hiCentrality"),
     centralityVariable = cms.string("HFhits"),
-    nonDefaultGlauberModel = cms.string("Hydjet_2760GeV")
+    nonDefaultGlauberModel = cms.string("Hydjet_2760GeV")  # use AMPT_2760GeV for AMPT
 )
 from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.12 $'),
-            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_393.py,v $'),
+        version = cms.untracked.string('$Revision: 1.1 $'),
+            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_mc_2760GeV_cfg_399.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
