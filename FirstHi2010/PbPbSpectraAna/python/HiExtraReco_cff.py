@@ -19,24 +19,28 @@ hipfReReco = cms.Sequence(rereco_seq*
                           hipfCandAnalyzer)
 
 
-hiTightGlobalPrimTraks = cms.EDFilter("TrackSelector",
-            src = cms.InputTag("hiGlobalPrimTracks"),
-            cut = cms.string('(ptError/pt)<0.06 && numberOfValidHits>12')
-)
+#hiTightGlobalPrimTraks = cms.EDFilter("TrackSelector",
+#            src = cms.InputTag("hiGlobalPrimTracks"),
+#            cut = cms.string('(ptError/pt)<0.06 && numberOfValidHits>12')
+#)
 
 from RecoHI.HiTracking.HISelectedTracks_cfi import hiSelectedTracks
 
-hiHighPtTracks = hiSelectedTracks.clone(
-    src="hiTightGlobalPrimTraks",
-    copyTrajectories = False,
-    d0_par2 = [9999, 1], # i.e. no compatibility cut
-    dz_par2 = [9999, 1]
-)
+#hiHighPtTracks = hiSelectedTracks.clone(
+#    src="hiTightGlobalPrimTraks",
+#    copyTrajectories = False,
+#    d0_par2 = [9999, 1], # i.e. no compatibility cut
+#    dz_par2 = [9999, 1]
+#)
 
 
 # Extra track selections/refit/etc..
-hiextraTrack = cms.Sequence(hiTightGlobalPrimTraks
-                            *hiHighPtTracks
-                            *hiGoodTracksSelection
+#hiextraTrack = cms.Sequence(hiTightGlobalPrimTraks
+#                            *hiHighPtTracks
+#                            *hiGoodTracksSelection
+#                            *hiCaloCompTracks)
+#                            #*hipfCandAnalyzer_test)
+
+hiextraTrack = cms.Sequence(hiGoodTracksSelection
+                            *hiHighPtTrackSelection
                             *hiCaloCompTracks)
-                            #*hipfCandAnalyzer_test)
