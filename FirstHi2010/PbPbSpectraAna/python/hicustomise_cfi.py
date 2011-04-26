@@ -26,6 +26,10 @@ def enableSIM(process):
     process.pfCandidateAnalyzer_test.isData=False
     process.pfCandidateAnalyzer_test.hasSimInfo=True
     process.minBiasBscFilter.remove(process.hltMinBias) # assuming MC is 100% MB
+    process.higoodtrkval.fiducialCut = True
+    process.higoodtrkval_fake.fiducialCut = True
+    process.hihightrkval.fiducialCut = True
+    process.hihightrkval_fake.fiducialCut = True
     #process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasBSC')  # default HLTPath is not available for MC
     print "hltMinBias is removed from minBiasBscFilter check what's left:", process.minBiasBscFilter 
     return process
