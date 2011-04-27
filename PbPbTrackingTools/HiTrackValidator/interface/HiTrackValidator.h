@@ -66,10 +66,12 @@ class HiTrackValidator : public edm::EDAnalyzer {
       edm::InputTag bslabel_;
       edm::InputTag vtxlabel_;
       edm::InputTag trklabel_;
+      edm::InputTag jetlabel_;
       edm::InputTag simtrklabel_;
       edm::InputTag associatorMap_;
 
       double etaMax_;
+      double jetEtMin_;
 
       bool hasSimInfo_;
       bool selectFake_;

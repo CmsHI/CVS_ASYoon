@@ -8,9 +8,11 @@ HiTrackValidator::HiTrackValidator(const edm::ParameterSet& iConfig)
    bslabel_(iConfig.getUntrackedParameter<edm::InputTag>("bslabel")),
    vtxlabel_(iConfig.getUntrackedParameter<edm::InputTag>("vtxlabel")),
    trklabel_(iConfig.getUntrackedParameter<edm::InputTag>("trklabel")),
+   jetlabel_(iConfig.getUntrackedParameter<edm::InputTag>("jetlabel")),
    simtrklabel_(iConfig.getUntrackedParameter<edm::InputTag>("simtrklabel")),
    associatorMap_(iConfig.getUntrackedParameter<edm::InputTag>("associatorMap")),
    etaMax_(iConfig.getUntrackedParameter<double>("etaMax")),
+   jetEtMin_(iConfig.getUntrackedParameter<double>("jetEtMin")),
    hasSimInfo_(iConfig.getUntrackedParameter<bool>("hasSimInfo")),
    selectFake_(iConfig.getUntrackedParameter<bool>("selectFake")),
    useQaulityStr_(iConfig.getUntrackedParameter<bool>("useQaulityStr")),
@@ -31,6 +33,29 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
    using namespace std;
    using namespace reco;
 
+   //------- Jets --------------------------
+   double jetet=0.0;
+
+   if(jetEtMin_>0.0){ // run the validator for events with jet > jetEtMin
+
+      edm::Handle<reco::CandidateView> jets;
+      iEvent.getByLabel(jetlabel_,jets);
+
+      vector<const reco::Candidate *> sortedJets;
+
+      for(unsigned it=0; it<jets->size(); ++it){
+	 const reco::Candidate* jet = &((*jets)[it]);
+
+	 sortedJets.push_back(jet);
+	 sortByEtRef (&sortedJets);
+      }
+
+      if(sortedJets.size()!=0) jetet = sortedJets[0]->et(); // leading jet
+   }
+
+   if(jetet<jetEtMin_) return;  // skip if leading jet et <jetEtMin_
+
+
    //------- Beam spot --------------------
    edm::Handle<reco::BeamSpot> beamsp;
    iEvent.getByLabel(bslabel_, beamsp);
@@ -46,7 +71,7 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
    if(vtxs.size()!=0) isPV = true;
    hVtxSize->Fill(vtxs.size());
 
-
+   
    //------- Centrality information --------
    centrality_ = new CentralityProvider(iSetup);
    centrality_->newEvent(iEvent,iSetup);
