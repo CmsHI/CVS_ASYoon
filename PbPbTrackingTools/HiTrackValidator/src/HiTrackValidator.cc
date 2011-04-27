@@ -311,11 +311,11 @@ HiTrackValidator::beginJob()
    hdzPV = f->make<TH1D>("hdzPV","dz ; dz", 100,-1.5,1.5);
    hd0PV = f->make<TH1D>("hd0PV","d0 ; d0", 100,-1.5,1.5);
    hdzErr = f->make<TH1D>("hdzErr","dz error; dz error", 80,0.0,0.8);
-   hd0Err = f->make<TH1D>("hd0Err","d0 error; d0 error", 80,0.0,0.8);
+   hd0Err = f->make<TH1D>("hd0Err","d0 error; d0 error", 100,0.0,0.2);
    hdzErrPV = f->make<TH1D>("hdzErrPV","dz error with vz error summed ; dz error", 80,0.0,0.8);
-   hd0ErrPV = f->make<TH1D>("hd0ErrPV","d0 error with vz error summed ; d0 error", 80,0.0,0.8);
+   hd0ErrPV = f->make<TH1D>("hd0ErrPV","d0 error with vz error summed ; d0 error", 100,0.0,0.2);
    hvzErr = f->make<TH1D>("hvzErr","vz error; vz error", 100,0.0, 0.08);
-   hvtErr = f->make<TH1D>("hvtErr","vxy error; vxy error", 100,0.0, 0.08);
+   hvtErr = f->make<TH1D>("hvtErr","vxy error; vxy error", 200,0.0, 0.08);
    hdzOverdzErr = f->make<TH1D>("hdzOverdzErr","dz/dzError; dz/dzError", 80,-10.0,10.0);
    hd0Overd0Err = f->make<TH1D>("hd0Overd0Err","d0/d0Error; d0/d0Error", 80,-10.0,10.0);
    hdzOverdzErrPV =  f->make<TH1D>("hdzOverdzErrPV","dz/dzError with PV error; dz/dzError", 80,-10.0,10.0);
@@ -331,11 +331,11 @@ HiTrackValidator::beginJob()
    hdzPVdPt = f->make<TH2D>("hdzPVdPt","dz vs p_{T}; p_{T}; dz", 150,0.0,150.0, 100,-1.5,1.5);
    hd0PVdPt = f->make<TH2D>("hd0PVdPt","d0 vs p_{T}; p_{T}; d0", 150,0.0,150.0, 100,-1.5,1.5);
    hdzErrdPt = f->make<TH2D>("hdzErrdPt","dz error vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8);
-   hd0ErrdPt = f->make<TH2D>("hd0ErrdPt","d0 error vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 80,0.0,0.8);
+   hd0ErrdPt = f->make<TH2D>("hd0ErrdPt","d0 error vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 100,0.0,0.2);
    hdzErrPVdPt = f->make<TH2D>("hdzErrPVdPt","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8);
-   hd0ErrPVdPt = f->make<TH2D>("hd0ErrPVdPt","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 80,0.0,0.8);
+   hd0ErrPVdPt = f->make<TH2D>("hd0ErrPVdPt","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 100,0.0,0.2);
    hvzErrdPt =  f->make<TH2D>("hvzErrdPt","vz error vs p_{T}; p_{T}; vz error", 150,0.0,150.0, 100,0.0,0.08);
-   hvtErrdPt = f->make<TH2D>("hvtErrdPt","vxy error vs p_{T}; p_{T}; vxy error", 150,0.0,150.0, 100,0.0,0.08);
+   hvtErrdPt = f->make<TH2D>("hvtErrdPt","vxy error vs p_{T}; p_{T}; vxy error", 150,0.0,150.0, 200,0.0,0.08);
    hdzOverdzErrdPt = f->make<TH2D>("hdzOverdzErrdPt","dz/dzError vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0);
    hd0Overd0ErrdPt = f->make<TH2D>("hd0Overd0ErrdPt","d0/d0Error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0);
    hdzOverdzErrPVdPt = f->make<TH2D>("hdzOverdzErrPVdPt","dz/dzError with PV error vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0);
@@ -365,7 +365,7 @@ HiTrackValidator::beginJob()
       hdzPV_Cent.push_back(f->make<TH1D>("","dz ; dz ", 100,-1.5,1.5));
       hd0PV_Cent.push_back(f->make<TH1D>("","d0 ; d0 ", 100,-1.5,1.5));
       hdzErrPV_Cent.push_back(f->make<TH1D>("","dz error with vz error summed ; dz error", 80,0.0,0.8));
-      hd0ErrPV_Cent.push_back(f->make<TH1D>("","d0 error; d0 error", 80,0.0,0.8));
+      hd0ErrPV_Cent.push_back(f->make<TH1D>("","d0 error; d0 error", 100,0.0,0.2));
       hdzOverdzErrPV_Cent.push_back(f->make<TH1D>("","dz/dzError with PV error; dz/dzError", 80,-10.0,10.0));
       hd0Overd0ErrPV_Cent.push_back(f->make<TH1D>("","d0/d0Error with PV error; d0/d0Error", 80,-10.0,10.0));
 
@@ -375,7 +375,7 @@ HiTrackValidator::beginJob()
       hdzPVdPt_Cent.push_back(f->make<TH2D>("","dz vs p_{T}; p_{T}; dz", 150,0.0,150.0, 100,-1.5,1.5));
       hd0PVdPt_Cent.push_back(f->make<TH2D>("","d0 vs p_{T}; p_{T}; d0r", 150,0.0,150.0, 100,-1.5,1.5));
       hdzErrPVdPt_Cent.push_back(f->make<TH2D>("","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8));
-      hd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 80,0.0,0.8));
+      hd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 100,0.0,0.2));
       hdzOverdzErrPVdPt_Cent.push_back(f->make<TH2D>("","dz/dzError with PV error vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0));
       hd0Overd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0/d0Error with PV error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0));
 
