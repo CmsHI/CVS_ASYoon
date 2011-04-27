@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(50))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(30))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 #process.GlobalTag.globaltag = 'GR10_P_V12::All' # CorePhysics prompt reco: GR10_X_V12::All (X=E, P, H)
 process.GlobalTag.globaltag = 'GR_R_39X_V6B::All' # AllPhysics rereco
@@ -53,8 +53,8 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
-            name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg_399.py,v $'),
+        version = cms.untracked.string('$Revision: 1.3 $'),
+            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg_399.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
@@ -72,7 +72,7 @@ process.load("Saved.QM11Ana.PatAna_cff")
 process.load("Saved.QM11Ana.Analyzers_cff")
 process.inclusiveJetAnalyzer.isMC = False
 process.inclusiveJetAnalyzer.hltTrgNames = ['HLT_HIMinBiasHfOrBSC','HLT_HIJet35U', 'HLT_HIJet35U','HLT_HIJet50U'] # for allphysics
-process.hiAnalysisSeq *= process.inclusiveJetAnalyzer
+#process.hiAnalysisSeq *= process.inclusiveJetAnalyzer
 
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
