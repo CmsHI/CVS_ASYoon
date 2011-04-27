@@ -11,6 +11,11 @@ def enableSIM(process):
     process.hitrackAna_jetMode2.isGEN=True
     process.hitrackAna_jetMode3.isGEN=True
     process.hitrackAna_jetMode4.isGEN=True
+    process.higoodlooseAna.isGEN=True
+    process.higoodlooseAna_jetMode1.isGEN=True
+    process.higoodlooseAna_jetMode2.isGEN=True
+    process.higoodlooseAna_jetMode3.isGEN=True
+    process.higoodlooseAna_jetMode4.isGEN=True
     process.hihightrackAna.isGEN=True
     process.hihightrackAna_jetMode1.isGEN=True
     process.hihightrackAna_jetMode2.isGEN=True
@@ -19,17 +24,27 @@ def enableSIM(process):
     process.hipxltrkEffAnalyzer.hasSimInfo=True
     process.hitrkEffAnalyzer.hasSimInfo=True
     process.hihightrkEffAnalyzer.hasSimInfo=True
-    process.hiAnalysisSeq.replace(process.hihightrkval,process.hihightrkval+process.hihightrkval_fakeOnly)
-    process.hiAnalysisSeq.replace(process.higoodtrkval,process.higoodtrkval+process.higoodtrkval_fakeOnly)
+    process.higloosetrkEffAnalyzer.hasSimInfo=True
+    process.hiAnalysisSeq.replace(process.hihightrkval_all,process.hihightrkval_all+process.hihightrkval_fakeOnly)
+    process.hiAnalysisSeq.replace(process.higloosetrkval_all,process.higloosetrkval_all+process.higloosetrkval_fakeOnly)
+    process.hiAnalysisSeq.replace(process.higoodtrkval_all,process.higoodtrkval_all+process.higoodtrkval_fakeOnly)
     process.pfCandidateAnalyzer.isData=False
     process.pfCandidateAnalyzer.hasSimInfo=True
     process.pfCandidateAnalyzer_test.isData=False
     process.pfCandidateAnalyzer_test.hasSimInfo=True
     process.minBiasBscFilter.remove(process.hltMinBias) # assuming MC is 100% MB
     process.higoodtrkval.fiducialCut=True
+    process.higoodtrkval_pt80.fiducialCut=True
     process.higoodtrkval_fake.fiducialCut=True
+    process.higoodtrkval_fake_pt80.fiducialCut=True
+    process.higloosetrkval.fiducialCut=True
+    process.higloosetrkval_fake.fiducialCut=True
+    process.higloosetrkval_pt80.fiducialCut=True
+    process.higloosetrkval_fake_pt80.fiducialCut=True
     process.hihightrkval.fiducialCut=True
     process.hihightrkval_fake.fiducialCut=True
+    process.hihightrkval_pt80.fiducialCut=True
+    process.hihightrkval_fake_pt80.fiducialCut=True
     #process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasBSC')  # default HLTPath is not available for MC
     print "hltMinBias is removed from minBiasBscFilter check what's left:", process.minBiasBscFilter 
     return process
@@ -42,6 +57,11 @@ def enableEffOnly(process):
     process.hiAnalysisSeq.remove(process.hitrackAna_jetMode2)
     process.hiAnalysisSeq.remove(process.hitrackAna_jetMode3)
     process.hiAnalysisSeq.remove(process.hitrackAna_jetMode4)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode1)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode2)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode3)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode4)
     process.hiAnalysisSeq.remove(process.hihightrackAna)
     process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode1)
     process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode2)
@@ -56,6 +76,10 @@ def disableJetEtCutOnAna(process):
     process.hiAnalysisSeq.remove(process.hitrackAna_jetMode2)
     process.hiAnalysisSeq.remove(process.hitrackAna_jetMode3)
     process.hiAnalysisSeq.remove(process.hitrackAna_jetMode4)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode1)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode2)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode3)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode4)
     process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode1)
     process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode2)
     process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode3)
@@ -77,6 +101,7 @@ def disableLowPtAna(process):
 def disableEff(process):
     process.hiAnalysisSeq.remove(process.hipxltrkEffAna)
     process.hiAnalysisSeq.remove(process.hihightrkEffAna)
+    process.hiAnalysisSeq.remove(process.higloosetrkEffAnalyzer)
     process.hiAnalysisSeq.remove(process.hitrkEffAna)
     process.hiAnalysisSeq.remove(process.hicalotrkEffAna)
     return process
@@ -90,6 +115,11 @@ def enableREDIGI(process):
     process.hitrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hitrackAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hitrackAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.higoodlooseAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.higoodlooseAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.higoodlooseAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.higoodlooseAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
+    process.higoodlooseAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hihightrackAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
     process.hihightrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','REDIGI')
@@ -122,6 +152,11 @@ def runOn384p2(process):
     process.hitrackAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hitrackAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hitrackAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.higoodlooseAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.higoodlooseAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.higoodlooseAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.higoodlooseAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
+    process.higoodlooseAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hihightrackAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
     process.hihightrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','HISIGNAL')
@@ -138,6 +173,11 @@ def runOn384p2(process):
     process.hitrackAna_jetMode2.hltNames = cms.untracked.vstring(list)
     process.hitrackAna_jetMode3.hltNames = cms.untracked.vstring(list)
     process.hitrackAna_jetMode4.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna_jetMode1.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna_jetMode2.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna_jetMode3.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna_jetMode4.hltNames = cms.untracked.vstring(list)
     process.hihightrackAna.hltNames = cms.untracked.vstring(list)
     process.hihightrackAna_jetMode1.hltNames = cms.untracked.vstring(list)
     process.hihightrackAna_jetMode2.hltNames = cms.untracked.vstring(list)
@@ -148,8 +188,16 @@ def runOn384p2(process):
     process.hirefitTrackAna.hltNames = cms.untracked.vstring(list)
     process.hihightrkval.useQaulityStr = cms.untracked.bool(False)
     process.hihightrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.hihightrkval_pt80.useQaulityStr = cms.untracked.bool(False)
+    process.hihightrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.higloosetrkval.useQaulityStr = cms.untracked.bool(False)
+    process.higloosetrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.higloosetrkval_pt80.useQaulityStr = cms.untracked.bool(False)
+    process.higloosetrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.higoodtrkval_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.higoodtrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
     process.preTrgAna.trignames = cms.untracked.vstring(list)
     process.postTrgAna.trignames = cms.untracked.vstring(list)
     process.postEvtAna.trignames = cms.untracked.vstring(list)
@@ -168,6 +216,11 @@ def runOn395(process):
     process.hitrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
     process.hitrackAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
     process.hitrackAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.higoodlooseAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.higoodlooseAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.higoodlooseAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.higoodlooseAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
+    process.higoodlooseAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
     process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
     process.hihightrackAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
     process.hihightrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','HLT')
@@ -184,6 +237,11 @@ def runOn395(process):
     process.hitrackAna_jetMode2.hltNames = cms.untracked.vstring(list)
     process.hitrackAna_jetMode3.hltNames = cms.untracked.vstring(list)
     process.hitrackAna_jetMode4.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna_jetMode1.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna_jetMode2.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna_jetMode3.hltNames = cms.untracked.vstring(list)
+    process.higoodlooseAna_jetMode4.hltNames = cms.untracked.vstring(list)
     process.hihightrackAna.hltNames = cms.untracked.vstring(list)
     process.hihightrackAna_jetMode1.hltNames = cms.untracked.vstring(list)
     process.hihightrackAna_jetMode2.hltNames = cms.untracked.vstring(list)
@@ -194,8 +252,16 @@ def runOn395(process):
     process.hirefitTrackAna.hltNames = cms.untracked.vstring(list)
     process.hihightrkval.useQaulityStr = cms.untracked.bool(False)
     process.hihightrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.hihightrkval_pt80.useQaulityStr = cms.untracked.bool(False)
+    process.hihightrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.higloosetrkval.useQaulityStr = cms.untracked.bool(False)
+    process.higloosetrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.higloosetrkval_pt80.useQaulityStr = cms.untracked.bool(False)
+    process.higloosetrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.higoodtrkval_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.higoodtrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
     process.preTrgAna.trignames = cms.untracked.vstring(list)
     process.postTrgAna.trignames = cms.untracked.vstring(list)
     process.postEvtAna.trignames = cms.untracked.vstring(list)
@@ -212,6 +278,11 @@ def runOn393(process):
     process.hitrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hitrackAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hitrackAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hihightrackAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hihightrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
@@ -238,6 +309,11 @@ def runOn393DataMixMC(process):
     process.hitrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hitrackAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hitrackAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
+    process.higoodlooseAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hihightrackAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
     process.hihightrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECO')
@@ -262,6 +338,16 @@ def runOn393DataMixMC(process):
     process.hitrackAna_jetMode3.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hitrackAna_jetMode4.gsrc=cms.untracked.InputTag("genParticles")
     process.hitrackAna_jetMode4.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna_jetMode1.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna_jetMode1.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna_jetMode2.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna_jetMode2.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna_jetMode3.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna_jetMode3.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna_jetMode4.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna_jetMode4.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hihightrackAna.gsrc=cms.untracked.InputTag("genParticles")
     process.hihightrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hihightrackAna_jetMode1.gsrc=cms.untracked.InputTag("genParticles")
@@ -293,6 +379,11 @@ def runOn393NewDataMixMC(process):
     process.hitrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
     process.hitrackAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
     process.hitrackAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.higoodlooseAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.higoodlooseAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.higoodlooseAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.higoodlooseAna_jetMode3.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
+    process.higoodlooseAna_jetMode4.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
     process.hihightrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
     process.hihightrackAna_jetMode1.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
     process.hihightrackAna_jetMode2.triglabel=cms.untracked.InputTag('TriggerResults','','RECOMIX')
@@ -317,6 +408,16 @@ def runOn393NewDataMixMC(process):
     process.hitrackAna_jetMode3.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hitrackAna_jetMode4.gsrc=cms.untracked.InputTag("genParticles")
     process.hitrackAna_jetMode4.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna_jetMode1.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna_jetMode1.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna_jetMode2.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna_jetMode2.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna_jetMode3.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna_jetMode3.gjsrc=cms.untracked.InputTag("ak5GenJets")
+    process.higoodlooseAna_jetMode4.gsrc=cms.untracked.InputTag("genParticles")
+    process.higoodlooseAna_jetMode4.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hihightrackAna.gsrc=cms.untracked.InputTag("genParticles")
     process.hihightrackAna.gjsrc=cms.untracked.InputTag("ak5GenJets")
     process.hihightrackAna_jetMode1.gsrc=cms.untracked.InputTag("genParticles")
@@ -363,10 +464,14 @@ def enableHLTJet(process,hltname='HLT_HIJet50U'):
         #print "Also added: cut 3 = ",process.hitrackAna_jetMode3.jetEtCuts
         process.hitrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
         process.hitrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
+        process.higoodlooseAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.higoodlooseAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
         process.hihightrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
         process.hihightrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
         process.hiAnalysisSeq.replace(process.hitrackAna_jetMode2,process.hitrackAna_jetMode2
                                       +process.hitrackAna_jetMode3+process.hitrackAna_jetMode4)
+        process.hiAnalysisSeq.replace(process.higoodlooseAna_jetMode2,process.higoodlooseAna_jetMode2
+                                      +process.higoodlooseAna_jetMode3+process.higoodlooseAna_jetMode4)
         process.hiAnalysisSeq.replace(process.hihightrackAna_jetMode2,process.hihightrackAna_jetMode2
                                       +process.hihightrackAna_jetMode3+process.hihightrackAna_jetMode4)
     if hltname.find('Jet50U') >= 0:
@@ -375,6 +480,8 @@ def enableHLTJet(process,hltname='HLT_HIJet50U'):
         print "Jet Et cuts on spectra analyzer: cut 1 = ", jetcut1, " cut 2 = ", jetcut2
         process.hitrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
         process.hitrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
+        process.higoodlooseAna.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.higoodlooseAna.jetEtCuts=cms.untracked.vdouble(jetcut2)
         process.hihightrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
         process.hihightrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
     return process
@@ -425,6 +532,11 @@ def whichCentBinMode(process,cbinMode=0):
     process.hitrackAna_jetMode2.neededCentBins = cms.untracked.vint32(cbins)
     process.hitrackAna_jetMode3.neededCentBins = cms.untracked.vint32(cbins)
     process.hitrackAna_jetMode4.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodlooseAna.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodlooseAna_jetMode1.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodlooseAna_jetMode2.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodlooseAna_jetMode3.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodlooseAna_jetMode4.neededCentBins = cms.untracked.vint32(cbins)
     process.hihightrackAna.neededCentBins = cms.untracked.vint32(cbins)
     process.hihightrackAna_jetMode1.neededCentBins = cms.untracked.vint32(cbins)
     process.hihightrackAna_jetMode2.neededCentBins = cms.untracked.vint32(cbins)
@@ -435,6 +547,7 @@ def whichCentBinMode(process,cbinMode=0):
     process.hirefitTrackAna.neededCentBins = cms.untracked.vint32(cbins)
     process.hitrkEffAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
     process.hihightrkEffAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
+    process.higloosetrkEffAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
     process.preTrigCentDist.neededCentBins = cms.untracked.vint32(cbins)
     process.postTrigCentDist.neededCentBins = cms.untracked.vint32(cbins)
     process.postEvtCentDist.neededCentBins = cms.untracked.vint32(cbins)
@@ -449,8 +562,16 @@ def whichCentBinMode(process,cbinMode=0):
     process.postEvtAna.neededCentBins = cms.untracked.vint32(cbins)
     process.hihightrkval.neededCentBins = cms.untracked.vint32(cbins)
     process.hihightrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
+    process.hihightrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.hihightrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.higloosetrkval.neededCentBins = cms.untracked.vint32(cbins)
+    process.higloosetrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
+    process.higloosetrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.higloosetrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodtrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodtrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
     return process
     
 def setCentBins(process,ci=0,cf=10):
@@ -504,11 +625,17 @@ def constraintOnLJetEta(process):
     print "Constraint on the leading jet eta !"
     process.hitrkEffAnalyzer.trkAcceptedJet = cms.untracked.bool(True)
     process.hihightrkEffAnalyzer.trkAcceptedJet = cms.untracked.bool(True)
+    process.higloosetrkEffAnalyzer.trkAcceptedJet = cms.untracked.bool(True)
     process.hitrackAna.trkAcceptedJet = cms.untracked.bool(True)
     process.hitrackAna_jetMode1.trkAcceptedJet = cms.untracked.bool(True)
     process.hitrackAna_jetMode2.trkAcceptedJet = cms.untracked.bool(True)
     process.hitrackAna_jetMode3.trkAcceptedJet = cms.untracked.bool(True)
     process.hitrackAna_jetMode4.trkAcceptedJet = cms.untracked.bool(True)
+    process.higoodlooseAna.trkAcceptedJet = cms.untracked.bool(True)
+    process.higoodlooseAna_jetMode1.trkAcceptedJet = cms.untracked.bool(True)
+    process.higoodlooseAna_jetMode2.trkAcceptedJet = cms.untracked.bool(True)
+    process.higoodlooseAna_jetMode3.trkAcceptedJet = cms.untracked.bool(True)
+    process.higoodlooseAna_jetMode4.trkAcceptedJet = cms.untracked.bool(True)
     process.hihightrackAna.trkAcceptedJet = cms.untracked.bool(True)
     process.hihightrackAna_jetMode1.trkAcceptedJet = cms.untracked.bool(True)
     process.hihightrackAna_jetMode2.trkAcceptedJet = cms.untracked.bool(True)
@@ -523,11 +650,17 @@ def useSubLeadingJet(process):
     print "Sub-leading jet is used in event classificaiton !"
     process.hitrkEffAnalyzer.useSubLeadingJet = cms.untracked.bool(True)
     process.hihightrkEffAnalyzer.useSubLeadingJet = cms.untracked.bool(True)
+    process.higloosetrkEffAnalyzer.useSubLeadingJet = cms.untracked.bool(True)
     process.hitrackAna.useSubLeadingJet = cms.untracked.bool(True)
     process.hitrackAna_jetMode1.useSubLeadingJet = cms.untracked.bool(True)
     process.hitrackAna_jetMode2.useSubLeadingJet = cms.untracked.bool(True)
     process.hitrackAna_jetMode3.useSubLeadingJet = cms.untracked.bool(True)
     process.hitrackAna_jetMode4.useSubLeadingJet = cms.untracked.bool(True)
+    process.higoodlooseAna.useSubLeadingJet = cms.untracked.bool(True)
+    process.higoodlooseAna_jetMode1.useSubLeadingJet = cms.untracked.bool(True)
+    process.higoodlooseAna_jetMode2.useSubLeadingJet = cms.untracked.bool(True)
+    process.higoodlooseAna_jetMode3.useSubLeadingJet = cms.untracked.bool(True)
+    process.higoodlooseAna_jetMode4.useSubLeadingJet = cms.untracked.bool(True)
     process.hihightrackAna.useSubLeadingJet = cms.untracked.bool(True)
     process.hihightrackAna_jetMode1.useSubLeadingJet = cms.untracked.bool(True)
     process.hihightrackAna_jetMode2.useSubLeadingJet = cms.untracked.bool(True)

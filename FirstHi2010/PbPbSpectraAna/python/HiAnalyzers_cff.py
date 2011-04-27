@@ -13,11 +13,6 @@ postAdpVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiPixelA
 postMedVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiPixelMedianVertex"))
 postSelVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiSelectedVertex"))
 
-# clone hi track validator
-#from SimTracker.TrackAssociation.TrackAssociatorByHits_cfi import *
-#from SimTracker.TrackAssociation.trackingParticleRecoTrackAsssociation_cfi import *
-#TrackAssociatorByHits.SimToRecoDenominator = cms.string('reco')
-
 # clone hi event selection analyzer
 from edwenger.HiEvtSelAnalyzer.hievtselanalyzer_cfi import *
 preTrgAna = hievtselanalyzer.clone()
@@ -27,18 +22,44 @@ postEvtAna = hievtselanalyzer.clone()
 from PbPbTrackingTools.HiTrackValidator.hitrackvalidator_cfi import *
 from edwenger.HiTrkEffAnalyzer.HiTPCuts_cff import *
 hihightrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiHighPtTracks"))
+hihightrkval_pt80 = hitrkvalidator.clone(jetEtMin=cms.untracked.double(80.0))
 hihightrkval_fake = hihightrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
                                      hasSimInfo=cms.untracked.bool(True),
                                      selectFake=cms.untracked.bool(True))
-higoodtrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodTracks"))
+hihightrkval_fake_pt80 = hihightrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
+
+higloosetrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodLooseTracks"))
+higloosetrkval_pt80 = higloosetrkval.clone(jetEtMin=cms.untracked.double(80.0))
+higloosetrkval_fake = higloosetrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
+                                           hasSimInfo=cms.untracked.bool(True),
+                                           selectFake=cms.untracked.bool(True))
+higloosetrkval_fake_pt80 = higloosetrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
+
+higoodtrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodTightTracks"))
+higoodtrkval_pt80 = higoodtrkval.clone(jetEtMin=cms.untracked.double(80.0))
 higoodtrkval_fake = higoodtrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
                                        hasSimInfo=cms.untracked.bool(True),
                                        selectFake=cms.untracked.bool(True))
+higoodtrkval_fake_pt80 = higoodtrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
+
+
+## Sequence 
+hihightrkval_all = cms.Sequence(hihightrkval*
+                                hihightrkval_pt80)
+higloosetrkval_all = cms.Sequence(higloosetrkval*
+                                  higloosetrkval_pt80)
+higoodtrkval_all = cms.Sequence(higoodtrkval*
+                                higoodtrkval_pt80)
 
 hihightrkval_fakeOnly = cms.Sequence(cutsTPForFak*
-                                     hihightrkval_fake)
+                                     hihightrkval_fake*
+                                     hihightrkval_fake_pt80)
+higloosetrkval_fakeOnly = cms.Sequence(cutsTPForFak*
+                                       higloosetrkval_fake*
+                                       higloosetrkval_fake_pt80)
 higoodtrkval_fakeOnly = cms.Sequence(cutsTPForFak*
-                                     higoodtrkval_fake)
+                                     higoodtrkval_fake*
+                                     higoodtrkval_fake_pt80)
 
 
 # clone cent bin analyzer
@@ -50,6 +71,10 @@ extraCentDist = centbindist.clone(useJetThreshold = cms.untracked.bool(True)) # 
 
 # clone hitrack spectra ana to run with pixel and global
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
+
+# HiGoodTight
+hitrackAna.src = cms.untracked.InputTag("hiGoodTightTracks")
+hitrackAna.src_evtCorr = cms.untracked.InputTag("hiGoodTightTracks")
 hitrackAna.doJet = cms.untracked.bool(True)
 hitrackAna.triggerNeeded = cms.untracked.bool(True)
 hitrackAna.pixelMultMode = cms.untracked.bool(False)
@@ -60,6 +85,16 @@ hitrackAna_jetMode2 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,100))
 hitrackAna_jetMode3 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(80,9000)) # jet Et cut
 hitrackAna_jetMode4 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(100,9000))
 
+# HiGoodLoose
+higoodlooseAna = hitrackAna.clone(src=cms.untracked.InputTag("hiGoodLooseTracks"),
+                                  src_evtCorr=cms.untracked.InputTag("hiGoodLooseTracks")
+                                  )
+higoodlooseAna_jetMode1 = higoodlooseAna.clone(jetEtCuts=cms.untracked.vdouble(0,80))
+higoodlooseAna_jetMode2 = higoodlooseAna.clone(jetEtCuts=cms.untracked.vdouble(0,100))
+higoodlooseAna_jetMode3 = higoodlooseAna.clone(jetEtCuts=cms.untracked.vdouble(80,9000))
+higoodlooseAna_jetMode4 = higoodlooseAna.clone(jetEtCuts=cms.untracked.vdouble(100,9000))
+
+# HiHighPt
 hihightrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiHighPtTracks"),
                                   src_evtCorr=cms.untracked.InputTag("hiHighPtTracks")
                                   )
@@ -67,6 +102,8 @@ hihightrackAna_jetMode1 = hihightrackAna.clone(jetEtCuts=cms.untracked.vdouble(0
 hihightrackAna_jetMode2 = hihightrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,100))
 hihightrackAna_jetMode3 = hihightrackAna.clone(jetEtCuts=cms.untracked.vdouble(80,9000))
 hihightrackAna_jetMode4 = hihightrackAna.clone(jetEtCuts=cms.untracked.vdouble(100,9000))
+
+
 
 hicaloTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiCaloCompTracks"),
                                   src_evtCorr=cms.untracked.InputTag("hiCaloCompTracks")
