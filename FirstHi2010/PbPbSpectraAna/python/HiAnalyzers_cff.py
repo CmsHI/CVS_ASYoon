@@ -22,7 +22,7 @@ postEvtAna = hievtselanalyzer.clone()
 from PbPbTrackingTools.HiTrackValidator.hitrackvalidator_cfi import *
 from edwenger.HiTrkEffAnalyzer.HiTPCuts_cff import *
 hihightrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiHighPtTracks"))
-hihightrkval_pt80 = hitrkvalidator.clone(jetEtMin=cms.untracked.double(80.0))
+hihightrkval_pt80 = hihightrkval.clone(jetEtMin=cms.untracked.double(80.0))
 hihightrkval_fake = hihightrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
                                      hasSimInfo=cms.untracked.bool(True),
                                      selectFake=cms.untracked.bool(True))
