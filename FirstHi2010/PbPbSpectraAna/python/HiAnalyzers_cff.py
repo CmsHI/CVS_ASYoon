@@ -42,6 +42,21 @@ higoodtrkval_fake = higoodtrkval.clone(simtrklabel = cms.untracked.InputTag("cut
                                        selectFake=cms.untracked.bool(True))
 higoodtrkval_fake_pt80 = higoodtrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
 
+# d0, dz open for systematic studies
+hipredttrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiPreDTGoodTightTracks"))
+hipredttrkval_pt80 = hipredttrkval.clone(jetEtMin=cms.untracked.double(80.0))
+hipredttrkval_fake = hipredttrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
+                                         hasSimInfo=cms.untracked.bool(True),
+                                         selectFake=cms.untracked.bool(True))
+hipredttrkval_fake_pt80 = hipredttrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
+
+hipredztrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiPreDZGoodTightTracks"))
+hipredztrkval_pt80 = hipredztrkval.clone(jetEtMin=cms.untracked.double(80.0))
+hipredztrkval_fake = hipredztrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
+                                         hasSimInfo=cms.untracked.bool(True),
+                                         selectFake=cms.untracked.bool(True))
+hipredztrkval_fake_pt80 = hipredztrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
+
 
 ## Sequence 
 hihightrkval_all = cms.Sequence(hihightrkval*
@@ -50,6 +65,12 @@ higloosetrkval_all = cms.Sequence(higloosetrkval*
                                   higloosetrkval_pt80)
 higoodtrkval_all = cms.Sequence(higoodtrkval*
                                 higoodtrkval_pt80)
+
+hipredttrkval_all = cms.Sequence(hipredttrkval*
+                                 hipredttrkval_pt80)
+
+hipredztrkval_all = cms.Sequence(hipredztrkval*
+                                 hipredztrkval_pt80)
 
 hihightrkval_fakeOnly = cms.Sequence(cutsTPForFak*
                                      hihightrkval_fake*
@@ -61,7 +82,15 @@ higoodtrkval_fakeOnly = cms.Sequence(cutsTPForFak*
                                      higoodtrkval_fake*
                                      higoodtrkval_fake_pt80)
 
+hipredttrkval_fakeOnly = cms.Sequence(cutsTPForFak*
+                                      hipredttrkval_fake*
+                                      hipredttrkval_fake_pt80)
 
+hipredztrkval_fakeOnly = cms.Sequence(cutsTPForFak*
+                                      hipredztrkval_fake*
+                                      hipredztrkval_fake_pt80)
+
+                                       
 # clone cent bin analyzer
 from FirstHi2010.CentralityDistAna.centralitydistana_cfi import *
 preTrigCentDist = centbindist.clone()
@@ -126,14 +155,14 @@ hirefitTrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hirefitTracks")
 
 # Sequences
 preTrgTest = cms.Sequence(preTrgAna*
-                          (preAdpVtxAna+preMedVtxAna+preSelVtxAna)*
+                          preSelVtxAna*
                           preTrigCentDist)
 
 postTrgTest = cms.Sequence(postTrgAna*
                            postTrigCentDist)
 
 postEvtSelTest = cms.Sequence(postEvtAna*
-                              (postAdpVtxAna+postMedVtxAna+postSelVtxAna)*
+                              postSelVtxAna*
                               postEvtCentDist)
 
 

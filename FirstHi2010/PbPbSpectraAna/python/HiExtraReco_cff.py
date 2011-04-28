@@ -24,4 +24,6 @@ hiextraTrack = cms.Sequence(hiGoodTracksSelection
                             *hiGoodLooseTracksSelection
                             *hiGoodTightTracksSelection
                             *hiHighPtTrackSelection
+                            *hiPreDTGoodTightTracksSelection # for systematics only
+                            *hiPreDZGoodTightTracksSelection # for systematics only
                             *hiCaloCompTracks)

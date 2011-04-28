@@ -28,6 +28,8 @@ def enableSIM(process):
     process.hiAnalysisSeq.replace(process.hihightrkval_all,process.hihightrkval_all+process.hihightrkval_fakeOnly)
     process.hiAnalysisSeq.replace(process.higloosetrkval_all,process.higloosetrkval_all+process.higloosetrkval_fakeOnly)
     process.hiAnalysisSeq.replace(process.higoodtrkval_all,process.higoodtrkval_all+process.higoodtrkval_fakeOnly)
+    process.hiAnalysisSeq.replace(process.hipredttrkval_all,process.hipredttrkval_all+process.hipredttrkval_fakeOnly)
+    process.hiAnalysisSeq.replace(process.hipredztrkval_all,process.hipredztrkval_all+process.hipredztrkval_fakeOnly)
     process.pfCandidateAnalyzer.isData=False
     process.pfCandidateAnalyzer.hasSimInfo=True
     process.pfCandidateAnalyzer_test.isData=False
@@ -45,6 +47,14 @@ def enableSIM(process):
     process.hihightrkval_fake.fiducialCut=True
     process.hihightrkval_pt80.fiducialCut=True
     process.hihightrkval_fake_pt80.fiducialCut=True
+    process.hipredttrkval.fiducialCut=True
+    process.hipredttrkval_fake.fiducialCut=True
+    process.hipredttrkval_pt80.fiducialCut=True
+    process.hipredttrkval_fake_pt80.fiducialCut=True
+    process.hipredztrkval.fiducialCut=True
+    process.hipredztrkval_fake.fiducialCut=True
+    process.hipredztrkval_pt80.fiducialCut=True
+    process.hipredztrkval_fake_pt80.fiducialCut=True
     #process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasBSC')  # default HLTPath is not available for MC
     print "hltMinBias is removed from minBiasBscFilter check what's left:", process.minBiasBscFilter 
     return process
@@ -198,6 +208,14 @@ def runOn384p2(process):
     process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval_pt80.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.hipredttrkval.useQaulityStr =cms.untracked.bool(False)
+    process.hipredttrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.hipredttrkval_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.hipredttrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.hipredztrkval.useQaulityStr =cms.untracked.bool(False)
+    process.hipredztrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.hipredztrkval_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.hipredztrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
     process.preTrgAna.trignames = cms.untracked.vstring(list)
     process.postTrgAna.trignames = cms.untracked.vstring(list)
     process.postEvtAna.trignames = cms.untracked.vstring(list)
@@ -262,6 +280,14 @@ def runOn395(process):
     process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval_pt80.useQaulityStr =cms.untracked.bool(False)
     process.higoodtrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.hipredttrkval.useQaulityStr =cms.untracked.bool(False)
+    process.hipredttrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.hipredttrkval_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.hipredttrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.hipredztrkval.useQaulityStr =cms.untracked.bool(False)
+    process.hipredztrkval_fake.useQaulityStr =cms.untracked.bool(False)
+    process.hipredztrkval_pt80.useQaulityStr =cms.untracked.bool(False)
+    process.hipredztrkval_fake_pt80.useQaulityStr =cms.untracked.bool(False)
     process.preTrgAna.trignames = cms.untracked.vstring(list)
     process.postTrgAna.trignames = cms.untracked.vstring(list)
     process.postEvtAna.trignames = cms.untracked.vstring(list)
@@ -572,6 +598,14 @@ def whichCentBinMode(process,cbinMode=0):
     process.higoodtrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.hipredttrkval.neededCentBins = cms.untracked.vint32(cbins)
+    process.hipredttrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
+    process.hipredttrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.hipredttrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.hipredztrkval.neededCentBins = cms.untracked.vint32(cbins)
+    process.hipredztrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
+    process.hipredztrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.hipredztrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
     return process
     
 def setCentBins(process,ci=0,cf=10):
