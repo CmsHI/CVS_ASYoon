@@ -56,6 +56,7 @@ cvs co -d CmsHi/Analysis2010 UserCode/CmsHi/Analysis2010
 cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
 cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
+cvs co -r 1.6 UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator/python/hitrackvalidator_cfi.py # for <399
 #cvs co UserCode/edwenger/Skims/prod/condor # in case condor job scripts needed
 
 # needed for dijetana
