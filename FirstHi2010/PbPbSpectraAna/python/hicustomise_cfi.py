@@ -466,7 +466,7 @@ def runOn393NewDataMixMC(process):
 def usehiSelectedTracks(process):
     print "hiSelectedTracks is used!"
     process.trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiSelectedTracks")
-    process.hiCaloCompTracks.src = cms.InputTag("hiSelectedTracks")
+    process.hiHighPtCaloTracks.src = cms.InputTag("hiSelectedTracks")
     process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiSelectedTracks')
     process.pfCandidateAnalyzer.Tracks = cms.InputTag("hiSelectedTracks")
     process.hitrackAna.src = cms.untracked.InputTag("hiSelectedTracks")
@@ -519,7 +519,7 @@ def usehiGoodMergedTracks(process):
     print "hiGoodMergedTracks is used (except PF re-reco)! --> re-reco of conformalPixelTrackReco!"
     print "make sure disableLowPt comes before usehiGoodMergedTracks"
     #process.trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiSelectedTracks")
-    process.hiCaloCompTracks.src = cms.InputTag("hiGoodMergedTracks")
+    process.hiHighPtCaloTracks.src = cms.InputTag("hiGoodMergedTracks")
     process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiGoodMergedTracks')
     process.pfCandidateAnalyzer.Tracks = cms.InputTag("hiGoodMergedTracks")
     process.hitrackAna.src = cms.untracked.InputTag("hiGoodMergedTracks")
@@ -536,7 +536,7 @@ def setMinPtforPF(process,minpt=10):
     process.pftrkfilter.ptMin = cms.double(minpt)
     process.pfCandidateAnalyzer.ptMin = cms.untracked.double(minpt)
     process.pfCandidateAnalyzer_test.ptMin = cms.untracked.double(minpt)
-    process.hiCaloCompTracks.ptMin = cms.untracked.double(minpt)
+    process.hiHighPtCaloTracks.ptMin = cms.untracked.double(minpt)
     return process
 
 def whichCentBinMode(process,cbinMode=0):

@@ -7,14 +7,14 @@ from Appeltel.PixelTracksRun2010.HiLowPtPixelTracksFromReco_cff import *
 from Appeltel.PixelTracksRun2010.HiMultipleMergedTracks_cff import *
 
 
-trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiGoodTracks")
+trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiHighPtTracks")
 trackerDrivenElectronSeeds.UseQuality = cms.bool(False)
 particleFlow.vertexCollection = cms.InputTag("hiSelectedVertex")
 
 
 # Filter on reco::Track pt
 trkfilter = cms.EDFilter("PtMinTrackSelector",
-                         src = cms.InputTag("hiSelectedTracks"), # hiGoodTracks are not produced yet
+                         src = cms.InputTag("hiHighPtTracks"), # hiGoodTracks are not produced yet
                          ptMin = cms.double(4.0),
                          filter = cms.bool(True),
                          )
@@ -29,12 +29,8 @@ pftrkfilter = cms.EDFilter("PtMinCandViewCloneSelector",
 
 
 rechits = cms.Sequence(siPixelRecHits * siStripMatchedRecHits)
-pfreco = cms.Sequence(rechits * heavyIonTracking * HiParticleFlowReco)
+pfreco = cms.Sequence(rechits * HiParticleFlowReco) 
 
-heavyIonTracking *= hiGoodTracksSelection
-heavyIonTracking *= conformalPixelTrackReco
-heavyIonTracking *= hiGoodMergedTracks
-                             
 HiParticleFlowReco.remove(recoPFJets) # PF jets are not needed
 
 # HI rereco with PF reco is only performed on events with high pt tracks

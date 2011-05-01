@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(30))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V7HI::All' 
 
@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkReRecoAnaSkim_mc_2760GeV_cfg_399.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -83,10 +83,10 @@ process.load("Saved.QM11Ana.Analyzers_cff")
 # =============== Final Paths =====================
 process.reReco_step      = cms.Path(process.siPixelRecHits * process.hiPixelVertices * process.heavyIonTracking)
 process.eventFilter_step = cms.Path(process.eventFilter)
-#process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
-process.extraReco_step   = cms.Path(process.eventFilter * process.hiextraReco)
-process.extraJets_step  = cms.Path(process.eventFilter * process.genPartons * process.hiPartons * process.icPu5patSequence)
 process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
+process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
+#process.extraReco_step   = cms.Path(process.eventFilter * process.hiextraReco)
+process.extraJets_step  = cms.Path(process.eventFilter * process.genPartons * process.hiPartons * process.icPu5patSequence)
 #process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq * process.inclusiveJetAnalyzer)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq )
 
@@ -105,7 +105,7 @@ process = runOn393(process)
 process = whichCentBinMode(process,options.centBins) # centrality binning
 #process = constraintOnLJetEta(process) # constraint on leading jet eta
 #process = useSubLeadingJet(process) # use sub leading jet
-#process = setMinPtforPF(process,200) # min pt for PF reco/ana
+process = setMinPtforPF(process,10) # min pt for PF reco/ana
 
 # as these are not needed
 process.heavyIonTracking.remove(process.hiConformalPixelTracks)
@@ -132,9 +132,9 @@ process.heavyIonTracking.remove(process.hiGoodMergedTracks)
 process.schedule = cms.Schedule(
     process.eventFilter_step,
     process.reReco_step,  # re-reconstruction with PR setup
+    process.extraTrks_step, # extra track collections
     process.extraReco_step,
     process.extraJets_step,
-    process.extraTrks_step,
     process.ana_step
     )
 
