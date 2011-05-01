@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
+        version = cms.untracked.string('$Revision: 1.3 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkReRecoAnaSkim_mc_2760GeV_cfg_399.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -84,8 +84,8 @@ process.load("Saved.QM11Ana.Analyzers_cff")
 process.reReco_step      = cms.Path(process.siPixelRecHits * process.hiPixelVertices * process.heavyIonTracking)
 process.eventFilter_step = cms.Path(process.eventFilter)
 process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
-process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
-#process.extraReco_step   = cms.Path(process.eventFilter * process.hiextraReco)
+#process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
+process.extraReco_step   = cms.Path(process.eventFilter * process.hiextraReco)
 process.extraJets_step  = cms.Path(process.eventFilter * process.genPartons * process.hiPartons * process.icPu5patSequence)
 #process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq * process.inclusiveJetAnalyzer)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq )
@@ -105,7 +105,7 @@ process = runOn393(process)
 process = whichCentBinMode(process,options.centBins) # centrality binning
 #process = constraintOnLJetEta(process) # constraint on leading jet eta
 #process = useSubLeadingJet(process) # use sub leading jet
-process = setMinPtforPF(process,10) # min pt for PF reco/ana
+#process = setMinPtforPF(process,10) # min pt for PF reco/ana
 
 # as these are not needed
 process.heavyIonTracking.remove(process.hiConformalPixelTracks)
