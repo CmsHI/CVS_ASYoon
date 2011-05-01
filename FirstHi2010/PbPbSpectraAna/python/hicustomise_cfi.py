@@ -149,6 +149,11 @@ def runOnCore(process):
     process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasHfOrBSC_Core')
     return process
 
+def runHiTrkRecoForPF(process):
+    print "HI tracking reconstruction added in the PF reco sequence"
+    process.rechits *= process.heavyIonTracking
+    return process
+
 def runOn384p2(process):
     list = ['HLT_HIMinBiasCalo','HLT_HIJet35U']
     print "runOn384p2 option is enabled (HLT_HIMinBiasCalo and HISIGNAL + spike cleaning removed)!"
