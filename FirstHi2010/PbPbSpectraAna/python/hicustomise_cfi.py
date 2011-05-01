@@ -508,8 +508,8 @@ def enableHLTJet(process,hltname='HLT_HIJet50U'):
         print "Jet Et cuts on spectra analyzer: cut 1 = ", jetcut1, " cut 2 = ", jetcut2
         process.hitrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
         process.hitrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
-        process.higoodlooseAna.jetEtCuts=cms.untracked.vdouble(jetcut1)
-        process.higoodlooseAna.jetEtCuts=cms.untracked.vdouble(jetcut2)
+        process.higoodlooseAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.higoodlooseAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
         process.hihightrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
         process.hihightrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
     return process
