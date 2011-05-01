@@ -34,6 +34,8 @@ def enableSIM(process):
     process.pfCandidateAnalyzer.hasSimInfo=True
     process.pfCandidateAnalyzer_test.isData=False
     process.pfCandidateAnalyzer_test.hasSimInfo=True
+    process.hipfCandAnalyzer.replace(process.pfCandidateAnalyzer,process.cutsTPForFak*process.pfCandidateAnalyzer)
+    process.hipfCandAnalyzer_test.replace(process.pfCandidateAnalyzer_test,process.cutsTPForFak*process.pfCandidateAnalyzer_test)
     process.minBiasBscFilter.remove(process.hltMinBias) # assuming MC is 100% MB
     process.higoodtrkval.fiducialCut=True
     process.higoodtrkval_pt80.fiducialCut=True
