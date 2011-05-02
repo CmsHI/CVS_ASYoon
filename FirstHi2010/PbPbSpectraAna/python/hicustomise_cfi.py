@@ -544,6 +544,10 @@ def setMinPtforPF(process,minpt=10):
     process.pfCandidateAnalyzer.ptMin = cms.untracked.double(minpt)
     process.pfCandidateAnalyzer_test.ptMin = cms.untracked.double(minpt)
     process.hiHighPtCaloTracks.ptMin = cms.untracked.double(minpt)
+    process.hiGoodTightCaloTracks.ptMin = cms.untracked.double(minpt)
+    process.hiGoodLooseCaloTracks.ptMin= cms.untracked.double(minpt)
+    process.hiPreDTGoodTightCaloTracks.ptMin= cms.untracked.double(minpt)
+    process.hiPreDZGoodTightCaloTracks.ptMin= cms.untracked.double(minpt)
     return process
 
 def whichCentBinMode(process,cbinMode=0):
