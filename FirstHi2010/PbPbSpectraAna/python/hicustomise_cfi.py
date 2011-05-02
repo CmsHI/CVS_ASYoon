@@ -82,6 +82,16 @@ def enableEffOnly(process):
     process.hiAnalysisSeq.remove(process.hirefitTrackAna)
     return process
 
+def disableValidator(process):
+    print "track validator for fake only removed"
+    process.hiAnalysisSeq.remove(process.hihightrkval_fakeOnly)
+    process.hiAnalysisSeq.remove(process.higloosetrkval_fakeOnly)
+    process.hiAnalysisSeq.remove(process.higoodtrkval_fakeOnly)
+    process.hiAnalysisSeq.remove(process.hihightrkval_fakeOnly)
+    process.hiAnalysisSeq.remove(process.higloosetrkval_fakeOnly)
+    process.hiAnalysisSeq.remove(process.higoodtrkval_fakeOnly)
+    return process
+
 def disableJetEtCutOnAna(process):
     print "*_jetMode* analzyers are removed!"
     process.hiAnalysisSeq.remove(process.hitrackAna_jetMode1)
@@ -541,8 +551,8 @@ def setMinPtforPF(process,minpt=10):
     print "Particle Flow reconstruction/ana with min pT = ", minpt
     process.trkfilter.ptMin = cms.double(minpt)
     process.pftrkfilter.ptMin = cms.double(minpt)
-    process.pfCandidateAnalyzer.ptMin = cms.untracked.double(minpt)
-    process.pfCandidateAnalyzer_test.ptMin = cms.untracked.double(minpt)
+    #process.pfCandidateAnalyzer.ptMin = cms.untracked.double(minpt)
+    #process.pfCandidateAnalyzer_test.ptMin = cms.untracked.double(minpt)
     process.hiHighPtCaloTracks.ptMin = cms.untracked.double(minpt)
     process.hiGoodTightCaloTracks.ptMin = cms.untracked.double(minpt)
     process.hiGoodLooseCaloTracks.ptMin= cms.untracked.double(minpt)
@@ -619,6 +629,10 @@ def whichCentBinMode(process,cbinMode=0):
     process.hipredztrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredztrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredztrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.pfCandidateAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
+    process.pfCandidateAnalyzer_test.neededCentBins = cms.untracked.vint32(cbins)
+    process.pfCandidateAnalyzer_higtight.neededCentBins = cms.untracked.vint32(cbins)
+    process.pfCandidateAnalyzer_higloose.neededCentBins = cms.untracked.vint32(cbins)
     return process
     
 def setCentBins(process,ci=0,cf=10):

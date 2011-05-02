@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(50))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'GR10_P_V12::All' # GR10_X_V12::All (X=E, P, H)
 
@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkPFRecoAnaSkim_data_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -105,7 +105,7 @@ process = setAnaSeq(process,"AnaOnly") # EffOnly, AnaOnly, ALL
 process = whichCentBinMode(process,options.centBins) # centrality binning
 process = constraintOnLJetEta(process) # constraint on leading jet eta
 #process = useSubLeadingJet(process) # use sub leading jet
-process = setMinPtforPF(process,7) # min pt for PF reco/ana
+process = setMinPtforPF(process,5) # min pt for PF reco/ana
 process = runHiTrkRecoForPF(process) # HI Trk reco added for PF
 
 # as these are not needed

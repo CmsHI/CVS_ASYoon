@@ -37,6 +37,7 @@ using reco::modules::CaloCompatibleTrackSelector;
 CaloCompatibleTrackSelector::CaloCompatibleTrackSelector( const edm::ParameterSet & cfg ) :
     src_(cfg.getParameter<edm::InputTag>("src")),
     srcPFCand_(cfg.getParameter<edm::InputTag>("srcPFCand")),
+    applyCaloComp_(cfg.getUntrackedParameter<bool>("applyCaloComp")),
     thePtMin_(cfg.getUntrackedParameter<double>("ptMin",10.0)),
     copyExtras_(cfg.getUntrackedParameter<bool>("copyExtras", false)),
     copyTrajectories_(cfg.getUntrackedParameter<bool>("copyTrajectories", false)),
@@ -97,9 +98,9 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
        edm::RefToBase<reco::Track> track(trackCollectionH, i);
        const reco::Track & trk = (*hSrcTrack)[i];
 
-       if(!isPFThere){   // if no PFCand, no selection 
+       if(!isPFThere || !applyCaloComp_){   // if no PFCand or no compatibility check,  no selection 
 
-	  selTracks_->push_back(trk);
+	  //selTracks_->push_back(trk);
 
        }else{
 
@@ -154,12 +155,11 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 	     sum_calo = sum_ecal + sum_hcal; // add HCAL and ECAL cal sum
 	     
 	  }
-	  
 	  float compatible_calo = (fCaloComp->Eval(trk_pt)!=fCaloComp->Eval(trk_pt)) ? 0 : fCaloComp->Eval(trk_pt); // protect agains NaN
-
 	  if(trk_pt < thePtMin_) selTracks_->push_back(trk); // if pt< min pt, keep it
-	  else if(compatible_calo < sum_calo) selTracks_->push_back(trk); // if calo sum > function(pt), keep it
+	  else if(compatible_calo <= sum_calo) selTracks_->push_back(trk); // if calo sum > function(pt), keep it
 	  else LogDebug("CaloCompatibleTrackSelector")<<" rejected track pt = "<<trk_pt<<endl;
+	  //else std::cout<<" rejected track index = "<<i<<" pt = "<<trk_pt<<" with calo sum = "<<sum_calo<<" with function(pt) = "<<compatible_calo<<std::endl;     
        }
     }
     

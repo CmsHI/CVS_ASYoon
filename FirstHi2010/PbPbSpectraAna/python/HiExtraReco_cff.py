@@ -15,12 +15,12 @@ from Appeltel.PixelTracksRun2010.HiMultipleMergedTracks_cff import *
 hiextraReco = cms.Sequence(conformalPixelTrackReco)
 
 # PF re-reco for events with pT>pT'
-hipfReReco = cms.Sequence(hiPFRerecoTracksSelection* # this collection is needed to make PF re-reco judgement
-                          rereco_seq)
+hipfReReco = cms.Sequence(rereco_seq)
 
 
 # Extra track selections/refit/etc..
-hiextraTrack = cms.Sequence(hiGoodTracksSelection
+hiextraTrack = cms.Sequence(hiPostGlobalPrimTracksSelection
+                            *hiGoodTracksSelection
                             *hiGoodLooseTracksSelection
                             *hiGoodTightTracksSelection
                             *hiHighPtTrackSelection
@@ -29,11 +29,12 @@ hiextraTrack = cms.Sequence(hiGoodTracksSelection
                             )
 
 # Below is the tracks with calo-compatibility cut based on calo-track matching in PF.
-# It needs to be ran for every events while PF re-co is ran for events with pT>pT'
+# It needs to be ran for every events while PF re-co is ran for events with pT>pT' only
 hicaloTrack = cms.Sequence(hiGoodTightCaloTracks* 
                            hiGoodLooseCaloTracks* 
                            hiHighPtCaloTracks*    
                            hiPreDTGoodTightCaloTracks*
                            hiPreDZGoodTightCaloTracks*
                            hipfCandAnalyzer*
-                           hipfCandAnalyzer_test)
+                           hipfCandAnalyzer_higtight*
+                           hipfCandAnalyzer_higloose)

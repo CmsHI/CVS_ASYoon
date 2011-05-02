@@ -61,6 +61,7 @@ namespace reco { namespace modules {
 
 	    //
 	    double thePtMin_;
+	    bool applyCaloComp_;
 
             /// copy only the tracks, not extras and rechits (for AOD)
             bool copyExtras_;

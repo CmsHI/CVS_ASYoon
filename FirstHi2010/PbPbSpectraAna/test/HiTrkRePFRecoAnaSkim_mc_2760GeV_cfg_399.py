@@ -32,13 +32,13 @@ options.parseArguments()
 # =============== 2.76 TeV MC Sample =====================
 
 process.source = cms.Source("PoolSource",
-   fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hydjet_393_start39_v7hi_D42A5DEB.root')
-   #fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hiReco_RAW2DIGI_RECO_UQ_Dijet80_395.root')
+   #fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hydjet_393_start39_v7hi_D42A5DEB.root')
+   fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/mc/firsthi2010/hiReco_RAW2DIGI_RECO_UQ_Dijet80_395.root')
 )
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(100))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(50))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V7HI::All' 
 
@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkRePFRecoAnaSkim_mc_2760GeV_cfg_399.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -105,6 +105,7 @@ process = whichCentBinMode(process,options.centBins) # centrality binning
 #process = constraintOnLJetEta(process) # constraint on leading jet eta
 #process = useSubLeadingJet(process) # use sub leading jet
 process = setMinPtforPF(process,10) # min pt for PF reco/ana
+process = disableValidator(process) # remove validator for fake tracks
 
 # as these are not needed
 process.heavyIonTracking.remove(process.hiConformalPixelTracks)
