@@ -12,6 +12,7 @@ hitrkvalidator = cms.EDAnalyzer('HiTrackValidator',
       hasSimInfo=cms.untracked.bool(False),
       selectFake=cms.untracked.bool(False),
       useQaulityStr=cms.untracked.bool(True),
+      qualityString=cms.untracked.string("highPurity"),
       fiducialCut = cms.untracked.bool(False), # fiducial cut for FPIX
       neededCentBins = cms.untracked.vint32(0,1,3,11,19,39)
 )
