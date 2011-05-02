@@ -76,8 +76,11 @@ class HiTrackValidator : public edm::EDAnalyzer {
       bool hasSimInfo_;
       bool selectFake_;
       bool useQaulityStr_;
+      std::string qualityString_;
+
       bool fiducialCut_;
       
+
       std::vector<int32_t> neededCentBins_;
 
       CentralityProvider * centrality_;

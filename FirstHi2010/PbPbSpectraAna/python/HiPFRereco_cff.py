@@ -7,14 +7,14 @@ from Appeltel.PixelTracksRun2010.HiLowPtPixelTracksFromReco_cff import *
 from Appeltel.PixelTracksRun2010.HiMultipleMergedTracks_cff import *
 
 
-trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiHighPtTracks")
+trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiGlobalPrimTracks")
 trackerDrivenElectronSeeds.UseQuality = cms.bool(False)
 particleFlow.vertexCollection = cms.InputTag("hiSelectedVertex")
 
 
 # Filter on reco::Track pt
 trkfilter = cms.EDFilter("PtMinTrackSelector",
-                         src = cms.InputTag("hiHighPtTracks"), # hiGoodTracks are not produced yet
+                         src = cms.InputTag("hiPFRerecoTracks"), # track collection inclusive of (hiGoodTight,Loose,HighPt)
                          ptMin = cms.double(4.0),
                          filter = cms.bool(True),
                          )

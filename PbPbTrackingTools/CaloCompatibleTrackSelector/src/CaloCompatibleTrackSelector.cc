@@ -41,7 +41,9 @@ CaloCompatibleTrackSelector::CaloCompatibleTrackSelector( const edm::ParameterSe
     copyExtras_(cfg.getUntrackedParameter<bool>("copyExtras", false)),
     copyTrajectories_(cfg.getUntrackedParameter<bool>("copyTrajectories", false)),
     hasSimInfo_(cfg.getUntrackedParameter<bool>("hasSimInfo_", false)),
-    funcCaloComp_(cfg.getParameter<std::string>("funcCaloComp"))
+    funcCaloComp_(cfg.getParameter<std::string>("funcCaloComp")),
+    useQaulityStr_(cfg.getUntrackedParameter<bool>("useQaulityStr")),
+    qualityString_(cfg.getUntrackedParameter<std::string>("qualityString"))
 {
    
    std::string alias( cfg.getParameter<std::string>( "@module_label" ) );
@@ -110,6 +112,7 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 	     reco::TrackRef pftrackRef = cand.trackRef();
 	     
 	     if(i!=pftrackRef.key()) continue; // matched track (Track <--> PF Cand) only
+	     if(useQaulityStr_ && !trk.quality(reco::TrackBase::qualityByName(qualityString_))) continue; // use quality bit
 	     
 	     trk_pt = trk.pt();
 	     

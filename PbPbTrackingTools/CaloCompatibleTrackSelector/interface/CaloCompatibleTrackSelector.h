@@ -67,6 +67,9 @@ namespace reco { namespace modules {
             /// copy also trajectories and trajectory->track associations
             bool copyTrajectories_;
 
+	    bool useQaulityStr_;
+	    std::string qualityString_;
+
 	    /// when running on MC with "trackingParticles"
             bool hasSimInfo_;
 

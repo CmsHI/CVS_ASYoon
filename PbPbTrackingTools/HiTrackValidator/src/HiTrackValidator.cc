@@ -16,6 +16,7 @@ HiTrackValidator::HiTrackValidator(const edm::ParameterSet& iConfig)
    hasSimInfo_(iConfig.getUntrackedParameter<bool>("hasSimInfo")),
    selectFake_(iConfig.getUntrackedParameter<bool>("selectFake")),
    useQaulityStr_(iConfig.getUntrackedParameter<bool>("useQaulityStr")),
+   qualityString_(iConfig.getUntrackedParameter<std::string>("qualityString")),
    fiducialCut_(iConfig.getUntrackedParameter<bool>("fiducialCut",false)),
    neededCentBins_(iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins")),
    centrality_(0)
@@ -102,8 +103,8 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
    edm::Handle<std::vector<reco::Track> > tracks;
    iEvent.getByLabel(trklabel_, tracks);
 
-   const std::string qualityString = "highPurity";
-
+   //const std::string qualityString = "highPurity";
+   
 
    for(unsigned it=0; it<tracks->size(); ++it){
       
@@ -111,7 +112,7 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       const reco::Track & trk = (*tracks)[it];
 
       if(fiducialCut_ && hitDeadPXF(trk)) continue; // if track hits the dead region, igonore it;
-      if(useQaulityStr_ && !trk.quality(reco::TrackBase::qualityByName(qualityString))) continue;
+      if(useQaulityStr_ && !trk.quality(reco::TrackBase::qualityByName(qualityString_))) continue;
 
       // rec to sim association
       edm::RefToBase<reco::Track> track(trackCollection, it);

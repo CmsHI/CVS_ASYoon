@@ -7,5 +7,7 @@ selectCaloCompatibleTrack  = cms.EDProducer("CaloCompatibleTrackSelector",
               hasSimInfo =  cms.bool(False),
               funcCaloComp = cms.string("(x>10) * (1.2*pow(TMath::Abs(x-10),6.6/9)) * (2+1.4/(exp(-10*(x-9))-1))"), # a function that defines track-calo (in)compatible region
               copyTrajectories = cms.untracked.bool(False), # true,  when doing retracking before
-              copyExtras = cms.untracked.bool(True) ## set to false on AOD
+              copyExtras = cms.untracked.bool(True), ## set to false on AOD
+              useQaulityStr=cms.untracked.bool(True),
+              qualityString=cms.untracked.string("highPurity")
 )

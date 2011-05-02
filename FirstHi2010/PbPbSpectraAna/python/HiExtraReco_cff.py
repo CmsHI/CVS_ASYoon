@@ -15,7 +15,8 @@ from Appeltel.PixelTracksRun2010.HiMultipleMergedTracks_cff import *
 hiextraReco = cms.Sequence(conformalPixelTrackReco)
 
 # PF re-reco for events with pT>pT'
-hipfReReco = cms.Sequence(rereco_seq)
+hipfReReco = cms.Sequence(hiPFRerecoTracksSelection* # this collection is needed to make PF re-reco judgement
+                          rereco_seq)
 
 
 # Extra track selections/refit/etc..
