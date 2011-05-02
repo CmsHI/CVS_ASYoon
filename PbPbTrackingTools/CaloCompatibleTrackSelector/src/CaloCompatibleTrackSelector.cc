@@ -100,7 +100,7 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 
        if(!isPFThere || !applyCaloComp_){   // if no PFCand or no compatibility check,  no selection 
 
-	  //selTracks_->push_back(trk);
+	  selTracks_->push_back(trk);
 
        }else{
 
