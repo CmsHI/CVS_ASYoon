@@ -88,74 +88,74 @@ class HiTrackValidator : public edm::EDAnalyzer {
       const TrackerGeometry * theTracker;
       
       // quality cuts distribution 
-      TH1D *hVtxSize;
-      TH1D *hNlayers;
-      TH1D *hNlayers3D;
-      TH1D *hNlayersLost;
-      TH1D *hNvalidHits;
-      TH1D *hChi2n;
-      TH1D *hRelPtErr;
-      TH1D *hdzPV, *hd0PV;
-      TH1D *hdzErr, *hd0Err;
-      TH1D *hdzErrPV, *hd0ErrPV;
-      TH1D *hvzErr, *hvtErr;
-      TH1D *hdzOverdzErr, *hd0Overd0Err;
-      TH1D *hdzOverdzErrPV, *hd0Overd0ErrPV;
-      TH1D *hEta, *hPhi, *hPt;
+      TH1F *hVtxSize;
+      TH1F *hNlayers;
+      TH1F *hNlayers3D;
+      TH1F *hNlayersLost;
+      TH1F *hNvalidHits;
+      TH1F *hChi2n;
+      TH1F *hRelPtErr;
+      TH1F *hdzPV, *hd0PV;
+      TH1F *hdzErr, *hd0Err;
+      TH1F *hdzErrPV, *hd0ErrPV;
+      TH1F *hvzErr, *hvtErr;
+      TH1F *hdzOverdzErr, *hd0Overd0Err;
+      TH1F *hdzOverdzErrPV, *hd0Overd0ErrPV;
+      TH1F *hEta, *hPhi, *hPt;
 
-      std::vector<TH1D*> hNlayers_Cent;
-      std::vector<TH1D*> hNlayers3D_Cent;
-      std::vector<TH1D*> hNlayersLost_Cent;
-      std::vector<TH1D*> hNvalidHits_Cent;
-      std::vector<TH1D*> hChi2n_Cent;
-      std::vector<TH1D*> hRelPtErr_Cent;
-      std::vector<TH1D*> hdzPV_Cent;
-      std::vector<TH1D*> hd0PV_Cent;
-      std::vector<TH1D*> hdzErrPV_Cent;
-      std::vector<TH1D*> hd0ErrPV_Cent;
-      std::vector<TH1D*> hdzOverdzErrPV_Cent;
-      std::vector<TH1D*> hd0Overd0ErrPV_Cent;
-      std::vector<TH1D*> hEta_Cent;
-      std::vector<TH1D*> hPhi_Cent;
-      std::vector<TH1D*> hPt_Cent;
+      std::vector<TH1F*> hNlayers_Cent;
+      std::vector<TH1F*> hNlayers3D_Cent;
+      std::vector<TH1F*> hNlayersLost_Cent;
+      std::vector<TH1F*> hNvalidHits_Cent;
+      std::vector<TH1F*> hChi2n_Cent;
+      std::vector<TH1F*> hRelPtErr_Cent;
+      std::vector<TH1F*> hdzPV_Cent;
+      std::vector<TH1F*> hd0PV_Cent;
+      std::vector<TH1F*> hdzErrPV_Cent;
+      std::vector<TH1F*> hd0ErrPV_Cent;
+      std::vector<TH1F*> hdzOverdzErrPV_Cent;
+      std::vector<TH1F*> hd0Overd0ErrPV_Cent;
+      std::vector<TH1F*> hEta_Cent;
+      std::vector<TH1F*> hPhi_Cent;
+      std::vector<TH1F*> hPt_Cent;
 
 
       // as a function of pt
-      TH2D *hNlayersdPt;
-      TH2D *hNlayers3DdPt;
-      TH2D *hNlayersLostdPt;
-      TH2D *hNvalidHitsdPt;
-      TH2D *hChi2ndPt;
-      TH2D *hRelPtErrdPt;
-      TH2D *hdzPVdPt, *hd0PVdPt;
-      TH2D *hdzErrdPt, *hd0ErrdPt;
-      TH2D *hdzErrPVdPt, *hd0ErrPVdPt;
-      TH2D *hvzErrdPt, *hvtErrdPt;
-      TH2D *hdzOverdzErrdPt, *hd0Overd0ErrdPt;
-      TH2D *hdzOverdzErrPVdPt, *hd0Overd0ErrPVdPt;
+      TH2F *hNlayersdPt;
+      TH2F *hNlayers3DdPt;
+      TH2F *hNlayersLostdPt;
+      TH2F *hNvalidHitsdPt;
+      TH2F *hChi2ndPt;
+      TH2F *hRelPtErrdPt;
+      TH2F *hdzPVdPt, *hd0PVdPt;
+      TH2F *hdzErrdPt, *hd0ErrdPt;
+      TH2F *hdzErrPVdPt, *hd0ErrPVdPt;
+      TH2F *hvzErrdPt, *hvtErrdPt;
+      TH2F *hdzOverdzErrdPt, *hd0Overd0ErrdPt;
+      TH2F *hdzOverdzErrPVdPt, *hd0Overd0ErrPVdPt;
 
-      std::vector<TH2D*> hNvalidHitsdPt_Cent;
-      std::vector<TH2D*> hChi2ndPt_Cent;
-      std::vector<TH2D*> hRelPtErrdPt_Cent;
-      std::vector<TH2D*> hdzPVdPt_Cent;
-      std::vector<TH2D*> hd0PVdPt_Cent;
-      std::vector<TH2D*> hdzErrPVdPt_Cent;
-      std::vector<TH2D*> hd0ErrPVdPt_Cent;
-      std::vector<TH2D*> hdzOverdzErrPVdPt_Cent;
-      std::vector<TH2D*> hd0Overd0ErrPVdPt_Cent;
+      std::vector<TH2F*> hNvalidHitsdPt_Cent;
+      std::vector<TH2F*> hChi2ndPt_Cent;
+      std::vector<TH2F*> hRelPtErrdPt_Cent;
+      std::vector<TH2F*> hdzPVdPt_Cent;
+      std::vector<TH2F*> hd0PVdPt_Cent;
+      std::vector<TH2F*> hdzErrPVdPt_Cent;
+      std::vector<TH2F*> hd0ErrPVdPt_Cent;
+      std::vector<TH2F*> hdzOverdzErrPVdPt_Cent;
+      std::vector<TH2F*> hd0Overd0ErrPVdPt_Cent;
 
       // correlations
-      TH2D *hdzErrd0Err;
-      TH2D *hdzErrd0ErrPV;
-      TH2D *hdzOverdzErrd0Err;
-      TH2D *hdzOverdzErrd0ErrPV;
+      //TH2D *hdzErrd0Err;
+      //TH2D *hdzErrd0ErrPV;
+      //TH2D *hdzOverdzErrd0Err;
+      //TH2D *hdzOverdzErrd0ErrPV;
 
-      std::vector<TH2D*> hdzOverdzErrd0Err_Cent;
-      std::vector<TH2D*> hdzOverdzErrd0ErrPV_Cent;
+      //std::vector<TH2D*> hdzOverdzErrd0Err_Cent;
+      //std::vector<TH2D*> hdzOverdzErrd0ErrPV_Cent;
       
       // kinematic distributions
-      TH2D *hEtaPhi;
-      std::vector<TH2D*> hEtaPhi_Cent;
+      TH2F *hEtaPhi;
+      //std::vector<TH2D*> hEtaPhi_Cent;
 
       std::vector<double> ptBins;
 

@@ -139,14 +139,14 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       for(unsigned i=0;i<neededCentBins_.size();i++){
 	 if(i==0){
 	    if(cbin<=neededCentBins_[i+1]){
-	       hEtaPhi_Cent[i]->Fill(eta,phi);
+	       //hEtaPhi_Cent[i]->Fill(eta,phi);
 	       hEta_Cent[i]->Fill(eta);
 	       hPhi_Cent[i]->Fill(phi);
 	       hPt_Cent[i]->Fill(pt);
 	    }
 	 }else{
 	    if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1]){
-	       hEtaPhi_Cent[i]->Fill(eta,phi);
+	       //hEtaPhi_Cent[i]->Fill(eta,phi);
 	       hEta_Cent[i]->Fill(eta);
                hPhi_Cent[i]->Fill(phi);
 	       hPt_Cent[i]->Fill(pt);
@@ -234,10 +234,10 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       hd0Overd0ErrPVdPt->Fill(pt,d0Overd0ErrPV);
 
       // correlation
-      hdzErrd0Err->Fill(dzE,d0E);
-      hdzErrd0ErrPV->Fill(dzErrPV,d0ErrPV);
-      hdzOverdzErrd0Err->Fill(dzOverdZErr,d0Overd0Err);
-      hdzOverdzErrd0ErrPV->Fill(dzOverdZErrPV,d0Overd0ErrPV);
+      //hdzErrd0Err->Fill(dzE,d0E);
+      //hdzErrd0ErrPV->Fill(dzErrPV,d0ErrPV);
+      //hdzOverdzErrd0Err->Fill(dzOverdZErr,d0Overd0Err);
+      //hdzOverdzErrd0ErrPV->Fill(dzOverdZErrPV,d0Overd0ErrPV);
 
 
       // centrality binned
@@ -265,8 +265,8 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	       hd0ErrPVdPt_Cent[i]->Fill(pt,d0ErrPV);
 	       hdzOverdzErrPVdPt_Cent[i]->Fill(pt,dzOverdZErrPV);
 	       hd0Overd0ErrPVdPt_Cent[i]->Fill(pt,d0Overd0ErrPV);
-	       hdzOverdzErrd0Err_Cent[i]->Fill(dzOverdZErr,d0Overd0Err);
-	       hdzOverdzErrd0ErrPV_Cent[i]->Fill(dzOverdZErrPV,d0Overd0ErrPV);
+	       //hdzOverdzErrd0Err_Cent[i]->Fill(dzOverdZErr,d0Overd0Err);
+	       //hdzOverdzErrd0ErrPV_Cent[i]->Fill(dzOverdZErrPV,d0Overd0ErrPV);
 	    }
          }else{
             if(cbin>neededCentBins_[i] && cbin<=neededCentBins_[i+1]){
@@ -291,8 +291,8 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	       hd0ErrPVdPt_Cent[i]->Fill(pt,d0ErrPV);
 	       hdzOverdzErrPVdPt_Cent[i]->Fill(pt,dzOverdZErrPV);
 	       hd0Overd0ErrPVdPt_Cent[i]->Fill(pt,d0Overd0ErrPV);
-	       hdzOverdzErrd0Err_Cent[i]->Fill(dzOverdZErr,d0Overd0Err);
-	       hdzOverdzErrd0ErrPV_Cent[i]->Fill(dzOverdZErrPV,d0Overd0ErrPV);
+	       //hdzOverdzErrd0Err_Cent[i]->Fill(dzOverdZErr,d0Overd0Err);
+	       //hdzOverdzErrd0ErrPV_Cent[i]->Fill(dzOverdZErrPV,d0Overd0ErrPV);
 	    }
          }
       }
@@ -326,92 +326,92 @@ HiTrackValidator::beginJob()
    //histograms
    int nmaxhits = 30;
 
-   hVtxSize = f->make<TH1D>("hVtxSize","number of veritces; N_{vertex}",5,-0.5,4.5);
-   hNlayers = f->make<TH1D>("hNlayers","number of layers with tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits);
-   hNlayers3D = f->make<TH1D>("hNlayers3D","number of layers with pixel and tracker mono and streohits; N_{hits}", 
+   hVtxSize = f->make<TH1F>("hVtxSize","number of veritces; N_{vertex}",5,-0.5,4.5);
+   hNlayers = f->make<TH1F>("hNlayers","number of layers with tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits);
+   hNlayers3D = f->make<TH1F>("hNlayers3D","number of layers with pixel and tracker mono and streohits; N_{hits}", 
 			      nmaxhits,0.,(double)nmaxhits);
-   hNlayersLost = f->make<TH1D>("hNlayersLost","number of layers with no tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits);
-   hNvalidHits = f->make<TH1D>("hNvalidHits","number of valid hits; N_{hits}", nmaxhits,0.,(double)nmaxhits);
-   hChi2n = f->make<TH1D>("hChi2n","normalized track chi2;chi^{2}/ndof", 60,0.0,5.0);
-   hRelPtErr = f->make<TH1D>("hRelPtErr","relative track p_{T} error; p_{T} err/p_{T}", 100,0.0,0.4);
-   hdzPV = f->make<TH1D>("hdzPV","dz ; dz", 100,-1.5,1.5);
-   hd0PV = f->make<TH1D>("hd0PV","d0 ; d0", 100,-1.5,1.5);
-   hdzErr = f->make<TH1D>("hdzErr","dz error; dz error", 80,0.0,0.8);
-   hd0Err = f->make<TH1D>("hd0Err","d0 error; d0 error", 100,0.0,0.2);
-   hdzErrPV = f->make<TH1D>("hdzErrPV","dz error with vz error summed ; dz error", 80,0.0,0.8);
-   hd0ErrPV = f->make<TH1D>("hd0ErrPV","d0 error with vz error summed ; d0 error", 100,0.0,0.2);
-   hvzErr = f->make<TH1D>("hvzErr","vz error; vz error", 100,0.0, 0.08);
-   hvtErr = f->make<TH1D>("hvtErr","vxy error; vxy error", 200,0.0, 0.08);
-   hdzOverdzErr = f->make<TH1D>("hdzOverdzErr","dz/dzError; dz/dzError", 80,-10.0,10.0);
-   hd0Overd0Err = f->make<TH1D>("hd0Overd0Err","d0/d0Error; d0/d0Error", 80,-10.0,10.0);
-   hdzOverdzErrPV =  f->make<TH1D>("hdzOverdzErrPV","dz/dzError with PV error; dz/dzError", 80,-10.0,10.0);
-   hd0Overd0ErrPV = f->make<TH1D>("hd0Overd0ErrPV","d0/d0Error with PV error; d0/d0Error", 80,-10.0,10.0);
+   hNlayersLost = f->make<TH1F>("hNlayersLost","number of layers with no tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits);
+   hNvalidHits = f->make<TH1F>("hNvalidHits","number of valid hits; N_{hits}", nmaxhits,0.,(double)nmaxhits);
+   hChi2n = f->make<TH1F>("hChi2n","normalized track chi2;chi^{2}/ndof", 60,0.0,5.0);
+   hRelPtErr = f->make<TH1F>("hRelPtErr","relative track p_{T} error; p_{T} err/p_{T}", 100,0.0,0.4);
+   hdzPV = f->make<TH1F>("hdzPV","dz ; dz", 100,-1.5,1.5);
+   hd0PV = f->make<TH1F>("hd0PV","d0 ; d0", 100,-1.5,1.5);
+   hdzErr = f->make<TH1F>("hdzErr","dz error; dz error", 80,0.0,0.8);
+   hd0Err = f->make<TH1F>("hd0Err","d0 error; d0 error", 100,0.0,0.2);
+   hdzErrPV = f->make<TH1F>("hdzErrPV","dz error with vz error summed ; dz error", 80,0.0,0.8);
+   hd0ErrPV = f->make<TH1F>("hd0ErrPV","d0 error with vz error summed ; d0 error", 100,0.0,0.2);
+   hvzErr = f->make<TH1F>("hvzErr","vz error; vz error", 100,0.0, 0.08);
+   hvtErr = f->make<TH1F>("hvtErr","vxy error; vxy error", 200,0.0, 0.08);
+   hdzOverdzErr = f->make<TH1F>("hdzOverdzErr","dz/dzError; dz/dzError", 80,-10.0,10.0);
+   hd0Overd0Err = f->make<TH1F>("hd0Overd0Err","d0/d0Error; d0/d0Error", 80,-10.0,10.0);
+   hdzOverdzErrPV =  f->make<TH1F>("hdzOverdzErrPV","dz/dzError with PV error; dz/dzError", 80,-10.0,10.0);
+   hd0Overd0ErrPV = f->make<TH1F>("hd0Overd0ErrPV","d0/d0Error with PV error; d0/d0Error", 80,-10.0,10.0);
 
    // as a function of pt
-   hNlayersdPt = f->make<TH2D>("hNlayersdPt","number of layers with tracker hits vs p_{T}; p_{T};N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
-   hNlayers3DdPt = f->make<TH2D>("hNlayers3DdPt","number of layers with tracker hits vs p_{T}; p_{T};N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
-   hNlayersLostdPt = f->make<TH2D>("hNlayersLostdPt","number of layers with no tracker hits vs p_{T}; p_{T}; N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
-   hNvalidHitsdPt = f->make<TH2D>("hNvalidHitsdPt","number of valid hits vs p_{T}; p_{T}; N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
-   hChi2ndPt = f->make<TH2D>("hChi2ndPt","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 60,0.0,5.0);
-   hRelPtErrdPt = f->make<TH2D>("hRelPtErrdPt","relative track p_{T} error vs p_{T}; p_{T}; p_{T} err/p_{T}", 150,0.0,150.0, 100,0.0,0.4);
-   hdzPVdPt = f->make<TH2D>("hdzPVdPt","dz vs p_{T}; p_{T}; dz", 150,0.0,150.0, 100,-1.5,1.5);
-   hd0PVdPt = f->make<TH2D>("hd0PVdPt","d0 vs p_{T}; p_{T}; d0", 150,0.0,150.0, 100,-1.5,1.5);
-   hdzErrdPt = f->make<TH2D>("hdzErrdPt","dz error vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8);
-   hd0ErrdPt = f->make<TH2D>("hd0ErrdPt","d0 error vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 100,0.0,0.2);
-   hdzErrPVdPt = f->make<TH2D>("hdzErrPVdPt","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8);
-   hd0ErrPVdPt = f->make<TH2D>("hd0ErrPVdPt","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 100,0.0,0.2);
-   hvzErrdPt =  f->make<TH2D>("hvzErrdPt","vz error vs p_{T}; p_{T}; vz error", 150,0.0,150.0, 100,0.0,0.08);
-   hvtErrdPt = f->make<TH2D>("hvtErrdPt","vxy error vs p_{T}; p_{T}; vxy error", 150,0.0,150.0, 200,0.0,0.08);
-   hdzOverdzErrdPt = f->make<TH2D>("hdzOverdzErrdPt","dz/dzError vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0);
-   hd0Overd0ErrdPt = f->make<TH2D>("hd0Overd0ErrdPt","d0/d0Error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0);
-   hdzOverdzErrPVdPt = f->make<TH2D>("hdzOverdzErrPVdPt","dz/dzError with PV error vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0);
-   hd0Overd0ErrPVdPt = f->make<TH2D>("hd0Overd0ErrPVdPt","d0/d0Error with PV error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0);
+   hNlayersdPt = f->make<TH2F>("hNlayersdPt","number of layers with tracker hits vs p_{T}; p_{T};N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
+   hNlayers3DdPt = f->make<TH2F>("hNlayers3DdPt","number of layers with tracker hits vs p_{T}; p_{T};N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
+   hNlayersLostdPt = f->make<TH2F>("hNlayersLostdPt","number of layers with no tracker hits vs p_{T}; p_{T}; N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
+   hNvalidHitsdPt = f->make<TH2F>("hNvalidHitsdPt","number of valid hits vs p_{T}; p_{T}; N_{hits}", 150,0.0,150.0, nmaxhits,0.,(double)nmaxhits);
+   hChi2ndPt = f->make<TH2F>("hChi2ndPt","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 60,0.0,5.0);
+   hRelPtErrdPt = f->make<TH2F>("hRelPtErrdPt","relative track p_{T} error vs p_{T}; p_{T}; p_{T} err/p_{T}", 150,0.0,150.0, 100,0.0,0.4);
+   hdzPVdPt = f->make<TH2F>("hdzPVdPt","dz vs p_{T}; p_{T}; dz", 150,0.0,150.0, 100,-1.5,1.5);
+   hd0PVdPt = f->make<TH2F>("hd0PVdPt","d0 vs p_{T}; p_{T}; d0", 150,0.0,150.0, 100,-1.5,1.5);
+   hdzErrdPt = f->make<TH2F>("hdzErrdPt","dz error vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8);
+   hd0ErrdPt = f->make<TH2F>("hd0ErrdPt","d0 error vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 100,0.0,0.2);
+   hdzErrPVdPt = f->make<TH2F>("hdzErrPVdPt","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8);
+   hd0ErrPVdPt = f->make<TH2F>("hd0ErrPVdPt","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 100,0.0,0.2);
+   hvzErrdPt =  f->make<TH2F>("hvzErrdPt","vz error vs p_{T}; p_{T}; vz error", 150,0.0,150.0, 100,0.0,0.08);
+   hvtErrdPt = f->make<TH2F>("hvtErrdPt","vxy error vs p_{T}; p_{T}; vxy error", 150,0.0,150.0, 200,0.0,0.08);
+   hdzOverdzErrdPt = f->make<TH2F>("hdzOverdzErrdPt","dz/dzError vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0);
+   hd0Overd0ErrdPt = f->make<TH2F>("hd0Overd0ErrdPt","d0/d0Error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0);
+   hdzOverdzErrPVdPt = f->make<TH2F>("hdzOverdzErrPVdPt","dz/dzError with PV error vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0);
+   hd0Overd0ErrPVdPt = f->make<TH2F>("hd0Overd0ErrPVdPt","d0/d0Error with PV error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0);
    
    // correlation
-   hdzErrd0Err = f->make<TH2D>("hdzErrd0Err","dz error vs d0 error;dz error;d0 error", 80,0.0,0.8, 80,0.0,0.8);
-   hdzErrd0ErrPV = f->make<TH2D>("hdzErrd0ErrPVt","dz error vs d0 error (vz error summed);dz error;d0 error", 80,0.0,0.8, 80,0.0,0.8);
-   hdzOverdzErrd0Err = f->make<TH2D>("hdzOverdzErrd0Err","dz/dzError vs d0/d0Error", 80,-10.0,10.0, 80,-10.0,10.0);
-   hdzOverdzErrd0ErrPV = f->make<TH2D>("hdzOverdzErrd0ErrPV","dz/dzError with PV error vs d0/d0Error with PV error", 80,-10.0,10.0, 80,-10.0,10.0);
+   //hdzErrd0Err = f->make<TH2D>("hdzErrd0Err","dz error vs d0 error;dz error;d0 error", 80,0.0,0.8, 80,0.0,0.8);
+   //hdzErrd0ErrPV = f->make<TH2D>("hdzErrd0ErrPVt","dz error vs d0 error (vz error summed);dz error;d0 error", 80,0.0,0.8, 80,0.0,0.8);
+   //hdzOverdzErrd0Err = f->make<TH2D>("hdzOverdzErrd0Err","dz/dzError vs d0/d0Error", 80,-10.0,10.0, 80,-10.0,10.0);
+   //hdzOverdzErrd0ErrPV = f->make<TH2D>("hdzOverdzErrd0ErrPV","dz/dzError with PV error vs d0/d0Error with PV error", 80,-10.0,10.0, 80,-10.0,10.0);
 
    // kinematic distributions
-   hEtaPhi = f->make<TH2D>("hEtaPhi","eta vs phi;#eta;#phi", 40,-2.65,2.65, 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
-   hEta = f->make<TH1D>("hEta","eta distribution; #eta", 60,-2.65,2.65);
-   hPhi = f->make<TH1D>("hPhi","phi distribution; #phi", 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
-   hPt = f->make<TH1D>("hPt","pt distribution; p_{T} [GeV/c]",100,0.0,20);
+   hEtaPhi = f->make<TH2F>("hEtaPhi","eta vs phi;#eta;#phi", 40,-2.65,2.65, 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
+   hEta = f->make<TH1F>("hEta","eta distribution; #eta", 60,-2.65,2.65);
+   hPhi = f->make<TH1F>("hPhi","phi distribution; #phi", 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
+   hPt = f->make<TH1F>("hPt","pt distribution; p_{T} [GeV/c]",100,0.0,20);
 
    // centrality binned histogram 
    for(unsigned i=0;i<neededCentBins_.size()-1;i++){
 
-      hNlayers_Cent.push_back(f->make<TH1D>("","number of layers with tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
-      hNlayers3D_Cent.push_back(f->make<TH1D>("","number of layers with pixel and tracker mono and streohits; N_{hits}",nmaxhits,0.,(double)nmaxhits));
-      hNlayersLost_Cent.push_back(f->make<TH1D>("","number of layers with no tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
-      hNvalidHits_Cent.push_back(f->make<TH1D>("","number of valid hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
-      hChi2n_Cent.push_back(f->make<TH1D>("","normalized track chi2;chi^{2}/ndof", 60,0.0,5.0));
-      hRelPtErr_Cent.push_back(f->make<TH1D>("","relative track p_{T} error; p_{T} err/p_{T}", 100,0.0,0.4));
-      hdzPV_Cent.push_back(f->make<TH1D>("","dz ; dz ", 100,-1.5,1.5));
-      hd0PV_Cent.push_back(f->make<TH1D>("","d0 ; d0 ", 100,-1.5,1.5));
-      hdzErrPV_Cent.push_back(f->make<TH1D>("","dz error with vz error summed ; dz error", 80,0.0,0.8));
-      hd0ErrPV_Cent.push_back(f->make<TH1D>("","d0 error; d0 error", 100,0.0,0.2));
-      hdzOverdzErrPV_Cent.push_back(f->make<TH1D>("","dz/dzError with PV error; dz/dzError", 80,-10.0,10.0));
-      hd0Overd0ErrPV_Cent.push_back(f->make<TH1D>("","d0/d0Error with PV error; d0/d0Error", 80,-10.0,10.0));
+      hNlayers_Cent.push_back(f->make<TH1F>("","number of layers with tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
+      hNlayers3D_Cent.push_back(f->make<TH1F>("","number of layers with pixel and tracker mono and streohits; N_{hits}",nmaxhits,0.,(double)nmaxhits));
+      hNlayersLost_Cent.push_back(f->make<TH1F>("","number of layers with no tracker hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
+      hNvalidHits_Cent.push_back(f->make<TH1F>("","number of valid hits; N_{hits}", nmaxhits,0.,(double)nmaxhits));
+      hChi2n_Cent.push_back(f->make<TH1F>("","normalized track chi2;chi^{2}/ndof", 60,0.0,5.0));
+      hRelPtErr_Cent.push_back(f->make<TH1F>("","relative track p_{T} error; p_{T} err/p_{T}", 100,0.0,0.4));
+      hdzPV_Cent.push_back(f->make<TH1F>("","dz ; dz ", 100,-1.5,1.5));
+      hd0PV_Cent.push_back(f->make<TH1F>("","d0 ; d0 ", 100,-1.5,1.5));
+      hdzErrPV_Cent.push_back(f->make<TH1F>("","dz error with vz error summed ; dz error", 80,0.0,0.8));
+      hd0ErrPV_Cent.push_back(f->make<TH1F>("","d0 error; d0 error", 100,0.0,0.2));
+      hdzOverdzErrPV_Cent.push_back(f->make<TH1F>("","dz/dzError with PV error; dz/dzError", 80,-10.0,10.0));
+      hd0Overd0ErrPV_Cent.push_back(f->make<TH1F>("","d0/d0Error with PV error; d0/d0Error", 80,-10.0,10.0));
 
-      hNvalidHitsdPt_Cent.push_back(f->make<TH2D>("","number of valid hits vs p_{T}; p_{T}; N_{hits}",150,0.0,150.0, nmaxhits,0.,(double)nmaxhits));
-      hChi2ndPt_Cent.push_back(f->make<TH2D>("","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 80,0.0,0.8));
-      hRelPtErrdPt_Cent.push_back(f->make<TH2D>("","relative track p_{T} error vs p_{T}; p_{T}; p_{T} err/p_{T}", 150,0.0,150.0, 100,0.0,0.4));
-      hdzPVdPt_Cent.push_back(f->make<TH2D>("","dz vs p_{T}; p_{T}; dz", 150,0.0,150.0, 100,-1.5,1.5));
-      hd0PVdPt_Cent.push_back(f->make<TH2D>("","d0 vs p_{T}; p_{T}; d0r", 150,0.0,150.0, 100,-1.5,1.5));
-      hdzErrPVdPt_Cent.push_back(f->make<TH2D>("","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8));
-      hd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 100,0.0,0.2));
-      hdzOverdzErrPVdPt_Cent.push_back(f->make<TH2D>("","dz/dzError with PV error vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0));
-      hd0Overd0ErrPVdPt_Cent.push_back(f->make<TH2D>("","d0/d0Error with PV error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0));
+      hNvalidHitsdPt_Cent.push_back(f->make<TH2F>("","number of valid hits vs p_{T}; p_{T}; N_{hits}",150,0.0,150.0, nmaxhits,0.,(double)nmaxhits));
+      hChi2ndPt_Cent.push_back(f->make<TH2F>("","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 80,0.0,0.8));
+      hRelPtErrdPt_Cent.push_back(f->make<TH2F>("","relative track p_{T} error vs p_{T}; p_{T}; p_{T} err/p_{T}", 150,0.0,150.0, 100,0.0,0.4));
+      hdzPVdPt_Cent.push_back(f->make<TH2F>("","dz vs p_{T}; p_{T}; dz", 150,0.0,150.0, 100,-1.5,1.5));
+      hd0PVdPt_Cent.push_back(f->make<TH2F>("","d0 vs p_{T}; p_{T}; d0r", 150,0.0,150.0, 100,-1.5,1.5));
+      hdzErrPVdPt_Cent.push_back(f->make<TH2F>("","dz error with vz error summed vs p_{T}; p_{T}; dz error", 150,0.0,150.0, 80,0.0,0.8));
+      hd0ErrPVdPt_Cent.push_back(f->make<TH2F>("","d0 error with vz error summed vs p_{T}; p_{T}; d0 error", 150,0.0,150.0, 100,0.0,0.2));
+      hdzOverdzErrPVdPt_Cent.push_back(f->make<TH2F>("","dz/dzError with PV error vs p_{T}; p_{T}; dz/dzError", 150,0.0,150.0, 80,-10.0,10.0));
+      hd0Overd0ErrPVdPt_Cent.push_back(f->make<TH2F>("","d0/d0Error with PV error vs p_{T}; p_{T}; d0/d0Error", 150,0.0,150.0, 80,-10.0,10.0));
 
-      hdzOverdzErrd0Err_Cent.push_back(f->make<TH2D>("","dz/dzError vs d0/d0Error", 80,-10.0,10.0, 80,-10.0,10.0));
-      hdzOverdzErrd0ErrPV_Cent.push_back(f->make<TH2D>("","dz/dzError with PV error vs d0/d0Error with PV error", 80,-10.0,10.0, 80,-10.0,10.0));
-      hEtaPhi_Cent.push_back(f->make<TH2D>("","eta vs phi;#eta;#phi", 20,-2.65,2.65, 40,-1.05*TMath::Pi(),1.05*TMath::Pi()));
+      //hdzOverdzErrd0Err_Cent.push_back(f->make<TH2D>("","dz/dzError vs d0/d0Error", 80,-10.0,10.0, 80,-10.0,10.0));
+      //hdzOverdzErrd0ErrPV_Cent.push_back(f->make<TH2D>("","dz/dzError with PV error vs d0/d0Error with PV error", 80,-10.0,10.0, 80,-10.0,10.0));
+      //hEtaPhi_Cent.push_back(f->make<TH2D>("","eta vs phi;#eta;#phi", 20,-2.65,2.65, 40,-1.05*TMath::Pi(),1.05*TMath::Pi()));
 
-      hEta_Cent.push_back(f->make<TH1D>("","eta distribution; #eta", 60,-2.65,2.65));
-      hPhi_Cent.push_back(f->make<TH1D>("","phi distribution; #phi", 80,-1.05*TMath::Pi(),1.05*TMath::Pi()));
-      hPt_Cent.push_back(f->make<TH1D>("","pt distribution; p_{T} [GeV/c]",100,0.0,20));
+      hEta_Cent.push_back(f->make<TH1F>("","eta distribution; #eta", 60,-2.65,2.65));
+      hPhi_Cent.push_back(f->make<TH1F>("","phi distribution; #phi", 80,-1.05*TMath::Pi(),1.05*TMath::Pi()));
+      hPt_Cent.push_back(f->make<TH1F>("","pt distribution; p_{T} [GeV/c]",100,0.0,20));
       
       if(i==0){
 	 hNlayers_Cent[i]->SetName(Form("hNlayers_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
@@ -437,9 +437,9 @@ HiTrackValidator::beginJob()
 	 hdzOverdzErrPVdPt_Cent[i]->SetName(Form("hdzOverdzErrPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hd0Overd0ErrPVdPt_Cent[i]->SetName(Form("hd0Overd0ErrPVdPt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 
-	 hdzOverdzErrd0Err_Cent[i]->SetName(Form("hdzOverdzErrd0Err_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
-	 hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
-	 hEtaPhi_Cent[i]->SetName(Form("hEtaPhi_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 //hdzOverdzErrd0Err_Cent[i]->SetName(Form("hdzOverdzErrd0Err_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 //hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
+	 //hEtaPhi_Cent[i]->SetName(Form("hEtaPhi_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 
 	 hEta_Cent[i]->SetName(Form("hEta_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hPhi_Cent[i]->SetName(Form("hPhi_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
@@ -469,9 +469,9 @@ HiTrackValidator::beginJob()
 	 hdzOverdzErrPVdPt_Cent[i]->SetName(Form("hdzOverdzErrPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hd0Overd0ErrPVdPt_Cent[i]->SetName(Form("hd0Overd0ErrPVdPt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 
-	 hdzOverdzErrd0Err_Cent[i]->SetName(Form("hdzOverdzErrd0Err_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
-	 hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
-	 hEtaPhi_Cent[i]->SetName(Form("hEtaPhi_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 //hdzOverdzErrd0Err_Cent[i]->SetName(Form("hdzOverdzErrd0Err_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 //hdzOverdzErrd0ErrPV_Cent[i]->SetName(Form("hdzOverdzErrd0ErrPV_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
+	 //hEtaPhi_Cent[i]->SetName(Form("hEtaPhi_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 
 	 hEta_Cent[i]->SetName(Form("hEta_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
          hPhi_Cent[i]->SetName(Form("hPhi_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
