@@ -21,7 +21,7 @@ postEvtAna = hievtselanalyzer.clone()
 
 from PbPbTrackingTools.HiTrackValidator.hitrackvalidator_cfi import *
 from edwenger.HiTrkEffAnalyzer.HiTPCuts_cff import *
-hihightrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiHighPtCaloTracks"),
+hihightrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiHighPtTracks"),
                                     qualityString=cms.untracked.string("tight"))
 hihightrkval_pt80 = hihightrkval.clone(jetEtMin=cms.untracked.double(80.0))
 hihightrkval_fake = hihightrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
@@ -29,7 +29,7 @@ hihightrkval_fake = hihightrkval.clone(simtrklabel = cms.untracked.InputTag("cut
                                      selectFake=cms.untracked.bool(True))
 hihightrkval_fake_pt80 = hihightrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
 
-higloosetrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodLooseCaloTracks"),
+higloosetrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodLooseTracks"),
                                       qualityString=cms.untracked.string("loose"))
 higloosetrkval_pt80 = higloosetrkval.clone(jetEtMin=cms.untracked.double(80.0))
 higloosetrkval_fake = higloosetrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
@@ -37,7 +37,7 @@ higloosetrkval_fake = higloosetrkval.clone(simtrklabel = cms.untracked.InputTag(
                                            selectFake=cms.untracked.bool(True))
 higloosetrkval_fake_pt80 = higloosetrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
 
-higoodtrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodTightCaloTracks"),
+higoodtrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodTightTracks"),
                                     qualityString=cms.untracked.string("highPurity"))
 higoodtrkval_pt80 = higoodtrkval.clone(jetEtMin=cms.untracked.double(80.0))
 higoodtrkval_fake = higoodtrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
@@ -46,14 +46,14 @@ higoodtrkval_fake = higoodtrkval.clone(simtrklabel = cms.untracked.InputTag("cut
 higoodtrkval_fake_pt80 = higoodtrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
 
 # d0, dz open for systematic studies (don't need quality)
-hipredttrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiPreDTGoodTightCaloTracks"))
+hipredttrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiPreDTGoodTightTracks"))
 hipredttrkval_pt80 = hipredttrkval.clone(jetEtMin=cms.untracked.double(80.0))
 hipredttrkval_fake = hipredttrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
                                          hasSimInfo=cms.untracked.bool(True),
                                          selectFake=cms.untracked.bool(True))
 hipredttrkval_fake_pt80 = hipredttrkval_fake.clone(jetEtMin=cms.untracked.double(80.0))
 
-hipredztrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiPreDZGoodTightCaloTracks"))
+hipredztrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiPreDZGoodTightTracks"))
 hipredztrkval_pt80 = hipredztrkval.clone(jetEtMin=cms.untracked.double(80.0))
 hipredztrkval_fake = hipredztrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
                                          hasSimInfo=cms.untracked.bool(True),
@@ -105,8 +105,8 @@ extraCentDist = centbindist.clone(useJetThreshold = cms.untracked.bool(True)) # 
 from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
 
 # HiGoodTight
-hitrackAna.src = cms.untracked.InputTag("hiGoodTightCaloTracks")
-hitrackAna.src_evtCorr = cms.untracked.InputTag("hiGoodTightCaloTracks")
+hitrackAna.src = cms.untracked.InputTag("hiGoodTightTracks")
+hitrackAna.src_evtCorr = cms.untracked.InputTag("hiGoodTightTracks")
 hitrackAna.qualityString = cms.untracked.string("highPurity")
 hitrackAna.doJet = cms.untracked.bool(True)
 hitrackAna.triggerNeeded = cms.untracked.bool(True)
@@ -119,8 +119,8 @@ hitrackAna_jetMode3 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(80,9000))
 hitrackAna_jetMode4 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(100,9000))
 
 # HiGoodLoose
-higoodlooseAna = hitrackAna.clone(src=cms.untracked.InputTag("hiGoodLooseCaloTracks"),
-                                  src_evtCorr=cms.untracked.InputTag("hiGoodLooseCaloTracks"),
+higoodlooseAna = hitrackAna.clone(src=cms.untracked.InputTag("hiGoodLooseTracks"),
+                                  src_evtCorr=cms.untracked.InputTag("hiGoodLooseTracks"),
                                   qualityString = cms.untracked.string("loose")
                                   )
 higoodlooseAna_jetMode1 = higoodlooseAna.clone(jetEtCuts=cms.untracked.vdouble(0,80))
@@ -129,8 +129,8 @@ higoodlooseAna_jetMode3 = higoodlooseAna.clone(jetEtCuts=cms.untracked.vdouble(8
 higoodlooseAna_jetMode4 = higoodlooseAna.clone(jetEtCuts=cms.untracked.vdouble(100,9000))
 
 # HiHighPt
-hihightrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiHighPtCaloTracks"),
-                                  src_evtCorr=cms.untracked.InputTag("hiHighPtCaloTracks"),
+hihightrackAna = hitrackAna.clone(src=cms.untracked.InputTag("hiHighPtTracks"),
+                                  src_evtCorr=cms.untracked.InputTag("hiHighPtTracks"),
                                   qualityString = cms.untracked.string("tight")
                                   )
 hihightrackAna_jetMode1 = hihightrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,80))
