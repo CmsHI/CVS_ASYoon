@@ -34,9 +34,8 @@ cvs co UserCode/edwenger/HiTrackSpectraAnalyzer
 cvs co UserCode/edwenger/HiTrkEffAnalyzer
 cvs co UserCode/edwenger/HiEvtSelAnalyzer
 
-cvs co -D "2011-04-02" UserCode/edwenger/HiTrackSpectraAnalyzer/python/hitrackspectraanalyzer_cfi.py  # for <399
-cvs co -D "2011-04-02" UserCode/edwenger/HiTrkEffAnalyzer/python/hitrkEffAnalyzer_cfi.py 
- 
+cvs co -r 1.23 UserCode/edwenger/HiTrackSpectraAnalyzer/python/hitrackspectraanalyzer_cfi.py  # for <399
+cvs co -r 1.22 UserCode/edwenger/HiTrkEffAnalyzer/python/hitrkEffAnalyzer_cfi.py
 
 # for jet
 # see  /UserCode/SavedFMa/Saved/Skim/scripts for up-to-date package co
@@ -56,8 +55,8 @@ cvs co -d CmsHi/Analysis2010 UserCode/CmsHi/Analysis2010
 cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
 cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
-cvs co -r 1.6 UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator/python/hitrackvalidator_cfi.py # for <399
-#cvs co UserCode/edwenger/Skims/prod/condor # in case condor job scripts needed
+cvs co -r 1.9 UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator/python/hitrackvalidator_cfi.py # for <399
+
 
 # needed for dijetana
 
