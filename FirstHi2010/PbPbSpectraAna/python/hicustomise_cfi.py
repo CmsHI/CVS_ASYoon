@@ -161,6 +161,27 @@ def runOnCore(process):
     process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasHfOrBSC_Core')
     return process
 
+def runWithCaloTracks(process):
+    print "run with calo-compatible tracks! (*CaloTracks for validator, analyzers)"
+    # also add the whole calo-track seq
+    process.hihightrkval.trklabel=cms.untracked.InputTag("hiHighPtCaloTracks")
+    process.higloosetrkval.trklabel=cms.untracked.InputTag("hiGoodLooseCaloTracks")
+    process.higoodtrkval.trklabel=cms.untracked.InputTag("hiGoodTightCaloTracks")
+    process.hipredttrkval.trklabel=cms.untracked.InputTag("hiPreDTGoodTightCaloTracks")
+    process.hipredztrkval.trklabel=cms.untracked.InputTag("hiPreDZGoodTightCaloTracks")
+    process.hitrackAna.src = cms.untracked.InputTag("hiGoodTightCaloTracks")
+    process.hitrackAna.src_evtCorr = cms.untracked.InputTag("hiGoodTightCaloTracks")
+    process.higoodlooseAna.src = cms.untracked.InputTag("hiGoodLooseCaloTracks")
+    process.higoodlooseAna.src_evtCorr = cms.untracked.InputTag("hiGoodLooseCaloTracks")
+    process.hihightrackAna.src = cms.untracked.InputTag("hiHighPtCaloTracks")
+    process.hihightrackAna.src_evtCorr = cms.untracked.InputTag("hiHighPtCaloTracks")
+    process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiGoodTightCaloTracks')
+    process.higloosetrkEffAnalyzer.tracks = cms.untracked.InputTag('hiGoodLooseCaloTracks')
+    process.hihightrkEffAnalyzer.tracks = cms.untracked.InputTag('hiHighPtCaloTracks')
+    return process
+    
+    
+
 def runHiTrkRecoForPF(process):
     print "HI tracking reconstruction added in the PF reco sequence"
     print "Also hiPostGlobalPrimDumTracks is added at the beginning" 
