@@ -186,7 +186,7 @@ def runHiTrkRecoForPF(process):
     print "HI tracking reconstruction added in the PF reco sequence"
     print "Also hiPostGlobalPrimDumTracks is added at the beginning" 
     process.rechits *= process.heavyIonTracking
-    process.heavyIonTracking *= process.hiPostGlobalPrimTracksSelection
+    process.heavyIonTracking *= process.hiextraTrack
     process.trkfilter.src=cms.InputTag("hiPostGlobalPrimDumTracks")
     process.hipfReReco.replace(process.rereco_seq,process.hiPostGlobalPrimDumTracksSelection*process.rereco_seq)
     return process
