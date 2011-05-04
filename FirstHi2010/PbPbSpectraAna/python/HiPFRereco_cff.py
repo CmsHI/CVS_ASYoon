@@ -35,3 +35,4 @@ HiParticleFlowReco.remove(recoPFJets) # PF jets are not needed
 
 # HI rereco with PF reco is only performed on events with high pt tracks
 rereco_seq = cms.Sequence(trkfilter * pfreco * pftrkfilter)
+trkfilter_rev = cms.Sequence(~trkfilter) # this is used rather in the cfg

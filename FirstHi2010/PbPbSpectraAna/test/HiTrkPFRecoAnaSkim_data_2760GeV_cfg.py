@@ -33,12 +33,13 @@ options.parseArguments()
 
 process.source = cms.Source("PoolSource",
     #fileNames = cms.untracked.vstring('file:/home/sungho/sctch101/data/spectra/firsthi2010/test/r150476_443DCAFD-33EC-DF11-9F03-003048D2C0F2.root')
-  fileNames = cms.untracked.vstring('/store/hidata/HIRun2010/HICorePhysics/RECO/PromptReco-v3/000/151/076/328420FD-4FF0-DF11-B358-001D09F241B9.root')
+   #fileNames = cms.untracked.vstring('/store/hidata/HIRun2010/HICorePhysics/RECO/PromptReco-v3/000/151/076/328420FD-4FF0-DF11-B358-001D09F241B9.root')
+   fileNames = cms.untracked.vstring('/store/hidata/HIRun2010/HICorePhysics/RECO/PromptReco-v3/000/151/027/CE87C2B9-16EF-DF11-A7DB-0030487C635A.root')
 )
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(15))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'GR10_P_V12::All' # GR10_X_V12::All (X=E, P, H)
 
@@ -52,7 +53,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
+        version = cms.untracked.string('$Revision: 1.3 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkPFRecoAnaSkim_data_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -88,7 +89,7 @@ process.hiAnalysisSeq *= process.djcalo
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
 process.extraReco_step   = cms.Path(process.eventFilter * process.hipfReReco)
-process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
+process.extraTrks_step   = cms.Path(process.eventFilter * process.trkfilter_rev * process.hiextraTrack)
 process.extraCalo_step   = cms.Path(process.eventFilter * process.hicaloTrack)
 process.extraJets_step  = cms.Path(process.eventFilter  * process.dj_reco_extra)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq)
@@ -105,12 +106,16 @@ process = setAnaSeq(process,"AnaOnly") # EffOnly, AnaOnly, ALL
 process = whichCentBinMode(process,options.centBins) # centrality binning
 process = constraintOnLJetEta(process) # constraint on leading jet eta
 #process = useSubLeadingJet(process) # use sub leading jet
-process = setMinPtforPF(process,5) # min pt for PF reco/ana
+process = runWithCaloTracks(process) # input tags changes for *CaloTracks
+process = setMinPtforPF(process,10) # min pt for PF reco/ana
 process = runHiTrkRecoForPF(process) # HI Trk reco added for PF
 
 # as these are not needed
 process.heavyIonTracking.remove(process.hiConformalPixelTracks)
 process.heavyIonTracking.remove(process.hiGoodMergedTracks)
+process.heavyIonTracking.remove(process.hiTracksWithLooseQuality)
+process.heavyIonTracking.remove(process.hiTracksWithTightQuality)
+process.heavyIonTracking.remove(process.hiSelectedTracks)
 
 # =============== Output ================================
 #process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
@@ -131,7 +136,6 @@ process.heavyIonTracking.remove(process.hiGoodMergedTracks)
 
 process.schedule = cms.Schedule(
     process.eventFilter_step,
-    process.extraTrks_step, # extra track collections
     process.extraReco_step,
     process.extraTrks_step, # extra track collections
     process.extraCalo_step, # extrak track with calo-trk compatibility 
