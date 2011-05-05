@@ -396,7 +396,7 @@ HiTrackValidator::beginJob()
       hd0Overd0ErrPV_Cent.push_back(f->make<TH1F>("","d0/d0Error with PV error; d0/d0Error", 80,-10.0,10.0));
 
       hNvalidHitsdPt_Cent.push_back(f->make<TH2F>("","number of valid hits vs p_{T}; p_{T}; N_{hits}",150,0.0,150.0, nmaxhits,0.,(double)nmaxhits));
-      hChi2ndPt_Cent.push_back(f->make<TH2F>("","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 80,0.0,0.8));
+      hChi2ndPt_Cent.push_back(f->make<TH2F>("","normalized track chi2 vs p_{T}; p_{T};chi^{2}/ndofnormalized track", 150,0.0,150.0, 60,0.0,5.0));
       hRelPtErrdPt_Cent.push_back(f->make<TH2F>("","relative track p_{T} error vs p_{T}; p_{T}; p_{T} err/p_{T}", 150,0.0,150.0, 100,0.0,0.4));
       hdzPVdPt_Cent.push_back(f->make<TH2F>("","dz vs p_{T}; p_{T}; dz", 150,0.0,150.0, 100,-1.5,1.5));
       hd0PVdPt_Cent.push_back(f->make<TH2F>("","d0 vs p_{T}; p_{T}; d0r", 150,0.0,150.0, 100,-1.5,1.5));
