@@ -16,5 +16,9 @@ eventFilter = cms.Sequence(preTrgTest *
                            minBiasBscFilter *    # L1 and(or) HLT filter
                            postTrgTest *
                            collisionEventSelection * #
-                           postEvtSelTest)
+                           postEvtSelTest *
+                           spikeCleaning
+                           )
+                           
 
+jetEvtFilter = cms.Sequence(jetEtaSel)
