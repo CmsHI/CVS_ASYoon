@@ -41,3 +41,20 @@ hcalTimingFilter = cms.EDFilter("HcalTimingFilter",
 spikeCleaning = cms.Sequence(hiEcalRecHitSpikeFilter*
                              hbheReflagNewTimeEnv*
                              hcalTimingFilter)
+
+
+# =========== Jet Eta selector ===================
+barrelJets = cms.EDFilter("EtaPtMinCandViewSelector",
+                          src = cms.InputTag("iterativeConePu5CaloJets"),
+                          ptMin   = cms.double(0),
+                          etaMin = cms.double(-2),
+                          etaMax = cms.double(2)
+                          )
+
+jetFilter = cms.EDFilter("CandCountFilter",
+                         src = cms.InputTag("barrelJets"),
+                         minNumber = cms.uint32(1)
+                         )
+
+jetEtaSel = cms.Sequence(barrelJets *
+                         jetFilter)
