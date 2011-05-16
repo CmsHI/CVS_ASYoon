@@ -524,7 +524,8 @@ def usehiSelectedTracks(process):
 def enableHLTJet(process,hltname='HLT_HIJet50U'):
     process.hltJets.HLTPaths = [hltname]
     process.minBiasBscFilter.replace(process.hltMinBias,process.hltJets)
-    #process.collisionEventSelection *= process.spikeCleaning
+    process.spikeCleaning *= process.jetEvtFilter
+    print "Jet eta cut cleaning added!"
     print "Skim jet HLT path: ", process.hltJets.HLTPaths, "and minBiasBscFilter: ", process.minBiasBscFilter
     #print "Spike cleaning added"
     if hltname.find('Jet35U') >= 0:
