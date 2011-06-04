@@ -13,7 +13,7 @@ Implementation:
 //
 // Original Author:  Giuseppe Cerati
 //         Created:  Tue Jul 10 15:05:02 CEST 2007
-// $Id: VertexConstraintProducer.cc,v 1.1 2010/04/27 14:19:59 edwenger Exp $
+// $Id: VertexConstraintProducer.cc,v 1.2 2010/05/26 16:35:26 sungho Exp $
 //
 //
 
@@ -29,7 +29,7 @@ Implementation:
 #include "FWCore/Framework/interface/MakerMacros.h"
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
-#include "FWCore/ParameterSet/interface/InputTag.h"
+#include "FWCore/Utilities/interface/InputTag.h"
 #include "DataFormats/TrackReco/interface/Track.h"
 #include "DataFormats/TrackReco/interface/TrackFwd.h"
 #include "TrackingTools/PatternTools/interface/TrackConstraintAssociation.h"
