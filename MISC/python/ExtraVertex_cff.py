@@ -10,8 +10,8 @@ pixel3ProtoTracks = RecoPixelVertexing.PixelLowPtUtilities.AllPixelTracks_cfi.al
 pixel3ProtoTracks.passLabel = 'Pixel triplet tracks for vertexing'
 pixel3ProtoTracks.RegionFactoryPSet.ptMin = cms.double(0.2)
 
-#pixel3ProtoTracks.useFilterWithES = False
-#pixel3ProtoTracks.FilterPSet.ComponentName = 'none'
+pixel3ProtoTracks.useFilterWithES = False
+pixel3ProtoTracks.FilterPSet.ComponentName = 'none'
 
 ############################
 # Vertexing
