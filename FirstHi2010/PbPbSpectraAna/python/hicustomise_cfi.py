@@ -82,14 +82,23 @@ def enableEffOnly(process):
     process.hiAnalysisSeq.remove(process.hirefitTrackAna)
     return process
 
-def disableValidator(process):
+def disableValidatorForFake(process):
     print "track validator for fake only removed"
     process.hiAnalysisSeq.remove(process.hihightrkval_fakeOnly)
     process.hiAnalysisSeq.remove(process.higloosetrkval_fakeOnly)
     process.hiAnalysisSeq.remove(process.higoodtrkval_fakeOnly)
-    process.hiAnalysisSeq.remove(process.hihightrkval_fakeOnly)
-    process.hiAnalysisSeq.remove(process.higloosetrkval_fakeOnly)
-    process.hiAnalysisSeq.remove(process.higoodtrkval_fakeOnly)
+    return process
+
+def disableValidator(process):
+    print "track validator for fake only removed"
+    process.hiAnalysisSeq.remove(process.hihightrkval)
+    process.hiAnalysisSeq.remove(process.hihightrkval_pt80)
+    process.hiAnalysisSeq.remove(process.higloosetrkval)
+    process.hiAnalysisSeq.remove(process.higloosetrkval_pt80)
+    process.hiAnalysisSeq.remove(process.higoodtrkval)
+    process.hiAnalysisSeq.remove(process.higoodtrkval_pt80)
+    process.hiAnalysisSeq.remove(process.hipredttrkval)
+    process.hiAnalysisSeq.remove(process.hipredttrkval_pt80)
     return process
 
 def disableJetEtCutOnAna(process):
