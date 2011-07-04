@@ -8,6 +8,7 @@
 <use name=DataFormats/Common>
 <use name=CondFormats/HIObjects>
 <use name=SimDataFormats/GeneratorProducts>
+<use name=SimDataFormats/TrackingAnalysis>
 <flags EDM_PLUGIN=1>
 <export>
    <lib name=SpectraAnaGenSimSpectraValidator>
@@ -15,4 +16,5 @@
    <use name=FWCore/PluginManager>
    <use name=FWCore/ParameterSet>
    <use name=SimDataFormats/GeneratorProducts>
+   <use name=SimDataFormats/TrackingAnalysis>
 </export>

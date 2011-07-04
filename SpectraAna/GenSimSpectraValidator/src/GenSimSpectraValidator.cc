@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Sun Nov 21 14:51:53 CET 2010
-// $Id: GenSimSpectraValidator.cc,v 1.2 2010/11/21 21:07:44 sungho Exp $
+// $Id: GenSimSpectraValidator.cc,v 1.3 2011/01/20 20:04:12 sungho Exp $
 //
 //
 
@@ -85,7 +85,13 @@ GenSimSpectraValidator::analyze(const edm::Event& iEvent, const edm::EventSetup&
 
       if(fabs(sim.eta())>etaMax_) continue;
 
-      nt_sim->Fill(sim.eta(),sim.phi(),sim.pt(),sim.pdgId(),sim.status(),fabs(sim.vertex().z()),sqrt(sim.vertex().perp2()));
+      int parentId=0; 
+      if(sim.parentVertex()->nSourceTracks() > 0) { 
+	 parentId = (*(sim.parentVertex()->sourceTracks_begin()))->pdgId(); // PDG id of parent particle
+      } 
+
+      nt_sim->Fill(sim.eta(),sim.phi(),sim.pt(),sim.pdgId(),sim.status(),fabs(sim.vertex().z()),sqrt(sim.vertex().perp2()),
+		   sim.parentVertex()->nSourceTracks(),parentId);
    }
 
 
@@ -109,7 +115,7 @@ GenSimSpectraValidator::beginJob()
 {
    // tracks
    nt_gen = fs->make<TNtuple>("nt_gen","gen level information","geta:gphi:gpt:gpdgid");
-   nt_sim = fs->make<TNtuple>("nt_sim","sim level information","seta:sphi:spt:spdgid:sstatus:sdz:sd0");
+   nt_sim = fs->make<TNtuple>("nt_sim","sim level information","seta:sphi:spt:spdgid:sstatus:sdz:sd0:snptrk:sptrkid");
 
    // vertices
    //nt_sim_vtx = fs->make<TNtuple>("nt_sim_vtx","sim level vtx information","vx:vy:vz:pdgid:status");
