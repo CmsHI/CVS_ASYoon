@@ -9,6 +9,10 @@
 <use name=CondFormats/HIObjects>
 <use name=SimDataFormats/GeneratorProducts>
 <use name=SimDataFormats/TrackingAnalysis>
+<use name=SimTracker/Records>
+<use name=Geometry/TrackerGeometryBuilder>
+<use name=SimDataFormats/HepMCProduct>
+<use name=SimGeneral/HepPDTRecord>
 <flags EDM_PLUGIN=1>
 <export>
    <lib name=SpectraAnaGenSimSpectraValidator>
@@ -17,4 +21,8 @@
    <use name=FWCore/ParameterSet>
    <use name=SimDataFormats/GeneratorProducts>
    <use name=SimDataFormats/TrackingAnalysis>
+   <use name=SimTracker/Records>
+   <use name=Geometry/TrackerGeometryBuilder>
+   <use name=SimDataFormats/HepMCProduct>
+   <use name=SimGeneral/HepPDTRecord>
 </export>
