@@ -6,9 +6,9 @@
  * 
  * \author Paolo Azzurri, Giovanni Petrucciani 
  *
- * \version $Revision: 1.18 $
+ * \version $Revision: 1.19 $
  *
- * $Id: AnalyticalTrackSelector.h,v 1.18 2011/01/25 13:52:38 gpetrucc Exp $
+ * $Id: AnalyticalTrackSelector.h,v 1.19 2011/06/18 15:11:49 gpetrucc Exp $
  *
  */
 
@@ -53,8 +53,11 @@ namespace reco { namespace modules {
             /// source collection label
             edm::InputTag src_;
             edm::InputTag beamspot_;
+
+            /// use vertices (default = yes)
+            bool useVertices_;           
             edm::InputTag vertices_;
-            
+ 
             /// copy only the tracks, not extras and rechits (for AOD)
             bool copyExtras_;
             /// copy also trajectories and trajectory->track associations
@@ -66,9 +69,6 @@ namespace reco { namespace modules {
             bool setQualityBit_;
             TrackBase::TrackQuality qualityToSet_;
 
-	    double min_relpterr_;
-	    uint32_t min_nhits_;
-	    
             /// vertex cuts
             int32_t vtxNumber_;
             StringCutObjectSelector<reco::Vertex> vertexCut_;
