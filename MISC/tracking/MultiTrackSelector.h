@@ -65,6 +65,10 @@ namespace reco { namespace modules {
 	    std::vector<bool> setQualityBit_;
 	    std::vector<TrackBase::TrackQuality> qualityToSet_;
 
+	    // pterror and nvalid hits cuts
+	    std::vector<double> min_relpterr_;
+	    std::vector<uint32_t> min_nhits_;
+
             /// vertex cuts
 	    std::vector<int32_t> vtxNumber_;
 	    std::vector<StringCutObjectSelector<reco::Vertex> > vertexCut_;

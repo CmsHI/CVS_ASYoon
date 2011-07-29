@@ -20,6 +20,8 @@ MultiTrackSelector::MultiTrackSelector( const edm::ParameterSet & cfg ) :
   vtxNumber_.reserve(trkSelectors.size());
   vertexCut_.reserve(trkSelectors.size());
   res_par_.reserve(trkSelectors.size());
+  min_relpterr_.reserve(trkSelectors.size());
+  min_nhits_.reserve(trkSelectors.size());
   chi2n_par_.reserve(trkSelectors.size());
   d0_par1_.reserve(trkSelectors.size());
   dz_par1_.reserve(trkSelectors.size());
@@ -243,6 +245,14 @@ void MultiTrackSelector::produce( edm::Event& evt, const edm::EventSetup& es )
   double pt = tk.pt(), eta = tk.eta();
   double d0 = -tk.dxy(vertexBeamSpot.position()), d0E =  tk.d0Error(),
     dz = tk.dz(vertexBeamSpot.position()), dzE =  tk.dzError();
+
+
+  double relpterr = tk.ptError()/pt;
+  uint32_t nhits = tk.numberOfValidHits();
+
+  if(relpterr > min_relpterr_[tsNum]) return false;
+  if(nhits < min_nhits_[tsNum]) return false;
+  
 
   // parametrized d0 resolution for the track pt
   double nomd0E = sqrt(res_par_[tsNum][0]*res_par_[tsNum][0]+(res_par_[tsNum][1]/max(pt,1e-9))*(res_par_[tsNum][1]/max(pt,1e-9)));
