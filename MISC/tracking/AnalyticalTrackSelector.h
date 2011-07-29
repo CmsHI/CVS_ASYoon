@@ -69,6 +69,9 @@ namespace reco { namespace modules {
             bool setQualityBit_;
             TrackBase::TrackQuality qualityToSet_;
 
+	    double min_relpterr_;  
+	    uint32_t min_nhits_;
+
             /// vertex cuts
             int32_t vtxNumber_;
             StringCutObjectSelector<reco::Vertex> vertexCut_;

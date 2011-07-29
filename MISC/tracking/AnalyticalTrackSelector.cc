@@ -18,6 +18,9 @@ AnalyticalTrackSelector::AnalyticalTrackSelector( const edm::ParameterSet & cfg 
 		  false ),  // as this is what you expect from a well behaved selector
   setQualityBit_( false ),
   qualityToSet_( TrackBase::undefQuality ),
+  // parameters for pterror and nvalid hits  
+  min_relpterr_( cfg.getParameter<double>("min_relpterr") ),  
+  min_nhits_( cfg.getParameter<uint32_t>("min_nhits") ),  
   // parameters for vertex selection
   vtxNumber_( useVertices_ ? cfg.getParameter<int32_t>("vtxNumber") : 0),
   vertexCut_( useVertices_ ? cfg.getParameter<std::string>("vertexCut") : ""),
@@ -236,6 +239,12 @@ bool AnalyticalTrackSelector::select(const reco::BeamSpot &vertexBeamSpot, const
   double pt = tk.pt(), eta = tk.eta();
   double d0 = -tk.dxy(vertexBeamSpot.position()), d0E =  tk.d0Error(),
     dz = tk.dz(vertexBeamSpot.position()), dzE =  tk.dzError();
+
+  double relpterr = tk.ptError()/pt;  
+  uint32_t nhits = tk.numberOfValidHits();  
+   
+  if(relpterr > min_relpterr_) return false;  
+  if(nhits < min_nhits_) return false;
 
   // parametrized d0 resolution for the track pt
   double nomd0E = sqrt(res_par_[0]*res_par_[0]+(res_par_[1]/max(pt,1e-9))*(res_par_[1]/max(pt,1e-9)));

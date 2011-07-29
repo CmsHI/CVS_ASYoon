@@ -16,6 +16,10 @@ selectLoose = cms.EDProducer("AnalyticalTrackSelector",
     copyExtras = cms.untracked.bool(True), ## set to false on AOD
     qualityBit = cms.string('loose'), ## set to '' or comment out if you don't want to set the bit
 
+    # parameters for cutting on pterror/pt and number of valid hits
+    min_relpterr = cms.double(9999.),
+    min_nhits = cms.uint32(0),
+
     # parameters for adapted optimal cuts on chi2 and primary vertex compatibility
     chi2n_par = cms.double(1.6),
     res_par = cms.vdouble(0.003, 0.01),
