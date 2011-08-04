@@ -188,7 +188,25 @@ def runWithCaloTracks(process):
     process.higloosetrkEffAnalyzer.tracks = cms.untracked.InputTag('hiGoodLooseCaloTracks')
     process.hihightrkEffAnalyzer.tracks = cms.untracked.InputTag('hiHighPtCaloTracks')
     return process
-    
+
+def runWithIterTrk(process):
+    print "use tracking collections from iterative tracking"
+    process.hihightrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.higloosetrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.higoodtrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.hipredttrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.hipredztrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.hitrackAna.src = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.hitrackAna.src_evtCorr = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.higoodlooseAna.src = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.higoodlooseAna.src_evtCorr = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.hihightrackAna.src = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.hihightrackAna.src_evtCorr = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.higloosetrkEffAnalyzer.tracks = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    process.hihightrkEffAnalyzer.tracks = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    return process
+
     
 
 def runHiTrkRecoForPF(process):
