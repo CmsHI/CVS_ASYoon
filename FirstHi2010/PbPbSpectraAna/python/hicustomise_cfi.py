@@ -206,8 +206,12 @@ def runWithIterTrk(process):
     process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
     process.higloosetrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
     process.hihightrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
-    process.hitrkEffAnalyzer.useQaulityStr = cms.untracked.bool(False) # quality bit
-    process.hitrackAna.setQualityBit = cms.untracked.bool(False) # quality bit
+    process.higoodtrkval.useQaulityStr = cms.untracked.bool(False) # quality bit
+    process.higoodtrkval_pt80.useQaulityStr = cms.untracked.bool(False)
+    process.higoodtrkval_fake.useQaulityStr = cms.untracked.bool(False)
+    process.higoodtrkval_fake_pt80.useQaulityStr = cms.untracked.bool(False)
+    process.hitrkEffAnalyzer.useQaulityStr = cms.untracked.bool(False) 
+    process.hitrackAna.setQualityBit = cms.untracked.bool(False) 
     return process
     
 
