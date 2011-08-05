@@ -190,7 +190,7 @@ def runWithCaloTracks(process):
     return process
 
 def runWithIterTrk(process):
-    print "use tracking collections from iterative tracking"
+    print "use tracking collections from iterative tracking and remove quality bit"
     trkcoll = 'hiGeneralTracks'
     process.hihightrkval.trklabel=cms.untracked.InputTag(trkcoll)
     process.higloosetrkval.trklabel=cms.untracked.InputTag(trkcoll)
@@ -206,8 +206,9 @@ def runWithIterTrk(process):
     process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
     process.higloosetrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
     process.hihightrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
+    process.hitrkEffAnalyzer.useQaulityStr = cms.untracked.bool(False) # quality bit
+    process.hitrackAna.setQualityBit = cms.untracked.bool(False) # quality bit
     return process
-
     
 
 def runHiTrkRecoForPF(process):
