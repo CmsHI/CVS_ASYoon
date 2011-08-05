@@ -191,20 +191,21 @@ def runWithCaloTracks(process):
 
 def runWithIterTrk(process):
     print "use tracking collections from iterative tracking"
-    process.hihightrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.higloosetrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.higoodtrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.hipredttrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.hipredztrkval.trklabel=cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.hitrackAna.src = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.hitrackAna.src_evtCorr = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.higoodlooseAna.src = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.higoodlooseAna.src_evtCorr = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.hihightrackAna.src = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.hihightrackAna.src_evtCorr = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.higloosetrkEffAnalyzer.tracks = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
-    process.hihightrkEffAnalyzer.tracks = cms.untracked.InputTag("hiGeneralGlobalPrimTracks")
+    trkcoll = 'hiGeneralTracks'
+    process.hihightrkval.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higloosetrkval.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higoodtrkval.trklabel=cms.untracked.InputTag(trkcoll)
+    process.hipredttrkval.trklabel=cms.untracked.InputTag(trkcoll)
+    process.hipredztrkval.trklabel=cms.untracked.InputTag(trkcoll)
+    process.hitrackAna.src = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna.src_evtCorr = cms.untracked.InputTag(trkcoll)
+    process.higoodlooseAna.src = cms.untracked.InputTag(trkcoll)
+    process.higoodlooseAna.src_evtCorr = cms.untracked.InputTag(trkcoll)
+    process.hihightrackAna.src = cms.untracked.InputTag(trkcoll)
+    process.hihightrackAna.src_evtCorr = cms.untracked.InputTag(trkcoll)
+    process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
+    process.higloosetrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
+    process.hihightrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
     return process
 
     
