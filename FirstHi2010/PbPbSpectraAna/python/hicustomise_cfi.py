@@ -212,6 +212,7 @@ def runWithIterTrk(process):
     process.higoodtrkval_fake_pt80.useQaulityStr = cms.untracked.bool(False)
     process.hitrkEffAnalyzer.useQaulityStr = cms.untracked.bool(False) 
     process.hitrackAna.setQualityBit = cms.untracked.bool(False) 
+    process.hitrkEffAnalyzer.usePxlPair= cms.untracked.bool(True) # use pixel pair as accepted
     return process
     
 
