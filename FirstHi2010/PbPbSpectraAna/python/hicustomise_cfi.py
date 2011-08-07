@@ -61,6 +61,24 @@ def enableSIM(process):
     print "hltMinBias is removed from minBiasBscFilter check what's left:", process.minBiasBscFilter 
     return process
 
+
+def runWithLightCfg(process):
+    print "Light cfg: following modules are removed"
+    print "hihightrkval*, higloosetrkval*, hipredttrkval*"
+    print "hihightrackAna*, higoodlooseAna*"
+    process.hiAnalysisSeq.remove(process.hihightrkval)
+    process.hiAnalysisSeq.remove(process.hihightrkval_pt80)
+    process.hiAnalysisSeq.remove(process.higloosetrkval)
+    process.hiAnalysisSeq.remove(process.higloosetrkval_pt80)
+    process.hiAnalysisSeq.remove(process.hipredttrkval)
+    process.hiAnalysisSeq.remove(process.hipredttrkval_pt80)
+    process.hiAnalysisSeq.remove(process.hihightrackAna)
+    process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode1)
+    process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode2)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode1)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode2)
+    return process
     
 def enableEffOnly(process):
     process.hiAnalysisSeq.remove(process.hipxltrackAna)
@@ -100,6 +118,7 @@ def disableValidator(process):
     process.hiAnalysisSeq.remove(process.hipredttrkval)
     process.hiAnalysisSeq.remove(process.hipredttrkval_pt80)
     return process
+
 
 def disableJetEtCutOnAna(process):
     print "*_jetMode* analzyers are removed!"
