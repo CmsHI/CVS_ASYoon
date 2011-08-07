@@ -35,11 +35,11 @@ cvs co UserCode/edwenger/HiEvtSelAnalyzer
 # for jet
 # see  /UserCode/SavedFMa/Saved/QM11Ana/scripts for up-to-date package co
 cvs co -r V05-01-09 RecoJets/JetProducers
-cvs co		    RecoHI/HiJetAlgos
-cvs co -d	    Saved/QM11Ana UserCode/SavedFMa/Saved/QM11Ana
-cvs co -d	    Saved/DiJetAna UserCode/SavedFMa/Saved/DiJetAna
-cvs co -d	    MNguyen/InclusiveJetAnalyzer UserCode/MNguyen/InclusiveJetAnalyzer
-cvs co -d	    MitHig/PixelTrackletAnalyzer UserCode/MitHig/PixelTrackletAnalyzer
+cvs co    RecoHI/HiJetAlgos
+cvs co -d    Saved/QM11Ana UserCode/SavedFMa/Saved/QM11Ana
+cvs co -d    Saved/DiJetAna UserCode/SavedFMa/Saved/DiJetAna
+cvs co -d    MNguyen/InclusiveJetAnalyzer UserCode/MNguyen/InclusiveJetAnalyzer
+cvs co -d    MitHig/PixelTrackletAnalyzer UserCode/MitHig/PixelTrackletAnalyzer
 rm -rf MitHig/PixelTrackletAnalyzer/src/PixelHitAnalyzer.cc
 
 # centrality
@@ -54,6 +54,10 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
 cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
 #cvs co UserCode/edwenger/Skims/prod/condor # in case condor job scripts needed
+
+# needed for Matt's iterative tracking
+cvs co -d       MNguyen/iterTracking UserCode/MNguyen/iterTracking
+cvs co -r cmssw39x_branch -d CmsHi/JetAnalysis UserCode/CmsHi/JetAnalysis
 
 # needed for dijetana
 
