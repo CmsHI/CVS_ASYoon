@@ -44,6 +44,11 @@ cvs co -D "2011-03-30" UserCode/SavedFMa/Saved/DiJetAna # for < 399
 cvs co UserCode/SavedFMa/Saved/PatAlgos
 cvs co UserCode/SavedFMa/Saved/Skim
 
+# to replace ExtraReco_cff.py, which includes "TrackSelection_cff.py" in conflict
+cvs co UserCode/ASYoon/MISC/python/ExtraReco_cff.py
+cp UserCode/ASYoon/MISC/python/ExtraReco_cff.py Saved/DiJetAna/python
+
+
 # centrality
 # https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideHeavyIonCentrality
 cvs co CondFormats/HIObjects
