@@ -64,8 +64,10 @@ def enableSIM(process):
 
 def runWithLightCfg(process):
     print "Light cfg: following modules are removed"
-    print "hihightrkval*, higloosetrkval*, hipredttrkval*"
+    print "higoodtrkval*, hihightrkval*, higloosetrkval*, hipredttrkval*"
     print "hihightrackAna*, higoodlooseAna*"
+    process.hiAnalysisSeq.remove(process.higoodtrkval)
+    process.hiAnalysisSeq.remove(process.higoodtrkval_pt80)
     process.hiAnalysisSeq.remove(process.hihightrkval)
     process.hiAnalysisSeq.remove(process.hihightrkval_pt80)
     process.hiAnalysisSeq.remove(process.higloosetrkval)
