@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.17 $'),
+        version = cms.untracked.string('$Revision: 1.18 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkAnaSkim_data_2760GeV_cfg.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -74,7 +74,7 @@ from Saved.DiJetAna.customise_cfi import *
 enableRECO(process,"Data","HI")
 enableData(process)
 process.djcalo.verbosity = 1
-process.hiAnalysisSeq *= process.djcalo
+#process.hiAnalysisSeq *= process.djcalo
 
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
