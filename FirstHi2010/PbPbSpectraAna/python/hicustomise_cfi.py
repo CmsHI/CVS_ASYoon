@@ -77,9 +77,13 @@ def runWithLightCfg(process):
     process.hiAnalysisSeq.remove(process.hihightrackAna)
     process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode1)
     process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode2)
+    process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode3)
+    process.hiAnalysisSeq.remove(process.hihightrackAna_jetMode4)
     process.hiAnalysisSeq.remove(process.higoodlooseAna)
     process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode1)
     process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode2)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode3)
+    process.hiAnalysisSeq.remove(process.higoodlooseAna_jetMode4)
     return process
     
 def enableEffOnly(process):
