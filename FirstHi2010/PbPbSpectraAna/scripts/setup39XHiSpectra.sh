@@ -57,6 +57,12 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
 cvs co -r 1.9 UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator/python/hitrackvalidator_cfi.py # for <399
 
+# needed for Matt's iterative tracking
+cvs co -d       MNguyen/iterTracking UserCode/MNguyen/iterTracking
+cvs co -r cmssw39x_branch -d CmsHi/JetAnalysis UserCode/CmsHi/JetAnalysis
+cvs co    RecoHI/HiJetAlgos # jet - related, but needed for the above 
+cvs co -d    MNguyen/InclusiveJetAnalyzer UserCode/MNguyen/InclusiveJetAnalyzer # jet - related, but needed for the above
+
 
 # needed for dijetana
 
