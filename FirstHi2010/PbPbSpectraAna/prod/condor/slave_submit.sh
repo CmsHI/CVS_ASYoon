@@ -1,0 +1,1 @@
+./submitMergedJobData.sh HiItrTrkRerecoAnaSkim_data_2760GeV_cfg_VAL_MB.py list.txt /net/hisrv0001/home/y_alive/scratch1/spectra/firsthi2010/data/HCPR_ReAna_Rereco_IterTrk_test/new_condor_submit
