@@ -222,8 +222,12 @@ def runWithIterTrk(process):
     process.higoodtrkval.trklabel=cms.untracked.InputTag(trkcoll)
     process.hipredttrkval.trklabel=cms.untracked.InputTag(trkcoll)
     process.hipredztrkval.trklabel=cms.untracked.InputTag(trkcoll)
-    process.hitrackAna.src = cms.untracked.InputTag(trkcoll)
-    process.hitrackAna.src_evtCorr = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna.src = cms.untracked.InputTag(trkcoll)  # trkAna
+    process.hitrackAna_jetMode1.src = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna_jetMode2.src = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna.src_evtCorr = cms.untracked.InputTag(trkcoll) # event correction
+    process.hitrackAna_jetMode1.src_evtCorr = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna_jetMode2.src_evtCorr = cms.untracked.InputTag(trkcoll)
     process.higoodlooseAna.src = cms.untracked.InputTag(trkcoll)
     process.higoodlooseAna.src_evtCorr = cms.untracked.InputTag(trkcoll)
     process.hihightrackAna.src = cms.untracked.InputTag(trkcoll)
@@ -237,6 +241,8 @@ def runWithIterTrk(process):
     process.higoodtrkval_fake_pt80.useQaulityStr = cms.untracked.bool(False)
     process.hitrkEffAnalyzer.useQaulityStr = cms.untracked.bool(False) 
     process.hitrackAna.setQualityBit = cms.untracked.bool(False) 
+    process.hitrackAna_jetMode1.setQualityBit = cms.untracked.bool(False)
+    process.hitrackAna_jetMode2.setQualityBit = cms.untracked.bool(False)
     process.hitrkEffAnalyzer.usePxlPair= cms.untracked.bool(True) # use pixel pair as accepted
     return process
     
