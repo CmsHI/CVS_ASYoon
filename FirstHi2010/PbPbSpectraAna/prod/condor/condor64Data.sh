@@ -34,7 +34,7 @@ Log          = $ldir/$outfile.log
 Notify_user  = y_alive@mit.edu
 
 +AccountingGroup = "group_cmshi.sungho"
-transfer_input_files = $cfg
+transfer_input_files = $cfg,json.txt 
 should_transfer_files   = YES
 when_to_transfer_output = ON_EXIT
 
