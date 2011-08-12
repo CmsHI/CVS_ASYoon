@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(2))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(5))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V7HI::All' 
 
@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiItrTrkReRecoAnaSkim_mc_2760GeV_cfg_399.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -109,24 +109,23 @@ process.hiPixelAdaptiveVertex.TkFilterParameters.maxD0Significance = 100
 process.hiPixelAdaptiveVertex.useBeamConstraint = False
 process.hiPixelAdaptiveVertex.PVSelParameters.maxDistanceToBeam = 1.0
 
-
-# pf
-process.trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiGeneralGlobalPrimTracks")
+# PF
+process.trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiGeneralTracks")
 process.trackerDrivenElectronSeeds.UseQuality = cms.bool(False)
 process.HiParticleFlowRecoNoJets.remove(process.PFTowers) # not needed and in conflict
+
+# Calo compatible tracks
+process.load("FirstHi2010.PbPbSpectraAna.HiTrackSelection_cff")
+
 
 # =============== Pat jet in HI ========================
 process.load("Saved.QM11Ana.PatAna_cff") # something overlap with PF reco
 process.load("Saved.QM11Ana.Analyzers_cff")
 
 # =============== Final Paths =====================
-#process.reReco_step      = cms.Path(process.siPixelRecHits * process.hiPixelVertices * process.heavyIonTracking)
 process.reReco_step      = cms.Path(process.iterTracking_seq * process.HiParticleFlowRecoNoJets)
-#process.reReco_step      = cms.Path(process.iterTracking_seq)
 process.eventFilter_step = cms.Path(process.eventFilter)
-#process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
-#process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
-process.extraReco_step   = cms.Path(process.eventFilter * process.hiextraReco)
+process.extraReco_step   = cms.Path(process.eventFilter * process.hiGeneralCaloTracks) # calo-compatible tracks
 process.extraJets_step  = cms.Path(process.eventFilter * process.genPartons * process.hiPartons * process.icPu5patSequence)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq )
 
@@ -146,7 +145,8 @@ process = whichCentBinMode(process,options.centBins) # centrality binning
 #process = constraintOnLJetEta(process) # constraint on leading jet eta
 #process = useSubLeadingJet(process) # use sub leading jet
 #process = setMinPtforPF(process,10) # min pt for PF reco/ana
-process = runWithIterTrk(process) # use trk coll. from iterative trk
+#process = runWithIterTrk(process,"hiGeneralCaloTracks") # use trk coll. from iterative trk
+process = runWithIterTrk(process,"hiGeneralTracks")
 
 
 # =============== Output ================================
@@ -169,7 +169,6 @@ process = runWithIterTrk(process) # use trk coll. from iterative trk
 process.schedule = cms.Schedule(
     process.eventFilter_step,
     process.reReco_step,  # re-reconstruction with PR setup
-    #process.extraTrks_step, # extra track collections
     process.extraReco_step,
     process.extraJets_step,
     process.ana_step
