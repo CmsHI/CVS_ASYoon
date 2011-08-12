@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(50))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(2))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V7HI::All' 
 
@@ -52,8 +52,8 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.4 $'),
-            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkReRecoAnaSkim_mc_2760GeV_cfg_399.py,v $'),
+        version = cms.untracked.string('$Revision: 1.1 $'),
+            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiItrTrkReRecoAnaSkim_mc_2760GeV_cfg_399.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
@@ -66,7 +66,8 @@ process.load("FirstHi2010.PbPbSpectraAna.HiEventFilter_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiExtraReco_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiAnalysis_cff")
 
-# Matt's iterative tracking
+# Matt's iterative tracking and PF
+process.load('CmsHi.JetAnalysis.ExtraPfReco_cff')
 process.load('CmsHi.JetAnalysis.ExtraTrackReco_cff')
 process.load("RecoHI.HiTracking.secondStep_cff")  # pair-seeded step
 process.load("MNguyen.iterTracking.TrackSelections_cff")
@@ -96,8 +97,8 @@ process.iterTracking_seq = cms.Sequence(
     process.hiGoodTightTracks *
     process.secondStep *
     process.thirdStep *
-    process.trackCollectionMerging
-    #process.globalPrimTrackCollectionMerging
+    process.trackCollectionMerging *
+    process.globalPrimTrackCollectionMerging
     )
 
 ## Fixes to protect against large BS displacements (re-reco setup with PR)
@@ -109,16 +110,22 @@ process.hiPixelAdaptiveVertex.useBeamConstraint = False
 process.hiPixelAdaptiveVertex.PVSelParameters.maxDistanceToBeam = 1.0
 
 
+# pf
+process.trackerDrivenElectronSeeds.TkColList = cms.VInputTag("hiGeneralGlobalPrimTracks")
+process.trackerDrivenElectronSeeds.UseQuality = cms.bool(False)
+process.HiParticleFlowRecoNoJets.remove(process.PFTowers) # not needed and in conflict
+
 # =============== Pat jet in HI ========================
-process.load("Saved.QM11Ana.PatAna_cff")
+process.load("Saved.QM11Ana.PatAna_cff") # something overlap with PF reco
 process.load("Saved.QM11Ana.Analyzers_cff")
 
 # =============== Final Paths =====================
 #process.reReco_step      = cms.Path(process.siPixelRecHits * process.hiPixelVertices * process.heavyIonTracking)
-process.reReco_step      = cms.Path(process.iterTracking_seq)
+process.reReco_step      = cms.Path(process.iterTracking_seq * process.HiParticleFlowRecoNoJets)
+#process.reReco_step      = cms.Path(process.iterTracking_seq)
 process.eventFilter_step = cms.Path(process.eventFilter)
 #process.extraTrks_step   = cms.Path(process.eventFilter * process.hiextraTrack)
-##process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
+#process.extraReco_step   = cms.Path(process.eventFilter * (process.hiextraReco + process.hipfReReco))
 process.extraReco_step   = cms.Path(process.eventFilter * process.hiextraReco)
 process.extraJets_step  = cms.Path(process.eventFilter * process.genPartons * process.hiPartons * process.icPu5patSequence)
 process.ana_step         = cms.Path(process.eventFilter * process.hiAnalysisSeq )
