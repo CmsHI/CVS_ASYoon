@@ -39,10 +39,11 @@ CaloCompatibleTrackSelector::CaloCompatibleTrackSelector( const edm::ParameterSe
     srcPFCand_(cfg.getParameter<edm::InputTag>("srcPFCand")),
     applyCaloComp_(cfg.getUntrackedParameter<bool>("applyCaloComp")),
     thePtMin_(cfg.getUntrackedParameter<double>("ptMin",10.0)),
+    caloCut_(cfg.getUntrackedParameter<double>("caloCut",0.15)),
     copyExtras_(cfg.getUntrackedParameter<bool>("copyExtras", false)),
     copyTrajectories_(cfg.getUntrackedParameter<bool>("copyTrajectories", false)),
     hasSimInfo_(cfg.getUntrackedParameter<bool>("hasSimInfo_", false)),
-    funcCaloComp_(cfg.getParameter<std::string>("funcCaloComp")),
+    //funcCaloComp_(cfg.getParameter<std::string>("funcCaloComp")),
     useQaulityStr_(cfg.getUntrackedParameter<bool>("useQaulityStr")),
     qualityString_(cfg.getUntrackedParameter<std::string>("qualityString"))
 {
@@ -58,7 +59,7 @@ CaloCompatibleTrackSelector::CaloCompatibleTrackSelector( const edm::ParameterSe
       produces< TrajTrackAssociationCollection >().setBranchAlias( alias + "TrajectoryTrackAssociations");
    }
    
-   fCaloComp = new TF1("fCaloComp",funcCaloComp_.c_str(),0,200); // a function that defines track-calo (in)compatible region 
+   //fCaloComp = new TF1("fCaloComp",funcCaloComp_.c_str(),0,200); // a function that defines track-calo (in)compatible region 
 
 }
 
@@ -155,11 +156,9 @@ void CaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetu
 	     sum_calo = sum_ecal + sum_hcal; // add HCAL and ECAL cal sum
 	     
 	  }
-	  float compatible_calo = (fCaloComp->Eval(trk_pt)!=fCaloComp->Eval(trk_pt)) ? 0 : fCaloComp->Eval(trk_pt); // protect agains NaN
 	  if(trk_pt < thePtMin_) selTracks_->push_back(trk); // if pt< min pt, keep it
-	  else if(compatible_calo <= sum_calo) selTracks_->push_back(trk); // if calo sum > function(pt), keep it
+	  else if(caloCut_ <= sum_calo/trk_pt) selTracks_->push_back(trk); // if sum_calo/trk_pt > caloCut_, keep it!
 	  else LogDebug("CaloCompatibleTrackSelector")<<" rejected track pt = "<<trk_pt<<endl;
-	  //else std::cout<<" rejected track index = "<<i<<" pt = "<<trk_pt<<" with calo sum = "<<sum_calo<<" with function(pt) = "<<compatible_calo<<std::endl;     
        }
     }
     

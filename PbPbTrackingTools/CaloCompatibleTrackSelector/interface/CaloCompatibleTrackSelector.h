@@ -29,7 +29,7 @@
 #include "TrackingTools/PatternTools/interface/TrajTrackAssociation.h"
 
 // ROOT includes
-#include "TF1.h"
+//#include "TF1.h"
 
 namespace reco { namespace modules {
 
@@ -61,6 +61,7 @@ namespace reco { namespace modules {
 
 	    //
 	    double thePtMin_;
+	    double caloCut_;
 	    bool applyCaloComp_;
 
             /// copy only the tracks, not extras and rechits (for AOD)
@@ -75,7 +76,7 @@ namespace reco { namespace modules {
             bool hasSimInfo_;
 
 	    // string of functional form
-	    std::string funcCaloComp_;
+	    //std::string funcCaloComp_;
 	    
             /// save all the tracks
             //bool keepAllTracks_;
@@ -106,7 +107,7 @@ namespace reco { namespace modules {
 	    float sum_calo;
 	    
 	    // TF1         
-	    TF1 *fCaloComp;
+	    //TF1 *fCaloComp;
 
     };
 
