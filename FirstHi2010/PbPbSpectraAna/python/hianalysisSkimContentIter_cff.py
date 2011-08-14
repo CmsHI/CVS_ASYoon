@@ -42,14 +42,16 @@ analysisSkimContent = cms.PSet(
         'keep *_hiPixelMedianVertex_*_*',
         
         # full tracks
-        'keep recoTracks_hiGlobalPrimTracks_*_*',
-        'keep recoTracks_hiGeneralGlobalPrimTracks_*_*',
         'keep recoTracks_hiGeneralTracks_*_*',
         'keep recoTracks_hiSelectedTracks_*_*',
+        'keep recoTracks_hiGeneralHybridTracks_*_*',
+        #'keep recoTrackExtras_hiGeneralTracks_*_*',
+        #'keep recoTrackExtras_hiSelectedTracks_*_*',
+        #'keep recoTrackExtras_hiGeneralHybridTracks_*_*',
         #'keep recoTrackExtras_hiGlobalPrimTracks_*_*',
         #'keep recoTrackExtras_hiGeneralGlobalPrimTracks_*_*',
-        'keep recoTrackExtras_hiGeneralTracks_*_*',
-        'keep recoTrackExtras_hiSelectedTracks_*_*',
+        #'keep recoTrackExtras_hiGeneralTracks_*_*',
+        #'keep recoTrackExtras_hiSelectedTracks_*_*',
         
         # sim track matching
         'keep *_trackingParticleRecoTrackAsssociation_*_*',
