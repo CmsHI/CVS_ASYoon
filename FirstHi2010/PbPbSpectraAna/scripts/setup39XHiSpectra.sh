@@ -40,7 +40,8 @@ cvs co -r 1.22 UserCode/edwenger/HiTrkEffAnalyzer/python/hitrkEffAnalyzer_cfi.py
 # for jet
 # see  /UserCode/SavedFMa/Saved/Skim/scripts for up-to-date package co
 # also /UserCode/SavedFMa/Saved/DiJetAna/test/dijetAna_cfg.py
-cvs co -D "2011-03-30" UserCode/SavedFMa/Saved/DiJetAna # for < 399
+#cvs co -D "2011-03-30" UserCode/SavedFMa/Saved/DiJetAna # for < 399
+cvs co -d    Saved/DiJetAna UserCode/SavedFMa/Saved/DiJetAna 
 cvs co UserCode/SavedFMa/Saved/PatAlgos
 cvs co UserCode/SavedFMa/Saved/Skim
 
