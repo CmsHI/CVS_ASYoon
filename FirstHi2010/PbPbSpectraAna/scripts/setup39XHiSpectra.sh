@@ -47,7 +47,7 @@ cvs co UserCode/SavedFMa/Saved/Skim
 
 # to replace ExtraReco_cff.py, which includes "TrackSelection_cff.py" in conflict
 cvs co UserCode/ASYoon/MISC/python/ExtraReco_cff.py
-cp UserCode/ASYoon/MISC/python/ExtraReco_cff.py UserCode/SavedFMa/Saved/DiJetAna/python
+cp UserCode/ASYoon/MISC/python/ExtraReco_cff.py Saved/DiJetAna/python
 
 
 # centrality
