@@ -66,7 +66,7 @@ namespace reco { namespace modules {
 	    std::vector<TrackBase::TrackQuality> qualityToSet_;
 
 	    // pterror and nvalid hits cuts
-	    std::vector<double> min_relpterr_;
+	    std::vector<double> max_relpterr_;
 	    std::vector<uint32_t> min_nhits_;
 
             /// vertex cuts

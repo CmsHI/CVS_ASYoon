@@ -20,7 +20,7 @@ MultiTrackSelector::MultiTrackSelector( const edm::ParameterSet & cfg ) :
   vtxNumber_.reserve(trkSelectors.size());
   vertexCut_.reserve(trkSelectors.size());
   res_par_.reserve(trkSelectors.size());
-  min_relpterr_.reserve(trkSelectors.size());
+  max_relpterr_.reserve(trkSelectors.size());
   min_nhits_.reserve(trkSelectors.size());
   chi2n_par_.reserve(trkSelectors.size());
   d0_par1_.reserve(trkSelectors.size());
@@ -47,6 +47,8 @@ MultiTrackSelector::MultiTrackSelector( const edm::ParameterSet & cfg ) :
     vertexCut_.push_back( useVertices_ ? trkSelectors[i].getParameter<std::string>("vertexCut") : 0);
     //  parameters for adapted optimal cuts on chi2 and primary vertex compatibility
     res_par_.push_back(trkSelectors[i].getParameter< std::vector<double> >("res_par") );
+    max_relpterr_.push_back(trkSelectors[i].getParameter<double>("max_relpterr_"));
+    min_nhits_.push_back(trkSelectors[i].getParameter<int32_t>("min_nhits_"));
     chi2n_par_.push_back( trkSelectors[i].getParameter<double>("chi2n_par") );
     d0_par1_.push_back(trkSelectors[i].getParameter< std::vector<double> >("d0_par1"));
     dz_par1_.push_back(trkSelectors[i].getParameter< std::vector<double> >("dz_par1"));
@@ -250,7 +252,7 @@ void MultiTrackSelector::produce( edm::Event& evt, const edm::EventSetup& es )
   double relpterr = tk.ptError()/pt;
   uint32_t nhits = tk.numberOfValidHits();
 
-  if(relpterr > min_relpterr_[tsNum]) return false;
+  if(relpterr > max_relpterr_[tsNum]) return false;
   if(nhits < min_nhits_[tsNum]) return false;
   
 
