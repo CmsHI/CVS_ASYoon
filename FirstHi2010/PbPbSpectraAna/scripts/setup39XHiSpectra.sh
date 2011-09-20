@@ -42,8 +42,8 @@ cvs co -r 1.22 UserCode/edwenger/HiTrkEffAnalyzer/python/hitrkEffAnalyzer_cfi.py
 # also /UserCode/SavedFMa/Saved/DiJetAna/test/dijetAna_cfg.py
 #cvs co -D "2011-03-30" UserCode/SavedFMa/Saved/DiJetAna # for < 399
 cvs co -d    Saved/DiJetAna UserCode/SavedFMa/Saved/DiJetAna 
-cvs co UserCode/SavedFMa/Saved/PatAlgos
-cvs co UserCode/SavedFMa/Saved/Skim
+cvs co -d    Saved/PatAlgos UserCode/SavedFMa/Saved/PatAlgos
+cvs co -d    Saved/Skim UserCode/SavedFMa/Saved/Skim
 
 # to replace ExtraReco_cff.py, which includes "TrackSelection_cff.py" in conflict
 cvs co UserCode/ASYoon/MISC/python/ExtraReco_cff.py
@@ -76,6 +76,5 @@ cvs co -d    MNguyen/InclusiveJetAnalyzer UserCode/MNguyen/InclusiveJetAnalyzer 
 mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
 mv UserCode/ASYoon/FirstHi2010 .
-mv UserCode/SavedFMa/Saved .
 
 scram b
