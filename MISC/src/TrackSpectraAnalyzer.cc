@@ -94,32 +94,37 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
       reco::VertexCollection vtxs = *vtxsH;
 
       //----- loop over pat jets and store in a vector -----
-      edm::Handle<reco::CandidateView> jets;
-      iEvent.getByLabel(jsrc_,jets);
-      hNumJets->Fill(jets->size()); // check # of jets found in event
-      
-      vector<const reco::Candidate *> sortedJets;
+      Handle<std::vector<pat::Jet> > pjets;
+      iEvent.getByLabel(jsrc_, pjets);
+      hNumJets->Fill(pjets->size()); // check # of jets found in event
 
-      for(unsigned it=0; it<jets->size(); ++it){
-	 const reco::Candidate* jet = &((*jets)[it]);
-	 if(fabs(jet->eta())<6.5) { // jet is restircted |eta|<2.0 or 6.5 for both normalization and occupancy
-	    sortedJets.push_back(jet);
-	    sortByEtRef (&sortedJets);
+      vector<const pat::Jet *> sortedpJets;
+
+      for(unsigned it=0; it<pjets->size(); ++it){
+	 const pat::Jet* pjts = &((*pjets)[it]);
+	 if(fabs(pjts->eta())<6.5) { // jet is restircted |eta|<2.0 or 6.5 for both normalization and occupancy    
+	    sortedpJets.push_back( & *pjts);
+	    sortByEtRef (&sortedpJets);
 	 }
       }
-       
+      
       if(doJet_){ 
-	 for(unsigned it=0; it<sortedJets.size(); ++it){
-	    if(!histOnly_) nt_jet->Fill(sortedJets[it]->et(),sortedJets[it]->eta(),sortedJets[it]->phi(),
-					hltAccept_[0],hltAccept_[1],hltAccept_[2],hltAccept_[3],hltAccept_[4]); 
-	    if(fabs(sortedJets[it]->eta())>6.5) continue;  // see above |eta|<2.0 
-	    hJet0Pt->Fill(sortedJets[it]->et());
-	    hJet0Eta->Fill(sortedJets[it]->eta());
-	    hJet0PtNvtx->Fill(sortedJets[it]->et(),vtxs.size());
-	    hJet0PtRunN->Fill(sortedJets[it]->et(),iEvent.id().run());
-	    hJet0EtaPhiEt->Fill(sortedJets[it]->eta(),sortedJets[it]->phi(),sortedJets[it]->et());  
+	 for(unsigned it=0; it<sortedpJets.size(); ++it){
+
+	       double rawet = sortedpJets[it]->correctedJet("Uncorrected").et();
+	       double raweta = sortedpJets[it]->correctedJet("Uncorrected").eta();
+	       double rawphi = sortedpJets[it]->correctedJet("Uncorrected").phi();
+   
+	       //if(!histOnly_) nt_jet->Fill(sortedpJets[it]->et(),sortedpJets[it]->eta(),sortedpJets[it]->phi(),
+	       //hltAccept_[0],hltAccept_[1],hltAccept_[2],hltAccept_[3],hltAccept_[4]); 
+	    if(fabs(raweta)>6.5) continue;  // see above |eta|<2.0 
+	    hJet0Pt->Fill(rawet);
+	    hJet0Eta->Fill(raweta);
+	    hJet0PtNvtx->Fill(rawet,vtxs.size());
+	    hJet0PtRunN->Fill(rawet,iEvent.id().run());
+	    hJet0EtaPhiEt->Fill(raweta,rawphi,rawet);
 	    for(unsigned i=0;i<hltNames_.size();i++){
-	       if(hltAccept_[i]) hJet0Pt_Trig[i]->Fill(sortedJets[it]->et());
+	       if(hltAccept_[i]) hJet0Pt_Trig[i]->Fill(raweta);
 	    }
 	    break;             
 	 }                     
@@ -127,8 +132,8 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 
       // Get Leading jet energy
       unsigned index = 0; 
-      if(sortedJets.size()==0) leadJetEt_ = 0,leadJetEta_ = -999.; 
-      else leadJetEt_ = sortedJets[index]->et(), leadJetEta_ = sortedJets[index]->eta(); 
+      if(sortedpJets.size()==0) leadJetEt_ = 0,leadJetEta_ = -999.; 
+      else leadJetEt_ = sortedpJets[index]->correctedJet("Uncorrected").et(), leadJetEta_ = sortedpJets[index]->correctedJet("Uncorrected").eta();
       
       // Get multiplicity dist from track collection
       int mult = 0;
@@ -197,6 +202,8 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 	 if(mult==1) hNevt_mult1->Fill(evt_sel_eff);
 	 if(mult==2) hNevt_mult2->Fill(evt_sel_eff);
 	 if(mult==3) hNevt_mult3->Fill(evt_sel_eff);
+	 
+
 
       }// end of skip evt
 
