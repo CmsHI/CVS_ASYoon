@@ -1,7 +1,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Wed Apr 28 16:18:39 CEST 2010
-// $Id: TrackSpectraAnalyzer.cc,v 1.72 2011/09/16 12:47:11 sungho Exp $
+// $Id: TrackSpectraAnalyzer.cc,v 1.4 2011/09/21 13:53:21 sungho Exp $
 //
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
@@ -124,7 +124,7 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 	    hJet0PtRunN->Fill(rawet,iEvent.id().run());
 	    hJet0EtaPhiEt->Fill(raweta,rawphi,rawet);
 	    for(unsigned i=0;i<hltNames_.size();i++){
-	       if(hltAccept_[i]) hJet0Pt_Trig[i]->Fill(raweta);
+	       if(hltAccept_[i]) hJet0Pt_Trig[i]->Fill(rawet);
 	    }
 	    break;             
 	 }                     
