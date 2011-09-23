@@ -29,7 +29,7 @@ analysisSkimContent = cms.PSet(
         # jet
         #'keep *_towerMaker_*_*',
         'keep *_patJets_*_*',
-        'keep *_iterativeConePu5CaloJets_*_*',
+        #'keep *_iterativeConePu5CaloJets_*_*',
 
         # PF candidate
         #'keep recoPFClusters_*CAL_*_*',
@@ -43,10 +43,15 @@ analysisSkimContent = cms.PSet(
         
         # full tracks
         'keep recoTracks_hiGlobalPrimTracks_*_*',
+        'keep recoTracks_hiGeneralGlobalPrimTracks_*_*',
         'keep recoTracks_hiGeneralTracks_*_*',
         'keep recoTracks_hiGeneralCaloTracks_*_*',
-        'keep recoTracks_hiScndGoodTightTracks_*_*',
-        'keep recoTracks_hiThrdGoodTightTracks_*_*',
+        'keep recoTracks_hiSelectedTracks_*_*',
+
+        'keep recoTracks_hiPtDeptOptCaloFst_*_*',
+        'keep recoTracks_hiPtDeptOptCaloSnd_*_*',
+        'keep recoTracks_hiPtDepOptCaloTracks_*_*',
+
         #'keep recoTracks_hiSelectedTracks_*_*',
         #'keep recoTracks_hiGeneralHybridTracks_*_*',
         #'keep recoTrackExtras_hiGeneralTracks_*_*',
