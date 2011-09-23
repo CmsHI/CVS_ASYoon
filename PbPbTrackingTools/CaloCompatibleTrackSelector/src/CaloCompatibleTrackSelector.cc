@@ -46,7 +46,7 @@ CaloCompatibleTrackSelector::CaloCompatibleTrackSelector( const edm::ParameterSe
     qualityString_(cfg.getUntrackedParameter<std::string>("qualityString")),
     hasSimInfo_(cfg.getUntrackedParameter<bool>("hasSimInfo_", false)),
     funcCaloComp_(cfg.getParameter<std::string>("funcCaloComp")),
-    reverseSel_(cfg.getUntrackedParameter<bool>("reverseSel_"))
+    reverseSel_(cfg.getUntrackedParameter<bool>("reverseSel"))
 {
    
    std::string alias( cfg.getParameter<std::string>( "@module_label" ) );
