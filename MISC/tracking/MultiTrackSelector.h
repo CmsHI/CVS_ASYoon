@@ -52,14 +52,19 @@ namespace reco { namespace modules {
             bool select (unsigned tsNum,
 			 const reco::BeamSpot &vertexBeamSpot, 
 			 const reco::Track &tk, 
-			 const std::vector<Point> &points);
+			 const std::vector<Point> &points,
+			 std::vector< std::vector<double> > &vterr,
+			 std::vector< std::vector<double> > &vzerr);
             void selectVertices ( unsigned int tsNum,
 				  const reco::VertexCollection &vtxs, 
-				  std::vector<Point> &points);
+				  std::vector<Point> &points,
+				  std::vector< std::vector<double> > &vterr,
+				  std::vector< std::vector<double> > &vzerr);
             /// source collection label
             edm::InputTag src_;
             edm::InputTag beamspot_;
             bool          useVertices_;
+	    bool          useVtxError_; // not used if useVertices_ = false
             edm::InputTag vertices_;
             
             /// do I have to set a quality bit?

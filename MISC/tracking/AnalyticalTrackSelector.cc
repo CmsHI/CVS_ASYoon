@@ -137,9 +137,10 @@ void AnalyticalTrackSelector::produce( edm::Event& evt, const edm::EventSetup& e
   // Select good primary vertices for use in subsequent track selection
   edm::Handle<reco::VertexCollection> hVtx;
   std::vector<Point> points;
+  std::vector< std::vector<double> > vterr, vzerr;
   if (useVertices_) {
       evt.getByLabel(vertices_, hVtx);
-      selectVertices(0,*hVtx, points);
+      selectVertices(0,*hVtx, points, vterr, vzerr);
       // Debug 
       LogDebug("SelectVertex") << points.size() << " good pixel vertices";
   }
@@ -166,7 +167,7 @@ void AnalyticalTrackSelector::produce( edm::Event& evt, const edm::EventSetup& e
 
     LogTrace("TrackSelection") << "ready to check track with pt="<< trk.pt() ;
 
-    bool ok = select(0,vertexBeamSpot, trk, points);
+    bool ok = select(0,vertexBeamSpot, trk, points, vterr, vzerr);
     if (!ok) {
 
       LogTrace("TrackSelection") << "track with pt="<< trk.pt() << " NOT selected";
