@@ -6,9 +6,9 @@
  * 
  * \author David Lange
  *
- * \version $Revision: 1.2 $
+ * \version $Revision: 1.4 $
  *
- * $Id: MultiTrackSelector.h,v 1.2 2011/06/18 15:11:49 gpetrucc Exp $
+ * $Id: MultiTrackSelector.h,v 1.4 2011/09/26 23:01:52 dlange Exp $
  *
  */
 
@@ -39,14 +39,15 @@ namespace reco { namespace modules {
         private:
         public:
             /// constructor 
+	    explicit MultiTrackSelector() { }
             explicit MultiTrackSelector( const edm::ParameterSet & cfg ) ;
             /// destructor
             virtual ~MultiTrackSelector() ;
 
-        private:
+        protected:
             typedef math::XYZPoint Point;
             /// process one event
-            void produce( edm::Event& evt, const edm::EventSetup& es ) ;
+            virtual void produce( edm::Event& evt, const edm::EventSetup& es ) ;
             /// return class, or -1 if rejected
             bool select (unsigned tsNum,
 			 const reco::BeamSpot &vertexBeamSpot, 
@@ -64,10 +65,6 @@ namespace reco { namespace modules {
             /// do I have to set a quality bit?
 	    std::vector<bool> setQualityBit_;
 	    std::vector<TrackBase::TrackQuality> qualityToSet_;
-
-	    // pterror and nvalid hits cuts
-	    std::vector<double> max_relpterr_;
-	    std::vector<uint32_t> min_nhits_;
 
             /// vertex cuts
 	    std::vector<int32_t> vtxNumber_;
@@ -92,6 +89,10 @@ namespace reco { namespace modules {
 	    std::vector<uint32_t> min_layers_;
 	    std::vector<uint32_t> min_3Dlayers_;
 	    std::vector<uint32_t> max_lostLayers_;
+
+	    // pterror and nvalid hits cuts
+	    std::vector<double> max_relpterr_;
+	    std::vector<uint32_t> min_nhits_;
 	    
 	    // Flag and absolute cuts if no PV passes the selection
 	    std::vector<double> max_d0NoPV_;

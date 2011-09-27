@@ -12,10 +12,6 @@ looseMTS = cms.PSet(
     copyTrajectories = cms.untracked.bool(False),
     copyExtras = cms.untracked.bool(True), ## set to false on AOD
     qualityBit = cms.string('loose'), ## set to '' or comment out if you dont want to set the bit
-
-    # parameters for cutting on pterror/pt and number of valid hits
-    min_relpterr = cms.double(9999.),
-    min_nhits = cms.uint32(0),
     
     # parameters for adapted optimal cuts on chi2 and primary vertex compatibility
     chi2n_par = cms.double(1.6),
@@ -30,7 +26,7 @@ looseMTS = cms.PSet(
     # Impact parameter absolute cuts.
     max_d0 = cms.double(100.),
     max_z0 = cms.double(100.),
-    nSigmaZ = cms.double(3.),
+    nSigmaZ = cms.double(4.),
     
     # Cuts on numbers of layers with hits/3D hits/lost hits. 
     minNumberLayers = cms.uint32(0),
@@ -39,7 +35,12 @@ looseMTS = cms.PSet(
     
     # Absolute cuts in case of no PV. If yes, please define also max_d0NoPV and max_z0NoPV 
     applyAbsCutsIfNoPV = cms.bool(False),
-    keepAllTracks= cms.bool(False)
+    keepAllTracks= cms.bool(False),
+
+    # parameters for cutting on pterror/pt and number of valid hits
+    min_relpterr = cms.double(9999.),
+    min_nhits = cms.uint32(0)
+                             
     ) # end of pset
 
 tightMTS=looseMTS.clone(

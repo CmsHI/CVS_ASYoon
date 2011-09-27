@@ -16,10 +16,6 @@ selectLoose = cms.EDProducer("AnalyticalTrackSelector",
     copyExtras = cms.untracked.bool(True), ## set to false on AOD
     qualityBit = cms.string('loose'), ## set to '' or comment out if you don't want to set the bit
 
-    # parameters for cutting on pterror/pt and number of valid hits
-    min_relpterr = cms.double(9999.),
-    min_nhits = cms.uint32(0),
-
     # parameters for adapted optimal cuts on chi2 and primary vertex compatibility
     chi2n_par = cms.double(1.6),
     res_par = cms.vdouble(0.003, 0.01),
@@ -33,7 +29,7 @@ selectLoose = cms.EDProducer("AnalyticalTrackSelector",
     # Impact parameter absolute cuts.
     max_d0 = cms.double(100.),
     max_z0 = cms.double(100.),
-    nSigmaZ = cms.double(3.),
+    nSigmaZ = cms.double(4.),
 
     # Cuts on numbers of layers with hits/3D hits/lost hits. 
     minNumberLayers = cms.uint32(0),
@@ -41,8 +37,12 @@ selectLoose = cms.EDProducer("AnalyticalTrackSelector",
     maxNumberLostLayers = cms.uint32(999),
 
     # Absolute cuts in case of no PV. If yes, please define also max_d0NoPV and max_z0NoPV 
-    applyAbsCutsIfNoPV = cms.bool(False)
- 
+    applyAbsCutsIfNoPV = cms.bool(False),
+
+    # parameters for cutting on pterror/pt and number of valid hits
+    min_relpterr = cms.double(9999.),
+    min_nhits = cms.uint32(0),
+                             
 )
 
 
