@@ -53,13 +53,13 @@ namespace reco { namespace modules {
 			 const reco::BeamSpot &vertexBeamSpot, 
 			 const reco::Track &tk, 
 			 const std::vector<Point> &points,
-			 std::vector< std::vector<double> > &vterr,
-			 std::vector< std::vector<double> > &vzerr);
+			 std::vector<double> &vterr,
+			 std::vector<double> &vzerr);
             void selectVertices ( unsigned int tsNum,
 				  const reco::VertexCollection &vtxs, 
 				  std::vector<Point> &points,
-				  std::vector< std::vector<double> > &vterr,
-				  std::vector< std::vector<double> > &vzerr);
+				  std::vector<double> &vterr,
+				  std::vector<double> &vzerr);
             /// source collection label
             edm::InputTag src_;
             edm::InputTag beamspot_;

@@ -145,8 +145,8 @@ void MultiTrackSelector::produce( edm::Event& evt, const edm::EventSetup& es )
     edm::ValueMap<int>::Filler filler(*selTracksValueMap);
 
     std::vector<Point> points;
-    std::vector< std::vector<double> > vterr;
-    std::vector< std::vector<double> > vzerr;
+    std::vector<double> vterr;
+    std::vector<double> vzerr;
     if (useVertices_) selectVertices(i,*hVtx, points, vterr, vzerr);
 
     // Loop over tracks
@@ -210,8 +210,8 @@ void MultiTrackSelector::produce( edm::Event& evt, const edm::EventSetup& es )
 				 const reco::BeamSpot &vertexBeamSpot, 
 				 const reco::Track &tk, 
 				 const std::vector<Point> &points,
-				 std::vector< std::vector<double> > &vterr,
-				 std::vector< std::vector<double> > &vzerr) {
+				 std::vector<double> &vterr,
+				 std::vector<double> &vzerr) {
   // Decide if the given track passes selection cuts.
 
   using namespace std; 
@@ -292,8 +292,8 @@ void MultiTrackSelector::produce( edm::Event& evt, const edm::EventSetup& es )
     double dzPV = tk.dz(*point); //re-evaluate the dz with respect to the vertex position
     double d0PV = tk.dxy(*point); //re-evaluate the dxy with respect to the vertex position
     if(useVertices_ && useVtxError_){
-       double dzErrPV = sqrt(dzE*dzE+vzerr[tsNum][iv]*vzerr[tsNum][iv]); // include vertex error in z
-       double d0ErrPV = sqrt(d0E*d0E+vterr[tsNum][iv]*vterr[tsNum][iv]); // include vertex error in xy
+       double dzErrPV = sqrt(dzE*dzE+vzerr[iv]*vzerr[iv]); // include vertex error in z
+       double d0ErrPV = sqrt(d0E*d0E+vterr[iv]*vterr[iv]); // include vertex error in xy
        iv++;
        if (abs(dzPV) < dz_par1_[tsNum][0]*pow(nlayers,dz_par1_[tsNum][1])*nomdzE &&
 	   abs(dzPV) < dz_par2_[tsNum][0]*pow(nlayers,dz_par2_[tsNum][1])*dzErrPV &&
@@ -334,8 +334,8 @@ void MultiTrackSelector::produce( edm::Event& evt, const edm::EventSetup& es )
  void MultiTrackSelector::selectVertices(unsigned int tsNum, 
 					 const reco::VertexCollection &vtxs, 
 					 std::vector<Point> &points,
-					 std::vector< std::vector<double> > &vterr, 
-					 std::vector< std::vector<double> > &vzerr) {
+					 std::vector<double> &vterr, 
+					 std::vector<double> &vzerr) {
   // Select good primary vertices
   using namespace reco;
   int32_t toTake = vtxNumber_[tsNum]; 
@@ -347,8 +347,8 @@ void MultiTrackSelector::produce( edm::Event& evt, const edm::EventSetup& es )
     bool pass = vertexCut_[tsNum]( vtx );
     if( pass ) { 
       points.push_back(it->position()); 
-      vterr[tsNum].push_back(sqrt(it->yError()*it->xError()));
-      vzerr[tsNum].push_back(it->zError());
+      vterr.push_back(sqrt(it->yError()*it->xError()));
+      vzerr.push_back(it->zError());
       LogTrace("SelectVertex") << " SELECTED vertex with z position " << it->z();
       toTake--; if (toTake == 0) break;
     }

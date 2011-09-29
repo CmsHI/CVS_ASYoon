@@ -137,7 +137,7 @@ void AnalyticalTrackSelector::produce( edm::Event& evt, const edm::EventSetup& e
   // Select good primary vertices for use in subsequent track selection
   edm::Handle<reco::VertexCollection> hVtx;
   std::vector<Point> points;
-  std::vector< std::vector<double> > vterr, vzerr;
+  std::vector<double> vterr, vzerr;
   if (useVertices_) {
       evt.getByLabel(vertices_, hVtx);
       selectVertices(0,*hVtx, points, vterr, vzerr);
