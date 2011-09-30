@@ -1,7 +1,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Wed Apr 28 16:18:39 CEST 2010
-// $Id: TrackSpectraAnalyzer.cc,v 1.4 2011/09/21 13:53:21 sungho Exp $
+// $Id: TrackSpectraAnalyzer.cc,v 1.72 2011/09/16 12:47:11 sungho Exp $
 //
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
@@ -104,7 +104,8 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 	 const pat::Jet* pjts = &((*pjets)[it]);
 	 if(fabs(pjts->eta())<6.5) { // jet is restircted |eta|<2.0 or 6.5 for both normalization and occupancy    
 	    sortedpJets.push_back( & *pjts);
-	    sortByEtRef (&sortedpJets);
+	    //sortByEtRef (&sortedpJets);
+	    sortByRawEtRef (&sortedpJets); 
 	 }
       }
       
@@ -114,7 +115,8 @@ TrackSpectraAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 	       double rawet = sortedpJets[it]->correctedJet("Uncorrected").et();
 	       double raweta = sortedpJets[it]->correctedJet("Uncorrected").eta();
 	       double rawphi = sortedpJets[it]->correctedJet("Uncorrected").phi();
-   
+
+
 	       //if(!histOnly_) nt_jet->Fill(sortedpJets[it]->et(),sortedpJets[it]->eta(),sortedpJets[it]->phi(),
 	       //hltAccept_[0],hltAccept_[1],hltAccept_[2],hltAccept_[3],hltAccept_[4]); 
 	    if(fabs(raweta)>6.5) continue;  // see above |eta|<2.0 
@@ -337,7 +339,10 @@ TrackSpectraAnalyzer::beginJob()
    //for(jet =    5; jet <   1000-small; jet +=  20 ) jetBins.push_back(jet);
    //for(jet =    0; jet <   10-small; jet +=  10 ) jetBins.push_back(jet);
    //for(jet =    10; jet <   1000-small; jet +=  20 ) jetBins.push_back(jet);
-   for(jet =    0; jet <   1000-small; jet +=  20 ) jetBins.push_back(jet);   
+   //for(jet =    0; jet <   1000-small; jet +=  20 ) jetBins.push_back(jet);   
+   for(jet =    0; jet <   10-small; jet +=  10 ) jetBins.push_back(jet);
+   for(jet =    10; jet <   30-small; jet +=  20 ) jetBins.push_back(jet);  
+   for(jet =    30; jet <   1000-small; jet +=  15 ) jetBins.push_back(jet);
    jetBins.push_back(1020);
 
    // Defin Histograms
