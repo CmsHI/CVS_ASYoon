@@ -8,6 +8,8 @@ HiTrackMatchingAnalyzer::HiTrackMatchingAnalyzer(const edm::ParameterSet& iConfi
    trkFst_(iConfig.getUntrackedParameter<edm::InputTag>("trkFst")),
    trkSnd_(iConfig.getUntrackedParameter<edm::InputTag>("trkSnd")),
    etaMax_(iConfig.getUntrackedParameter<double>("etaMax")),
+   needTree_(iConfig.getUntrackedParameter<bool>("needTree")),
+   ptMinTree_(iConfig.getUntrackedParameter<double>("ptMinTree")),
    neededCentBins_(iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins")),
    centrality_(0)
 {
@@ -55,6 +57,12 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
       if(fabs(ptrk1.eta())>=etaMax_) continue;
       ntrk1_eta++;
 
+      // fill tree
+      if(needTree_ && ptrk1.pt()>ptMinTree_){
+	 nt_trk1->Fill(iEvent.id().run(),iEvent.id().event(),cbin,ptrk1.eta(),ptrk1.phi(),ptrk1.pt(),ptrk1.numberOfValidHits(),
+		       ptrk1.normalizedChi2(),ptrk1.ptError()/ptrk1.pt(),ptrk1.dzError(),ptrk1.d0Error());
+      }
+
       for(unsigned i=0;i<neededCentBins_.size()-1;i++){
 	 if(i==0){
 	    if(cbin<=neededCentBins_[i+1]){
@@ -73,6 +81,11 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
       const reco::Track & ptrk2 = (*trk2nd)[it2];
       if(fabs(ptrk2.eta())>=etaMax_) continue;
       ntrk2_eta++;
+
+      if(needTree_ && ptrk2.pt()>ptMinTree_){
+         nt_trk2->Fill(iEvent.id().run(),iEvent.id().event(),cbin,ptrk2.eta(),ptrk2.phi(),ptrk2.pt(),ptrk2.numberOfValidHits(),
+                       ptrk2.normalizedChi2(),ptrk2.ptError()/ptrk2.pt(),ptrk2.dzError(),ptrk2.d0Error());
+      }
 
       for(unsigned i=0;i<neededCentBins_.size()-1;i++){
          if(i==0){
@@ -112,6 +125,13 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
       // ----------------- matched tracks ---------------------------------
       if(matched){ 
 	 nmatched ++;  // increase counter
+
+	 // fill tree
+	 if(needTree_ && trk1.pt()>ptMinTree_){  // trk1 or trk 2 doesn't matter as there are identical
+	    nt_trk_mat->Fill(iEvent.id().run(),iEvent.id().event(),cbin,trk1.eta(),trk1.phi(),trk1.pt(),trk1.numberOfValidHits(),
+			     trk1.normalizedChi2(),trk1.ptError()/trk1.pt(),trk1.dzError(),trk1.d0Error());
+	 }
+
 	 for(unsigned i=0;i<neededCentBins_.size()-1;i++){
 	    if(i==0){
 	       if(cbin<=neededCentBins_[i+1]){
@@ -185,15 +205,11 @@ HiTrackMatchingAnalyzer::beginJob()
    ptBins.push_back(189.6);
 
    
-   //TFileDirectory subDir = fs->mkdir( "histColl" );
 
    for(unsigned i=0;i<neededCentBins_.size()-1;i++){
 
       hTrk1Pt_Cent.push_back( fs->make<TH1F>("","pt;p_{T} (GeV/c)",ptBins.size()-1, &ptBins[0]));
       hTrk2Pt_Cent.push_back( fs->make<TH1F>("","pt;p_{T} (GeV/c)",ptBins.size()-1, &ptBins[0]));
-
-      //hTrk1PtExcl_Cent.push_back( fs->make<TH1F>("","pt;p_{T} (GeV/c)",ptBins.size()-1, &ptBins[0]));
-      //hTrk2PtExcl_Cent.push_back( fs->make<TH1F>("","pt;p_{T} (GeV/c)",ptBins.size()-1, &ptBins[0]));
       hTrkPtMatch_Cent.push_back( fs->make<TH1F>("","pt;p_{T} (GeV/c)",ptBins.size()-1, &ptBins[0]));
 
       hTrk1FShare_Cent.push_back( fs->make<TH1F>("","f_{shared};shared fraction",100, 0.0, 1.2));
@@ -203,9 +219,6 @@ HiTrackMatchingAnalyzer::beginJob()
       if(i==0){
 	 hTrk1Pt_Cent[i]->SetName(Form("hTrk1Pt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));  
 	 hTrk2Pt_Cent[i]->SetName(Form("hTrk2Pt_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
-	 
-	 //hTrk1PtExcl_Cent[i]->SetName(Form("hTrk1PtExcl_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
-	 //hTrk2PtExcl_Cent[i]->SetName(Form("hTrk2PtExcl_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 hTrkPtMatch_Cent[i]->SetName(Form("hTrkPtMatch_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
 	 
 	 hTrk1FShare_Cent[i]->SetName(Form("hTrk1FShare_cbin%dto%d",neededCentBins_[i],neededCentBins_[i+1]));
@@ -213,9 +226,6 @@ HiTrackMatchingAnalyzer::beginJob()
       }else{
 	 hTrk1Pt_Cent[i]->SetName(Form("hTrk1Pt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hTrk2Pt_Cent[i]->SetName(Form("hTrk2Pt_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
-	 
-	 //hTrk1PtExcl_Cent[i]->SetName(Form("hTrk1PtExcl_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
-         //hTrk2PtExcl_Cent[i]->SetName(Form("hTrk2PtExcl_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 hTrkPtMatch_Cent[i]->SetName(Form("hTrkPtMatch_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
 	 
 	 hTrk1FShare_Cent[i]->SetName(Form("hTrk1FShare_cbin%dto%d",neededCentBins_[i]+1,neededCentBins_[i+1]));
@@ -223,7 +233,10 @@ HiTrackMatchingAnalyzer::beginJob()
       }
    }
 
-
+   nt_trk1    = fs->make<TNtuple>("nt_trk1","track 1 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
+   nt_trk2    = fs->make<TNtuple>("nt_trk2","track 2 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
+   nt_trk_mat = fs->make<TNtuple>("nt_trk_mat","matched track profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
+   
 }
 
 

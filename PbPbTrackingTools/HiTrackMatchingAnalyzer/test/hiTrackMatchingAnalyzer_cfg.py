@@ -32,7 +32,7 @@ process.MessageLogger.cerr = cms.untracked.PSet(
 )
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('step2 nevts:1'),
     name = cms.untracked.string('PyReleaseValidation')
     )
@@ -57,6 +57,9 @@ process.load("PbPbTrackingTools.HiTrackMatchingAnalyzer.hitrkMatchAnalyzer_cfi")
 process.hitrkMatchAnalyzer.trkFst = cms.untracked.InputTag('hiGlobalPrimTracks')
 #process.hitrkMatchAnalyzer.trkSnd = cms.untracked.InputTag('hiGlobalPrimTracks')
 process.hitrkMatchAnalyzer.trkSnd = cms.untracked.InputTag('hiSelectedTracks') 
+process.hitrkMatchAnalyzer.needTree = cms.untracked.bool(True)
+process.hitrkMatchAnalyzer.ptMinTree = cms.untracked.double(40) # only for pT>40
+
 
 # Additional output definition
 process.TFileService = cms.Service("TFileService",
