@@ -32,13 +32,13 @@ process.MessageLogger.cerr = cms.untracked.PSet(
 )
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('step2 nevts:1'),
     name = cms.untracked.string('PyReleaseValidation')
     )
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(30)
+    input = cms.untracked.int32(100)
     )
 
 process.options = cms.untracked.PSet(
@@ -55,10 +55,13 @@ process.source = cms.Source("PoolSource",
 # Track efficiency analyzer
 process.load("PbPbTrackingTools.HiTrackMatchingAnalyzer.hitrkMatchAnalyzer_cfi")
 process.hitrkMatchAnalyzer.trkFst = cms.untracked.InputTag('hiGlobalPrimTracks')
-#process.hitrkMatchAnalyzer.trkSnd = cms.untracked.InputTag('hiGlobalPrimTracks')
 process.hitrkMatchAnalyzer.trkSnd = cms.untracked.InputTag('hiSelectedTracks') 
 process.hitrkMatchAnalyzer.needTree = cms.untracked.bool(True)
 process.hitrkMatchAnalyzer.ptMinTree = cms.untracked.double(40) # only for pT>40
+process.hitrkMatchAnalyzer.checkHitMat = cms.untracked.bool(True)
+process.hitrkMatchAnalyzer.drMax = cms.untracked.double(0.01) # 0.005
+process.hitrkMatchAnalyzer.ptMinHitMat =  cms.untracked.double(40)
+
 
 
 # Additional output definition

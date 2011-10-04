@@ -71,6 +71,10 @@ class HiTrackMatchingAnalyzer : public edm::EDAnalyzer {
       bool needTree_;
       double ptMinTree_;
 
+      bool checkHitMat_; 
+      double drMax_;
+      double ptMinHitMat_;
+
       std::vector<int32_t> neededCentBins_;
 
       CentralityProvider * centrality_;
@@ -101,5 +105,6 @@ class HiTrackMatchingAnalyzer : public edm::EDAnalyzer {
       // root objects
       TNtuple *nt_trk1, *nt_trk2;
       TNtuple *nt_trk_mat;
+      TNtuple *nt_trk_cls; 
 
 };
