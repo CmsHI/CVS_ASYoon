@@ -10,6 +10,9 @@ HiTrackMatchingAnalyzer::HiTrackMatchingAnalyzer(const edm::ParameterSet& iConfi
    etaMax_(iConfig.getUntrackedParameter<double>("etaMax")),
    needTree_(iConfig.getUntrackedParameter<bool>("needTree")),
    ptMinTree_(iConfig.getUntrackedParameter<double>("ptMinTree")),
+   checkHitMat_(iConfig.getUntrackedParameter<bool>("checkHitMat")),
+   drMax_(iConfig.getUntrackedParameter<double>("drMax")),
+   ptMinHitMat_(iConfig.getUntrackedParameter<double>("ptMinHitMat")),
    neededCentBins_(iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins")),
    centrality_(0)
 {
@@ -35,10 +38,19 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
    // --------- Track 1 -------------------------------
    edm::Handle<std::vector<reco::Track> > trk1st;
    iEvent.getByLabel(trkFst_, trk1st);
-   
+
+   const reco::TrackCollection *TC1 = 0; 
+   TC1 = trk1st.product();
+   const reco::TrackCollection tC1 = *TC1;
+
    // --------- Track 2 -------------------------------
    edm::Handle<std::vector<reco::Track> > trk2nd;
    iEvent.getByLabel(trkSnd_, trk2nd);
+
+   const reco::TrackCollection *TC2 = 0;
+   TC2 = trk2nd.product();
+   const reco::TrackCollection tC2 = *TC2;
+
 
 
    int ntrk1_eta = 0; // number of tracks within kinematic region
@@ -148,6 +160,109 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
 
    } // track 1   
 
+   
+
+   // Hit level track matchin -------------------------------------
+   // -------------------------------------------------------------
+   // since track matcing is time cosuming, look at tracks with 
+   // certain kinematic range i.e. pT>40 GeV/c, |eta|<1.0, dR<0.005 
+   // and etc
+   // -------------------------------------------------------------
+   if(checkHitMat_){
+
+      // obtain rec hits
+      std::map<reco::TrackCollection::const_iterator, std::vector<const TrackingRecHit*> > rh1;
+      std::map<reco::TrackCollection::const_iterator, std::vector<const TrackingRecHit*> > rh2;
+      for (reco::TrackCollection::const_iterator track=tC1.begin(); track!=tC1.end(); ++track){
+	 trackingRecHit_iterator itB = track->recHitsBegin();
+	 trackingRecHit_iterator itE = track->recHitsEnd();
+	 for (trackingRecHit_iterator it = itB;  it != itE; ++it) { 
+	    const TrackingRecHit* hit = &(**it);
+	    rh1[track].push_back(hit);
+	 }
+      }
+
+      for (reco::TrackCollection::const_iterator track=tC2.begin(); track!=tC2.end(); ++track){
+	 trackingRecHit_iterator jtB = track->recHitsBegin();
+	 trackingRecHit_iterator jtE = track->recHitsEnd();
+	 for (trackingRecHit_iterator jt = jtB;  jt != jtE; ++jt) { 
+	    const TrackingRecHit* hit = &(**jt);
+	    rh2[track].push_back(hit);
+	 }
+      }
+
+      // track 1
+      for (reco::TrackCollection::const_iterator track=tC1.begin(); track!=tC1.end(); ++track){
+
+	 // kinematic cut
+	 if(fabs(track->eta())>=etaMax_ || track->pt()<ptMinHitMat_) continue;
+
+	 std::vector<const TrackingRecHit*>& iHits = rh1[track]; 
+	 unsigned nh1 = iHits.size();
+	 
+	 int counter=0;
+	 
+	 // track 2
+	 for (reco::TrackCollection::const_iterator track2=tC2.begin(); track2!=tC2.end(); ++track2){
+
+	    // kinematic cut
+	    if(fabs(track2->eta())>=etaMax_ || track2->pt()<ptMinHitMat_) continue;
+
+	    // dR requirement 
+	    float dphi = track->phi() - track2->phi();
+	    if(fabs(dphi)>(TMath::Pi()) && dphi>0) dphi = dphi - (float) 2.*TMath::Pi();
+	    if(fabs(dphi)>(TMath::Pi()) && dphi<0) dphi = dphi + (float) 2.*TMath::Pi();
+	    float deta = track->eta() - track2->eta();;
+	    float dr = TMath::Sqrt(dphi*dphi + deta*deta);
+
+	    //cout<<" pt1 = "<<track->pt()<<" pt 2 = "<<track2->pt()
+	    //<<" deta = "<<deta<<" dphi = "<<dphi<<" dr = "<<dr<<endl;
+
+	    if(dr>drMax_ || dr<0.00000000001) continue; // exclude self-matching
+	    counter++;
+
+	    std::vector<const TrackingRecHit*>& jHits = rh2[track2]; 
+	    unsigned nh2 = jHits.size();
+	    
+	    int noverlap=0; // number of overlap layers
+	    
+	    // check shared hits! 
+	    for ( unsigned ih=0; ih<nh1; ++ih ) {              // hits from trk1
+	       const TrackingRecHit* it = iHits[ih];
+	       if (it->isValid()){
+		  for ( unsigned jh=0; jh<nh2; ++jh ) {        // hits from trk2
+		     const TrackingRecHit* jt = jHits[jh];
+		     if (jt->isValid()){
+			if ( it->sharesInput(jt,TrackingRecHit::some) ) {
+			   noverlap++;
+			}
+		     }
+		  }
+	       }
+	    } // check shared hits
+	    
+	    //if(noverlap>2){
+	    //cout<<" dr = "<<dr<<" nhits1 = "<<track->numberOfValidHits()<<" nhits2 = "
+	    //<<track2->numberOfValidHits()<<" shared hits = "<<noverlap
+	    //<<" pt1 = "<<track->pt()<<" pt 2 = "<<track2->pt()<<endl;
+	    //}
+
+	    // ntuple filling
+	    if(needTree_) {
+	       nt_trk_cls->Fill(cbin, counter, track->eta(), track->phi(), track->pt(),
+				track2->eta(), track2->phi(), track2->pt(), dr, 
+				track->numberOfValidHits(), track2->numberOfValidHits(), noverlap,
+				track->normalizedChi2(), track2->normalizedChi2(),
+				std::max(track->ptError()/track->pt(),track2->ptError()/track2->pt()));
+	    }
+
+	 } // track 2 
+      } // track 1
+
+
+   } // checkHit
+
+
    // Summary -----------------------------------------
 
    fmatch1 = (ntrk1_eta==0) ? 999 : ((float) nmatched)/((float) ntrk1_eta);
@@ -167,12 +282,12 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
       }
    }
 
-   LogDebug("HiTrackMatchingAnalyzer")<<" Number of tracks in TC1 = "<<ntrk1_eta<<endl;
-   LogDebug("HiTrackMatchingAnalyzer")<<" Number of tracks in TC2 = "<<ntrk2_eta<<endl;
-   LogDebug("HiTrackMatchingAnalyzer")<<" Number of matched tracks = "<<nmatched<<endl;
+   //LogDebug("HiTrackMatchingAnalyzer")<<" Number of tracks in TC1 = "<<ntrk1_eta<<endl;
+   //LogDebug("HiTrackMatchingAnalyzer")<<" Number of tracks in TC2 = "<<ntrk2_eta<<endl;
+   //LogDebug("HiTrackMatchingAnalyzer")<<" Number of matched tracks = "<<nmatched<<endl;
 
-   LogDebug("HiTrackMatchingAnalyzer")<<" Fraction of matched track 1 = "<<fmatch1<<endl;
-   LogDebug("HiTrackMatchingAnalyzer")<<" Fraction of matched track 2 = "<<fmatch2<<endl;
+   //LogDebug("HiTrackMatchingAnalyzer")<<" Fraction of matched track 1 = "<<fmatch1<<endl;
+   //LogDebug("HiTrackMatchingAnalyzer")<<" Fraction of matched track 2 = "<<fmatch2<<endl;
 
 }
 
@@ -233,10 +348,13 @@ HiTrackMatchingAnalyzer::beginJob()
       }
    }
 
-   nt_trk1    = fs->make<TNtuple>("nt_trk1","track 1 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
-   nt_trk2    = fs->make<TNtuple>("nt_trk2","track 2 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
-   nt_trk_mat = fs->make<TNtuple>("nt_trk_mat","matched track profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
-   
+   if(needTree_){
+      nt_trk1    = fs->make<TNtuple>("nt_trk1","track 1 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
+      nt_trk2    = fs->make<TNtuple>("nt_trk2","track 2 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
+      nt_trk_mat = fs->make<TNtuple>("nt_trk_mat","matched track profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
+      nt_trk_cls = fs->make<TNtuple>("nt_trk_cls","closest track profile",
+				     "cent:counter:eta1:phi1:pt1:eta2:phi2:pt2:dr:nhits1:nhits2:nshared:chi2n1:chi2n2:pterr");
+   }
 }
 
 
