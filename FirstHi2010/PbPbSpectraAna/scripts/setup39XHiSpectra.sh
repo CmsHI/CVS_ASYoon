@@ -19,6 +19,7 @@ rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.cc
 rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.h
 rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.cc
 rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.h
+rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzerTree.cc
 
 # hcal spike cleaning
 addpkg RecoLocalCalo/HcalRecAlgos

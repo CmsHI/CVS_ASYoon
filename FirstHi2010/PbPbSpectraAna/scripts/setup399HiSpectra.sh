@@ -18,6 +18,7 @@ rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.cc
 rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.h
 rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.cc
 rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.h
+rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzerTree.cc
 
 # hcal spike cleaning
 addpkg RecoLocalCalo/HcalRecAlgos
@@ -65,3 +66,5 @@ cvs co -r cmssw39x_branch -d CmsHi/JetAnalysis UserCode/CmsHi/JetAnalysis
 mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
 mv UserCode/ASYoon/FirstHi2010 .
+
+scram b
