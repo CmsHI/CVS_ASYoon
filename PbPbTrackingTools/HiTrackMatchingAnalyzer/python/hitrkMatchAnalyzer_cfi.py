@@ -3,6 +3,8 @@ import FWCore.ParameterSet.Config as cms
 hitrkMatchAnalyzer = cms.EDAnalyzer('HiTrackMatchingAnalyzer',
       trkFst = cms.untracked.InputTag('hiSelectedTracks'),
       trkSnd = cms.untracked.InputTag('hiSelectedTracks'),
+      jetTags = cms.untracked.InputTag('patJets'),
+      jetEtCuts = cms.untracked.vdouble(110,9000), # select events with leading jet E within range
       etaMax = cms.untracked.double(1.0),
       needTree = cms.untracked.bool(False), # fill tree
       ptMinTree = cms.untracked.double(35.0), # fill tree only if pT>ptMinTree

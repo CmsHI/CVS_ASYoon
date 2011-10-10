@@ -7,7 +7,9 @@ HiTrackMatchingAnalyzer::HiTrackMatchingAnalyzer(const edm::ParameterSet& iConfi
    :
    trkFst_(iConfig.getUntrackedParameter<edm::InputTag>("trkFst")),
    trkSnd_(iConfig.getUntrackedParameter<edm::InputTag>("trkSnd")),
+   jetTags_(iConfig.getUntrackedParameter<edm::InputTag>("jets")),
    etaMax_(iConfig.getUntrackedParameter<double>("etaMax")),
+   jetEtCuts_(iConfig.getUntrackedParameter<std::vector<double> >("jetEtCuts")),
    needTree_(iConfig.getUntrackedParameter<bool>("needTree")),
    ptMinTree_(iConfig.getUntrackedParameter<double>("ptMinTree")),
    checkHitMat_(iConfig.getUntrackedParameter<bool>("checkHitMat")),
@@ -34,6 +36,29 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
    centrality_ = new CentralityProvider(iSetup);
    centrality_->newEvent(iEvent,iSetup);
    int cbin = centrality_->getBin();
+
+   //-------- jet --------------------------------
+   float leadJetEt_ = 0.0, leadJetEta_=-999.0;
+
+   edm::Handle<std::vector<pat::Jet> > jets;
+   iEvent.getByLabel(jetTags_, jets);
+
+   vector<const reco::Candidate *> sortedJets;     
+         
+   for(unsigned it=0; it<jets->size(); ++it){
+      const reco::Candidate* jet = &((*jets)[it]);
+      sortedJets.push_back(jet);
+      sortByEtRef (&sortedJets);
+   }
+
+   for(unsigned it=0; it<sortedJets.size(); ++it){
+      if(fabs(sortedJets[it]->eta())>2.0) continue;
+      leadJetEt_  = sortedJets[it]->et(), leadJetEta_ = sortedJets[it]->eta();
+      break;
+   }
+
+   // Placing jet Et cuts such that the events are reqiured to have jet ET:[low,high]
+   if(jetEtCuts_.size()!=0 && (leadJetEt_<jetEtCuts_[0] || leadJetEt_>=jetEtCuts_[1])) return;
 
    // --------- Track 1 -------------------------------
    edm::Handle<std::vector<reco::Track> > trk1st;
@@ -72,7 +97,7 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
       // fill tree
       if(needTree_ && ptrk1.pt()>ptMinTree_){
 	 nt_trk1->Fill(iEvent.id().run(),iEvent.id().event(),cbin,ptrk1.eta(),ptrk1.phi(),ptrk1.pt(),ptrk1.numberOfValidHits(),
-		       ptrk1.normalizedChi2(),ptrk1.ptError()/ptrk1.pt(),ptrk1.dzError(),ptrk1.d0Error());
+		       ptrk1.normalizedChi2(),ptrk1.ptError()/ptrk1.pt(),ptrk1.dzError(),ptrk1.d0Error(),ptrk1.algo());
       }
 
       for(unsigned i=0;i<neededCentBins_.size()-1;i++){
@@ -96,7 +121,7 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
 
       if(needTree_ && ptrk2.pt()>ptMinTree_){
          nt_trk2->Fill(iEvent.id().run(),iEvent.id().event(),cbin,ptrk2.eta(),ptrk2.phi(),ptrk2.pt(),ptrk2.numberOfValidHits(),
-                       ptrk2.normalizedChi2(),ptrk2.ptError()/ptrk2.pt(),ptrk2.dzError(),ptrk2.d0Error());
+                       ptrk2.normalizedChi2(),ptrk2.ptError()/ptrk2.pt(),ptrk2.dzError(),ptrk2.d0Error(),ptrk2.algo());
       }
 
       for(unsigned i=0;i<neededCentBins_.size()-1;i++){
@@ -141,7 +166,7 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
 	 // fill tree
 	 if(needTree_ && trk1.pt()>ptMinTree_){  // trk1 or trk 2 doesn't matter as there are identical
 	    nt_trk_mat->Fill(iEvent.id().run(),iEvent.id().event(),cbin,trk1.eta(),trk1.phi(),trk1.pt(),trk1.numberOfValidHits(),
-			     trk1.normalizedChi2(),trk1.ptError()/trk1.pt(),trk1.dzError(),trk1.d0Error());
+			     trk1.normalizedChi2(),trk1.ptError()/trk1.pt(),trk1.dzError(),trk1.d0Error(),trk1.algo());
 	 }
 
 	 for(unsigned i=0;i<neededCentBins_.size()-1;i++){
@@ -349,9 +374,9 @@ HiTrackMatchingAnalyzer::beginJob()
    }
 
    if(needTree_){
-      nt_trk1    = fs->make<TNtuple>("nt_trk1","track 1 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
-      nt_trk2    = fs->make<TNtuple>("nt_trk2","track 2 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
-      nt_trk_mat = fs->make<TNtuple>("nt_trk_mat","matched track profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E");
+      nt_trk1    = fs->make<TNtuple>("nt_trk1","track 1 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E:algo");
+      nt_trk2    = fs->make<TNtuple>("nt_trk2","track 2 profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E:algo");
+      nt_trk_mat = fs->make<TNtuple>("nt_trk_mat","matched track profile","run:evt:cent:eta:phi:pt:nhits:chi2n:pterr:dzE:d0E:algo");
       nt_trk_cls = fs->make<TNtuple>("nt_trk_cls","closest track profile",
 				     "cent:counter:eta1:phi1:pt1:eta2:phi2:pt2:dr:nhits1:nhits2:nshared:chi2n1:chi2n2:pterr");
    }

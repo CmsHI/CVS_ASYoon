@@ -65,9 +65,11 @@ class HiTrackMatchingAnalyzer : public edm::EDAnalyzer {
       // ----------member data ---------------------------
       edm::InputTag trkFst_;
       edm::InputTag trkSnd_;
+      edm::InputTag jetTags_;
 
       double etaMax_;
-      
+      std::vector<double> jetEtCuts_;
+
       bool needTree_;
       double ptMinTree_;
 
