@@ -38,6 +38,20 @@
 #include "DataFormats/SiPixelDetId/interface/PXFDetId.h"
 #include "DataFormats/SiPixelDetId/interface/PixelEndcapName.h"
 
+// SiStrip Cluster ana
+#include "DataFormats/Common/interface/DetSet.h"
+#include "DataFormats/Common/interface/DetSetVector.h"
+#include "DataFormats/Common/interface/DetSetVectorNew.h"
+
+#include "DataFormats/SiStripCluster/interface/SiStripCluster.h"
+#include "DataFormats/SiStripCluster/interface/SiStripClusterCollection.h"
+
+#include "DataFormats/SiStripDetId/interface/StripSubdetector.h"
+#include "DataFormats/SiStripDetId/interface/TIBDetId.h"
+#include "DataFormats/SiStripDetId/interface/TOBDetId.h"
+#include "DataFormats/SiStripDetId/interface/TIDDetId.h"
+#include "DataFormats/SiStripDetId/interface/TECDetId.h" 
+
 // centrality
 #include "DataFormats/HeavyIonEvent/interface/CentralityProvider.h"
 
@@ -66,6 +80,7 @@ class HiTrackMatchingAnalyzer : public edm::EDAnalyzer {
       edm::InputTag trkFst_;
       edm::InputTag trkSnd_;
       edm::InputTag jetTags_;
+      edm::InputTag siStripClst_;
 
       double etaMax_;
       std::vector<double> jetEtCuts_;
@@ -76,6 +91,8 @@ class HiTrackMatchingAnalyzer : public edm::EDAnalyzer {
       bool checkHitMat_; 
       double drMax_;
       double ptMinHitMat_;
+
+      bool needClusterAna_;
 
       std::vector<int32_t> neededCentBins_;
 

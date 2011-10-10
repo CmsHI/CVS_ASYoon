@@ -9,6 +9,8 @@
 <use name=SimTracker/Records>
 <use name=SimTracker/TrackAssociation>
 <use name=DataFormats/HeavyIonEvent>
+<use name=DataFormats/SiStripDetId>
+<use name=CondFormats/SiStripObjects>
 <flags EDM_PLUGIN=1>
 <export>
    <lib name=PbPbTrackingToolsHiTrackMatchingAnalyzer>

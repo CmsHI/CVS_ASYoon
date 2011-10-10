@@ -8,6 +8,7 @@ HiTrackMatchingAnalyzer::HiTrackMatchingAnalyzer(const edm::ParameterSet& iConfi
    trkFst_(iConfig.getUntrackedParameter<edm::InputTag>("trkFst")),
    trkSnd_(iConfig.getUntrackedParameter<edm::InputTag>("trkSnd")),
    jetTags_(iConfig.getUntrackedParameter<edm::InputTag>("jetTags")),
+   siStripClst_(iConfig.getUntrackedParameter<edm::InputTag>("siStripClst")),
    etaMax_(iConfig.getUntrackedParameter<double>("etaMax")),
    jetEtCuts_(iConfig.getUntrackedParameter<std::vector<double> >("jetEtCuts")),
    needTree_(iConfig.getUntrackedParameter<bool>("needTree")),
@@ -15,6 +16,7 @@ HiTrackMatchingAnalyzer::HiTrackMatchingAnalyzer(const edm::ParameterSet& iConfi
    checkHitMat_(iConfig.getUntrackedParameter<bool>("checkHitMat")),
    drMax_(iConfig.getUntrackedParameter<double>("drMax")),
    ptMinHitMat_(iConfig.getUntrackedParameter<double>("ptMinHitMat")),
+   needClusterAna_(iConfig.getUntrackedParameter<bool>("needClusterAna")),
    neededCentBins_(iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins")),
    centrality_(0)
 {
@@ -59,6 +61,38 @@ HiTrackMatchingAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
 
    // Placing jet Et cuts such that the events are reqiured to have jet ET:[low,high]
    if(jetEtCuts_.size()!=0 && (leadJetEt_<jetEtCuts_[0] || leadJetEt_>=jetEtCuts_[1])) return;
+
+   //-------- cluster ana -----------------------------
+   if(needClusterAna_){
+      edm::Handle<edmNew::DetSetVector<SiStripCluster> > clusters;
+      edm::InputTag clusLabel("siStripClusters");
+      iEvent.getByLabel(siStripClst_, clusters);
+
+      edmNew::DetSetVector<SiStripCluster>::const_iterator itClusters = clusters->begin();
+      for ( ; itClusters != clusters->end(); ++itClusters ){
+
+	 for ( edmNew::DetSet<SiStripCluster>::const_iterator clus =itClusters->begin(); clus != itClusters->end(); ++clus){
+	    DetId  detId(itClusters->id());
+	    SiStripDetId a(detId);
+	    int tiblayer =0;
+
+	    // select TIB { TIB=3,TID=4,TOB=5,TEC=6 } 
+	    if (a.subdetId() == 3 ) { 
+	       tiblayer = TIBDetId(detId).layer();
+	       if(tiblayer==1){ // 1st layer only
+		  cout<<"Size of the cluster in the 1st layer = "<<clus->amplitudes().size()<<endl;
+	       }else if(tiblayer==2){
+		  //
+	       }else if(tiblayer==3){
+		  //
+	       }
+	    }// sub-detector
+	 }
+      }
+
+
+   } // end of needClusterAna_
+
 
    // --------- Track 1 -------------------------------
    edm::Handle<std::vector<reco::Track> > trk1st;
