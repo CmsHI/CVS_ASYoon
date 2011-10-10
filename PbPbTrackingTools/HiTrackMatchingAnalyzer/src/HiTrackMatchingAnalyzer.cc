@@ -7,7 +7,7 @@ HiTrackMatchingAnalyzer::HiTrackMatchingAnalyzer(const edm::ParameterSet& iConfi
    :
    trkFst_(iConfig.getUntrackedParameter<edm::InputTag>("trkFst")),
    trkSnd_(iConfig.getUntrackedParameter<edm::InputTag>("trkSnd")),
-   jetTags_(iConfig.getUntrackedParameter<edm::InputTag>("jets")),
+   jetTags_(iConfig.getUntrackedParameter<edm::InputTag>("jetTags")),
    etaMax_(iConfig.getUntrackedParameter<double>("etaMax")),
    jetEtCuts_(iConfig.getUntrackedParameter<std::vector<double> >("jetEtCuts")),
    needTree_(iConfig.getUntrackedParameter<bool>("needTree")),
