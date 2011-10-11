@@ -28,6 +28,8 @@
 #include "TrackingTools/PatternTools/interface/Trajectory.h"
 #include "TrackingTools/PatternTools/interface/TrajTrackAssociation.h"
 
+#include "DataFormats/CaloTowers/interface/CaloTowerCollection.h"
+
 // ROOT includes
 #include "TF1.h"
 
@@ -46,6 +48,8 @@ namespace reco { namespace modules {
     /// process one event
     void produce( edm::Event& evt, const edm::EventSetup& es ) ;
     
+    void matchByDrAllowReuse(const reco::Track & trk, const edm::Handle<CaloTowerCollection> & towers, float & bestdr, int & ibest);
+    void matchByConeAllowReuse(const reco::Track & trk, const edm::Handle<CaloTowerCollection> & towers, float & bestpt, int & ibest);
     /// return class, or -1 if rejected
     //bool isCaloCompatible(float pt, float et);
     

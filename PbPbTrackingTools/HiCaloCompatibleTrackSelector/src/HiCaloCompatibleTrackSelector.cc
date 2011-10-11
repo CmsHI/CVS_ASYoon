@@ -74,6 +74,43 @@ reverseSel_(cfg.getUntrackedParameter<bool>("reverseSel"))
 HiCaloCompatibleTrackSelector::~HiCaloCompatibleTrackSelector() {
 }
 
+
+void HiCaloCompatibleTrackSelector::matchByDrAllowReuse(const reco::Track & trk, const edm::Handle<CaloTowerCollection> & towers, float & bestdr, int & ibest)
+{
+  // loop over towers
+  bestdr=1e10;
+  ibest=-1;
+  for(unsigned int i = 0; i < towers->size(); ++i){
+    const CaloTower & tower= (*towers)[i];
+    if (tower.pt()>towerPtMin_) continue;
+    if (fabs(tower.eta())>trkEtaMax_) continue;
+    float dr = reco::deltaR(tower,trk);
+    if (dr<bestdr) {
+      bestdr = dr;
+      ibest = i;
+    }
+  }
+}
+
+void HiCaloCompatibleTrackSelector::matchByConeAllowReuse(const reco::Track & trk, const edm::Handle<CaloTowerCollection> & towers, float & bestpt, int & ibest)
+{
+  // loop over towers
+  bestpt=-1;
+  ibest=-1;
+  for(unsigned int i = 0; i < towers->size(); ++i){
+    const CaloTower & tower= (*towers)[i];
+    if (tower.pt()>towerPtMin_) continue;
+    if (fabs(tower.eta())>trkEtaMax_) continue;
+    float dr = reco::deltaR(tower,trk);
+    if (dr>matchDR_) continue;
+    // choose highest pt in cone
+    if (tower.pt()>bestpt) {
+      bestpt = tower.pt();
+      ibest = i;
+    }
+  }
+}
+
 void HiCaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSetup& es ) 
 {
   using namespace std; 
@@ -113,26 +150,13 @@ void HiCaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSe
       
     }else{
       
-      // loop over towers
-      float bestpt=-1;
-      int ibest=-1;
-      for(unsigned int i = 0; i < towers->size(); ++i){
-        const CaloTower & tower= (*towers)[i];
-        if (tower.pt()>towerPtMin_) continue;
-        if (fabs(tower.eta())>trkEtaMax_) continue;
-        float dr = reco::deltaR(tower,trk);
-        if (dr>matchDR_) continue;
-        // choose highest pt in cone
-        if (tower.pt()>bestpt) {
-          bestpt = tower.pt();
-          ibest = i;
-        }
-      }
-      
+      float matchDr;
+      int matchIndex;
+      matchByDrAllowReuse(trk,towers,matchDr,matchIndex);
       
       bool keepIt = false;
       
-      if (bestpt>0) keepIt = true;
+      if (matchDr<0.087) keepIt = true;
         
 //      if(applyPtDepCut_){
 //        float caloCut_pt = (fCaloComp->Eval(trk_pt)!=fCaloComp->Eval(trk_pt)) ? 0 : fCaloComp->Eval(trk_pt); // protect agains NaN
