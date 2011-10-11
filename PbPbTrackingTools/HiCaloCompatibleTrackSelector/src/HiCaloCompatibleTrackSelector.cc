@@ -160,19 +160,19 @@ void HiCaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSe
       
       bool keepIt = false;
       
-      if (matchDr<matchConeRadius_&&(matchPt/trk.pt()>caloCut_)) keepIt = true;
+      //if (matchDr<matchConeRadius_&&(matchPt/trk.pt()>caloCut_)) keepIt = true;
         
-//      if(applyPtDepCut_){
-//        float caloCut_pt = (fCaloComp->Eval(trk_pt)!=fCaloComp->Eval(trk_pt)) ? 0 : fCaloComp->Eval(trk_pt); // protect agains NaN
-//        if (caloCut_pt <= sum_calo/trk_pt) keepIt = true; // keep it if calo-compatible
-//      }else{
-//        if(trk_pt < thePtMin_) keepIt = true; // if pt< min pt, keep it
-//        else if(caloCut_ <= sum_calo/trk_pt) keepIt = true;
-//      }
-//      
-//      if(reverseSel_) keepIt = (!keepIt); // reverse the selection 
-//      
-//      if(keepIt) selTracks_->push_back(trk); // save selected tracks 
+      if(applyPtDepCut_){
+	 float matchConeRadius_pt = (fCaloComp->Eval(trk_pt)!=fCaloComp->Eval(trk_pt)) ? 0 : fCaloComp->Eval(trk_pt); // protect agains NaN
+	 if (matchDr<matchConeRadius_pt && (matchPt/trk.pt()>caloCut_)) keepIt = true; // keep it calo-compatible 
+      }else{
+	 if(trk_pt < trkPtMin) keepIt = true; // if pt< min pt, keep it
+	 else if(matchDr<matchConeRadius_&& (matchPt/trk.pt()>caloCut_)) keepIt = true;
+      }
+      
+      if(reverseSel_) keepIt = (!keepIt); // reverse the selection 
+      
+      if(keepIt) selTracks_->push_back(trk); // save selected tracks 
       
       
     }
