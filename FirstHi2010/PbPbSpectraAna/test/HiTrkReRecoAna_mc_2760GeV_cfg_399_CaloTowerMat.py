@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(5))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V7HI::All' 
 
@@ -52,8 +52,8 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
-            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiItrTrkReRecoAnaSkim_mc_2760GeV_cfg_399.py,v $'),
+        version = cms.untracked.string('$Revision: 1.1 $'),
+            name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkReRecoAna_mc_2760GeV_cfg_399_CaloTowerMat.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
 
@@ -87,10 +87,20 @@ process.hiGeneralGlobalPrimTracks = process.hiGeneralTracks.clone(
     TrackProducer2 = 'iterGlobalPrimTracks',
     )
 
+process.hiGeneralHybridTracks = process.hiGeneralGlobalPrimTracks.clone(
+    TrackProducer1 = 'hiGlobalPrimTracks',
+    TrackProducer2 = 'iterTracks',
+    )
+
 process.globalPrimTrackCollectionMerging = cms.Sequence(
     process.iterGlobalPrimTracks*
     process.hiGeneralGlobalPrimTracks
     )
+
+# hiGlobalPrim (1st) + hiGeneral (2nd+3rd)
+process.hybridTrackCollectionMerging = cms.Sequence(
+    process.hiGeneralHybridTracks # hiGlobal
+) 
 
 process.iterTracking_seq = cms.Sequence(
     process.hiTrackReReco *
@@ -98,7 +108,8 @@ process.iterTracking_seq = cms.Sequence(
     process.secondStep *
     process.thirdStep *
     process.trackCollectionMerging *
-    process.globalPrimTrackCollectionMerging
+    process.globalPrimTrackCollectionMerging *
+    process.hybridTrackCollectionMerging # hiGeneral + hiGlobal
     )
 
 ## Fixes to protect against large BS displacements (re-reco setup with PR)
@@ -116,6 +127,8 @@ process.HiParticleFlowRecoNoJets.remove(process.PFTowers) # not needed and in co
 
 # Calo compatible tracks
 process.load("FirstHi2010.PbPbSpectraAna.HiTrackSelection_cff")
+process.hiOptCaloPreFst.src = cms.InputTag("hiGeneralHybridTracks")
+process.hiOptCaloPreSnd.src = cms.InputTag("hiGeneralHybridTracks")
 process.hiOptCaloFst = process.hiLooseTracks.clone(src = cms.InputTag("hiOptCaloPreFst"))
 process.hiOptCaloSnd = process.hiGoodTightTracks.clone(src = cms.InputTag("hiOptCaloPreSnd"))
 process.hiPtDepOptCaloTracks  = process.hiGeneralTracks.clone(
@@ -164,6 +177,7 @@ process = whichCentBinMode(process,options.centBins) # centrality binning
 #process = useSubLeadingJet(process) # use sub leading jet
 #process = setMinPtforPF(process,10) # min pt for PF reco/ana
 #process = runWithIterTrk(process,"hiGeneralCaloTracks") # use trk coll. from iterative trk
+#process = runWithIterTrk(process,"hiOptCaloSnd")
 process = runWithIterTrk(process,"hiPtDepOptCaloTracks") 
 process = runWithLightCfg(process)
 
