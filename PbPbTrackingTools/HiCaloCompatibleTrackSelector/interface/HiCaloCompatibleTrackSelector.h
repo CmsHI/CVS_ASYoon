@@ -70,7 +70,7 @@ namespace reco { namespace modules {
     double trkPtMax_;
     double trkEtaMax_;
     double towerPtMin_;
-    double matchDR_;
+    double matchConeRadius_;
     double caloCut_;
     
     /// copy only the tracks, not extras and rechits (for AOD)

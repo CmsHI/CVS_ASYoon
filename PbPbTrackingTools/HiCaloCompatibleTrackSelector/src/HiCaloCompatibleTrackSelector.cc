@@ -47,8 +47,8 @@ trkPtMin_(cfg.getUntrackedParameter<double>("trkPtMin",20.0)),
 trkPtMax_(cfg.getUntrackedParameter<double>("trkPtMax",20.0)),
 trkEtaMax_(cfg.getUntrackedParameter<double>("trkEtaMax",2.4)),
 towerPtMin_(cfg.getUntrackedParameter<double>("towerPtMin",5.0)),
-matchDR_(cfg.getUntrackedParameter<double>("matchDR",5.0)),
-caloCut_(cfg.getUntrackedParameter<double>("caloCut",0.15)),
+matchConeRadius_(cfg.getUntrackedParameter<double>("matchConeRadius",0.087)),
+caloCut_(cfg.getUntrackedParameter<double>("caloCut",0.2)),
 copyExtras_(cfg.getUntrackedParameter<bool>("copyExtras", false)),
 copyTrajectories_(cfg.getUntrackedParameter<bool>("copyTrajectories", false)),
 useQaulityStr_(cfg.getUntrackedParameter<bool>("useQaulityStr")),
@@ -82,7 +82,7 @@ void HiCaloCompatibleTrackSelector::matchByDrAllowReuse(const reco::Track & trk,
   ibest=-1;
   for(unsigned int i = 0; i < towers->size(); ++i){
     const CaloTower & tower= (*towers)[i];
-    if (tower.pt()>towerPtMin_) continue;
+    if (tower.pt()<towerPtMin_) continue;
     if (fabs(tower.eta())>trkEtaMax_) continue;
     float dr = reco::deltaR(tower,trk);
     if (dr<bestdr) {
@@ -99,10 +99,10 @@ void HiCaloCompatibleTrackSelector::matchByConeAllowReuse(const reco::Track & tr
   ibest=-1;
   for(unsigned int i = 0; i < towers->size(); ++i){
     const CaloTower & tower= (*towers)[i];
-    if (tower.pt()>towerPtMin_) continue;
+    if (tower.pt()<towerPtMin_) continue;
     if (fabs(tower.eta())>trkEtaMax_) continue;
     float dr = reco::deltaR(tower,trk);
-    if (dr>matchDR_) continue;
+    if (dr>matchConeRadius_) continue;
     // choose highest pt in cone
     if (tower.pt()>bestpt) {
       bestpt = tower.pt();
@@ -152,11 +152,15 @@ void HiCaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSe
       
       float matchDr;
       int matchIndex;
+      float matchPt=0;
       matchByDrAllowReuse(trk,towers,matchDr,matchIndex);
+      if (matchIndex>=0) {
+        matchPt=(*towers)[i].pt();
+      }
       
       bool keepIt = false;
       
-      if (matchDr<0.087) keepIt = true;
+      if (matchDr<matchConeRadius_&&(matchPt/trk.pt()>caloCut_)) keepIt = true;
         
 //      if(applyPtDepCut_){
 //        float caloCut_pt = (fCaloComp->Eval(trk_pt)!=fCaloComp->Eval(trk_pt)) ? 0 : fCaloComp->Eval(trk_pt); // protect agains NaN
