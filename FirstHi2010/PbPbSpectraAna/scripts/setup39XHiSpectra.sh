@@ -62,6 +62,7 @@ cvs co -d CmsHi/Analysis2010 UserCode/CmsHi/Analysis2010
 cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
 cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
+cvs co UserCode/ASYoon/PbPbTrackingTools/HiCaloCompatibleTrackSelector
 cvs co -r 1.9 UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator/python/hitrackvalidator_cfi.py # for <399
 
 # needed for Matt's iterative tracking
