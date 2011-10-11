@@ -16,6 +16,6 @@ selectHiCaloCompatibleTrack  = cms.EDProducer("HiCaloCompatibleTrackSelector",
               useQaulityStr=cms.untracked.bool(False),
               qualityString=cms.untracked.string("highPurity"),
               hasSimInfo =  cms.bool(False),
-              funcCaloComp = cms.string("2.48144*exp(-0.17585*x)+0.15"), # root syntax, pt dependent calo-compatibility cut
+              funcCaloComp = cms.string("0.087/(1.0+exp(-0.28*(x-20.)))"), # root syntax, pt dependent calo-compatibility cut
               reverseSel=cms.untracked.bool(False) # reverse the selection!                                             
 )
