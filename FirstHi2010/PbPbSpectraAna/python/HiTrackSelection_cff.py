@@ -24,6 +24,10 @@ hiPtDeptOptCaloPreSnd = hiPtDeptOptCaloPreFst.clone(reverseSel = cms.untracked.b
 
 from PbPbTrackingTools.HiCaloCompatibleTrackSelector.selectHiCaloCompatibleTrack_cfi import *
 
-hiOptCaloPreFst = selectHiCaloCompatibleTrack.clone(src = cms.InputTag("hiGeneralGlobalPrimTracks"),
+hiOptCaloPreFst = selectHiCaloCompatibleTrack.clone(src = cms.InputTag("hiGeneralHybridTracks"), 
                                                     applyPtDepCut = cms.untracked.bool(True))
 hiOptCaloPreSnd = hiOptCaloPreFst.clone(reverseSel = cms.untracked.bool(True))
+
+# loose selection
+hiOptCaloPreFstLoose = hiOptCaloPreFst.clone(funcCaloComp = cms.string("0.087")) # float dR cut
+hiOptCaloPreSndLoose = hiOptCaloPreFstLoose.clone(reverseSel = cms.untracked.bool(True))
