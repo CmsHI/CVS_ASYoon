@@ -163,10 +163,10 @@ void HiCaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSe
       //if (matchDr<matchConeRadius_&&(matchPt/trk.pt()>caloCut_)) keepIt = true;
         
       if(applyPtDepCut_){
-	 float matchConeRadius_pt = (fCaloComp->Eval(trk_pt)!=fCaloComp->Eval(trk_pt)) ? 0 : fCaloComp->Eval(trk_pt); // protect agains NaN
+	 float matchConeRadius_pt = (fCaloComp->Eval(trk.pt())!=fCaloComp->Eval(trk.pt())) ? 0 : fCaloComp->Eval(trk.pt()); // protect agains NaN
 	 if (matchDr<matchConeRadius_pt && (matchPt/trk.pt()>caloCut_)) keepIt = true; // keep it calo-compatible 
       }else{
-	 if(trk_pt < trkPtMin) keepIt = true; // if pt< min pt, keep it
+	 if(trk.pt() < trkPtMin_) keepIt = true; // if pt< min pt, keep it
 	 else if(matchDr<matchConeRadius_&& (matchPt/trk.pt()>caloCut_)) keepIt = true;
       }
       
