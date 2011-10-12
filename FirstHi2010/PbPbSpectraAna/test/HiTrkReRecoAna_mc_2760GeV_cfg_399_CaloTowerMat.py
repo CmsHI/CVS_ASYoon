@@ -38,7 +38,7 @@ process.source = cms.Source("PoolSource",
 
 # =============== Other Statements =====================
 
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(30))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'START39_V7HI::All' 
 
@@ -108,7 +108,7 @@ process.iterTracking_seq = cms.Sequence(
     process.secondStep *
     process.thirdStep *
     process.trackCollectionMerging *
-    process.globalPrimTrackCollectionMerging *
+    #process.globalPrimTrackCollectionMerging * # not needed
     process.hybridTrackCollectionMerging # hiGeneral + hiGlobal
     )
 
@@ -127,14 +127,19 @@ process.HiParticleFlowRecoNoJets.remove(process.PFTowers) # not needed and in co
 
 # Calo compatible tracks
 process.load("FirstHi2010.PbPbSpectraAna.HiTrackSelection_cff")
-process.hiOptCaloPreFst.src = cms.InputTag("hiGeneralHybridTracks")
-process.hiOptCaloPreSnd.src = cms.InputTag("hiGeneralHybridTracks")
 process.hiOptCaloFst = process.hiLooseTracks.clone(src = cms.InputTag("hiOptCaloPreFst"))
 process.hiOptCaloSnd = process.hiGoodTightTracks.clone(src = cms.InputTag("hiOptCaloPreSnd"))
-process.hiPtDepOptCaloTracks  = process.hiGeneralTracks.clone(
+
+process.hiOptimalTightTracks  = process.hiGeneralTracks.clone(
     ShareFrac = cms.double(999.0), # since two collections have no track in common
     TrackProducer1 = 'hiOptCaloFst',
     TrackProducer2 = 'hiOptCaloSnd',
+)
+
+# algo selection (algo = 4, i.e. only first iteration)
+process.hiOptimalTightTracks1stIter = cms.EDFilter("TrackSelector",
+        src = cms.InputTag("hiOptimalTightTracks"),
+        cut = cms.string('algo==4')
 )
 
 process.ptDeptOptCalo_seq = cms.Sequence(
@@ -142,12 +147,9 @@ process.ptDeptOptCalo_seq = cms.Sequence(
     process.hiOptCaloFst *
     process.hiOptCaloPreSnd *
     process.hiOptCaloSnd *
-    process.hiPtDepOptCaloTracks
-)
-
-#process.hiGeneralDerivedTracks = process.hiGoodTightTracks.clone(src = cms.InputTag("hiGeneralHybridTracks"))
-#process.hiGeneralCaloTracks.src=cms.InputTag("hiGeneralHybridTracks") # everything is derived from Hybrid
-#process.hiGeneralCaloHybridTracks = process.hiGeneralCaloTracks.clone()    
+    process.hiOptimalTightTracks *
+    process.hiOptimalTightTracks1stIter
+    )
 
 # =============== Pat jet in HI ========================
 process.load("Saved.QM11Ana.PatAna_cff") # something overlap with PF reco
@@ -175,18 +177,22 @@ process = runOn393(process)
 process = whichCentBinMode(process,options.centBins) # centrality binning
 #process = constraintOnLJetEta(process) # constraint on leading jet eta
 #process = useSubLeadingJet(process) # use sub leading jet
-#process = setMinPtforPF(process,10) # min pt for PF reco/ana
 #process = runWithIterTrk(process,"hiGeneralCaloTracks") # use trk coll. from iterative trk
+#process = runWithIterTrk(process,"hiOptCaloFst")
 #process = runWithIterTrk(process,"hiOptCaloSnd")
-process = runWithIterTrk(process,"hiPtDepOptCaloTracks") 
+process = runWithIterTrk(process,"hiOptimalTightTracks") 
 process = runWithLightCfg(process)
 
 # ============== Customization ==========================
 process.hiAnalysisSeq.remove(process.higloosetrkval_fakeOnly)
 process.hiAnalysisSeq.remove(process.hihightrkval_fakeOnly)
 process.hiAnalysisSeq.remove(process.hipredttrkval_fakeOnly)
-process.hiAnalysisSeq.remove(process.hihightrkEffAna)
 process.hiAnalysisSeq.remove(process.higloosetrkEffAna)
+
+# to run hihightrkEffAnalyzer with 1st iteration of hiOptimalTightTracks
+process.hihightrkEffAnalyzer.tracks = cms.untracked.InputTag("hiOptimalTightTracks1stIter")
+process.hihightrkEffAnalyzer.usePxlPair= cms.untracked.bool(True)
+process.hihightrkEffAnalyzer.useQaulityStr = cms.untracked.bool(False)
 
 # =============== Output ================================
 #process.load("FirstHi2010.PbPbSpectraAna.hianalysisSkimContent_cff")
