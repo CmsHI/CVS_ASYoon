@@ -217,8 +217,6 @@ def runWithCaloTracks(process):
 def runWithIterTrk(process,trkcoll='hiGeneralTracks'):
     print "use the following tracking collections [",trkcoll,"] from iterative tracking"
     print "quality bit is removed"
-    process.hihightrkval.trklabel=cms.untracked.InputTag(trkcoll)
-    process.higloosetrkval.trklabel=cms.untracked.InputTag(trkcoll)
     process.higoodtrkval.trklabel=cms.untracked.InputTag(trkcoll)
     process.hipredttrkval.trklabel=cms.untracked.InputTag(trkcoll)
     process.hipredztrkval.trklabel=cms.untracked.InputTag(trkcoll)
@@ -232,13 +230,7 @@ def runWithIterTrk(process,trkcoll='hiGeneralTracks'):
     process.hitrackAna_jetMode2.src_evtCorr = cms.untracked.InputTag(trkcoll)
     process.hitrackAna_jetMode3.src_evtCorr = cms.untracked.InputTag(trkcoll)
     process.hitrackAna_jetMode4.src_evtCorr = cms.untracked.InputTag(trkcoll)
-    process.higoodlooseAna.src = cms.untracked.InputTag(trkcoll)
-    process.higoodlooseAna.src_evtCorr = cms.untracked.InputTag(trkcoll)
-    process.hihightrackAna.src = cms.untracked.InputTag(trkcoll)
-    process.hihightrackAna.src_evtCorr = cms.untracked.InputTag(trkcoll)
     process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
-    process.higloosetrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
-    process.hihightrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
     process.higoodtrkval.useQaulityStr = cms.untracked.bool(False) # quality bit
     process.higoodtrkval_pt80.useQaulityStr = cms.untracked.bool(False)
     process.higoodtrkval_fake.useQaulityStr = cms.untracked.bool(False)
