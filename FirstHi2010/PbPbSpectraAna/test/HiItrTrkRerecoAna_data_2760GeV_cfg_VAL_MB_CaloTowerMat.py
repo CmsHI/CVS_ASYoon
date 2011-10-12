@@ -72,7 +72,7 @@ overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
   version = cms.untracked.string('$Revision: 1.1 $'),
-  name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiItrTrkPfRerecoSkim_data_2760GeV_cfg_VAL_MB.py,v $'),
+  name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiItrTrkRerecoAna_data_2760GeV_cfg_VAL_MB_CaloTowerMat.py,v $'),
   annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
   )
 
@@ -161,7 +161,7 @@ process.hiOptimalTightTracks  = process.hiGeneralTracks.clone(
 # algo selection (algo = 0, i.e. only first iteration)
 process.hiOptimalTightTracks1stIter = cms.EDFilter("TrackSelector",
      src = cms.InputTag("hiOptimalTightTracks"),
-     cut = cms.string('algo==4')
+     cut = cms.string('algo==0')
 )
 
 process.ptDeptOptCalo_seq = cms.Sequence(
