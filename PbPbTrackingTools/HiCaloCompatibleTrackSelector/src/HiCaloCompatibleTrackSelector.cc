@@ -159,8 +159,6 @@ void HiCaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSe
       }
       
       bool keepIt = false;
-      
-      //if (matchDr<matchConeRadius_&&(matchPt/trk.pt()>caloCut_)) keepIt = true;
         
       if(applyPtDepCut_){
 	 float matchConeRadius_pt = (fCaloComp->Eval(trk.pt())!=fCaloComp->Eval(trk.pt())) ? 0 : fCaloComp->Eval(trk.pt()); // protect agains NaN
@@ -173,8 +171,6 @@ void HiCaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSe
       if(reverseSel_) keepIt = (!keepIt); // reverse the selection 
       
       if(keepIt) selTracks_->push_back(trk); // save selected tracks 
-      
-      
     }
   }
   
