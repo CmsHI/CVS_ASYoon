@@ -52,7 +52,7 @@ from CmsHi.Analysis2010.CommonFunctions_cff import *
 #overrideCentrality(process)
 
 process.configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.4 $'),
             name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2010/PbPbSpectraAna/test/HiTrkReRecoAna_mc_2760GeV_cfg_399_CaloTowerMat.py,v $'),
             annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
         )
@@ -184,6 +184,7 @@ process = runWithIterTrk(process,"hiOptimalTightTracks")
 process = runWithLightCfg(process)
 
 # ============== Customization ==========================
+process.hiAnalysisSeq.remove(process.higoodtrkval_fakeOnly)
 process.hiAnalysisSeq.remove(process.higloosetrkval_fakeOnly)
 process.hiAnalysisSeq.remove(process.hihightrkval_fakeOnly)
 process.hiAnalysisSeq.remove(process.hipredttrkval_fakeOnly)
