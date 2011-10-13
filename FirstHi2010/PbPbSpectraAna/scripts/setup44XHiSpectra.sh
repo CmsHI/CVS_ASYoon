@@ -52,7 +52,7 @@ cvs co -d CmsHi/Analysis2010 UserCode/CmsHi/Analysis2010
 
 # tools
 cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
-#cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector # need to fix
+cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector # need to fix
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiCaloCompatibleTrackSelector
 #cvs co UserCode/edwenger/Skims/prod/condor # in case condor job scripts needed
@@ -71,6 +71,12 @@ mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
 mv UserCode/ASYoon/FirstHi2010 .
 
-scram build -c
+# customization to run in 44X
+rm FirstHi2010/PbPbSpectraAna/python/hieventSelection_cff.py
+cvs co UserCode/ASYoon/MISC/python/hieventSelection_cff.py
+cp UserCode/ASYoon/MISC/python/hieventSelection_cff.py FirstHi2010/PbPbSpectraAna/python/
 
+scram build -c
 scram b
+
+
