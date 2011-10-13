@@ -48,9 +48,9 @@ analysisSkimContent = cms.PSet(
         'keep recoTracks_hiGeneralCaloTracks_*_*',
         'keep recoTracks_hiSelectedTracks_*_*',
 
-        'keep recoTracks_hiPtDeptOptCaloFst_*_*',
-        'keep recoTracks_hiPtDeptOptCaloSnd_*_*',
-        'keep recoTracks_hiPtDepOptCaloTracks_*_*',
+        'keep recoTracks_hiOptimalTightTracks_*_*',
+        'keep recoTracks_hiOptimalTightTracks1stIter_*_*',
+        'keep recoTracks_hiOptimalTightTracks2nd3rdIter_*_*',
 
         #'keep recoTracks_hiSelectedTracks_*_*',
         #'keep recoTracks_hiGeneralHybridTracks_*_*',
