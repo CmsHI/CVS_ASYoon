@@ -71,6 +71,11 @@ mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
 mv UserCode/ASYoon/FirstHi2010 .
 
+# for DM work/processing
+cvs co -r hi44X_01 -d  MitHig/PixelTrackletAnalyzer UserCode/MitHig/PixelTrackletAnalyzer
+cvs co -r hi44X_04 -d SimGeneral/DataMixingModule UserCode/yetkin/SimGeneral/DataMixingModule
+rm MitHig/PixelTrackletAnalyzer/src/SimTrackAnalyzer.cc
+
 # customization to run in 44X
 rm FirstHi2010/PbPbSpectraAna/python/hieventSelection_cff.py
 cvs co UserCode/ASYoon/MISC/python/hieventSelection_cff.py
