@@ -14,7 +14,8 @@ cvs co -r V01-02-09 HeavyIonsAnalysis/Configuration
 # cvs co RecoHI/HiEgammaAlgos (before 392p5)
 
 # spike cleaning and broken code cleaning..
-cvs co -d CmsHi/PhotonAnalysis UserCode/CmsHi/PhotonAnalysis
+cvs co -D "2011-10-01" UserCode/CmsHi/PhotonAnalysis
+mv UserCode/CmsHi .
 rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.cc
 rm CmsHi/PhotonAnalysis/plugins/SinglePhotonAnalyzer.h
 rm CmsHi/PhotonAnalysis/plugins/MultiPhotonAnalyzer.cc
@@ -63,6 +64,7 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
 cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiCaloCompatibleTrackSelector
+cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackMatchingAnalyzer
 cvs co -r 1.9 UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator/python/hitrackvalidator_cfi.py # for <399
 
 # needed for Matt's iterative tracking
