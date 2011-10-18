@@ -788,10 +788,10 @@ def whichCentBinMode(process,cbinMode=0):
     process.hipredztrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredztrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredztrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
-    process.pfCandidateAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
-    process.pfCandidateAnalyzer_test.neededCentBins = cms.untracked.vint32(cbins)
-    process.pfCandidateAnalyzer_higtight.neededCentBins = cms.untracked.vint32(cbins)
-    process.pfCandidateAnalyzer_higloose.neededCentBins = cms.untracked.vint32(cbins)
+    #process.pfCandidateAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
+    #process.pfCandidateAnalyzer_test.neededCentBins = cms.untracked.vint32(cbins)
+    #process.pfCandidateAnalyzer_higtight.neededCentBins = cms.untracked.vint32(cbins)
+    #process.pfCandidateAnalyzer_higloose.neededCentBins = cms.untracked.vint32(cbins)
     return process
     
 def setCentBins(process,ci=0,cf=10):
