@@ -58,6 +58,9 @@ cvs co CondFormats/HIObjects
 cvs co DataFormats/HeavyIonEvent
 cvs co RecoHI/HiCentralityAlgos
 cvs co -d CmsHi/Analysis2010 UserCode/CmsHi/Analysis2010
+rm CmsHi/Analysis2010/python/CommonFunctions_cff.py # downgrad to be consistent with QM11
+cvs co -r 1.32 UserCode/CmsHi/Analysis2010/python/CommonFunctions_cff.py # downgrad to be consistent with QM11
+cp UserCode/CmsHi/Analysis2010/python/CommonFunctions_cff.py CmsHi/Analysis2010/python/
 
 # tools
 cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
