@@ -60,6 +60,8 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/HiCaloCompatibleTrackSelector
 # needed for Matt's iterative tracking
 cvs co -d       MNguyen/iterTracking UserCode/MNguyen/iterTracking
 cvs co -d       CmsHi/JetAnalysis UserCode/CmsHi/JetAnalysis
+cvs co UserCode/ASYoon/MISC/python/secondStep_triplet_cff.py # tmp fix
+cp UserCode/ASYoon/MISC/python/secondStep_triplet_cff.py MNguyen/iterTracking UserCode/MNguyen/iterTracking/python
 rm CmsHi/JetAnalysis/python/EGammaAnalyzers_cff.py # tmp fix
 rm CmsHi/JetAnalysis/python/ExtraEGammaReco_cff.py # tmp fix
 rm CmsHi/JetAnalysis/python/EventSelection_cff.py # tmp fix
@@ -83,5 +85,3 @@ cp UserCode/ASYoon/MISC/python/hieventSelection_cff.py FirstHi2010/PbPbSpectraAn
 
 scram build -c
 scram b
-
-
