@@ -53,6 +53,8 @@ cvs co -d CmsHi/Analysis2010 UserCode/CmsHi/Analysis2010
 # tools
 cvs co UserCode/ASYoon/PbPbTrackingTools/VertexConstraintProducer
 cvs co UserCode/ASYoon/PbPbTrackingTools/CaloCompatibleTrackSelector # need to fix
+rm UserCode/ASYoon/MISC/src/CaloCompatibleTrackSelector.cc
+cvs co UserCode/ASYoon/MISC/src/CaloCompatibleTrackSelector.cc
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiCaloCompatibleTrackSelector
 #cvs co UserCode/edwenger/Skims/prod/condor # in case condor job scripts needed
