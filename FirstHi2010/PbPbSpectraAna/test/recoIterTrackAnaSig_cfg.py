@@ -5,8 +5,9 @@ import FWCore.ParameterSet.VarParsing as VarParsing
 #============= variable parsing ========================
 ivars = VarParsing.VarParsing('standard')
 ivars.register('initialEvent',mult=ivars.multiplicity.singleton,info="for testing")
-ivars.files = "file:/home/sungho/sctch101/data_mc_mix/pythia170_HICorePhysics_MinBiasSkim_440_test28_DBS_evt20_test01/MinBias_PreMix_202_1_skd_numEvent20.root"
-ivars.output = 'trkhistsDM.root'
+#ivars.files = "file:/home/sungho/sctch101/data_mc_mix/pythia170_HICorePhysics_MinBiasSkim_440_test28_DBS_evt20_test01/MinBias_PreMix_202_1_skd_numEvent20.root"
+ivars.files = "dcache:/pnfs/cmsaf.mit.edu/t2bat/cms/store/user/yetkin/mix/pythia170_HICorePhysics_MinBiasSkim_440_test28_DBS_evt5_test01/MinBias_PreMix_1652_5_EMZ_numEvent5.root"
+ivars.output = 'trkhistsDMSig.root'
 ivars.maxEvents = 14
 ivars.initialEvent = 1
 
@@ -121,11 +122,20 @@ process.ptDeptOptCalo_seq = cms.Sequence(
 # Spectra Analyzers
 process.load("edwenger.HiTrkEffAnalyzer.hitrkEffAnalyzer_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiAnalysis_cff")
-process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiOptimalTightTracks','','SIGNAL') 
+process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiGeneralTracks','','SIGNAL') 
 process.hitrkEffAnalyzer.usePxlPair = cms.untracked.bool(True)
-process.hitrackAna.src = cms.untracked.InputTag('hiOptimalTightTracks','','SIGNAL')
-process.hitrackAna.src_evtCorr = cms.untracked.InputTag('hiOptimalTightTracks','','SIGNAL')
+process.hitrackAna.src = cms.untracked.InputTag('hiGeneralTracks','','SIGNAL')
+process.hitrackAna.src_evtCorr = cms.untracked.InputTag('hiGeneralTracks','','SIGNAL')
 process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','MIX')
+
+process.load('MitHig.PixelTrackletAnalyzer.trackAnalyzer_cff')
+process.anaTrack.trackPtMin = cms.untracked.double(4)
+process.anaTrack.simTrackPtMin = cms.untracked.double(4)
+process.anaTrack.doSimTrack = cms.untracked.bool(True)
+process.anaTrack.trackSrc = cms.InputTag('hiGeneralTracks')
+process.anaTrack.tpFakeSrc = cms.untracked.InputTag('cutsTPForFak')
+process.anaTrack.tpEffSrc = cms.untracked.InputTag('cutsTPForEff')
+process.anaTrack.doPFMatching = cms.untracked.bool(False)
 
 # =============== Customize =======================
 from FirstHi2010.PbPbSpectraAna.hicustomise_cfi import *
@@ -135,7 +145,7 @@ process = constraintOnLJetEta(process)
 
 # =============== Final Paths =====================
 process.extraTrks_step   = cms.Path(process.ptDeptOptCalo_seq)
-process.ana_step = cms.Path(process.hitrkEffAna)
+process.ana_step = cms.Path(process.hitrkEffAna *process.anaTrack)
 process.reco_step = cms.Path( 
 #    process.DigiToRawTracker *
 #    process.RawToDigiTracker *    
