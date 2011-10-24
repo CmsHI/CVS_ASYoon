@@ -8,7 +8,7 @@ ivars.register('initialEvent',mult=ivars.multiplicity.singleton,info="for testin
 #ivars.files = "file:/home/sungho/sctch101/data_mc_mix/pythia170_HICorePhysics_MinBiasSkim_440_test28_DBS_evt20_test01/MinBias_PreMix_202_1_skd_numEvent20.root"
 ivars.files = "dcache:/pnfs/cmsaf.mit.edu/t2bat/cms/store/user/yetkin/mix/pythia170_HICorePhysics_MinBiasSkim_440_test28_DBS_evt5_test01/MinBias_PreMix_1652_5_EMZ_numEvent5.root"
 ivars.output = 'trkhistsDMSig.root'
-ivars.maxEvents = 14
+ivars.maxEvents = 5
 ivars.initialEvent = 1
 
 ivars.parseArguments()
@@ -102,10 +102,15 @@ process.hiOptimalTightTracks  = process.hiGeneralTracks.clone(
     TrackProducer2 = 'hiOptCaloSnd',
 )
 
-# algo selection (algo = 0, i.e. only first iteration)
+# algo selection (algo = 4, i.e. only first iteration)
 process.hiOptimalTightTracks1stIter = cms.EDFilter("TrackSelector",
         src = cms.InputTag("hiOptimalTightTracks"),
-        cut = cms.string('algo==0')
+        cut = cms.string('algo==4')
+)
+
+process.hiOptimalTightTracks2nd3rdIter = cms.EDFilter("TrackSelector",
+        src = cms.InputTag("hiOptimalTightTracks"),
+        cut = cms.string('algo>=5')
 )
 
 process.ptDeptOptCalo_seq = cms.Sequence(
@@ -114,25 +119,60 @@ process.ptDeptOptCalo_seq = cms.Sequence(
         process.hiOptCaloPreSnd *
         process.hiOptCaloSnd *
         process.hiOptimalTightTracks *
-        process.hiOptimalTightTracks1stIter
+        process.hiOptimalTightTracks1stIter *
+        process.hiOptimalTightTracks2nd3rdIter
 )
 
+# algo selection for hiGeneralTracks
+process.hiGeneralTracks1stIter = cms.EDFilter("TrackSelector",
+        src = cms.InputTag("hiGeneralTracks"),
+        cut = cms.string('algo==4')
+)
+
+process.hiGeneralTracks2nd3rdIter = cms.EDFilter("TrackSelector",
+        src = cms.InputTag("hiGeneralTracks"),
+        cut = cms.string('algo>=5')
+)
+
+process.hiGeneralIter_seq = cms.Sequence(
+    process.hiGeneralTracks1stIter*
+    process.hiGeneralTracks2nd3rdIter
+    )
 
 
 # Spectra Analyzers
 process.load("edwenger.HiTrkEffAnalyzer.hitrkEffAnalyzer_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiAnalysis_cff")
-process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiGeneralTracks','','SIGNAL') 
+
+# 1st + 2nd + 3rd
+process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiGeneralTracks','','SIGNAL')
 process.hitrkEffAnalyzer.usePxlPair = cms.untracked.bool(True)
+
 process.hitrackAna.src = cms.untracked.InputTag('hiGeneralTracks','','SIGNAL')
 process.hitrackAna.src_evtCorr = cms.untracked.InputTag('hiGeneralTracks','','SIGNAL')
 process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','MIX')
+process.hitrackAna.doJet = cms.untracked.bool(False)
+
+process.higoodtrkval.trklabel=cms.untracked.InputTag('hiGeneralTracks','','SIGNAL')
+process.higoodtrkval.useQaulityStr=cms.untracked.bool(True)
+
+## 1st and (2nd+3rd) iteration separately
+process.hitrkEffAnalyzer_1st = process.hitrkEffAnalyzer.clone(tracks = cms.untracked.InputTag('hiGeneralTracks1stIter','','SIGNAL'))
+process.hitrkEffAnalyzer_2nd3rd = process.hitrkEffAnalyzer.clone(tracks = cms.untracked.InputTag('hiGeneralTracks2nd3rdIter','','SIGNAL'))
+
+process.hitrackAna_1st = process.hitrackAna.clone(src = cms.untracked.InputTag('hiGeneralTracks1stIter','','SIGNAL'),
+                                                  src_evtCorr = cms.untracked.InputTag('hiGeneralTracks1stIter','','SIGNAL'))
+process.hitrackAna_2nd3rd = process.hitrackAna.clone(src = cms.untracked.InputTag('hiGeneralTracks2nd3rdIter','','SIGNAL'),
+                                                     src_evtCorr = cms.untracked.InputTag('hiGeneralTracks2nd3rdIter','','SIGNAL'))
+
+process.higoodtrkval_1st = process.higoodtrkval.clone(trklabel=cms.untracked.InputTag('hiGeneralTracks1stIter','','SIGNAL'))
+process.higoodtrkval_2nd3rd = process.higoodtrkval.clone(trklabel=cms.untracked.InputTag('hiGeneralTracks2nd3rdIter','','SIGNAL'))
 
 process.load('MitHig.PixelTrackletAnalyzer.trackAnalyzer_cff')
 process.anaTrack.trackPtMin = cms.untracked.double(4)
 process.anaTrack.simTrackPtMin = cms.untracked.double(4)
 process.anaTrack.doSimTrack = cms.untracked.bool(True)
-process.anaTrack.trackSrc = cms.InputTag('hiGeneralTracks')
+process.anaTrack.trackSrc = cms.InputTag('hiGeneralTracks','','SIGNAL')
 process.anaTrack.tpFakeSrc = cms.untracked.InputTag('cutsTPForFak')
 process.anaTrack.tpEffSrc = cms.untracked.InputTag('cutsTPForEff')
 process.anaTrack.doPFMatching = cms.untracked.bool(False)
@@ -144,8 +184,10 @@ process = whichCentBinMode(process,options.centBins)
 process = constraintOnLJetEta(process)
 
 # =============== Final Paths =====================
-process.extraTrks_step   = cms.Path(process.ptDeptOptCalo_seq)
-process.ana_step = cms.Path(process.hitrkEffAna *process.anaTrack)
+process.extraTrks_step   = cms.Path(process.hiGeneralIter_seq)
+process.ana_step_full    = cms.Path(process.hitrkEffAnalyzer * process.hitrackAna * process.higoodtrkval * process.anaTrack)
+process.ana_step_1st     = cms.Path(process.hitrkEffAnalyzer_1st * process.hitrackAna_1st * process.higoodtrkval_1st)
+process.ana_step_2nd3rd  = cms.Path(process.hitrkEffAnalyzer_2nd3rd * process.hitrackAna_2nd3rd * process.higoodtrkval_2nd3rd)
 process.reco_step = cms.Path( 
 #    process.DigiToRawTracker *
 #    process.RawToDigiTracker *    
@@ -153,7 +195,8 @@ process.reco_step = cms.Path(
     process.SimL1Emulator *
     process.DigiToRaw *
     process.RawToDigi *
-    process.reconstructIterTracks 
+    process.reconstructIterTracks *
+    process.trkParticles # sim cut
     )
 
 process.endjob_step = cms.Path(process.endOfProcess)
@@ -162,7 +205,9 @@ process.schedule = cms.Schedule(
     process.reco_step,
     process.endjob_step,
     process.extraTrks_step,
-    process.ana_step
+    process.ana_step_full,
+    process.ana_step_1st,
+    process.ana_step_2nd3rd
 )
 
 
