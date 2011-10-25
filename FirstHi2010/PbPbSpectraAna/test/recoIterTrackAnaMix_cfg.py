@@ -183,7 +183,7 @@ process.hitrackAna.doJet = cms.untracked.bool(False)
 process.hitrackAna.neededCentBins= cms.untracked.vint32(centbins)
 
 process.higoodtrkval.trklabel=cms.untracked.InputTag(trk1)
-process.higoodtrkval.useQaulityStr=cms.untracked.bool(True)
+process.higoodtrkval.useQaulityStr=cms.untracked.bool(False)
 process.higoodtrkval.neededCentBins= cms.untracked.vint32(centbins)
 
 ## 1st and (2nd+3rd) iteration separately
