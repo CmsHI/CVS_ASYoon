@@ -175,12 +175,14 @@ trk3="hiGeneralTracks2nd3rdIter"
 process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trk1)
 process.hitrkEffAnalyzer.usePxlPair = cms.untracked.bool(True)
 process.hitrkEffAnalyzer.neededCentBins = cms.untracked.vint32(centbins)
+process.hitrkEffAnalyzer.useQaulityStr = cms.untracked.bool(True)
 
 process.hitrackAna.src = cms.untracked.InputTag(trk1)
 process.hitrackAna.src_evtCorr = cms.untracked.InputTag(trk1)
 process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults')
 process.hitrackAna.doJet = cms.untracked.bool(False)
 process.hitrackAna.neededCentBins= cms.untracked.vint32(centbins)
+process.hitrackAna.setQualityBit = cms.untracked.bool(False)
 
 process.higoodtrkval.trklabel=cms.untracked.InputTag(trk1)
 process.higoodtrkval.useQaulityStr=cms.untracked.bool(False)
