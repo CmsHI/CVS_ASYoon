@@ -165,36 +165,45 @@ process.hiGeneralIter_seq = cms.Sequence(
 process.load("edwenger.HiTrkEffAnalyzer.hitrkEffAnalyzer_cff")
 process.load("FirstHi2010.PbPbSpectraAna.HiAnalysis_cff")
 
-# 1st + 2nd + 3rd
-process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag('hiGeneralTracks')
-process.hitrkEffAnalyzer.usePxlPair = cms.untracked.bool(True)
+# centrality and track collection
+centbins=[0,1,3,11,19,27,35] # make sure this is consistent with above
+trk1="hiGeneralTracks"
+trk2="hiGeneralTracks1stIter"
+trk3="hiGeneralTracks2nd3rdIter"
 
-process.hitrackAna.src = cms.untracked.InputTag('hiGeneralTracks')
-process.hitrackAna.src_evtCorr = cms.untracked.InputTag('hiGeneralTracks')
+# 1st + 2nd + 3rd
+process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trk1)
+process.hitrkEffAnalyzer.usePxlPair = cms.untracked.bool(True)
+process.hitrkEffAnalyzer.neededCentBins = cms.untracked.vint32(centbins)
+
+process.hitrackAna.src = cms.untracked.InputTag(trk1)
+process.hitrackAna.src_evtCorr = cms.untracked.InputTag(trk1)
 process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults')
 process.hitrackAna.doJet = cms.untracked.bool(False)
+process.hitrackAna.neededCentBins= cms.untracked.vint32(centbins)
 
-process.higoodtrkval.trklabel=cms.untracked.InputTag('hiGeneralTracks')
+process.higoodtrkval.trklabel=cms.untracked.InputTag(trk1)
 process.higoodtrkval.useQaulityStr=cms.untracked.bool(True)
+process.higoodtrkval.neededCentBins= cms.untracked.vint32(centbins)
 
 ## 1st and (2nd+3rd) iteration separately
-process.hitrkEffAnalyzer_1st = process.hitrkEffAnalyzer.clone(tracks = cms.untracked.InputTag('hiGeneralTracks1stIter'))
-process.hitrkEffAnalyzer_2nd3rd = process.hitrkEffAnalyzer.clone(tracks = cms.untracked.InputTag('hiGeneralTracks2nd3rdIter'))
+process.hitrkEffAnalyzer_1st = process.hitrkEffAnalyzer.clone(tracks = cms.untracked.InputTag(trk2))
+process.hitrkEffAnalyzer_2nd3rd = process.hitrkEffAnalyzer.clone(tracks = cms.untracked.InputTag(trk3))
 
-process.hitrackAna_1st = process.hitrackAna.clone(src = cms.untracked.InputTag('hiGeneralTracks1stIter'),
-                                                  src_evtCorr = cms.untracked.InputTag('hiGeneralTracks1stIter'))
-process.hitrackAna_2nd3rd = process.hitrackAna.clone(src = cms.untracked.InputTag('hiGeneralTracks2nd3rdIter'),
-                                                     src_evtCorr = cms.untracked.InputTag('hiGeneralTracks2nd3rdIter'))
+process.hitrackAna_1st = process.hitrackAna.clone(src = cms.untracked.InputTag(trk2),
+                                                  src_evtCorr = cms.untracked.InputTag(trk3))
+process.hitrackAna_2nd3rd = process.hitrackAna.clone(src = cms.untracked.InputTag(trk2),
+                                                     src_evtCorr = cms.untracked.InputTag(trk3))
 
-process.higoodtrkval_1st = process.higoodtrkval.clone(trklabel=cms.untracked.InputTag('hiGeneralTracks1stIter'))
-process.higoodtrkval_2nd3rd = process.higoodtrkval.clone(trklabel=cms.untracked.InputTag('hiGeneralTracks2nd3rdIter'))
+process.higoodtrkval_1st = process.higoodtrkval.clone(trklabel=cms.untracked.InputTag(trk2))
+process.higoodtrkval_2nd3rd = process.higoodtrkval.clone(trklabel=cms.untracked.InputTag(trk3))
 
 
 process.load('MitHig.PixelTrackletAnalyzer.trackAnalyzer_cff')
 process.anaTrack.trackPtMin = cms.untracked.double(4)
 process.anaTrack.simTrackPtMin = cms.untracked.double(4)
 process.anaTrack.doSimTrack = cms.untracked.bool(True)
-process.anaTrack.trackSrc = cms.InputTag('hiGeneralTracks')
+process.anaTrack.trackSrc = cms.InputTag(trk1)
 process.anaTrack.tpFakeSrc = cms.untracked.InputTag('cutsTPForFak')
 process.anaTrack.tpEffSrc = cms.untracked.InputTag('cutsTPForEff')
 process.anaTrack.doPFMatching = cms.untracked.bool(False)
