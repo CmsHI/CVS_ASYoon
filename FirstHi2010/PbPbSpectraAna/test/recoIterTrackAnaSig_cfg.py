@@ -155,7 +155,7 @@ trk3="hiGeneralTracks2nd3rdIter"
 process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trk1,'','SIGNAL')
 process.hitrkEffAnalyzer.usePxlPair = cms.untracked.bool(True)
 process.hitrkEffAnalyzer.neededCentBins = cms.untracked.vint32(centbins)
-process.useQaulityStr = cms.untracked.bool(True)
+process.hitrkEffAnalyzer.useQaulityStr = cms.untracked.bool(True)
 
 process.hitrackAna.src = cms.untracked.InputTag(trk1,'','SIGNAL')
 process.hitrackAna.src_evtCorr = cms.untracked.InputTag(trk1,'','SIGNAL')
