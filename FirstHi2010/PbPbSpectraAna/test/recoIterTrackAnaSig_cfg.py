@@ -6,7 +6,8 @@ import FWCore.ParameterSet.VarParsing as VarParsing
 ivars = VarParsing.VarParsing('standard')
 ivars.register('initialEvent',mult=ivars.multiplicity.singleton,info="for testing")
 #ivars.files = "file:/home/sungho/sctch101/data_mc_mix/pythia170_HICorePhysics_MinBiasSkim_440_test28_DBS_evt20_test01/MinBias_PreMix_202_1_skd_numEvent20.root"
-ivars.files = "dcache:/pnfs/cmsaf.mit.edu/t2bat/cms/store/user/yetkin/mix/pythia170_HICorePhysics_MinBiasSkim_440_test28_DBS_evt5_test01/MinBias_PreMix_1652_5_EMZ_numEvent5.root"
+#ivars.files = "dcache:/pnfs/cmsaf.mit.edu/t2bat/cms/store/user/yetkin/mix/pythia170_HICorePhysics_MinBiasSkim_440_test28_DBS_evt5_test01/MinBias_PreMix_1652_5_EMZ_numEvent5.root"
+ivars.files = "dcache:/pnfs/cmsaf.mit.edu/t2bat/cms/store/user/yetkin/mix/pythia170_HICorePhysics_MinBiasSkim_440_test28_DBS_evt5_test01/MinBias_PreMix_1002_3_Ndk_numEvent5.root"
 ivars.output = 'trkhistsDMSig.root'
 ivars.maxEvents = 5
 ivars.initialEvent = 1
@@ -159,7 +160,7 @@ process.hitrkEffAnalyzer.useQaulityStr = cms.untracked.bool(False)
 
 process.hitrackAna.src = cms.untracked.InputTag(trk1,'','SIGNAL')
 process.hitrackAna.src_evtCorr = cms.untracked.InputTag(trk1,'','SIGNAL')
-process.hitrackAna.triglabel=cms.untracked.InputTag(trk1,'','MIX')
+process.hitrackAna.triglabel=cms.untracked.InputTag('TriggerResults','','MIX')
 process.hitrackAna.doJet = cms.untracked.bool(False)
 process.hitrackAna.neededCentBins= cms.untracked.vint32(centbins)
 process.hitrackAna.setQualityBit = cms.untracked.bool(False)
