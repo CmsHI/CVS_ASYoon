@@ -155,7 +155,7 @@ void HiCaloCompatibleTrackSelector::produce( edm::Event& evt, const edm::EventSe
       float matchPt=0;
       matchByDrAllowReuse(trk,towers,matchDr,matchIndex);
       if (matchIndex>=0) {
-        matchPt=(*towers)[i].pt();
+        matchPt=(*towers)[matchIndex].pt();
       }
       
       bool keepIt = false;
