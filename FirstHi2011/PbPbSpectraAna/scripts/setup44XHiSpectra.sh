@@ -1,4 +1,4 @@
-#!/bin/sh
+!/bin/sh
 
 cd $CMSSW_BASE/src
 
@@ -30,10 +30,10 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/HiCaloCompatibleTrackSelector
 
 # needed for Matt's iterative tracking
 cvs co -d       MNguyen/iterTracking UserCode/MNguyen/iterTracking
-cvs co -d       CmsHi/JetAnalysis UserCode/CmsHi/JetAnalysis
-rm CmsHi/JetAnalysis/python/EGammaAnalyzers_cff.py # tmp fix
-rm CmsHi/JetAnalysis/python/ExtraEGammaReco_cff.py # tmp fix
-rm CmsHi/JetAnalysis/python/EventSelection_cff.py # tmp fix
+#cvs co -d       CmsHi/JetAnalysis UserCode/CmsHi/JetAnalysis
+#rm CmsHi/JetAnalysis/python/EGammaAnalyzers_cff.py # tmp fix
+#rm CmsHi/JetAnalysis/python/ExtraEGammaReco_cff.py # tmp fix
+#rm CmsHi/JetAnalysis/python/EventSelection_cff.py # tmp fix
 
 # needed for dijetana
 
