@@ -10,7 +10,7 @@ physDeclFilter = cms.EDFilter("PhysDecl",
 from HLTrigger.HLTfilters.hltHighLevel_cfi import hltHighLevel
 
 hltMinBias = hltHighLevel.clone(
-    HLTPaths = cms.vstring('HLT_HIMinBiasHfOrBSC'),
+    HLTPaths = cms.vstring('HLT_HIMinBiasHfOrBSC_v1'),
     andOr = cms.bool(True)
     )
 
@@ -23,8 +23,11 @@ hltJets = hltHighLevel.clone(
 minBiasBscFilter = cms.Sequence(hltMinBias)
 
 # ================ Spike Cleaning =========================
-#spikeCleaning = cms.Sequence(process.HBHENoiseFilter)
-spikeCleaning = cms.Sequence()
+from CommonTools.RecoAlgos.HBHENoiseFilter_cfi import *
+HBHENoiseFilter.minRatio = cms.double(-99999.0) # see CmsHi.JetAnalysis.EventSelection_cff
+HBHENoiseFilter.maxRatio = cms.double(99999.0)
+HBHENoiseFilter.minZeros = cms.int32(100)
+spikeCleaning = cms.Sequence(HBHENoiseFilter)
 
 # =========== Jet Eta selector ===================
 barrelJets = cms.EDFilter("EtaPtMinCandViewSelector",

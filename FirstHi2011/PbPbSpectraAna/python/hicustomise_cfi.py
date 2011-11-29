@@ -30,13 +30,8 @@ def enableSIM(process):
     process.hiAnalysisSeq.replace(process.higoodtrkval_all,process.higoodtrkval_all+process.higoodtrkval_fakeOnly)
     process.hiAnalysisSeq.replace(process.hipredttrkval_all,process.hipredttrkval_all+process.hipredttrkval_fakeOnly)
     process.hiAnalysisSeq.replace(process.hipredztrkval_all,process.hipredztrkval_all+process.hipredztrkval_fakeOnly)
-    process.pfCandidateAnalyzer.isData=False
-    process.pfCandidateAnalyzer.hasSimInfo=True
-    process.pfCandidateAnalyzer_test.isData=False
-    process.pfCandidateAnalyzer_test.hasSimInfo=True
-    process.hipfCandAnalyzer.replace(process.pfCandidateAnalyzer,process.cutsTPForFak*process.pfCandidateAnalyzer)
-    process.hipfCandAnalyzer_test.replace(process.pfCandidateAnalyzer_test,process.cutsTPForFak*process.pfCandidateAnalyzer_test)
     process.minBiasBscFilter.remove(process.hltMinBias) # assuming MC is 100% MB
+    process.eventFilter.remove(process.spikeCleaning) # no spikeCleaning needed for MC
     process.higoodtrkval.fiducialCut=True
     process.higoodtrkval_pt80.fiducialCut=True
     process.higoodtrkval_fake.fiducialCut=True
@@ -57,7 +52,6 @@ def enableSIM(process):
     process.hipredztrkval_fake.fiducialCut=True
     process.hipredztrkval_pt80.fiducialCut=True
     process.hipredztrkval_fake_pt80.fiducialCut=True
-    #process.hltMinBias.HLTPaths=cms.vstring('HLT_HIMinBiasBSC')  # default HLTPath is not available for MC
     print "hltMinBias is removed from minBiasBscFilter check what's left:", process.minBiasBscFilter 
     return process
 
