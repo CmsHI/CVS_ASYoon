@@ -23,10 +23,10 @@ TH1F *hVzPt1D=0, *hVzSPt1D=0, *hVzMPt1D=0;
 
 // Global Variables
 bool doSim=true;
-bool vzcut=true;
+bool vzcut=false;
 bool ccut=false;
-bool useQual=false;
-double maxEta=2.4;
+bool useQual=true;
+double maxEta=1.0;
 
 std::vector<double> etaBins, ptBins, jetBins, centBins;
 
@@ -39,8 +39,8 @@ void extractTrackSpectra(int maxEvt = -1){
    // Define the input file and HiForest
    HiForest *c;
 
-   //TString inf = "merged_trackAnalysis_withSim_39X";
-   TString inf = "merged_trackAna_withSim_44X";
+   TString inf = "merged_trackAnalysis_withSim_39X";
+   //TString inf = "merged_trackAna_withSim_44X";
 
    //TString inf = "merged_trackAna_all_mb_39x";
    //TString inf = "merged_trackAna_all_mb_44x";
@@ -170,8 +170,7 @@ void extractTrackSpectra(int maxEvt = -1){
 
    hQual->Write(), hMQual->Write();
 
-   //hPt->Write(), hSPt->Write(), hAPt->Write(), hMPt->Write();
-   hPt->Write();
+   hPt->Write(), hSPt->Write(), hAPt->Write(), hMPt->Write();
    hEta->Write(), hSEta->Write(), hAEta->Write(), hMEta->Write();
    hPhi->Write(), hSPhi->Write(), hAPhi->Write(), hMPhi->Write();
 
