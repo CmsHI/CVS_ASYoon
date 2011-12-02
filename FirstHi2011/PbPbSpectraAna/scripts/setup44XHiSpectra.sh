@@ -36,9 +36,9 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/HiTrackValidator
 cvs co UserCode/ASYoon/PbPbTrackingTools/HiCaloCompatibleTrackSelector
 #cvs co UserCode/edwenger/Skims/prod/condor # in case condor job scripts needed
 
-# needed for Matt's iterative tracking
-cvs co -d  MNguyen/iterTracking UserCode/MNguyen/iterTracking
-
+# needed for HI iterative tracking
+cvs co -r V01-04-07 RecoHI/HiTracking
+cvs co -d RecoHI/HiTracking/python UserCode/MNguyen/Configuration/python/hiIterTracking_cff.py
 
 # setting and cleanup
 mv UserCode/edwenger .
