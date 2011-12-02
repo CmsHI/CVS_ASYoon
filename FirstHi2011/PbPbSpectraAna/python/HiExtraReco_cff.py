@@ -1,11 +1,26 @@
 import FWCore.ParameterSet.Config as cms
 
 from FirstHi2011.PbPbSpectraAna.HiTrackSelection_cff import *
+from RecoHI.HiTracking.HICaloCompatibleTracks_cfi import *
 
 
-# Extra track selections/refit/etc..
-hiextraTrack = cms.Sequence(hiGoodTightTracks)
+## hiGoodTightTracks
+hiExtraTrack = cms.Sequence(hiGoodTightTracks)   # highPurity from hiSelectedTracks
 
 
-# Below is the tracks with calo-compatibility cut based on calo-track matching in PF.
-#hicaloTrack = cms.Sequence(hiGeneralCaloTracks)
+## hiOptimalTightTracks
+hiPreCaloCompTracks = hiCaloCompatibleTracks.clone(srcTracks = cms.InputTag("hiSelectedTracks"),
+                                                   usePFCandMatching = cms.untracked.bool(True))
+
+hiPreOptimalTightTracks = hiTracksWithLooseQuality.clone(src = cms.InputTag("hiGeneralTracks"),
+                          keepAllTracks = cms.bool(False),
+                          chi2n_no1Dmod_par = cms.double(0.15))
+
+hiOptimalTightTracks = cms.EDFilter("TrackSelector",
+                       src = cms.InputTag("hiPreOptimalTightTracks"),
+                       cut = cms.string('quality("highPurity") || quality("tight")'))
+
+
+hiOptTrack = cms.Sequence(hiPreCaloCompTracks*
+                          hiPreOptimalTightTracks*
+                          hiOptimalTightTracks) 
