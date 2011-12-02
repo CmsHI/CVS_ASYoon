@@ -56,6 +56,25 @@ def enableSIM(process):
     return process
 
 
+def whichTrackCollection(process,trkcoll='hiGeneralTracks'):
+    print "Input tracking collections = [",trkcoll,"] "
+    process.higoodtrkval.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higoodtrkval_pt80.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higoodtrkval_fake.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higoodtrkval_fake_pt80.trklabel=cms.untracked.InputTag(trkcoll)
+    process.hitrackAna.src = cms.untracked.InputTag(trkcoll)  # trkAna
+    process.hitrackAna_jetMode1.src = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna_jetMode2.src = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna_jetMode3.src = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna_jetMode4.src = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna.src_evtCorr = cms.untracked.InputTag(trkcoll) # event correction
+    process.hitrackAna_jetMode1.src_evtCorr = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna_jetMode2.src_evtCorr = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna_jetMode3.src_evtCorr = cms.untracked.InputTag(trkcoll)
+    process.hitrackAna_jetMode4.src_evtCorr = cms.untracked.InputTag(trkcoll)
+    process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
+    return process
+    
 def runWithLightCfg(process):
     print "Light cfg: following modules are removed"
     print "higoodtrkval*, hihightrkval*, higloosetrkval*, hipredttrkval*"
