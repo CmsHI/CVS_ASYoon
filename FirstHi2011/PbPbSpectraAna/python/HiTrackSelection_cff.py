@@ -1,7 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
+from RecoHI.HiTracking.HISelectedTracks_cfi import *
 from FirstHi2011.PbPbSpectraAna.HiTrackQualitySel_cfi import *
 hiGoodTightTracks = hiQualitySelTracks.clone()
+hiGeneralTightTracks = hiGoodTightTracks.clone(src = cms.InputTag("hiGeneralTracks"))
 
 #============================================================================                                                      
 # This is for hiPtDepOptCaloTracks, which is the merged track collection of
