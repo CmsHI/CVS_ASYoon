@@ -1,3 +1,0 @@
-/castor/cern.ch/cms/store/hidata/HIRun2010/HIAllPhysics/RECO/PromptReco-v2/000/150/436
-/castor/cern.ch/cms/store/hidata/HIRun2010/HIAllPhysics/RECO/PromptReco-v2/000/150/442
-/castor/cern.ch/cms/store/hidata/HIRun2010/HIAllPhysics/RECO/PromptReco-v2/000/150/457
