@@ -32,26 +32,14 @@ def enableSIM(process):
     process.hiAnalysisSeq.replace(process.hipredztrkval_all,process.hipredztrkval_all+process.hipredztrkval_fakeOnly)
     process.minBiasBscFilter.remove(process.hltMinBias) # assuming MC is 100% MB
     process.eventFilter.remove(process.spikeCleaning) # no spikeCleaning needed for MC
-    process.higoodtrkval.fiducialCut=True
-    process.higoodtrkval_pt80.fiducialCut=True
-    process.higoodtrkval_fake.fiducialCut=True
-    process.higoodtrkval_fake_pt80.fiducialCut=True
-    process.higloosetrkval.fiducialCut=True
-    process.higloosetrkval_fake.fiducialCut=True
-    process.higloosetrkval_pt80.fiducialCut=True
-    process.higloosetrkval_fake_pt80.fiducialCut=True
-    process.hihightrkval.fiducialCut=True
-    process.hihightrkval_fake.fiducialCut=True
-    process.hihightrkval_pt80.fiducialCut=True
-    process.hihightrkval_fake_pt80.fiducialCut=True
-    process.hipredttrkval.fiducialCut=True
-    process.hipredttrkval_fake.fiducialCut=True
-    process.hipredttrkval_pt80.fiducialCut=True
-    process.hipredttrkval_fake_pt80.fiducialCut=True
-    process.hipredztrkval.fiducialCut=True
-    process.hipredztrkval_fake.fiducialCut=True
-    process.hipredztrkval_pt80.fiducialCut=True
-    process.hipredztrkval_fake_pt80.fiducialCut=True
+    process.higoodtrkval_all.replace(process.higoodtrkval,process.cutsTPForFakHigh*process.higoodtrkval) # use cutsTPForFakHigh to reduce time
+    process.higoodtrkval_all.replace(process.higoodtrkval_pt80,process.cutsTPForFakHigh*process.higoodtrkval_pt80)
+    process.higoodtrkval.simtrklabel=cms.untracked.InputTag("cutsTPForFakHigh")
+    process.higoodtrkval_pt80.simtrklabel=cms.untracked.InputTag("cutsTPForFakHigh")
+    process.higoodtrkval.hasSimInfo=cms.untracked.bool(True) 
+    process.higoodtrkval_pt80.hasSimInfo=cms.untracked.bool(True)
+    process.higoodtrkval_fake.hasSimInfo=cms.untracked.bool(True)
+    process.higoodtrkval_fake_pt80.hasSimInfo=cms.untracked.bool(True)
     print "hltMinBias is removed from minBiasBscFilter check what's left:", process.minBiasBscFilter 
     return process
 
