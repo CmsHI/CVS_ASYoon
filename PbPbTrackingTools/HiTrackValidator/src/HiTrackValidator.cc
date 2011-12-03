@@ -213,6 +213,13 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       hdzOverdzErrPV->Fill(dzOverdZErrPV);
       hd0Overd0ErrPV->Fill(d0Overd0ErrPV);
 
+      // fill quality bits
+      for ( int i = 0; i<reco::TrackBase::qualitySize; ++i){
+	 if(trk.quality(reco::TrackBase::qualityByName(reco::TrackBase::qualityName( reco::TrackBase::TrackQuality(i) ).c_str()))){
+	    hQualityName->Fill(reco::TrackBase::qualityName( reco::TrackBase::TrackQuality(i) ).c_str(),1);
+	 }
+      } 
+
       // histogram filling 2D
       hNlayersdPt->Fill(pt,nlayers);
       hNlayers3DdPt->Fill(pt,nlayers3D);
@@ -377,6 +384,8 @@ HiTrackValidator::beginJob()
    hEta = f->make<TH1F>("hEta","eta distribution; #eta", 60,-2.65,2.65);
    hPhi = f->make<TH1F>("hPhi","phi distribution; #phi", 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
    hPt = f->make<TH1F>("hPt","pt distribution; p_{T} [GeV/c]",100,0.0,20);
+
+   hQualityName = f->make<TH1F>("hQualityName","Quality Bits",10,0.0,10);
 
    // centrality binned histogram 
    for(unsigned i=0;i<neededCentBins_.size()-1;i++){

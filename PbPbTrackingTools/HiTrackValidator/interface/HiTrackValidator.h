@@ -102,6 +102,7 @@ class HiTrackValidator : public edm::EDAnalyzer {
       TH1F *hdzOverdzErr, *hd0Overd0Err;
       TH1F *hdzOverdzErrPV, *hd0Overd0ErrPV;
       TH1F *hEta, *hPhi, *hPt;
+      TH1F *hQualityName;
 
       std::vector<TH1F*> hNlayers_Cent;
       std::vector<TH1F*> hNlayers3D_Cent;
