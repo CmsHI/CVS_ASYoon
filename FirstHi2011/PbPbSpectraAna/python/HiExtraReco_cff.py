@@ -10,8 +10,10 @@ hiExtraTrack = cms.Sequence(hiGoodTightTracks)   # highPurity from hiSelectedTra
 
 ## hiOptimalTightTracks
 hiPreCaloCompTracks = hiCaloCompatibleTracks.clone(srcTracks = cms.InputTag("hiGeneralTracks"),
-                                                   usePFCandMatching = cms.untracked.bool(False), # use CaloTower
-                                                   trkPtMin = cms.untracked.double(0.0))
+                      usePFCandMatching = cms.untracked.bool(False), # use CaloTower
+                      trkPtMin = cms.untracked.double(0.0),
+                      funcCaloComp = cms.string("0.2"), # matched tower energy/track pt > 20%
+                      funcDeltaRTowerMatch = cms.string("0.087/(1.0+0.1*exp(-0.28*(x-20.)))"))
 
 hiPreOptimalTightTracks = hiTracksWithLooseQuality.clone(src = cms.InputTag("hiPreCaloCompTracks"),
                           keepAllTracks = cms.bool(False),
