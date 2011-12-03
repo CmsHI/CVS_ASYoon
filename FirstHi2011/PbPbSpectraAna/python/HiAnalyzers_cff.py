@@ -107,7 +107,9 @@ from edwenger.HiTrackSpectraAnalyzer.hitrackspectraanalyzer_cfi import *
 # HiGoodTight
 hitrackAna.src = cms.untracked.InputTag("hiGoodTightTracks")
 hitrackAna.src_evtCorr = cms.untracked.InputTag("hiGoodTightTracks")
+hitrackAna.setQualityBit = cms.untracked.bool(False)
 hitrackAna.qualityString = cms.untracked.string("highPurity")
+hitrackAna.triglabel = cms.untracked.InputTag('TriggerResults','','RECO')
 hitrackAna.doJet = cms.untracked.bool(True)
 hitrackAna.triggerNeeded = cms.untracked.bool(True)
 hitrackAna.pixelMultMode = cms.untracked.bool(False)
