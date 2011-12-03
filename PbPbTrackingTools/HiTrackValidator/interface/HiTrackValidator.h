@@ -174,7 +174,7 @@ class HiTrackValidator : public edm::EDAnalyzer {
 
       // track-calorimeter matching
       TH1F *hdR;
-      TH1F *hPtCaloMat;
+      TH1F *hPtCaloMat, *hPtReal, *hPtRealCaloMat;
       TH2F *hdRdPt, * hdRdCalE, *hdPtdCalE;
 
       std::vector<double> ptBins;

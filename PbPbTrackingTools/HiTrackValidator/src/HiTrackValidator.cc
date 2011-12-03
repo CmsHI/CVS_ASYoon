@@ -146,6 +146,7 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       hEta->Fill(eta);
       hPhi->Fill(phi);
       hPt->Fill(pt);
+      if(!isFake) hPtReal->Fill(pt);
 
       // centrality binned
       for(unsigned i=0;i<neededCentBins_.size();i++){
@@ -181,6 +182,7 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 	 hdPtdCalE->Fill(pt,matchPt);
 	 if(matchPt/pt>caloComp_pt && matchDr<=matchConeRadius_pt){
 	    hPtCaloMat->Fill(pt);
+	    if(!isFake) hPtRealCaloMat->Fill(pt);
 	 }
       }
 
@@ -417,6 +419,8 @@ HiTrackValidator::beginJob()
    // calo-matching 
    hdR = f->make<TH1F>("hdR","dr between track and calo; dr", 100,0.0,4.0);
    hPtCaloMat = f->make<TH1F>("hPtCaloMat","pt distribution of calo-matched track; p_{T} [GeV/c]", ptBins.size()-1, &ptBins[0]);
+   hPtReal = f->make<TH1F>("hPtReal","pt distribution of real track; p_{T} [GeV/c]", ptBins.size()-1, &ptBins[0]);
+   hPtRealCaloMat = f->make<TH1F>("hPtRealCaloMat","pt distribution of calo-matched real track; p_{T} [GeV/c]", ptBins.size()-1, &ptBins[0]);
    hdRdPt = f->make<TH2F>("hdRdPt","dr vs pt;dr;p_{T} [GeV/c]", 100,0.0,4.0, 100,0.0,200);
    hdRdCalE = f->make<TH2F>("hdRdCalE","dr vs calo cell pt;dr;Calo tower p_{T} [GeV/c]", 100,0.0,4.0, 100,0.0,200);
    hdPtdCalE = f->make<TH2F>("hdPtdCalE","pt vs calo cell pt;p_{T} [GeV/c]; Calo tower  p_{T} [GeV/c]", 100,0.0,200, 100,0.0,200);
