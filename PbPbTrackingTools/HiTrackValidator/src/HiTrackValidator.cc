@@ -10,18 +10,26 @@ HiTrackValidator::HiTrackValidator(const edm::ParameterSet& iConfig)
    trklabel_(iConfig.getUntrackedParameter<edm::InputTag>("trklabel")),
    jetlabel_(iConfig.getUntrackedParameter<edm::InputTag>("jetlabel")),
    simtrklabel_(iConfig.getUntrackedParameter<edm::InputTag>("simtrklabel")),
+   towerlabel_(iConfig.getUntrackedParameter<edm::InputTag>("towerlabel")),
    associatorMap_(iConfig.getUntrackedParameter<edm::InputTag>("associatorMap")),
    etaMax_(iConfig.getUntrackedParameter<double>("etaMax")),
    jetEtMin_(iConfig.getUntrackedParameter<double>("jetEtMin")),
    hasSimInfo_(iConfig.getUntrackedParameter<bool>("hasSimInfo")),
    selectFake_(iConfig.getUntrackedParameter<bool>("selectFake")),
+   hasCaloMat_(iConfig.getUntrackedParameter<bool>("hasCaloMat")),
+   towerPtMin_(iConfig.getUntrackedParameter<double>("towerPtMin",5.0)),
    useQaulityStr_(iConfig.getUntrackedParameter<bool>("useQaulityStr")),
    qualityString_(iConfig.getUntrackedParameter<std::string>("qualityString")),
    fiducialCut_(iConfig.getUntrackedParameter<bool>("fiducialCut",false)),
+   funcDeltaRTowerMatch_(iConfig.getParameter<std::string>("funcDeltaRTowerMatch")),
+   funcCaloComp_(iConfig.getParameter<std::string>("funcCaloComp")),
    neededCentBins_(iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins")),
    centrality_(0)
 {
-
+   // pt dependence of delta R matching requirement
+   fDeltaRTowerMatch = new TF1("fDeltaRTowerMatch",funcDeltaRTowerMatch_.c_str(),0,200); 
+   // pt dependance of calo compatibility, i.e., minimum sum Calo Et vs. track pT
+   fCaloComp = new TF1("fCaloComp",funcCaloComp_.c_str(),0,200); // a parameterization of pt dependent cu
 }
 
 
@@ -94,6 +102,10 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
       recSimColl= theAssociatorByHits->associateRecoToSim(trackCollection,TPCollectionHfake,&iEvent); // to find fake
    }
 
+   //------- Calo tower ---------------------
+   edm::Handle<CaloTowerCollection> towers;
+   bool isTowerThere = iEvent.getByLabel(towerlabel_, towers);
+
    //------- Get tracker geometry -------------
    edm::ESHandle<TrackerGeometry> tracker;
    iSetup.get<TrackerDigiGeometryRecord>().get(tracker);
@@ -156,6 +168,21 @@ HiTrackValidator::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 
       if(etaMax_<eta) continue; // only for a given eta range
 
+      // track - calo cell matching
+      if(hasCaloMat_ && isTowerThere){
+	 double matchPt = 0.0;
+	 double matchDr;
+	 matchByDrAllowReuse(trk,towers,matchDr,matchPt);
+	 float matchConeRadius_pt = (fDeltaRTowerMatch->Eval(trk.pt())!=fDeltaRTowerMatch->Eval(trk.pt())) ? 0 : fDeltaRTowerMatch->Eval(trk.pt()); 
+	 float caloComp_pt = (fCaloComp->Eval(trk.pt())!=fCaloComp->Eval(trk.pt())) ? 0 : fCaloComp->Eval(trk.pt()); 
+	 hdR->Fill(matchDr);
+	 hdRdPt->Fill(matchDr,pt);
+	 hdRdCalE->Fill(matchDr,matchPt);
+	 hdPtdCalE->Fill(pt,matchPt);
+	 if(matchPt/pt>caloComp_pt && matchDr<=matchConeRadius_pt){
+	    hPtCaloMat->Fill(pt);
+	 }
+      }
 
       // basic hit level quality varialbes
       uint32_t nlayers     = trk.hitPattern().trackerLayersWithMeasurement();
@@ -383,9 +410,17 @@ HiTrackValidator::beginJob()
    hEtaPhi = f->make<TH2F>("hEtaPhi","eta vs phi;#eta;#phi", 40,-2.65,2.65, 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
    hEta = f->make<TH1F>("hEta","eta distribution; #eta", 60,-2.65,2.65);
    hPhi = f->make<TH1F>("hPhi","phi distribution; #phi", 80,-1.05*TMath::Pi(),1.05*TMath::Pi());
-   hPt = f->make<TH1F>("hPt","pt distribution; p_{T} [GeV/c]",100,0.0,20);
+   hPt = f->make<TH1F>("hPt","pt distribution; p_{T} [GeV/c]", ptBins.size()-1, &ptBins[0]);
 
    hQualityName = f->make<TH1F>("hQualityName","Quality Bits",10,0.0,10);
+
+   // calo-matching 
+   hdR = f->make<TH1F>("hdR","dr between track and calo; dr", 100,0.0,4.0);
+   hPtCaloMat = f->make<TH1F>("hPtCaloMat","pt distribution of calo-matched track; p_{T} [GeV/c]", ptBins.size()-1, &ptBins[0]);
+   hdRdPt = f->make<TH2F>("hdRdPt","dr vs pt;dr;p_{T} [GeV/c]", 100,0.0,4.0, 100,0.0,200);
+   hdRdCalE = f->make<TH2F>("hdRdCalE","dr vs calo cell pt;dr;Calo tower p_{T} [GeV/c]", 100,0.0,4.0, 100,0.0,200);
+   hdPtdCalE = f->make<TH2F>("hdPtdCalE","pt vs calo cell pt;p_{T} [GeV/c]; Calo tower  p_{T} [GeV/c]", 100,0.0,200, 100,0.0,200);
+
 
    // centrality binned histogram 
    for(unsigned i=0;i<neededCentBins_.size()-1;i++){
@@ -493,6 +528,27 @@ HiTrackValidator::beginJob()
 // ------------ method called once each job just after ending the event loop  ------------
 void 
 HiTrackValidator::endJob() {
+}
+
+
+//
+void 
+HiTrackValidator::matchByDrAllowReuse(const reco::Track & trk, const edm::Handle<CaloTowerCollection> & towers, double & bestdr, double & bestpt)
+{
+   // loop over towers
+   bestdr=1e10;
+   bestpt=0.;
+   for(unsigned int i = 0; i < towers->size(); ++i){
+      const CaloTower & tower= (*towers)[i];
+      double pt = tower.pt();
+      if (pt<towerPtMin_) continue;
+      if (fabs(tower.eta())>etaMax_) continue;
+      double dr = reco::deltaR(tower,trk);
+      if (dr<bestdr) {
+	 bestdr = dr;
+	 bestpt = pt;
+      }
+   }
 }
 
 //

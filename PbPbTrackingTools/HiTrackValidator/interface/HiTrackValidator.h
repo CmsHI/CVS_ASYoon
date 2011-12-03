@@ -38,6 +38,11 @@
 #include "DataFormats/SiPixelDetId/interface/PXFDetId.h"
 #include "DataFormats/SiPixelDetId/interface/PixelEndcapName.h"
 
+// Calotower matching
+#include "DataFormats/Math/interface/deltaR.h"
+#include <Math/DistFunc.h>
+#include "TMath.h"
+
 // centrality
 #include "DataFormats/HeavyIonEvent/interface/CentralityProvider.h"
 
@@ -46,6 +51,7 @@
 // ROOT includes
 #include <TH2.h>
 #include <TMath.h>
+#include <TF1.h>
 
 class HiTrackValidator : public edm::EDAnalyzer {
    public:
@@ -57,6 +63,7 @@ class HiTrackValidator : public edm::EDAnalyzer {
       virtual void analyze(const edm::Event&, const edm::EventSetup&);
       virtual void endJob() ;
 
+      void matchByDrAllowReuse(const reco::Track & trk, const edm::Handle<CaloTowerCollection> & towers, double & bestdr, double & bestpt);
       bool hitDeadPXF(const reco::Track&);
       typedef math::XYZPoint Point;
 
@@ -68,6 +75,7 @@ class HiTrackValidator : public edm::EDAnalyzer {
       edm::InputTag trklabel_;
       edm::InputTag jetlabel_;
       edm::InputTag simtrklabel_;
+      edm::InputTag towerlabel_;
       edm::InputTag associatorMap_;
 
       double etaMax_;
@@ -75,11 +83,17 @@ class HiTrackValidator : public edm::EDAnalyzer {
 
       bool hasSimInfo_;
       bool selectFake_;
+      bool hasCaloMat_;
+      double towerPtMin_;
       bool useQaulityStr_;
       std::string qualityString_;
 
       bool fiducialCut_;
-      
+
+      // string of functional form
+      std::string funcDeltaRTowerMatch_;
+      std::string funcCaloComp_;
+      TF1 *fDeltaRTowerMatch, *fCaloComp;
 
       std::vector<int32_t> neededCentBins_;
 
@@ -157,6 +171,11 @@ class HiTrackValidator : public edm::EDAnalyzer {
       // kinematic distributions
       TH2F *hEtaPhi;
       //std::vector<TH2D*> hEtaPhi_Cent;
+
+      // track-calorimeter matching
+      TH1F *hdR;
+      TH1F *hPtCaloMat;
+      TH2F *hdRdPt, * hdRdCalE, *hdPtdCalE;
 
       std::vector<double> ptBins;
 
