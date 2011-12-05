@@ -1,6 +1,8 @@
 
 cvs co UserCode/yinglu/MC_Production/Dijet
 cvs co UserCode/davidlw/MCProduction/python
+cvs co UserCode/ASYoon/MCGeneration/QCDEmbedding
+mv UserCode/ASYoon/MCGeneration .
 
 ## GenProduction
 cvs co Configuration/GenProduction/python/customiseCaloDigisNZS.py
