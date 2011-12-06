@@ -12,6 +12,9 @@ cvs co CondFormats/HIObjects
 cvs co DataFormats/HeavyIonEvent
 cvs co RecoHI/HiCentralityAlgos
 
+# centrality (temporary for Hydjet)
+cvs co -d CmsHi/Analysis2010/python UserCode/CmsHi/Analysis2010/python
+
 # hcal spike cleaning
 cvs co -d HcalFilter UserCode/MTonjes/HcalFilter
 
