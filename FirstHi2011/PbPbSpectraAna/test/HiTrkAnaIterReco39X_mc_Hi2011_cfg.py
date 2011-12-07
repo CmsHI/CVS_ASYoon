@@ -39,17 +39,18 @@ options.parseArguments()
 
 process.source = cms.Source("PoolSource",
    #fileNames = cms.untracked.vstring('file:/d01/y_alive/spectra/mc/test/Hydjet_Bass_MinBias_2760GeV_STARTHI44_385_1_5Fo.root') # MB
-   fileNames = cms.untracked.vstring('file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_1_dec022011.root',
-                                     'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_2_dec022011.root',
-                                     'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_3_dec022011.root',
-                                     'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_4_dec022011.root',
-                                     'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_5_dec022011.root') # Pt80
+   #fileNames = cms.untracked.vstring('file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_1_dec022011.root',
+   #                                  'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_2_dec022011.root',
+   #                                  'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_3_dec022011.root',
+   #                                  'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_4_dec022011.root',
+   #                                  'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_5_dec022011.root') # Pt80
+   fileNames = cms.untracked.vstring('file:/net/hisrv0001/home/y_alive/scratch1/spectra/hi2011/mc/test/dijet80_reco_edmOut_5_dec022011.root') # cgate
 )
 
 # =============== Other Statements =====================
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
-process.GlobalTag.globaltag = 'STARTHI44_V6::All' 
+process.GlobalTag.globaltag = 'STARTHI44_V7::All' 
 
 # Needed for Centrality Table (this is temporary)
 from CmsHi.Analysis2010.CommonFunctions_cff import *
@@ -62,7 +63,7 @@ process.HeavyIonGlobalParameters = cms.PSet(
 
 process.configurationMetadata = cms.untracked.PSet(
  version = cms.untracked.string('$Revision: 1.1 $'),
- name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2011/PbPbSpectraAna/test/HiTrkAnaIterReco_mc_Hi2011_cfg.py,v $'),
+ name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2011/PbPbSpectraAna/test/HiTrkAnaIterReco39X_mc_Hi2011_cfg.py,v $'),
  annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
 )
 
@@ -78,23 +79,6 @@ process.load("FirstHi2011.PbPbSpectraAna.HiIterTracking39X_cff")
 
 # =============== Pat Jet ==========================
 process.load('CmsHi.JetAnalysis.PatAna_cff')
-
-process.ak5corr = process.icPu5corr.clone(
-    src = cms.InputTag("ak5CaloJets"),
-    payload = cms.string('AK5Calo')
-)
-
-process.jec = cms.ESSource("PoolDBESSource",
- DBParameters = cms.PSet(messageLevel = cms.untracked.int32(0)),
- timetype = cms.string('runnumber'),
- toGet = cms.VPSet(
- cms.PSet(record = cms.string("JetCorrectionsRecord"),
- tag = cms.string("JetCorrectorParametersCollection_HI_Calo_hiGoodTightTracks_D6T_413_IC5Calo"),
-          label = cms.untracked.string("IC5Calo")),
- ),
- connect = cms.string("sqlite_file:JEC_HI_PFTower_413patch2_2011_v3.db"),
-)
-process.es_prefer_jec = cms.ESPrefer('PoolDBESSource','jec')
 
 # =============== Final Paths =====================
 process.eventFilter_step = cms.Path(process.eventFilter)
