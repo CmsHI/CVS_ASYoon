@@ -42,6 +42,7 @@ cvs co UserCode/ASYoon/PbPbTrackingTools/HiCaloCompatibleTrackSelector
 # needed for HI iterative tracking
 cvs co -r V01-04-07 RecoHI/HiTracking
 cvs co -d RecoHI/HiTracking/python UserCode/MNguyen/Configuration/python/hiIterTracking_cff.py
+cvs co -d MNguyen/iterTracking UserCode/MNguyen/iterTracking
 
 # setting and cleanup
 mv UserCode/edwenger .
