@@ -35,7 +35,7 @@ iterTracking39X_seq = cms.Sequence(
     hiGoodTightTracks *
     secondStep *
     thirdStep *
-    #trackCollectionMerging *
+    trackCollectionMerging *
     hybridTrackCollectionMerging # hiGeneral + hiGlobal
     )
 
