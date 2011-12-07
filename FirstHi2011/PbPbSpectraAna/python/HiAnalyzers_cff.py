@@ -113,7 +113,13 @@ hitrackAna.triglabel = cms.untracked.InputTag('TriggerResults','','RECO')
 hitrackAna.doJet = cms.untracked.bool(True)
 hitrackAna.triggerNeeded = cms.untracked.bool(True)
 hitrackAna.pixelMultMode = cms.untracked.bool(False)
-hitrackAna.neededTrigSpectra = cms.untracked.vint32(0,1,1,0,0) #Jet35U and 50U
+# different from 2010
+hitrackAna.hltNames = cms.untracked.vstring('HLT_HIMinBiasHfOrBSC_v1',
+                                            'HLT_HIJet55_v1',
+                                            'HLT_HIJet65_v1',
+                                            'HLT_HIJet80_v1',
+                                            'HLT_HIJet95_v1')
+hitrackAna.neededTrigSpectra = cms.untracked.vint32(1,1,1,0,0) 
 
 hitrackAna_jetMode1 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,80)) # jet Et cut
 hitrackAna_jetMode2 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,100))
