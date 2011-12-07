@@ -12,6 +12,8 @@ from MNguyen.iterTracking.MergeTrackCollectionsHI_cff import *
 ## Heavy Ion Tracking 
 rechits = cms.Sequence(siPixelRecHits * siStripMatchedRecHits)
 hiTrackReReco = cms.Sequence(rechits * heavyIonTracking)
+heavyIonTracking.remove(hiTracksWithLooseQuality) # not needed
+heavyIonTracking.remove(hiTracksWithTightQuality) # not needed
 
 ## Customizations 
 hiGoodTightTracks.src = cms.InputTag("hiGlobalPrimTracks") # 
@@ -33,7 +35,7 @@ iterTracking39X_seq = cms.Sequence(
     hiGoodTightTracks *
     secondStep *
     thirdStep *
-    trackCollectionMerging *
+    #trackCollectionMerging *
     hybridTrackCollectionMerging # hiGeneral + hiGlobal
     )
 
