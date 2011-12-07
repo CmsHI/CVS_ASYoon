@@ -689,8 +689,18 @@ def enableHLTJet(process,hltname='HLT_HIJet50U'):
         process.higoodlooseAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
         process.hihightrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
         process.hihightrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
-    return process
-                            
+    if hltname.find('HIJet80') >= 0:
+        jetcut1=[80,9000]
+        jetcut2=[100,9000]
+        print "Jet Et cuts on spectra analyzer: cut 1 = ", jetcut1, " cut 2 = ", jetcut2
+        process.hitrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.hitrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
+        process.higoodlooseAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.higoodlooseAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
+        process.hihightrackAna_jetMode1.jetEtCuts=cms.untracked.vdouble(jetcut1)
+        process.hihightrackAna_jetMode2.jetEtCuts=cms.untracked.vdouble(jetcut2)
+        return process
+    
 
 def usehiGoodMergedTracks(process):
     print "hiGoodMergedTracks is used (except PF re-reco)! --> re-reco of conformalPixelTrackReco!"
