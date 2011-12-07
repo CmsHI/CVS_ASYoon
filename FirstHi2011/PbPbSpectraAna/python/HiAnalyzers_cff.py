@@ -14,10 +14,12 @@ postMedVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiPixelM
 postSelVtxAna = hivertexanalyzer.clone(vtxlabel=cms.untracked.InputTag("hiSelectedVertex"))
 
 # clone hi event selection analyzer
+trig_list = ['HLT_HIMinBiasHfOrBSC_v1','HLT_HIJet55_v1','HLT_HIJet65_v1','HLT_HIJet80_v1','HLT_HIJet95_v1']
 from edwenger.HiEvtSelAnalyzer.hievtselanalyzer_cfi import *
-preTrgAna = hievtselanalyzer.clone()
-postTrgAna = hievtselanalyzer.clone()
-postEvtAna = hievtselanalyzer.clone()
+preTrgAna = hievtselanalyzer.clone(triglabel=cms.untracked.InputTag('TriggerResults','','HLT'),
+                                   trignames=cms.untracked.vstring(trig_list))
+postTrgAna = preTrgAna.clone()
+postEvtAna = preTrgAna.clone()
 
 from PbPbTrackingTools.HiTrackValidator.hitrackvalidator_cfi import *
 from edwenger.HiTrkEffAnalyzer.HiTPCuts_cff import *
@@ -114,11 +116,7 @@ hitrackAna.doJet = cms.untracked.bool(True)
 hitrackAna.triggerNeeded = cms.untracked.bool(True)
 hitrackAna.pixelMultMode = cms.untracked.bool(False)
 # different from 2010
-hitrackAna.hltNames = cms.untracked.vstring('HLT_HIMinBiasHfOrBSC_v1',
-                                            'HLT_HIJet55_v1',
-                                            'HLT_HIJet65_v1',
-                                            'HLT_HIJet80_v1',
-                                            'HLT_HIJet95_v1')
+hitrackAna.hltNames = cms.untracked.vstring(trig_list) # trig_list is defined above
 hitrackAna.neededTrigSpectra = cms.untracked.vint32(1,1,1,0,0) 
 
 hitrackAna_jetMode1 = hitrackAna.clone(jetEtCuts=cms.untracked.vdouble(0,80)) # jet Et cut
