@@ -39,6 +39,8 @@ def enableSIM(process):
     process.minBiasBscFilter.remove(process.hltMinBias) # assuming MC is 100% MB
     process.higoodtrkval.fiducialCut=True
     process.higoodtrkval_pt80.fiducialCut=True
+    process.higoodtrkval_pt100.fiducialCut=True
+    process.higoodtrkval_pt120.fiducialCut=True
     process.higoodtrkval_fake.fiducialCut=True
     process.higoodtrkval_fake_pt80.fiducialCut=True
     process.higloosetrkval.fiducialCut=True
@@ -233,6 +235,8 @@ def runWithIterTrk(process,trkcoll='hiGeneralTracks'):
     process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
     process.higoodtrkval.useQaulityStr = cms.untracked.bool(False) # quality bit
     process.higoodtrkval_pt80.useQaulityStr = cms.untracked.bool(False)
+    process.higoodtrkval_pt100.useQaulityStr = cms.untracked.bool(False)
+    process.higoodtrkval_pt120.useQaulityStr = cms.untracked.bool(False)
     process.higoodtrkval_fake.useQaulityStr = cms.untracked.bool(False)
     process.higoodtrkval_fake_pt80.useQaulityStr = cms.untracked.bool(False)
     process.hitrkEffAnalyzer.useQaulityStr = cms.untracked.bool(False) 
@@ -312,6 +316,8 @@ def runOn384p2(process):
     process.higoodtrkval.useQaulityStr =cms.untracked.bool(True)
     process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(True)
     process.higoodtrkval_pt80.useQaulityStr =cms.untracked.bool(True)
+    process.higoodtrkval_pt100.useQaulityStr =cms.untracked.bool(True)
+    process.higoodtrkval_pt120.useQaulityStr =cms.untracked.bool(True)
     process.higoodtrkval_fake_pt80.useQaulityStr =cms.untracked.bool(True)
     process.hipredttrkval.useQaulityStr =cms.untracked.bool(False) # these two tracks do not need quality
     process.hipredttrkval_fake.useQaulityStr =cms.untracked.bool(False)
@@ -384,6 +390,8 @@ def runOn395(process):
     process.higoodtrkval.useQaulityStr =cms.untracked.bool(True)
     process.higoodtrkval_fake.useQaulityStr =cms.untracked.bool(True)
     process.higoodtrkval_pt80.useQaulityStr =cms.untracked.bool(True)
+    process.higoodtrkval_pt100.useQaulityStr =cms.untracked.bool(True)
+    process.higoodtrkval_pt120.useQaulityStr =cms.untracked.bool(True)
     process.higoodtrkval_fake_pt80.useQaulityStr =cms.untracked.bool(True)
     process.hipredttrkval.useQaulityStr =cms.untracked.bool(False) # these two don't need quality
     process.hipredttrkval_fake.useQaulityStr =cms.untracked.bool(False)
@@ -779,6 +787,8 @@ def whichCentBinMode(process,cbinMode=0):
     process.higoodtrkval.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodtrkval_pt100.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodtrkval_pt120.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredttrkval.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredttrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
@@ -788,10 +798,10 @@ def whichCentBinMode(process,cbinMode=0):
     process.hipredztrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredztrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredztrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
-    #process.pfCandidateAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
-    #process.pfCandidateAnalyzer_test.neededCentBins = cms.untracked.vint32(cbins)
-    #process.pfCandidateAnalyzer_higtight.neededCentBins = cms.untracked.vint32(cbins)
-    #process.pfCandidateAnalyzer_higloose.neededCentBins = cms.untracked.vint32(cbins)
+    process.pfCandidateAnalyzer.neededCentBins = cms.untracked.vint32(cbins)
+    process.pfCandidateAnalyzer_test.neededCentBins = cms.untracked.vint32(cbins)
+    process.pfCandidateAnalyzer_higtight.neededCentBins = cms.untracked.vint32(cbins)
+    process.pfCandidateAnalyzer_higloose.neededCentBins = cms.untracked.vint32(cbins)
     return process
     
 def setCentBins(process,ci=0,cf=10):
