@@ -42,6 +42,8 @@ higloosetrkval_fake_pt80 = higloosetrkval_fake.clone(jetEtMin=cms.untracked.doub
 higoodtrkval = hitrkvalidator.clone(trklabel=cms.untracked.InputTag("hiGoodTightTracks"),
                                     qualityString=cms.untracked.string("highPurity"))
 higoodtrkval_pt80 = higoodtrkval.clone(jetEtMin=cms.untracked.double(80.0))
+higoodtrkval_pt100 = higoodtrkval.clone(jetEtMin=cms.untracked.double(100.0))
+higoodtrkval_pt120 = higoodtrkval.clone(jetEtMin=cms.untracked.double(120.0))
 higoodtrkval_fake = higoodtrkval.clone(simtrklabel = cms.untracked.InputTag("cutsTPForFak"),
                                        hasSimInfo=cms.untracked.bool(True),
                                        selectFake=cms.untracked.bool(True))
@@ -69,7 +71,9 @@ hihightrkval_all = cms.Sequence(hihightrkval*
 higloosetrkval_all = cms.Sequence(higloosetrkval*
                                   higloosetrkval_pt80)
 higoodtrkval_all = cms.Sequence(higoodtrkval*
-                                higoodtrkval_pt80)
+                                higoodtrkval_pt80*
+                                higoodtrkval_pt100*
+                                higoodtrkval_pt120)
 
 hipredttrkval_all = cms.Sequence(hipredttrkval*
                                  hipredttrkval_pt80)
