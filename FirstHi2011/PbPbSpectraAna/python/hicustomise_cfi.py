@@ -34,10 +34,16 @@ def enableSIM(process):
     process.eventFilter.remove(process.spikeCleaning) # no spikeCleaning needed for MC
     process.higoodtrkval_all.replace(process.higoodtrkval,process.cutsTPForFakHigh*process.higoodtrkval) # use cutsTPForFakHigh to reduce time
     process.higoodtrkval_all.replace(process.higoodtrkval_pt80,process.cutsTPForFakHigh*process.higoodtrkval_pt80)
+    process.higoodtrkval_all.replace(process.higoodtrkval_pt100,process.cutsTPForFakHigh*process.higoodtrkval_pt100)
+    process.higoodtrkval_all.replace(process.higoodtrkval_pt120,process.cutsTPForFakHigh*process.higoodtrkval_pt120)
     process.higoodtrkval.simtrklabel=cms.untracked.InputTag("cutsTPForFakHigh")
     process.higoodtrkval_pt80.simtrklabel=cms.untracked.InputTag("cutsTPForFakHigh")
+    process.higoodtrkval_pt100.simtrklabel=cms.untracked.InputTag("cutsTPForFakHigh")
+    process.higoodtrkval_pt120.simtrklabel=cms.untracked.InputTag("cutsTPForFakHigh")
     process.higoodtrkval.hasSimInfo=cms.untracked.bool(True) 
     process.higoodtrkval_pt80.hasSimInfo=cms.untracked.bool(True)
+    process.higoodtrkval_pt100.hasSimInfo=cms.untracked.bool(True)
+    process.higoodtrkval_pt120.hasSimInfo=cms.untracked.bool(True)
     process.higoodtrkval_fake.hasSimInfo=cms.untracked.bool(True)
     process.higoodtrkval_fake_pt80.hasSimInfo=cms.untracked.bool(True)
     print "hltMinBias is removed from minBiasBscFilter check what's left:", process.minBiasBscFilter 
@@ -48,6 +54,8 @@ def whichTrackCollection(process,trkcoll='hiGeneralTracks'):
     print "Input tracking collections = [",trkcoll,"] "
     process.higoodtrkval.trklabel=cms.untracked.InputTag(trkcoll)
     process.higoodtrkval_pt80.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higoodtrkval_pt100.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higoodtrkval_pt120.trklabel=cms.untracked.InputTag(trkcoll)
     process.higoodtrkval_fake.trklabel=cms.untracked.InputTag(trkcoll)
     process.higoodtrkval_fake_pt80.trklabel=cms.untracked.InputTag(trkcoll)
     process.hitrackAna.src = cms.untracked.InputTag(trkcoll)  # trkAna
@@ -801,6 +809,8 @@ def whichCentBinMode(process,cbinMode=0):
     process.higoodtrkval.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval_pt80.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodtrkval_pt100.neededCentBins = cms.untracked.vint32(cbins)
+    process.higoodtrkval_pt120.neededCentBins = cms.untracked.vint32(cbins)
     process.higoodtrkval_fake_pt80.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredttrkval.neededCentBins = cms.untracked.vint32(cbins)
     process.hipredttrkval_fake.neededCentBins = cms.untracked.vint32(cbins)
