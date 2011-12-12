@@ -69,7 +69,9 @@ hihightrkval_all = cms.Sequence(hihightrkval*
 higloosetrkval_all = cms.Sequence(higloosetrkval*
                                   higloosetrkval_pt80)
 higoodtrkval_all = cms.Sequence(higoodtrkval*
-                                higoodtrkval_pt80)
+                                higoodtrkval_pt80*
+                                higoodtrkval_pt100*
+                                higoodtrkval_pt120)
 
 hipredttrkval_all = cms.Sequence(hipredttrkval*
                                  hipredttrkval_pt80)
