@@ -71,6 +71,15 @@ def whichTrackCollection(process,trkcoll='hiGeneralTracks'):
     process.hitrkEffAnalyzer.tracks = cms.untracked.InputTag(trkcoll)
     return process
     
+
+def runOn44XMC(process):
+    print "runOn44XMC"
+    process.hitrackAna.triglabel = cms.untracked.InputTag("TriggerResults","","RECO")
+    process.hitrackAna_jetMode1.triglabel = cms.untracked.InputTag("TriggerResults","","RECO")
+    process.hitrackAna_jetMode2.triglabel = cms.untracked.InputTag("TriggerResults","","RECO")
+    return process
+
+
 def runWithLightCfg(process):
     print "Light cfg: following modules are removed"
     print "higoodtrkval*, hihightrkval*, higloosetrkval*, hipredttrkval*"
