@@ -39,16 +39,16 @@ options.parseArguments()
 
 process.source = cms.Source("PoolSource",
    #fileNames = cms.untracked.vstring('file:/d01/y_alive/spectra/mc/test/Hydjet_Bass_MinBias_2760GeV_STARTHI44_385_1_5Fo.root') # MB
-   #fileNames = cms.untracked.vstring('file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_1_dec022011.root',
-   #                                  'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_2_dec022011.root',
-   #                                  'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_3_dec022011.root',
-   #                                  'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_4_dec022011.root',
-   #                                  'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_5_dec022011.root') # Pt80
-   fileNames = cms.untracked.vstring('file:/net/hisrv0001/home/y_alive/scratch1/spectra/hi2011/mc/test/dijet80_reco_edmOut_5_dec022011.root') # cgate
+   fileNames = cms.untracked.vstring('file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_1_dec022011.root',
+                                     'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_2_dec022011.root',
+                                     'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_3_dec022011.root',
+                                     'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_4_dec022011.root',
+                                     'file:/d01/y_alive/spectra/mc/test/dijet80_reco_edmOut_5_dec022011.root') # Pt80
+   #fileNames = cms.untracked.vstring('file:/net/hisrv0001/home/y_alive/scratch1/spectra/hi2011/mc/test/dijet80_reco_edmOut_5_dec022011.root') # cgate
 )
 
 # =============== Other Statements =====================
-process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(20))
+process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(10))
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 process.GlobalTag.globaltag = 'STARTHI44_V7::All' 
 
@@ -62,7 +62,7 @@ process.HeavyIonGlobalParameters = cms.PSet(
 )
 
 process.configurationMetadata = cms.untracked.PSet(
- version = cms.untracked.string('$Revision: 1.1 $'),
+ version = cms.untracked.string('$Revision: 1.2 $'),
  name = cms.untracked.string('$Source: /cvs/CMSSW/UserCode/ASYoon/FirstHi2011/PbPbSpectraAna/test/HiTrkAnaIterReco39X_mc_Hi2011_cfg.py,v $'),
  annotation = cms.untracked.string('BPTX_AND + BSC_OR + !BSCHALO')
 )
@@ -92,6 +92,7 @@ from FirstHi2011.PbPbSpectraAna.hicustomise_cfi import *
 from CmsHi.JetAnalysis.customise_cfi import *
 enableDataPat(process) # Pat jet for Data
 enableSIM(process)     # activate isGEN in analyzers
+runOn44XMC(process)    # to run on 44X MC
 constraintOnLJetEta(process)               # constraint on leading jet eta
 whichCentBinMode(process,options.centBins) # centrality binning
 whichTrackCollection(process,"hiOptimalTightTracks") # input track collection for main ana
