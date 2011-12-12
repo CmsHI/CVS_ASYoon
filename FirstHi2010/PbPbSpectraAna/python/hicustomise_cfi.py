@@ -220,6 +220,9 @@ def runWithIterTrk(process,trkcoll='hiGeneralTracks'):
     print "use the following tracking collections [",trkcoll,"] from iterative tracking"
     print "quality bit is removed"
     process.higoodtrkval.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higoodtrkval_pt80.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higoodtrkval_pt100.trklabel=cms.untracked.InputTag(trkcoll)
+    process.higoodtrkval_pt120.trklabel=cms.untracked.InputTag(trkcoll)
     process.hipredttrkval.trklabel=cms.untracked.InputTag(trkcoll)
     process.hipredztrkval.trklabel=cms.untracked.InputTag(trkcoll)
     process.hitrackAna.src = cms.untracked.InputTag(trkcoll)  # trkAna
