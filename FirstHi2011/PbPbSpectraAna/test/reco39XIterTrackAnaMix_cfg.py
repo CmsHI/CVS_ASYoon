@@ -64,8 +64,9 @@ process.GlobalTag.toGet.append(
     cms.PSet(record = cms.string("BeamSpotObjectsRcd"),
              tag = cms.string("Realistic2.76ATeVCollisions_STARTUP_v0_mc"),
              connect = cms.untracked.string("frontier://FrontierProd/CMS_COND_31X_BEAMSPOT")
+             )
 )
-        
+    
 # Centrality (use data centrality table)
 from CmsHi.Analysis2010.CommonFunctions_cff import *
 overrideCentrality(process)
