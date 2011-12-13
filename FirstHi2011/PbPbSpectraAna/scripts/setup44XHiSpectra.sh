@@ -45,6 +45,11 @@ cvs co UserCode/MNguyen/Configuration/python/hiIterTracking_cff.py
 cp UserCode/MNguyen/Configuration/python/hiIterTracking_cff.py RecoHI/HiTracking/python # consolidation
 cvs co -d MNguyen/iterTracking UserCode/MNguyen/iterTracking
 
+# needed for DM reconstruction
+cvs co -d SimGeneral/DataMixingModule UserCode/yetkin/SimGeneral/DataMixingModule
+cvs co -r hi44X_01 -d  MitHig/PixelTrackletAnalyzer UserCode/MitHig/PixelTrackletAnalyzer # this is needed for above
+rm MitHig/PixelTrackletAnalyzer/src/SimTrackAnalyzer.cc
+
 # setting and cleanup
 mv UserCode/edwenger .
 mv UserCode/ASYoon/PbPbTrackingTools .
