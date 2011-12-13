@@ -13,3 +13,6 @@ rm MitHig/PixelTrackletAnalyzer/src/SimTrackAnalyzer.cc
 rm CmsHi/Analysis2010/python/CommonFunctions_cff.py
 cvs co -r 1.32 UserCode/CmsHi/Analysis2010/python/CommonFunctions_cff.py
 cp UserCode/CmsHi/Analysis2010/python/CommonFunctions_cff.py CmsHi/Analysis2010/python/
+
+scram build -c
+scram b
