@@ -125,9 +125,11 @@ process.hitrkEffAnalyzer.usePxlPair = cms.untracked.bool(True)
 process.hitrkEffAnalyzer.useJetEtMode = cms.int32(0) # 0 = no jet, 1 = leading jet, 2 = closest jets
 
 # =============== Schedule ===========================
+process.endjob_step = cms.Path(process.endOfProcess)
 
 process.schedule = cms.Schedule(
     process.iterTrack_step,
+    process.endjob_step,
     process.extraTrks_step,
     process.ana_step
     )
