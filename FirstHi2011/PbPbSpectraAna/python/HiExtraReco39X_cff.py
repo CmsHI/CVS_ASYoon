@@ -16,8 +16,8 @@ hiOptCaloPreFst = selectHiCaloCompatibleTrack.clone(src = cms.InputTag("hiGenera
                                                     applyPtDepCut = cms.untracked.bool(True))
 hiOptCaloPreSnd = hiOptCaloPreFst.clone(reverseSel = cms.untracked.bool(True))
 
-# loose selection
-hiOptCaloPreFstLoose = hiOptCaloPreFst.clone(funcCaloComp = cms.string("0.087")) # float dR cut
+# loose selection (not used!)
+hiOptCaloPreFstLoose = hiOptCaloPreFst.clone(funcCaloComp = cms.string("0.087")) # flaat dR cut
 hiOptCaloPreSndLoose = hiOptCaloPreFstLoose.clone(reverseSel = cms.untracked.bool(True))
 
 hiOptCaloFst = hiLooseTracks.clone(src = cms.InputTag("hiOptCaloPreFst"))
