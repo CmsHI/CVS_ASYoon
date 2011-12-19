@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id: CentralityDistAna.cc,v 1.12 2011/04/18 15:33:45 sungho Exp $
+// $Id: CentralityDistAna.cc,v 1.13 2011/04/22 14:08:42 sungho Exp $
 //
 //
 
@@ -41,6 +41,7 @@
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 
 // ROOT includes
+#include "TNtuple.h"
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TFile.h"
@@ -89,11 +90,14 @@ class CentralityDistAna : public edm::EDAnalyzer {
    TH1F *hHFhitSumDist_Jet80;
    TH1F *hHFhitSumDist_Jet100;
 
+   TNtuple *nt_hfhits, *nt_hftowers;
+   
    edm::InputTag jsrc_;
 
    std::vector<int32_t> neededCentBins_;
 
    bool useJetThreshold_;
+   bool produceTree_;
 
 };
 
@@ -115,6 +119,7 @@ CentralityDistAna::CentralityDistAna(const edm::ParameterSet& iConfig) :
    jsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("jsrc",edm::InputTag("ak5CaloJets"));
    neededCentBins_ = iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins");
    useJetThreshold_ = iConfig.getUntrackedParameter<bool>("useJetThreshold");
+   produceTree_ = iConfig.getUntrackedParameter<bool>("produceTree");
 }
 
 
@@ -177,6 +182,12 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
 
    hHFhitSumDist->Fill(hf/1000.);  // scaled it by 1000 GeV 
    hHFtowerSumDist->Fill(hft);
+
+   if(produceTree_){
+      nt_hfhits->Fill(hf,bin);
+      nt_hftowers->Fill(hft,bin);
+   }
+
 
    if(useJetThreshold_){
       if(jetet>=35)  hCentBinDist_Jet35->Fill(bin),  hHFhitSumDist_Jet35->Fill(hf/1000.);
@@ -242,6 +253,11 @@ CentralityDistAna::beginJob()
       hHFhitSumDist_Jet60 = fs->make<TH1F>("hHFhitSumDist_Jet60","HF hit energy sum distribution; Total energy in HF (TeV)",160,0.0,200);
       hHFhitSumDist_Jet80 = fs->make<TH1F>("hHFhitSumDist_Jet80","HF hit energy sum distribution; Total energy in HF (TeV)",160,0.0,200);
       hHFhitSumDist_Jet100 = fs->make<TH1F>("hHFhitSumDist_Jet100","HF hit energy sum distribution; Total energy in HF (TeV)",160,0.0,200);
+   }
+
+   if(produceTree_){
+      nt_hfhits = fs->make<TNtuple>("nt_hfhits","HF hit distributions","hfhits:cbin");
+      nt_hftowers = fs->make<TNtuple>("nt_hftowers","HF tower distributions","hftowers:cbin");
    }
    
 }
