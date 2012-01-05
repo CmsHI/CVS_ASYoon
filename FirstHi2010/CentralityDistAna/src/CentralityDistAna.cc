@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id: CentralityDistAna.cc,v 1.13 2011/04/22 14:08:42 sungho Exp $
+// $Id: CentralityDistAna.cc,v 1.14 2011/12/19 14:57:02 sungho Exp $
 //
 //
 
@@ -98,7 +98,7 @@ class CentralityDistAna : public edm::EDAnalyzer {
 
    bool useJetThreshold_;
    bool produceTree_;
-
+   double applyStrechFact_;
 };
 
 //
@@ -120,6 +120,7 @@ CentralityDistAna::CentralityDistAna(const edm::ParameterSet& iConfig) :
    neededCentBins_ = iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins");
    useJetThreshold_ = iConfig.getUntrackedParameter<bool>("useJetThreshold");
    produceTree_ = iConfig.getUntrackedParameter<bool>("produceTree");
+   applyStrechFact_ = iConfig.getUntrackedParameter<double>("applyStrechFact_",-1);
 }
 
 
@@ -179,6 +180,8 @@ CentralityDistAna::analyze(const edm::Event& iEvent, const edm::EventSetup& iSet
    hCentBinDist->Fill(bin);
    hCentBinDistNpartWeighted->Fill(bin,npartMean);
    hCentBinDistNcollWeighted->Fill(bin,ncollMean);
+
+   if(applyStrechFact_>0) hf = hf*applyStrechFact_; // apply strech factor (to compare 2011 and 201)
 
    hHFhitSumDist->Fill(hf/1000.);  // scaled it by 1000 GeV 
    hHFtowerSumDist->Fill(hft);
