@@ -13,7 +13,7 @@
 //
 // Original Author:  Andre Yoon,32 4-A06,+41227676980,
 //         Created:  Mon Nov 22 11:37:43 CET 2010
-// $Id: CentralityDistAna.cc,v 1.14 2011/12/19 14:57:02 sungho Exp $
+// $Id: CentralityDistAna.cc,v 1.15 2012/01/05 18:29:40 sungho Exp $
 //
 //
 
@@ -120,7 +120,7 @@ CentralityDistAna::CentralityDistAna(const edm::ParameterSet& iConfig) :
    neededCentBins_ = iConfig.getUntrackedParameter<std::vector<int> >("neededCentBins");
    useJetThreshold_ = iConfig.getUntrackedParameter<bool>("useJetThreshold");
    produceTree_ = iConfig.getUntrackedParameter<bool>("produceTree");
-   applyStrechFact_ = iConfig.getUntrackedParameter<double>("applyStrechFact_",-1);
+   applyStrechFact_ = iConfig.getUntrackedParameter<double>("applyStrechFact",-1);
 }
 
 
