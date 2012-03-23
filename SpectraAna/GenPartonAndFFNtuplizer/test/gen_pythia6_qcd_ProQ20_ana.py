@@ -2,6 +2,12 @@ import FWCore.ParameterSet.Config as cms
 import FWCore.ParameterSet.VarParsing as VarParsing
 import os
 
+# Example) CFG.py output="spectAnaGEN.root" maxEvents=1000 processType="NSD_0_to_5"
+
+# Available processType
+# NSD_0_to_5, NSD_5_to_10, NSD_10_to_20, NSD_20_to_30, NSD_30_to_50, NSD_50_to_80, NSD_80_to_120
+# NSD_120_to_170, NSD_170_to_230, NSD_230_to_300, and so on
+
 # ============= Pythia pre-setting ============================
 # setup 'standard'  options
 options = VarParsing.VarParsing ('standard')
@@ -38,7 +44,7 @@ process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 process.load("PhysicsTools.HepMCCandAlgos.genParticles_cfi")
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('100'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -90,19 +96,14 @@ process.genjet_step = cms.Path(process.genJetParticles *
                                process.ak7GenJets)
 
 # =============== spectra ana ==========================
-#process.load("edwenger.Skims.Analysis_cff")
-#process.ana_step  = cms.Path(process.analysisGEN)
-
-#from edwenger.Skims.customise_cfi import *
-#process =  enableMinPtHatCutAuto(process,options.processType)
-#process = enable900GeVGENMode(process,options.sqrtS) # for 900 GeV, adjust bining for histogram
+from SpectraAna.GenPartonAndFFNtuplizer.customise_cfi import *
 
 process.load("SpectraAna.GenPartonAndFFNtuplizer.GenPartonAndFF_cfi")
 process.ana_step = cms.Path(process.genSpectAna)
 process.TFileService = cms.Service("TFileService",
                                    fileName = cms.string(options.output)
                                    )
-
+process = enableMinPtHatCut(process,options.processType) 
 
 # =============== Output ================================
 process.output = cms.OutputModule("PoolOutputModule",
