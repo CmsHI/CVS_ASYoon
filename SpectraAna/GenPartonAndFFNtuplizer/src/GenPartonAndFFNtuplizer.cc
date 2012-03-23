@@ -38,13 +38,17 @@
 
 #include "DataFormats/JetReco/interface/GenJetCollection.h"
 #include "DataFormats/JetReco/interface/GenJet.h"
+#include "DataFormats/Candidate/interface/Candidate.h"
 
 #include "RecoJets/JetAlgorithms/interface/JetAlgoHelper.h" //for sorting 
 
 #include "SpectraAna/GenPartonAndFFNtuplizer/interface/GenParticleInfo.h"
 
-#include "TNtuple.h"
+#include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
+
+#include "TTree.h"
 #include "TClonesArray.h"
+#include "TROOT.h"
 
 using namespace std;
 
@@ -76,15 +80,20 @@ class GenPartonAndFFNtuplizer : public edm::EDAnalyzer {
    edm::InputTag gsrc_;
    edm::InputTag gjsrc_;
 
+   double pthatCut_; 
+
    // root objects
    edm::Service<TFileService> fs;
 
    TTree *tSpect;
 
    TClonesArray *tCAPartons;  // parton/jet + associated hadrons
-   TClonesArray *tCAHadrons;  // all hadrons 
+   TClonesArray *tCAHadrons;  // all hadrons (obtained from GenParticles)
 
    static const int MAXJETS = 50000;
+
+   float fPthat;
+   float fCrossx;
    
    struct PJ{
       int   nJets;
@@ -115,6 +124,7 @@ GenPartonAndFFNtuplizer::GenPartonAndFFNtuplizer(const edm::ParameterSet& iConfi
    //now do what ever initialization is needed
    gsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("gsrc",edm::InputTag("genParticles"));
    gjsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("gjsrc",edm::InputTag("ak5GenJets"));
+   pthatCut_ = iConfig.getUntrackedParameter<double>("pthatCut", 0.0);
 }
 
 
@@ -139,11 +149,22 @@ GenPartonAndFFNtuplizer::analyze(const edm::Event& iEvent, const edm::EventSetup
    using namespace reco;
 
    // Event Info
+   edm::Handle<GenEventInfoProduct> genEvtInfo;
+   iEvent.getByLabel("generator", genEvtInfo);
+   fPthat = genEvtInfo->qScale();
+
+   // this is needed for generation with min pt_hat = 0
+   // because it automatically sets the max pt_hat = infinity
+   if((int)pthatCut_!=0 && fPthat>pthatCut_) return;      
 
    // Get GenParticles
    edm::Handle<GenParticleCollection> genParticles;
    iEvent.getByLabel(gsrc_, genParticles);
    const GenParticleCollection *genCollect = genParticles.product();
+
+   // Analyze All Charged Particles -------------------------------------
+   TClonesArray &tCAHadronsTemp = *((TClonesArray*)tCAHadrons);
+
 
 
    // Get "GenParton"/"GenJet"
@@ -168,15 +189,54 @@ GenPartonAndFFNtuplizer::analyze(const edm::Event& iEvent, const edm::EventSetup
 
    for(int ij = 0; ij < totJet; ij++){
 
-      int  nChargedHadrons = 0;
-
       jets_.fJEt[jets_.nJets]   = sortedJets[ij]->et();
       jets_.fJPt[jets_.nJets]   = sortedJets[ij]->pt();
       jets_.fJPhi[jets_.nJets]  = sortedJets[ij]->phi();
       jets_.fJEta[jets_.nJets]  = sortedJets[ij]->eta();
       
       jets_.nJets++;
+
+      // Associated (i.e. fragmented) hadrons
+      vector<const Candidate*> assHadrons = sortedJets[ij]->getJetConstituentsQuick();
+
+      int  nTrk = 0;  // accepted
+
+      for(size_t k = 0; k < assHadrons.size(); k++){
+
+	 if(fabs(assHadrons[k]->eta())>2.4) continue;
+	 if(assHadrons[k]->charge()==0) continue;
+
+	 // if k is used, it will create jt with null --> creates a crash
+	 GenParticleInfo *jt = new(tCAPartonsTemp[nTrk]) GenParticleInfo();
+	  
+	 jt->fPt = assHadrons[k]->pt();
+	 jt->fEta = assHadrons[k]->eta();
+	 jt->fPhi = assHadrons[k]->phi();
+	 jt->iCharge = assHadrons[k]->charge();
+	 jt->iStatus = assHadrons[k]->status();
+	 jt->iPdgId  = assHadrons[k]->pdgId();
+
+	 nTrk++; 
+      }
+
+      tSpect->Fill(); // fill N times;
+      tCAPartons->Clear();  
    }
+
+
+
+   /*
+     // matched partons
+       const reco::GenParticle * parton = (*patjets)[j].genParton();
+       if(parton){
+        jets_.refparton_pt[jets_.nref] = parton->pt();
+	 jets_.refparton_flavor[jets_.nref] = parton->pdgId();
+       } else {
+       jets_.refparton_pt[jets_.nref] = -999;
+       jets_.refparton_flavor[jets_.nref] = -999;
+       }
+     }
+   */
 
 
 #ifdef THIS_IS_AN_EVENT_EXAMPLE
@@ -209,15 +269,22 @@ void
 GenPartonAndFFNtuplizer::beginRun(edm::Run const&, edm::EventSetup const&)
 {
    tSpect = fs->make<TTree>("SpectraStudyTree","Tree for Spectra/JetQuenching");
-   tCAPartons = fs->make<TClonesArray>("TCAPartons",20000);
+
+   tCAPartons = fs->make<TClonesArray>("GenParticleInfo",20000);
+   tCAHadrons = fs->make<TClonesArray>("GenParticleInfo",20000);
+
+   tSpect->Branch("fPthat",&fPthat,"fPthat/F");
+   //tSpect->Branch("fCrossx",&fCrossx,"fCrossx/F");
 
    tSpect->Branch("nJets",&jets_.nJets,"nJets/I");
    tSpect->Branch("fJPt",jets_.fJPt,"fJPt[nJets]/F");
    tSpect->Branch("fJEt",jets_.fJEt,"fJEt[nJets]/F");
    tSpect->Branch("fJEta",jets_.fJEta,"fJEta[nJets]/F");
    tSpect->Branch("fJPhi",jets_.fJPhi,"fJPhi[nJets]/F");
-   tSpect->Branch("AllPartons",&tCAPartons);
    
+   tSpect->Branch("AssParticles",&tCAPartons);
+   tSpect->Branch("AllParticles",&tCAHadrons);
+
 }
 
 // ------------ method called when ending the processing of a run  ------------
