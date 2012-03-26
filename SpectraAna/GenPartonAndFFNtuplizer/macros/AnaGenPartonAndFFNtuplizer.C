@@ -29,7 +29,7 @@ TH2F *dNTrkdPtdPtHat;
 // Variables
 vector<double> etBins, ptBins, ptHatBins;
 
-const double ETBINS[18] ={10., 20.,30.,40.,50.,60.,70.,80.,90.,100.,120.,140.,160.,200.,250.,300.,500.,825.};
+const double ETBINS[19] ={0., 10., 20.,30.,40.,50.,60.,70.,80.,90.,100.,120.,140.,160.,200.,250.,300.,500.,825.};
 const int bins = sizeof(ETBINS)/sizeof(double) - 1;
 
 //------------------------------------
@@ -45,7 +45,7 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
 
    TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";
-   TString infile = "spectAnaGEN_March26_Pt0to80_numEvents5000.root";
+   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000.root";
 
    TString outdir = "./root_output";
    TString outfile;
@@ -171,11 +171,11 @@ void prepareHist(){
 
    // ptHat bins
    double pthb;
-   for(pthb = 0; pthb < 1000-small; pthb += 2) ptHatBins.push_back(pthb);
+   for(pthb = 0; pthb < 1000-small; pthb += 5) ptHatBins.push_back(pthb);
    ptHatBins.push_back(1000);
 
    // et bins
-   for(int s=0;s<bins+1;s++) etBins.push_back(ETBINS[s]), etBins.push_back(ETBINS[s]);
+   for(int s=0;s<bins+1;s++) etBins.push_back(ETBINS[s]);
 
    // pt bins
    double ptb;
