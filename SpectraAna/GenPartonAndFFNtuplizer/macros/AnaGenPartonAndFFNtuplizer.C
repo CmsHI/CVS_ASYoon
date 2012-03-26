@@ -29,8 +29,8 @@ TH2F *dNTrkdPtdPtHat;
 // Variables
 vector<double> etBins, ptBins, ptHatBins;
 
-const double ETBINS[19] ={0., 10., 20.,30.,40.,50.,60.,70.,80.,90.,100.,120.,140.,160.,200.,250.,300.,500.,825.};
-const int bins = sizeof(ETBINS)/sizeof(double) - 1;
+//const double ETBINS[19] ={0., 10., 20.,30.,40.,50.,60.,70.,80.,90.,100.,120.,140.,160.,200.,250.,300.,500.,825.};
+//const int bins = sizeof(ETBINS)/sizeof(double) - 1;
 
 //------------------------------------
 void prepareHist();
@@ -175,7 +175,10 @@ void prepareHist(){
    ptHatBins.push_back(1000);
 
    // et bins
-   for(int s=0;s<bins+1;s++) etBins.push_back(ETBINS[s]);
+   //for(int s=0;s<bins+1;s++) etBins.push_back(ETBINS[s]);
+   double etb;
+   for(etb = 0; etb < 1400-small; etb += 5) etBins.push_back(etb);
+   etBins.push_back(1400);
 
    // pt bins
    double ptb;
