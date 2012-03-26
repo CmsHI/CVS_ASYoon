@@ -44,7 +44,7 @@ process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 process.load("PhysicsTools.HepMCCandAlgos.genParticles_cfi")
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('100'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -100,6 +100,7 @@ from SpectraAna.GenPartonAndFFNtuplizer.customise_cfi import *
 
 process.load("SpectraAna.GenPartonAndFFNtuplizer.GenPartonAndFF_cfi")
 process.ana_step = cms.Path(process.genSpectAna)
+process.genSpectAna.crossX = getPy6ProcXsection(options.processType)
 process.TFileService = cms.Service("TFileService",
                                    fileName = cms.string(options.output)
                                    )
@@ -107,7 +108,6 @@ process = enableMinPtHatCut(process,options.processType)
 
 # =============== Output ================================
 process.output = cms.OutputModule("PoolOutputModule",
-   #outputCommands = process.RAWSIMEventContent.outputCommands,
    outputCommands = cms.untracked.vstring(
     'keep *_genParticles_*_*',
     'keep *_iterativeCone5GenJets_*_*'
