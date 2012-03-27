@@ -25,9 +25,14 @@
 TH1F *dPtHat;
 TH2F *dNJetdEtdPtHat;
 TH2F *dNTrkdPtdPtHat;
+TH2F *dNAllTrkdPtdPtHat;
+
+TH3F *dNTrkdPtdPtHatdJetEt;
+TH3F *dNTrkdZdPtHatdJetEt;
 
 // Variables
 vector<double> etBins, ptBins, ptHatBins;
+vector<double> etFFBins, zBins;
 
 //const double ETBINS[19] ={0., 10., 20.,30.,40.,50.,60.,70.,80.,90.,100.,120.,140.,160.,200.,250.,300.,500.,825.};
 //const int bins = sizeof(ETBINS)/sizeof(double) - 1;
@@ -44,8 +49,12 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
    bool debug = false;
 
 
-   TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";
-   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_Ext.root";
+   TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia";
+   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v2.root";
+
+   //TString infdir = "/net/hisrv0001/home/y_alive/cmssw_new/CMSSW_443_JetQuenchingAna/src/SpectraAna/GenPartonAndFFNtuplizer/test";
+   //TString infile = "spectAnaGEN_test_numEvent2000.root";
+
 
    TString outdir = "./root_output";
    TString outfile;
@@ -110,6 +119,8 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	 float jphi = stree.fJPhi[j];
 	 int ntrk = stree.nTrks[j];
 
+	 if(fabs(jeta)>2.0) continue; // eta cut
+
 	 if(debug) {
 	    cout<<" Found Jet (et,pt,  eta,phi) = ("<<jet<<","<<jpt<<",  "<<jeta<<","<<jphi
 		<<") with "<<ntrk<<" associated charged tracks"<<endl;
@@ -126,13 +137,19 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	    float trketa = AssParticles->fEta;
 	    float trkphi = AssParticles->fPhi;
 
+	    float trkz = (jet>0) ? trkpt/jet : 100.0;
+
+	    if(fabs(trketa)>1.0) continue; // eta cut
+
 	    if(debug) {
 	       cout<<"    Associated Tracks (pt,eta,phi) = ("<<trkpt<<","<<trketa<<","<<trkphi
 		   <<") and z = trkpt/jetet = "<<trkpt/jpt<<endl; 
 	    }
 
 	    // HIST FILLING
-	    dNTrkdPtdPtHat->Fill(trkpt,stree.fPthat,stree.fCrossx);
+	    dNTrkdPtdPtHat->Fill(trkpt,stree.fPthat,stree.fCrossx);  // weighted by cross section
+	    dNTrkdPtdPtHatdJetEt->Fill(trkpt,stree.fPthat,jpt,stree.fCrossx);
+	    dNTrkdZdPtHatdJetEt->Fill(trkz,stree.fPthat,jpt,stree.fCrossx);
 
 	    ntotTrk++;
 	 } // end of tracks
@@ -147,10 +164,19 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	 float alltrkpt  = AllParticles->fPt;
 	 float alltrketa = AllParticles->fEta;
 	 float alltrkphi = AllParticles->fPhi;
+
+
+	 if(fabs(alltrketa)>1.0) continue; // eta cut     
+
+	 // HIST FILLING
+	 dNAllTrkdPtdPtHat->Fill(alltrkpt,stree.fPthat,stree.fCrossx);
       }
 
 
    } // end of all entries
+
+
+   // Fragmentation Function Generator
 
    if(save){
       cout<<"Output file = "<<outfile.Data()<<endl;
@@ -175,10 +201,20 @@ void prepareHist(){
    ptHatBins.push_back(1400);
 
    // et bins
-   //for(int s=0;s<bins+1;s++) etBins.push_back(ETBINS[s]);
    double etb;
    for(etb = 0; etb < 1400-small; etb += 5) etBins.push_back(etb);
    etBins.push_back(1400);
+
+   // et bins for defining FF
+   double etffb;
+   for(etffb = 0; etffb < 1400-small; etffb += 50) etFFBins.push_back(etffb);
+   etFFBins.push_back(1400);
+
+   // z bins
+   //zBins
+   double zb;
+   for(zb = 0; zb < 1.5-small; zb += 0.0075) zBins.push_back(zb);
+   zBins.push_back(1.5);
 
    // pt bins
    double ptb;
@@ -192,21 +228,41 @@ void prepareHist(){
    for(ptb =  28.8; ptb <  48.0-small; ptb +=  3.2 ) ptBins.push_back(ptb); // 6 bins
    for(ptb =  48.0; ptb <  86.4-small; ptb +=  6.4 ) ptBins.push_back(ptb); // 6 bins
    for(ptb =  86.4; ptb < 189.6-small; ptb +=  8.6 ) ptBins.push_back(ptb); // 6 bins
-   ptBins.push_back(189.6);
+   for(ptb = 189.6; ptb < 396.0-small; ptb +=  17.2) ptBins.push_back(ptb); // 12 bins  
+   for(ptb = 396.0; ptb <1221.6-small; ptb +=  34.4) ptBins.push_back(ptb); // 24 bins
+   ptBins.push_back(1221.6);
 
    dPtHat = new TH1F("dPtHat","#hat{q} with no weight", ptHatBins.size()-1, &ptHatBins[0]);   
+
+   // 2D
    dNJetdEtdPtHat = new TH2F("dNJetdEtdPtHat","Parton/Jet E_{T} vs #hat{q}; E_{T} (GeV); #hat{q} (GeV)", 
 			  etBins.size()-1, &etBins[0], ptHatBins.size()-1, &ptHatBins[0]);
 
    dNTrkdPtdPtHat = new TH2F("dNTrkdPtdPtHat","Charged particle p_{T} vs #hat{q}; p_{T} (GeV/c); #hat{q} (GeV)",
 			     ptBins.size()-1, &ptBins[0], ptHatBins.size()-1, &ptHatBins[0]);
+
+   dNAllTrkdPtdPtHat = new TH2F("dNAllTrkdPtdPtHat","Charged particle p_{T} vs #hat{q}; p_{T} (GeV/c); #hat{q} (GeV)",
+				ptBins.size()-1, &ptBins[0], ptHatBins.size()-1, &ptHatBins[0]);
+
+   // 3D
+   dNTrkdPtdPtHatdJetEt = new TH3F("dNTrkdPtdPtHatdJetEt",
+				   "Charged particle p_{T} vs #hat{q} vs Jet E_{T} (GeV); p_{T} (GeV/c);#hat{q} (GeV);Jet E_{T} (GeV)",
+				   ptBins.size()-1, &ptBins[0], ptHatBins.size()-1, &ptHatBins[0], etFFBins.size()-1, &etFFBins[0]);
+   
+   dNTrkdZdPtHatdJetEt = new TH3F("dNTrkdZdPtHatdJetEt",
+                                   "Charged particle Z vs #hat{q} vs Jet E_{T} (GeV); z=p_{T}/E_{T};#hat{q} (GeV);Jet E_{T} (GeV)",
+				  zBins.size()-1, &zBins[0], ptHatBins.size()-1, &ptHatBins[0], etFFBins.size()-1, &etFFBins[0]);
+   
 }
 
 
 void saveHistRoot(){
 
    dPtHat->Write();
+
    dNJetdEtdPtHat->Write();
    dNTrkdPtdPtHat->Write();
+   dNAllTrkdPtdPtHat->Write();
 
+   dNTrkdPtdPtHatdJetEt->Write();
 }
