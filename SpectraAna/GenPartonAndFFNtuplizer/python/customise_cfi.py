@@ -68,8 +68,9 @@ def getPy6ProcXsection(genTypePtHatRange):
         'NSD_470_to_inf':7.241E-10,
         'NSD_470_to_600':6.861E-10,
         'NSD_600_to_800':4.503E-11,
-        'NSD_800_to_1100':4.844E-13,
-        'NSD_1100_to_inf':3.175E-17
+        'NSD_800_to_1000':4.803E-13,
+        'NSD_1000_to_1200':1.531E-15,
+        'NSD_1200_to_inf':1.405E-19
         }
     print 'PYTHIA process xsection = %s mb' % para[genTypePtHatRange]
     return para[genTypePtHatRange]
