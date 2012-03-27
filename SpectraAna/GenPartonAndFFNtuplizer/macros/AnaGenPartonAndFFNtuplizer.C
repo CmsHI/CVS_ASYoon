@@ -45,7 +45,7 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
 
    TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";
-   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000.root";
+   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_Ext.root";
 
    TString outdir = "./root_output";
    TString outfile;
@@ -171,8 +171,8 @@ void prepareHist(){
 
    // ptHat bins
    double pthb;
-   for(pthb = 0; pthb < 1000-small; pthb += 5) ptHatBins.push_back(pthb);
-   ptHatBins.push_back(1000);
+   for(pthb = 0; pthb < 1400-small; pthb += 5) ptHatBins.push_back(pthb);
+   ptHatBins.push_back(1400);
 
    // et bins
    //for(int s=0;s<bins+1;s++) etBins.push_back(ETBINS[s]);
