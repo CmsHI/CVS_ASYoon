@@ -24,6 +24,10 @@ def getPy6ProcParameters(genTypePtHatRange):
         'NSD_380_to_470':['MSEL=1','CKIN(3)=380','CKIN(4)=470'],
         'NSD_380_to_inf':['MSEL=1','CKIN(3)=380'],
         'NSD_470_to_inf':['MSEL=1','CKIN(3)=470'],
+        'NSD_470_to_600':['MSEL=1','CKIN(3)=470','CKIN(4)=600'],
+        'NSD_600_to_800':['MSEL=1','CKIN(3)=600','CKIN(4)=800'],
+        'NSD_800_to_1100':['MSEL=1','CKIN(3)=800','CKIN(4)=1100'],
+        'NSD_1100_to_inf':['MSEL=1','CKIN(3)=1100'],
         # explicit NSD
         'ENSD_0_to_5':['MSEL=0','MSUB(11)=1','MSUB(12)=1','MSUB(13)=1','MSUB(28)=1','MSUB(53)=1','MSUB(68)=1','MSUB(94)=1','MSUB(95)=1','CKIN(3)=0','CKIN(4)=5'],
         'ENSD_5_to_10':['MSEL=0','MSUB(11)=1','MSUB(12)=1','MSUB(13)=1','MSUB(28)=1','MSUB(53)=1','MSUB(68)=1','MSUB(94)=1','MSUB(95)=1','CKIN(3)=5','CKIN(4)=10'],
