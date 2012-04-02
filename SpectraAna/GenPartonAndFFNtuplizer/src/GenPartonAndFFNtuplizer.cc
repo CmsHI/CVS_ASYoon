@@ -13,7 +13,7 @@
 //
 // Original Author:  Sungho Yoon
 //         Created:  Thu Mar 22 13:42:33 EDT 2012
-// $Id: GenPartonAndFFNtuplizer.cc,v 1.3 2012/03/27 19:32:14 sungho Exp $
+// $Id: GenPartonAndFFNtuplizer.cc,v 1.4 2012/04/02 16:24:36 sungho Exp $
 //
 //
 
@@ -83,7 +83,7 @@ class GenPartonAndFFNtuplizer : public edm::EDAnalyzer {
    double pthatCut_; 
    double crossX_; // cross-section in mb
    int32_t numEvt_; // number of events generated
-
+   
    // root objects
    edm::Service<TFileService> fs;
 
@@ -97,6 +97,7 @@ class GenPartonAndFFNtuplizer : public edm::EDAnalyzer {
    float fPthat;
    float fCrossx;
    int   nNumEvt;
+   int   isMinPtHat;
 
    struct PJ{
       int   nJets;
@@ -160,7 +161,10 @@ GenPartonAndFFNtuplizer::analyze(const edm::Event& iEvent, const edm::EventSetup
    fPthat = genEvtInfo->qScale();
 
    fCrossx = crossX_; // cross section needs to be by hands
-   nNumEvt = numEvt_; // number of events generated 
+   nNumEvt = numEvt_; // number of event generated (but can be different from accepted)
+
+   if((int)pthatCut_!=0) isMinPtHat = 1;
+   else isMinPtHat = 0;
 
    // this is needed for generation with min pt_hat = 0
    // because it automatically sets the max pt_hat = infinity
@@ -256,7 +260,7 @@ GenPartonAndFFNtuplizer::analyze(const edm::Event& iEvent, const edm::EventSetup
    }
 
 
-   // fill for every event (see http://root.cern.ch/root/html/TTree.html#TTree:Fill)
+   // fill for every accepted event (see http://root.cern.ch/root/html/TTree.html#TTree:Fill)
    tSpect->Fill();
 
    tCAHadrons->Clear();
@@ -315,6 +319,7 @@ GenPartonAndFFNtuplizer::beginRun(edm::Run const&, edm::EventSetup const&)
 
    tSpect->Branch("fPthat",&fPthat,"fPthat/F");
    tSpect->Branch("fCrossx",&fCrossx,"fCrossx/F");
+   tSpect->Branch("isMinPtHat",&isMinPtHat,"isMinPtHat/I");
    tSpect->Branch("nNumEvt",&nNumEvt,"nNumEvt/I");
    tSpect->Branch("nJets",&jets_.nJets,"nJets/I");
    tSpect->Branch("nTrks",jets_.nTrks,"nTrks[nJets]/I");
