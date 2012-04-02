@@ -13,7 +13,7 @@
 //
 // Original Author:  Sungho Yoon
 //         Created:  Thu Mar 22 13:42:33 EDT 2012
-// $Id: GenPartonAndFFNtuplizer.cc,v 1.2 2012/03/23 03:34:30 sungho Exp $
+// $Id: GenPartonAndFFNtuplizer.cc,v 1.3 2012/03/27 19:32:14 sungho Exp $
 //
 //
 
@@ -82,6 +82,7 @@ class GenPartonAndFFNtuplizer : public edm::EDAnalyzer {
 
    double pthatCut_; 
    double crossX_; // cross-section in mb
+   int32_t numEvt_; // number of events generated
 
    // root objects
    edm::Service<TFileService> fs;
@@ -95,6 +96,7 @@ class GenPartonAndFFNtuplizer : public edm::EDAnalyzer {
 
    float fPthat;
    float fCrossx;
+   int   nNumEvt;
 
    struct PJ{
       int   nJets;
@@ -128,6 +130,7 @@ GenPartonAndFFNtuplizer::GenPartonAndFFNtuplizer(const edm::ParameterSet& iConfi
    gjsrc_ = iConfig.getUntrackedParameter<edm::InputTag>("gjsrc",edm::InputTag("ak5GenJets"));
    pthatCut_ = iConfig.getUntrackedParameter<double>("pthatCut", 0.0);
    crossX_ = iConfig.getUntrackedParameter<double>("crossX", 50.0);
+   numEvt_ = iConfig.getUntrackedParameter<int>("numEvt",100);
 }
 
 
@@ -157,6 +160,7 @@ GenPartonAndFFNtuplizer::analyze(const edm::Event& iEvent, const edm::EventSetup
    fPthat = genEvtInfo->qScale();
 
    fCrossx = crossX_; // cross section needs to be by hands
+   nNumEvt = numEvt_; // number of events generated 
 
    // this is needed for generation with min pt_hat = 0
    // because it automatically sets the max pt_hat = infinity
@@ -221,7 +225,7 @@ GenPartonAndFFNtuplizer::analyze(const edm::Event& iEvent, const edm::EventSetup
       jets_.fJPhi[jets_.nJets]  = sortedJets[ij]->phi();
       jets_.fJEta[jets_.nJets]  = sortedJets[ij]->eta();
 
-      // Associated (i.e. fragmented) hadrons
+      // Associated (i.e. fragmented) hadrons (what's criteria for constituent?)
       vector<const Candidate*> assHadrons = sortedJets[ij]->getJetConstituentsQuick();
 
       int  nTrk = 0;  // accepted track from each jet
@@ -311,6 +315,7 @@ GenPartonAndFFNtuplizer::beginRun(edm::Run const&, edm::EventSetup const&)
 
    tSpect->Branch("fPthat",&fPthat,"fPthat/F");
    tSpect->Branch("fCrossx",&fCrossx,"fCrossx/F");
+   tSpect->Branch("nNumEvt",&nNumEvt,"nNumEvt/I");
    tSpect->Branch("nJets",&jets_.nJets,"nJets/I");
    tSpect->Branch("nTrks",jets_.nTrks,"nTrks[nJets]/I");
    tSpect->Branch("fJPt",jets_.fJPt,"fJPt[nJets]/F");

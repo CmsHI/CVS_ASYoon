@@ -44,7 +44,7 @@ process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 process.load("PhysicsTools.HepMCCandAlgos.genParticles_cfi")
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     annotation = cms.untracked.string('100'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -101,6 +101,7 @@ from SpectraAna.GenPartonAndFFNtuplizer.customise_cfi import *
 process.load("SpectraAna.GenPartonAndFFNtuplizer.GenPartonAndFF_cfi")
 process.ana_step = cms.Path(process.genSpectAna)
 process.genSpectAna.crossX = getPy6ProcXsection(options.processType)
+process.genSpectAna.numEvt = options.maxEvents
 process.TFileService = cms.Service("TFileService",
                                    fileName = cms.string(options.output)
                                    )
