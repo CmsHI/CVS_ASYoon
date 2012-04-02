@@ -23,12 +23,16 @@
 
 // Histograms 
 TH1F *dPtHat;
+TH1F *dNevtMinPtHat;
 TH2F *dNJetdEtdPtHat;
+TH2F *dNJetdEtdPtHat_FF;
 TH2F *dNTrkdPtdPtHat;
 TH2F *dNAllTrkdPtdPtHat;
 
 TH3F *dNTrkdPtdPtHatdJetEt;
 TH3F *dNTrkdZdPtHatdJetEt;
+
+vector<TH1D*> hFF;
 
 // Variables
 vector<double> etBins, ptBins, ptHatBins;
@@ -48,12 +52,14 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
    // variables
    bool debug = false;
 
+   //TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia";
+   //TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v3_VariedN.root";
 
-   TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia";
-   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v2.root";
+   TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";    
+   TString infile = "test.root";
 
    //TString infdir = "/net/hisrv0001/home/y_alive/cmssw_new/CMSSW_443_JetQuenchingAna/src/SpectraAna/GenPartonAndFFNtuplizer/test";
-   //TString infile = "spectAnaGEN_test_numEvent2000.root";
+   //TString infile = "spectAnaGEN_numEvent500.root";
 
 
    TString outdir = "./root_output";
@@ -85,6 +91,8 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
    nt->SetBranchAddress("fPthat",&stree.fPthat);
    nt->SetBranchAddress("fCrossx",&stree.fCrossx);
+   nt->SetBranchAddress("isMinPtHat",&stree.isMinPtHat);
+   nt->SetBranchAddress("nNumEvt",&stree.nNumEvt);
 
    nt->SetBranchAddress("nJets",&stree.nJets);
    nt->SetBranchAddress("nTrks",stree.nTrks);
@@ -99,17 +107,23 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
    // prepare histograms
    prepareHist();
 
+   int totN = 0;
+
    for (int i=0;i<nt->GetEntries();i++){
 
       nt->GetEntry(i);
+      
+      float nevt = (float) stree.nNumEvt;
+
       if (i%5000==0) {
 	 cout<<"Cross-section = "<<stree.fCrossx<<" pTHat = "<<stree.fPthat
-	 <<" number of jets = "<<stree.nJets<<" number of total tracks = "<<asstrk->GetEntriesFast()<<endl;
+	     <<" number of events = "<<nevt
+	     <<" number of jets = "<<stree.nJets<<" number of total tracks = "<<asstrk->GetEntriesFast()<<endl;
       }
 
       int ntotTrk = 0;
       dPtHat->Fill(stree.fPthat);
-
+      
       // 0. Parton/Jet and Associated Tracks ------------------------------------
       for (int j=0; j<stree.nJets; ++j) {
 
@@ -128,7 +142,8 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
 	 // HIST FILLING 
 	 dNJetdEtdPtHat->Fill(jet,stree.fPthat,stree.fCrossx); 
-
+	 dNJetdEtdPtHat_FF->Fill(jet,stree.fPthat,stree.fCrossx);
+	 
 	 // associated track loop 
 	 for (int k=0; k<ntrk; ++k) {
 	    GenParticleInfo *AssParticles = (GenParticleInfo*)asstrk->At(ntotTrk);
@@ -148,7 +163,7 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
 	    // HIST FILLING
 	    dNTrkdPtdPtHat->Fill(trkpt,stree.fPthat,stree.fCrossx);  // weighted by cross section
-	    dNTrkdPtdPtHatdJetEt->Fill(trkpt,stree.fPthat,jpt,stree.fCrossx);
+	    dNTrkdPtdPtHatdJetEt->Fill(trkpt,stree.fPthat,stree.fCrossx);
 	    dNTrkdZdPtHatdJetEt->Fill(trkz,stree.fPthat,jpt,stree.fCrossx);
 
 	    ntotTrk++;
@@ -173,11 +188,30 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
       }
 
 
+      if(stree.isMinPtHat==1) dNevtMinPtHat->Fill(1.1);
+      totN++;
+
    } // end of all entries
 
+   cout<<"Number of events = "<<totN<<endl;
 
    // Fragmentation Function Generator
+   for(int j=0;j<dNTrkdPtdPtHatdJetEt->GetNbinsZ();j++){
 
+      //double dsigma = hdjetet_ff->GetBinContent(j+1);
+      //if(dsigma<1E-22) continue; // no jet ET bins                                                                                                                        
+
+      double etmin = dNTrkdPtdPtHatdJetEt->GetZaxis()->GetBinLowEdge(j+1);
+      double etmax = dNTrkdPtdPtHatdJetEt->GetZaxis()->GetBinUpEdge(j+1);
+
+      // Fragmentation Function (Be carefull not [j+1,j+2])                                                                                                               
+      TH1D *hddtrkdpt_ff = (TH1D*) dNTrkdPtdPtHatdJetEt->ProjectionX("",0,-1,j+1,j+1,"e");
+      hddtrkdpt_ff->SetName(Form("hddTrkdPt_FF_et%1.0fto%1.0f",etmin,etmax));
+      hFF.push_back(hddtrkdpt_ff);
+   }
+   
+
+   // Save histograms in a root file
    if(save){
       cout<<"Output file = "<<outfile.Data()<<endl;
       TFile *outputFile = new TFile(outfile.Data(),"recreate");
@@ -202,13 +236,33 @@ void prepareHist(){
 
    // et bins
    double etb;
-   for(etb = 0; etb < 1400-small; etb += 5) etBins.push_back(etb);
+   //for(etb = 0; etb < 1400-small; etb += 1) etBins.push_back(etb);
+   //etBins.push_back(1400);
+
+   for(etb =    0; etb <   10-small; etb +=  0.2) etBins.push_back(etb);
+   for(etb =   10; etb <   30-small; etb +=  0.5) etBins.push_back(etb);
+   for(etb =   30; etb <   50-small; etb +=  0.8) etBins.push_back(etb);
+   for(etb =   50; etb <  100-small; etb +=  2.0) etBins.push_back(etb);
+   for(etb =  100; etb <  300-small; etb +=  4.0) etBins.push_back(etb);
+   for(etb =  300; etb <  500-small; etb +=  8.0) etBins.push_back(etb);
+   for(etb =  500; etb < 1400-small; etb += 10.0) etBins.push_back(etb);
    etBins.push_back(1400);
+   
 
    // et bins for defining FF
    double etffb;
-   for(etffb = 0; etffb < 1400-small; etffb += 50) etFFBins.push_back(etffb);
+   //for(etffb = 0; etffb < 1400-small; etffb += 25) etFFBins.push_back(etffb);
+   //etFFBins.push_back(1400);
+
+   for(etffb =    0; etffb <   10-small; etffb +=  0.2) etFFBins.push_back(etffb);
+   for(etffb =   10; etffb <   30-small; etffb +=  0.5) etFFBins.push_back(etffb);
+   for(etffb =   30; etffb <   50-small; etffb +=  0.8) etFFBins.push_back(etffb);
+   for(etffb =   50; etffb <  100-small; etffb +=  2.0) etFFBins.push_back(etffb);
+   for(etffb =  100; etffb <  300-small; etffb +=  4.0) etFFBins.push_back(etffb);
+   for(etffb =  300; etffb <  500-small; etffb +=  8.0) etFFBins.push_back(etffb);
+   for(etffb =  500; etffb < 1400-small; etffb += 10.0) etFFBins.push_back(etffb);
    etFFBins.push_back(1400);
+   
 
    // z bins
    //zBins
@@ -233,6 +287,7 @@ void prepareHist(){
    ptBins.push_back(1221.6);
 
    dPtHat = new TH1F("dPtHat","#hat{q} with no weight", ptHatBins.size()-1, &ptHatBins[0]);   
+   dNevtMinPtHat = new TH1F("dNevtMinPtHat","Number of processed events in the min pt_hat sample",10,0.0,10.0); 
 
    // 2D
    dNJetdEtdPtHat = new TH2F("dNJetdEtdPtHat","Parton/Jet E_{T} vs #hat{q}; E_{T} (GeV); #hat{q} (GeV)", 
@@ -243,6 +298,10 @@ void prepareHist(){
 
    dNAllTrkdPtdPtHat = new TH2F("dNAllTrkdPtdPtHat","Charged particle p_{T} vs #hat{q}; p_{T} (GeV/c); #hat{q} (GeV)",
 				ptBins.size()-1, &ptBins[0], ptHatBins.size()-1, &ptHatBins[0]);
+   
+   dNJetdEtdPtHat_FF = new TH2F("dNJetdEtdPtHat_FF","Parton/Jet E_{T} vs #hat{q}; E_{T} (GeV); #hat{q} (GeV)",
+				etFFBins.size()-1, &etFFBins[0], ptHatBins.size()-1, &ptHatBins[0]);
+   
 
    // 3D
    dNTrkdPtdPtHatdJetEt = new TH3F("dNTrkdPtdPtHatdJetEt",
@@ -259,10 +318,16 @@ void prepareHist(){
 void saveHistRoot(){
 
    dPtHat->Write();
+   dNevtMinPtHat->Write();
 
    dNJetdEtdPtHat->Write();
+   dNJetdEtdPtHat_FF->Write();
    dNTrkdPtdPtHat->Write();
    dNAllTrkdPtdPtHat->Write();
 
    dNTrkdPtdPtHatdJetEt->Write();
+
+   for(int s=0; s<hFF.size(); s++){
+      hFF[s]->Write();
+   }
 }
