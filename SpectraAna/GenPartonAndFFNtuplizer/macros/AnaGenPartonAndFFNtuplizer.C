@@ -24,6 +24,8 @@
 // Histograms 
 TH1F *dPtHat;
 TH1F *dNevtMinPtHat;
+TH1F *dNJetdEt;
+
 TH2F *dNJetdEtdPtHat;
 TH2F *dNJetdEtdPtHat_FF;
 TH2F *dNTrkdPtdPtHat;
@@ -51,12 +53,20 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
    // variables
    bool debug = false;
+   bool applyQ = true;
+   double fractQ = 0.3;
+   double constQ = 30.0;
+   double fractLogQ = 0.1;
+
+   fractQ = -1;
+   constQ = -1;
+   fractLogQ = 5.0;
 
    TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia";
    //TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v3_VariedN.root";
 
    //TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";    
-   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v5_VariedN.root";
+   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v5_VariedN";
 
    //TString infdir = "/net/hisrv0001/home/y_alive/cmssw_new/CMSSW_443_JetQuenchingAna/src/SpectraAna/GenPartonAndFFNtuplizer/test";
    //TString infile = "spectAnaGEN_numEvent500.root";
@@ -64,10 +74,16 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
    TString outdir = "./root_output";
    TString outfile;
-   outfile.Append(Form("%s/ANA_%s",outdir.Data(),infile.Data()));
+   outfile.Append(Form("ANA_%s",infile.Data()));
+   if(applyQ) {
+      outfile.Append("_jetQ");
+      if(fractQ>0) outfile.Append(Form("_fract%1.2f",fractQ));
+      if(constQ>0) outfile.Append(Form("_const%1.2f",constQ));
+      if(fractLogQ>0) outfile.Append(Form("_fractLog%1.2f",fractLogQ));
+   }
 
 
-   TFile *f1 = TFile::Open(Form("%s/%s",infdir.Data(),infile.Data()));
+   TFile *f1 = TFile::Open(Form("%s/%s.root",infdir.Data(),infile.Data()));
 
    if(!f1) {
       Error("<Input File Reading>","File is NULL");
@@ -133,14 +149,30 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	 float jphi = stree.fJPhi[j];
 	 int ntrk = stree.nTrks[j];
 
-	 if(fabs(jeta)>2.0) continue; // eta cut
+	 // Without this cut, slightly more fragmented tracks in 4-5 GeV/c 
+	 if(fabs(jeta)>2.0) continue; // eta cut 
 
 	 if(debug) {
 	    cout<<" Found Jet (et,pt,  eta,phi) = ("<<jet<<","<<jpt<<",  "<<jeta<<","<<jphi
 		<<") with "<<ntrk<<" associated charged tracks"<<endl;
 	 }
 
+	 // Apply quenching scenarios
+	 if(applyQ){
+	    if(fractQ>0){
+	       jet = jet*(1. - fractQ);
+	    }else if(constQ>0) {
+	       jet = jet - constQ; 
+	    }else if(fractLogQ>0){
+	       jet = jet*(1. - fractLogQ*(log(jet)/jet));
+	    }
+
+	    if(jet<0) continue;  // THIS IS IMPORTANT --> JUSTIFIED?
+	 }
+
+
 	 // HIST FILLING 
+	 dNJetdEt->Fill(jet,stree.fCrossx);
 	 dNJetdEtdPtHat->Fill(jet,stree.fPthat,stree.fCrossx); 
 	 dNJetdEtdPtHat_FF->Fill(jet,stree.fPthat,stree.fCrossx);
 	 
@@ -215,8 +247,8 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
    // Save histograms in a root file
    if(save){
-      cout<<"Output file = "<<outfile.Data()<<endl;
-      TFile *outputFile = new TFile(outfile.Data(),"recreate");
+      cout<<"Output file = "<<Form("%s/%s.root",outdir.Data(),outfile.Data())<<endl;
+      TFile *outputFile = new TFile(Form("%s/%s.root",outdir.Data(),outfile.Data()),"recreate");
       saveHistRoot();
    }
 
@@ -241,9 +273,9 @@ void prepareHist(){
    //for(etb = 0; etb < 1400-small; etb += 1) etBins.push_back(etb);
    //etBins.push_back(1400);
 
-   for(etb =    0; etb <   10-small; etb +=  0.2) etBins.push_back(etb);
-   for(etb =   10; etb <   30-small; etb +=  0.5) etBins.push_back(etb);
-   for(etb =   30; etb <   50-small; etb +=  0.8) etBins.push_back(etb);
+   for(etb =    0; etb <   10-small; etb +=  1.0) etBins.push_back(etb);
+   for(etb =   10; etb <   30-small; etb +=  1.0) etBins.push_back(etb);
+   for(etb =   30; etb <   50-small; etb +=  1.0) etBins.push_back(etb);
    for(etb =   50; etb <  100-small; etb +=  2.0) etBins.push_back(etb);
    for(etb =  100; etb <  300-small; etb +=  4.0) etBins.push_back(etb);
    for(etb =  300; etb <  500-small; etb +=  8.0) etBins.push_back(etb);
@@ -256,9 +288,9 @@ void prepareHist(){
    //for(etffb = 0; etffb < 1400-small; etffb += 25) etFFBins.push_back(etffb);
    //etFFBins.push_back(1400);
 
-   for(etffb =    0; etffb <   10-small; etffb +=  0.2) etFFBins.push_back(etffb);
-   for(etffb =   10; etffb <   30-small; etffb +=  0.5) etFFBins.push_back(etffb);
-   for(etffb =   30; etffb <   50-small; etffb +=  0.8) etFFBins.push_back(etffb);
+   for(etffb =    0; etffb <   10-small; etffb +=  1.0) etFFBins.push_back(etffb);
+   for(etffb =   10; etffb <   30-small; etffb +=  1.0) etFFBins.push_back(etffb);
+   for(etffb =   30; etffb <   50-small; etffb +=  1.0) etFFBins.push_back(etffb);
    for(etffb =   50; etffb <  100-small; etffb +=  2.0) etFFBins.push_back(etffb);
    for(etffb =  100; etffb <  300-small; etffb +=  4.0) etFFBins.push_back(etffb);
    for(etffb =  300; etffb <  500-small; etffb +=  8.0) etFFBins.push_back(etffb);
@@ -291,6 +323,9 @@ void prepareHist(){
    dPtHat = new TH1F("dPtHat","#hat{q} with no weight", ptHatBins.size()-1, &ptHatBins[0]);   
    dNevtMinPtHat = new TH1F("dNevtMinPtHat","Number of processed events in the min pt_hat sample",10,0.0,10.0); 
 
+   // 1D
+   dNJetdEt = new TH1F("dNJetdEt","Parton/Jet E_{T}; E_{T} (GeV)",etBins.size()-1, &etBins[0]);
+
    // 2D
    dNJetdEtdPtHat = new TH2F("dNJetdEtdPtHat","Parton/Jet E_{T} vs #hat{q}; E_{T} (GeV); #hat{q} (GeV)", 
 			  etBins.size()-1, &etBins[0], ptHatBins.size()-1, &ptHatBins[0]);
@@ -322,6 +357,7 @@ void saveHistRoot(){
    dPtHat->Write();
    dNevtMinPtHat->Write();
 
+   dNJetdEt->Write();
    dNJetdEtdPtHat->Write();
    dNJetdEtdPtHat_FF->Write();
    dNTrkdPtdPtHat->Write();
