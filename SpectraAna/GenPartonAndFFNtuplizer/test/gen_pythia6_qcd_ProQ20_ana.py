@@ -44,7 +44,7 @@ process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 process.load("PhysicsTools.HepMCCandAlgos.genParticles_cfi")
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
+    version = cms.untracked.string('$Revision: 1.4 $'),
     annotation = cms.untracked.string('100'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -93,7 +93,8 @@ process.load("RecoJets.Configuration.RecoGenJets_cff")
 
 process.genjet_step = cms.Path(process.genJetParticles *
                                process.ak5GenJets *
-                               process.ak7GenJets)
+                               process.ak7GenJets *
+                               process.iterativeCone5GenJets)
 
 # =============== spectra ana ==========================
 from SpectraAna.GenPartonAndFFNtuplizer.customise_cfi import *
