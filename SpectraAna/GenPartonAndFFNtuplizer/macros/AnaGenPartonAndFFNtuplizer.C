@@ -52,11 +52,11 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
    // variables
    bool debug = false;
 
-   //TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia";
+   TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia";
    //TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v3_VariedN.root";
 
-   TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";    
-   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v4_VariedN.root";
+   //TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";    
+   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v5_VariedN.root";
 
    //TString infdir = "/net/hisrv0001/home/y_alive/cmssw_new/CMSSW_443_JetQuenchingAna/src/SpectraAna/GenPartonAndFFNtuplizer/test";
    //TString infile = "spectAnaGEN_numEvent500.root";
@@ -146,7 +146,9 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	 
 	 // associated track loop 
 	 for (int k=0; k<ntrk; ++k) {
-	    GenParticleInfo *AssParticles = (GenParticleInfo*)asstrk->At(ntotTrk);
+
+	    GenParticleInfo *AssParticles = (GenParticleInfo*)asstrk->At(ntotTrk);  
+	    ntotTrk++;  // ntotTrk = sum of ntrk_{i}
 	    
 	    float trkpt  = AssParticles->fPt;
 	    float trketa = AssParticles->fEta;
@@ -165,8 +167,8 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	    dNTrkdPtdPtHat->Fill(trkpt,stree.fPthat,stree.fCrossx);  // weighted by cross section
 	    dNTrkdPtdPtHatdJetEt->Fill(trkpt,stree.fPthat,jpt,stree.fCrossx);
 	    dNTrkdZdPtHatdJetEt->Fill(trkz,stree.fPthat,jpt,stree.fCrossx);
-
-	    ntotTrk++;
+	    
+	    //ntotTrk++;
 	 } // end of tracks
 
       } // end of nJets
