@@ -13,7 +13,7 @@
 //
 // Original Author:  Sungho Yoon
 //         Created:  Thu Mar 22 13:42:33 EDT 2012
-// $Id: GenPartonAndFFNtuplizer.cc,v 1.5 2012/04/02 19:52:14 sungho Exp $
+// $Id: GenPartonAndFFNtuplizer.cc,v 1.6 2012/04/03 03:39:10 sungho Exp $
 //
 //
 
@@ -235,31 +235,6 @@ GenPartonAndFFNtuplizer::analyze(const edm::Event& iEvent, const edm::EventSetup
       vector<const Candidate*> assHadrons = sortedJets[ij]->getJetConstituentsQuick();
 
       int  nTrk = 0;  // accepted track from each jet
-
-      /*
-      for(unsigned i=0; i<genCollect->size();i++){
-
-	 const GenParticle & gen = (*genCollect)[i];
-
-	 if(gen.status() != 1 || gen.charge() == 0) continue;
-	 if(fabs(gen.eta())>2.4) continue;
-
-	 float dr = reco::deltaR(sortedJets[ij]->eta(),sortedJets[ij]->phi(),gen.eta(),gen.phi());
-	 if(dr>0.5) continue;
-
-	 GenParticleInfo *jt = new(tCAPartonsTemp[nTrkInd]) GenParticleInfo();
-
-	 jt->fPt = gen.pt();
-         jt->fEta = gen.eta();
-         jt->fPhi = gen.phi(); 
-         jt->iCharge = gen.charge(); 
-         jt->iStatus = gen.status(); 
-         jt->iPdgId  = gen.pdgId();
-
-         nTrk++; 
-         nTrkInd++; 
-      }
-      */
 
       for(size_t k = 0; k < assHadrons.size(); k++){
 
