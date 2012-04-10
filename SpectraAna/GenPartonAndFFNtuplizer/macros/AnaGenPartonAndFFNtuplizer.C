@@ -12,6 +12,7 @@
 #include "TClonesArray.h"
 #include "TTree.h"
 #include "TSystem.h"
+#include "TRandom2.h"
 
 #include "GenParticleInfo.h"
 #include "SpectraStudyTreeClass.h"
@@ -25,27 +26,42 @@
 TH1F *dPtHat;
 TH1F *dNevtMinPtHat;
 TH1F *dNJetdEt;
+TH1F *dPar1stFracLogQ;
 
 TH2F *dNJetdEtdPtHat;
 TH2F *dNJetdEtdPtHat_FF;
 TH2F *dNTrkdPtdPtHat;
 TH2F *dNAllTrkdPtdPtHat;
 
+TH2F *dNTrkdPtdJetEt;
+TH2F *dNTrkdZdJetEt;
+
 TH3F *dNTrkdPtdPtHatdJetEt;
 TH3F *dNTrkdZdPtHatdJetEt;
+
+TH2F *dNTrkdPtdPhi; // to calculate v2
+TH2F *dNAllTrkdPtdPhi; // 
 
 vector<TH1D*> hFF;
 
 // Variables
+const int LARGE_N = 100000;
+
 vector<double> etBins, ptBins, ptHatBins;
-vector<double> etFFBins, zBins;
+vector<double> etFFBins, zBins, dphiBins;
 
 //const double ETBINS[19] ={0., 10., 20.,30.,40.,50.,60.,70.,80.,90.,100.,120.,140.,160.,200.,250.,300.,500.,825.};
 //const int bins = sizeof(ETBINS)/sizeof(double) - 1;
 
+bool saveFF = false;
+bool lightRAA = true; // save only histograms needed for RAA
+
 //------------------------------------
 void prepareHist();
 void saveHistRoot();
+float applyCos(float phi);
+double getPathL(double phi, double a, double b);
+double getPar1stLinearPathL(double pathL, double a, double b);
 //------------------------------------
 
 
@@ -53,20 +69,33 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
    // variables
    bool debug = false;
-   bool applyQ = true;
-   double fractQ = 0.3;
-   double constQ = 30.0;
-   double fractLogQ = 0.1;
 
+   bool applyQ = true;
+
+   double fractQ = 0.3;
+   double constQ = 30.0;   // 10, 20, 30
+   double fractLogQ = 0.1;
+   double fractLogQ_P2 = 1;  // 1 = does nothing
+   
    fractQ = -1;
    constQ = -1;
-   fractLogQ = 5.0;
+   fractLogQ = 2.0;
+   fractLogQ_P2 = 1;
+
+   bool fixedFracLogQ = false;
+   double fractLogQ_low = 1.5;
+   double fractLogQ_hig = 2.5;
+
+   bool phiDepELoss = false;
+   double ellipse_a = 5.0;  // short path length
+   double ellipse_b = 10.0; // long path length
 
    TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia";
    //TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v3_VariedN.root";
 
    //TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";    
-   TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v5_VariedN";
+   TString infile = "spectAnaGEN_March26_PtAll_Ntot400K_proq20_FullExt_Large_VariedN";
+   //TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v5_VariedN";
 
    //TString infdir = "/net/hisrv0001/home/y_alive/cmssw_new/CMSSW_443_JetQuenchingAna/src/SpectraAna/GenPartonAndFFNtuplizer/test";
    //TString infile = "spectAnaGEN_numEvent500.root";
@@ -79,8 +108,20 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
       outfile.Append("_jetQ");
       if(fractQ>0) outfile.Append(Form("_fract%1.2f",fractQ));
       if(constQ>0) outfile.Append(Form("_const%1.2f",constQ));
-      if(fractLogQ>0) outfile.Append(Form("_fractLog%1.2f",fractLogQ));
+      if(fractLogQ>0) {
+	 if(!fixedFracLogQ) {  // if parameter is not fixed
+	    outfile.Append(Form("_fractLog%1.2fto%1.2f",fractLogQ_low,fractLogQ_hig));
+	 }else{
+	    outfile.Append(Form("_fractLog%1.2f",fractLogQ));
+	 }
+	 if(fractLogQ_P2!=1) outfile.Append(Form("_sp%1.2f",fractLogQ_P2));
+      }
+      if(phiDepELoss){
+	 outfile.Append(Form("_phidep_a%1.2f_b%1.2f",ellipse_a,ellipse_b));
+      }
    }
+   
+   cout<<"Check Parameters = "<<outfile.Data()<<endl;
 
 
    TFile *f1 = TFile::Open(Form("%s/%s.root",infdir.Data(),infile.Data()));
@@ -134,11 +175,21 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
       if (i%5000==0) {
 	 cout<<"Cross-section = "<<stree.fCrossx<<" pTHat = "<<stree.fPthat
 	     <<" number of events = "<<nevt
-	     <<" number of jets = "<<stree.nJets<<" number of total tracks = "<<asstrk->GetEntriesFast()<<endl;
+	     <<" number of jets = "<<stree.nJets<<" number of total tracks = "<<alltrk->GetEntriesFast()<<endl;
       }
 
       int ntotTrk = 0;
       dPtHat->Fill(stree.fPthat);
+      
+      /* Event-by-event Quenching Parameter Determination */
+      double pFracQ = 0.0;
+      if(fixedFracLogQ){
+	 pFracQ = fractLogQ;
+      }else{
+	 pFracQ = gRandom->Uniform(fractLogQ_low,fractLogQ_hig);
+      }
+      dPar1stFracLogQ->Fill(gRandom->Uniform(fractLogQ_low,fractLogQ_hig));
+
       
       // 0. Parton/Jet and Associated Tracks ------------------------------------
       for (int j=0; j<stree.nJets; ++j) {
@@ -158,17 +209,26 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	 }
 
 	 // Apply quenching scenarios
+	 double pathLength = 0.0;
+	 double pPhiFracQ = 0.0;
+
 	 if(applyQ){
 	    if(fractQ>0){
+	       /* fractional eloss: */
 	       jet = jet*(1. - fractQ);
-	    }else if(constQ>0) {
+	    }else if(constQ>0){
+	       /* constant eloss: */
 	       jet = jet - constQ; 
 	    }else if(fractLogQ>0){
-	       jet = jet*(1. - fractLogQ*(log(jet)/jet));
+	       /* e-dependent fractional eloss: */
+	       jet = jet*(1. - pFracQ*(log(fractLogQ_P2*jet)/jet));
+	    }else if(phiDepELoss && fractLogQ>0){
+	       pathLength = getPathL(jphi,ellipse_a,ellipse_b);
+	       pPhiFracQ = getPar1stLinearPathL(pathLength,ellipse_a,ellipse_b);
+	       jet = jet*(1. - pPhiFracQ*(log(fractLogQ_P2*jet)/jet));
 	    }
-
 	    if(jet<0) continue;  // THIS IS IMPORTANT --> JUSTIFIED?
-	 }
+	 } // end of apply jetQ
 
 
 	 // HIST FILLING 
@@ -195,8 +255,13 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 		   <<") and z = trkpt/jetet = "<<trkpt/jpt<<endl; 
 	    }
 
+
 	    // HIST FILLING
 	    dNTrkdPtdPtHat->Fill(trkpt,stree.fPthat,stree.fCrossx);  // weighted by cross section
+	    dNTrkdPtdJetEt->Fill(trkpt,jpt,stree.fCrossx);
+	    dNTrkdZdJetEt->Fill(trkz,jpt,stree.fCrossx);
+	    dNTrkdPtdPhi->Fill(trkpt,trkphi,stree.fCrossx*(1.+applyCos(trkphi))); // ARTIFICAL V2
+
 	    dNTrkdPtdPtHatdJetEt->Fill(trkpt,stree.fPthat,jpt,stree.fCrossx);
 	    dNTrkdZdPtHatdJetEt->Fill(trkz,stree.fPthat,jpt,stree.fCrossx);
 	    
@@ -219,6 +284,8 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 
 	 // HIST FILLING
 	 dNAllTrkdPtdPtHat->Fill(alltrkpt,stree.fPthat,stree.fCrossx);
+	 dNAllTrkdPtdPhi->Fill(alltrkpt,alltrkphi,stree.fCrossx);
+
       }
 
 
@@ -230,20 +297,20 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
    cout<<"Number of events = "<<totN<<endl;
 
    // Fragmentation Function Generator
-   for(int j=0;j<dNTrkdPtdPtHatdJetEt->GetNbinsZ();j++){
-
-      //double dsigma = hdjetet_ff->GetBinContent(j+1);
-      //if(dsigma<1E-22) continue; // no jet ET bins                                                                                                                        
-
-      double etmin = dNTrkdPtdPtHatdJetEt->GetZaxis()->GetBinLowEdge(j+1);
-      double etmax = dNTrkdPtdPtHatdJetEt->GetZaxis()->GetBinUpEdge(j+1);
-
-      // Fragmentation Function (Be carefull not [j+1,j+2])                                                                                                               
-      TH1D *hddtrkdpt_ff = (TH1D*) dNTrkdPtdPtHatdJetEt->ProjectionX("",0,-1,j+1,j+1,"e");
-      hddtrkdpt_ff->SetName(Form("hddTrkdPt_FF_et%1.0fto%1.0f",etmin,etmax));
-      hFF.push_back(hddtrkdpt_ff);
+   if(saveFF){
+      for(int j=0;j<dNTrkdPtdPtHatdJetEt->GetNbinsZ();j++){
+	 
+	 //double dsigma = hdjetet_ff->GetBinContent(j+1);
+	 //if(dsigma<1E-22) continue; // no jet ET bins 
+	 double etmin = dNTrkdPtdPtHatdJetEt->GetZaxis()->GetBinLowEdge(j+1);
+	 double etmax = dNTrkdPtdPtHatdJetEt->GetZaxis()->GetBinUpEdge(j+1);
+	 
+	 // Fragmentation Function (Be carefull not [j+1,j+2]) 
+	 TH1D *hddtrkdpt_ff = (TH1D*) dNTrkdPtdPtHatdJetEt->ProjectionX("",0,-1,j+1,j+1,"e");
+	 hddtrkdpt_ff->SetName(Form("hddTrkdPt_FF_et%1.0fto%1.0f",etmin,etmax));
+	 hFF.push_back(hddtrkdpt_ff);
+      }
    }
-   
 
    // Save histograms in a root file
    if(save){
@@ -301,8 +368,14 @@ void prepareHist(){
    // z bins
    //zBins
    double zb;
-   for(zb = 0; zb < 1.5-small; zb += 0.0075) zBins.push_back(zb);
-   zBins.push_back(1.5);
+   //for(zb = 0; zb < 1.5-small; zb += 0.0075) zBins.push_back(zb);
+   //zBins.push_back(1.5);
+
+   for(zb =   0; zb < 0.1-small; zb += 0.005) zBins.push_back(zb);         
+   for(zb = 0.1; zb < 0.2-small; zb += 0.010) zBins.push_back(zb);
+   for(zb = 0.2; zb < 0.5-small; zb += 0.025) zBins.push_back(zb);
+   for(zb = 0.5; zb < 1.4-small; zb += 0.05) zBins.push_back(zb);
+   zBins.push_back(1.4);   
 
    // pt bins
    double ptb;
@@ -320,11 +393,20 @@ void prepareHist(){
    for(ptb = 396.0; ptb <1221.6-small; ptb +=  34.4) ptBins.push_back(ptb); // 24 bins
    ptBins.push_back(1221.6);
 
+
+   // phi bins
+   double dphib;
+
+   for(dphib = -3.2; dphib < 3.2-small; dphib += 0.05) dphiBins.push_back(dphib);
+   dphiBins.push_back(3.2);
+
+   // 1D      
    dPtHat = new TH1F("dPtHat","#hat{q} with no weight", ptHatBins.size()-1, &ptHatBins[0]);   
    dNevtMinPtHat = new TH1F("dNevtMinPtHat","Number of processed events in the min pt_hat sample",10,0.0,10.0); 
 
-   // 1D
    dNJetdEt = new TH1F("dNJetdEt","Parton/Jet E_{T}; E_{T} (GeV)",etBins.size()-1, &etBins[0]);
+
+   dPar1stFracLogQ = new TH1F("dPar1stFracLogQ","Jet Quenching Parameter Distribution; PAR1",100, 0.0, 5.0);
 
    // 2D
    dNJetdEtdPtHat = new TH2F("dNJetdEtdPtHat","Parton/Jet E_{T} vs #hat{q}; E_{T} (GeV); #hat{q} (GeV)", 
@@ -338,7 +420,18 @@ void prepareHist(){
    
    dNJetdEtdPtHat_FF = new TH2F("dNJetdEtdPtHat_FF","Parton/Jet E_{T} vs #hat{q}; E_{T} (GeV); #hat{q} (GeV)",
 				etFFBins.size()-1, &etFFBins[0], ptHatBins.size()-1, &ptHatBins[0]);
+
+   dNTrkdPtdJetEt = new TH2F("dNTrkdPtdJetEt","p_{T} vs Jet E_{T};p_{T} (GeV/c);Jet E_{T} (GeV)",
+			     ptBins.size()-1, &ptBins[0], etFFBins.size()-1, &etFFBins[0]);
+
+   dNTrkdZdJetEt = new TH2F("dNTrkdZdJetEt","z vs Jet E_{T}; z=p_{T}/E_{T}; Jet E_{T} (GeV)",
+			    zBins.size()-1, &zBins[0], etFFBins.size()-1, &etFFBins[0]);
+
+   dNTrkdPtdPhi = new TH2F("dNTrkdPtdPhi","p_{T} vs #Delta#phi; p_{T} (GeV/c); #Delta#phi (rad)",
+			   ptBins.size()-1, &ptBins[0], dphiBins.size()-1, &dphiBins[0]);
    
+   dNAllTrkdPtdPhi = new TH2F("dNAllTrkdPtdPhi","p_{T} vs #Delta#phi; p_{T} (GeV/c); #Delta#phi (rad)",
+			      ptBins.size()-1, &ptBins[0], dphiBins.size()-1, &dphiBins[0]);
 
    // 3D
    dNTrkdPtdPtHatdJetEt = new TH3F("dNTrkdPtdPtHatdJetEt",
@@ -354,18 +447,64 @@ void prepareHist(){
 
 void saveHistRoot(){
 
-   dPtHat->Write();
-   dNevtMinPtHat->Write();
 
+   if(!lightRAA) dPtHat->Write();
+   dNevtMinPtHat->Write();
    dNJetdEt->Write();
-   dNJetdEtdPtHat->Write();
-   dNJetdEtdPtHat_FF->Write();
+   dPar1stFracLogQ->Write();
+
+   if(!lightRAA){
+      dNJetdEtdPtHat->Write();
+      dNJetdEtdPtHat_FF->Write();
+      dNAllTrkdPtdPtHat->Write();
+   }
    dNTrkdPtdPtHat->Write();
-   dNAllTrkdPtdPtHat->Write();
+
+   dNTrkdPtdJetEt->Write();
+   if(!lightRAA) dNTrkdZdJetEt->Write();
 
    dNTrkdPtdPtHatdJetEt->Write();
+   if(!lightRAA) dNTrkdZdPtHatdJetEt->Write();
 
-   for(int s=0; s<hFF.size(); s++){
-      hFF[s]->Write();
+   dNTrkdPtdPhi->Write();
+   dNAllTrkdPtdPhi->Write();
+
+   if(saveFF){
+      for(int s=0; s<hFF.size(); s++){
+	 hFF[s]->Write();
+      }
    }
 }
+
+
+
+float applyCos(float phi){
+   
+   return cos(2.*phi);
+
+}
+
+double getPathL(double phi, double a, double b){
+   return a*b/TMath::Sqrt( pow(a*sin(phi),2) + pow(b*cos(phi),2) );
+}
+
+/*
+double getPar1stPhi(double pathL, double a, double b){
+   return getPar1stLinearPathL(pathL,a,b);
+}
+*/
+
+double getPar1stLinearPathL(double pathL, double a, double b){
+
+   // short path length --> p1stMin (e.g. 0.1)
+   // long  path length --> p1stMax (e.g. 3.1)
+   double p1stMin = 0.1;
+   double p1stMax = 3.1;
+   
+   double c1 = (p1stMax-p1stMin)/(b-a);
+   double c2 = p1stMin + a*(p1stMax-p1stMin)/(b-a);
+   double par1 =  -1.*c1*pathL + c2;
+
+   return par1;
+}
+
