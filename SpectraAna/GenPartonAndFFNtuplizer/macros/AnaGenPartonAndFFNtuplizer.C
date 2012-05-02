@@ -27,7 +27,20 @@ TH1F *dPtHat;
 TH1F *dNevtMinPtHat;
 TH1F *dNJetdEt;
 TH1F *dPar1stFracLogQ;
+TH1F *dPathL;
+TH1F *dJetPhi;
+TH1F *dNJetdEtwCos2Phi;
+TH1F *dNJetdEtwNonePhi;
 
+TH2F *dPhidPathL;
+TH2F *dPhidPathL2;
+TH2F *dPar1stdPhi;
+TH2F *dPar1stVsPhi;
+TH2F *dPathLVsPhi;
+TH2F *dPathLVsPhiWPar1st;
+
+TH2F *dNJetdEtdPhi;
+TH2F *dNJetdEtdCos2Phi;
 TH2F *dNJetdEtdPtHat;
 TH2F *dNJetdEtdPtHat_FF;
 TH2F *dNTrkdPtdPtHat;
@@ -36,6 +49,7 @@ TH2F *dNAllTrkdPtdPtHat;
 TH2F *dNTrkdPtdJetEt;
 TH2F *dNTrkdZdJetEt;
 
+TH3F *dNTrkdPtdJetEtdPhi;
 TH3F *dNTrkdPtdPtHatdJetEt;
 TH3F *dNTrkdZdPtHatdJetEt;
 
@@ -45,32 +59,45 @@ TH2F *dNAllTrkdPtdPhi; //
 vector<TH1D*> hFF;
 
 // Variables
-const int LARGE_N = 100000;
+//const int LARGE_N = 100000;
 
 vector<double> etBins, ptBins, ptHatBins;
 vector<double> etFFBins, zBins, dphiBins;
+vector<double> cos2dphiBins;
 
 //const double ETBINS[19] ={0., 10., 20.,30.,40.,50.,60.,70.,80.,90.,100.,120.,140.,160.,200.,250.,300.,500.,825.};
 //const int bins = sizeof(ETBINS)/sizeof(double) - 1;
 
 bool saveFF = false;
-bool lightRAA = true; // save only histograms needed for RAA
+bool lightRAA = false; // save only histograms needed for RAA
 
 //------------------------------------
 void prepareHist();
 void saveHistRoot();
 float applyCos(float phi);
-double getPathL(double phi, double a, double b);
-double getPar1stLinearPathL(double pathL, double a, double b);
+float getPathL(float phi, float a, float b);
+float getPar1stLinearPathL(float pathL, float a, float b);
 //------------------------------------
 
 
-void AnaGenPartonAndFFNtuplizer(bool save=false){
+void AnaGenPartonAndFFNtuplizer(bool save=false, 
+				bool applyQ = false,
+				double fractQ = 0.3, 
+				double constQ = 30.0, 
+				double fractLogQ = 0.1, 
+				double fractLogQ_P2 = 1, 
+				bool fixedFracLogQ = true, 
+				float fractLogQ_low = 1.5, 
+				float fractLogQ_hig = 2.5, 
+				bool phiDepELoss = false, 
+				float ellipse_a = 7.0, 
+				float ellipse_b = 10.0){
 
    // variables
    bool debug = false;
 
-   bool applyQ = true;
+   /*
+   bool applyQ = false;
 
    double fractQ = 0.3;
    double constQ = 30.0;   // 10, 20, 30
@@ -82,19 +109,23 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
    fractLogQ = 2.0;
    fractLogQ_P2 = 1;
 
-   bool fixedFracLogQ = false;
-   double fractLogQ_low = 1.5;
-   double fractLogQ_hig = 2.5;
+   bool fixedFracLogQ = true;
+   float fractLogQ_low = 1.5;
+   float fractLogQ_hig = 2.5;
 
-   bool phiDepELoss = false;
-   double ellipse_a = 5.0;  // short path length
-   double ellipse_b = 10.0; // long path length
+   bool phiDepELoss = true;
+   float ellipse_a = 7.0;  // short path length
+   float ellipse_b = 10.0; // long path length
+   */
 
-   TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia";
+   //TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia";
    //TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v3_VariedN.root";
 
-   //TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";    
-   TString infile = "spectAnaGEN_March26_PtAll_Ntot400K_proq20_FullExt_Large_VariedN";
+   TString infdir = "/net/hisrv0001/home/y_alive/scratch1/ana/jetquenching/pythia/proq20";    
+   TString infile = "spectAnaGEN_March26_PtAll_Ntot24M_proq20_FullExt_Large_VariedN";
+   //TString infile = "spectAnaGEN_March26_PtAll_Ntot17M_proq20_FullExt_Large_VariedN";
+   //TString infile = "spectAnaGEN_March26_PtAll_Ntot8M_proq20_FullExt_Large_VariedN";
+   //TString infile = "spectAnaGEN_March26_PtAll_Ntot400K_proq20_FullExt_Large_VariedN";
    //TString infile = "spectAnaGEN_March26_PtAll_numEvents5000_proq20_FullExt_v5_VariedN";
 
    //TString infdir = "/net/hisrv0001/home/y_alive/cmssw_new/CMSSW_443_JetQuenchingAna/src/SpectraAna/GenPartonAndFFNtuplizer/test";
@@ -172,7 +203,9 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
       
       float nevt = (float) stree.nNumEvt;
 
-      if (i%5000==0) {
+      //if(i>10000) break;
+
+      if (i%50000==0) {
 	 cout<<"Cross-section = "<<stree.fCrossx<<" pTHat = "<<stree.fPthat
 	     <<" number of events = "<<nevt
 	     <<" number of jets = "<<stree.nJets<<" number of total tracks = "<<alltrk->GetEntriesFast()<<endl;
@@ -200,6 +233,9 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	 float jphi = stree.fJPhi[j];
 	 int ntrk = stree.nTrks[j];
 
+	 float pathLength = 0.0;
+	 float pPhiFracQ = 0.0;
+
 	 // Without this cut, slightly more fragmented tracks in 4-5 GeV/c 
 	 if(fabs(jeta)>2.0) continue; // eta cut 
 
@@ -208,10 +244,8 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 		<<") with "<<ntrk<<" associated charged tracks"<<endl;
 	 }
 
-	 // Apply quenching scenarios
-	 double pathLength = 0.0;
-	 double pPhiFracQ = 0.0;
-
+	 /* Apply quenching scenarios  */ 
+	 
 	 if(applyQ){
 	    if(fractQ>0){
 	       /* fractional eloss: */
@@ -219,20 +253,42 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	    }else if(constQ>0){
 	       /* constant eloss: */
 	       jet = jet - constQ; 
-	    }else if(fractLogQ>0){
+	    }else if(!phiDepELoss && fractLogQ>0){
 	       /* e-dependent fractional eloss: */
 	       jet = jet*(1. - pFracQ*(log(fractLogQ_P2*jet)/jet));
-	    }else if(phiDepELoss && fractLogQ>0){
+	       //}else if(phiDepELoss && fractLogQ>0){
+	    }else if(phiDepELoss){  
+	       float pathLength = 0.0;
+	       float pPhiFracQ = 0.0;
+
 	       pathLength = getPathL(jphi,ellipse_a,ellipse_b);
 	       pPhiFracQ = getPar1stLinearPathL(pathLength,ellipse_a,ellipse_b);
+	       
 	       jet = jet*(1. - pPhiFracQ*(log(fractLogQ_P2*jet)/jet));
+
+	       dPathL->Fill(pathLength,stree.fCrossx);
+	       dPhidPathL->Fill(jphi,pathLength,stree.fCrossx);
+	       dPhidPathL2->Fill(jphi,pathLength*pathLength,stree.fCrossx);
+	       dPar1stdPhi->Fill(pPhiFracQ,jphi,stree.fCrossx);
+	       dPar1stVsPhi->Fill(pPhiFracQ*cos(jphi),pPhiFracQ*sin(jphi),stree.fCrossx);
+	       dPathLVsPhi->Fill(pathLength*cos(jphi),pathLength*sin(jphi),stree.fCrossx);
+	       dPathLVsPhiWPar1st->Fill(pathLength*cos(jphi),pathLength*sin(jphi),pPhiFracQ*stree.fCrossx); // sure?
+
 	    }
-	    if(jet<0) continue;  // THIS IS IMPORTANT --> JUSTIFIED?
+	    // THIS IS IMPORTANT --> JUSTIFIED?
+	    // THIS IS NOT NEEDED SINCE JET<0 FILLED IN UNDERFLOW BIN ANYWAY
+	    // if(jet<0) continue;
+
 	 } // end of apply jetQ
-
-
+	 
 	 // HIST FILLING 
+	 
+	 dJetPhi->Fill(jphi,stree.fCrossx);
 	 dNJetdEt->Fill(jet,stree.fCrossx);
+	 dNJetdEtdPhi->Fill(jet,jphi,stree.fCrossx);
+	 dNJetdEtdCos2Phi->Fill(jet,cos(2.*jphi),stree.fCrossx); // v2 = <cos2(phi-psi)>
+	 dNJetdEtwCos2Phi->Fill(jet,stree.fCrossx*cos(2.*jphi)); // v2 =  dNJetdEtwCos2Phi/dNJetdEtwNonePhi
+	 dNJetdEtwNonePhi->Fill(jet,stree.fCrossx*1.0);
 	 dNJetdEtdPtHat->Fill(jet,stree.fPthat,stree.fCrossx); 
 	 dNJetdEtdPtHat_FF->Fill(jet,stree.fPthat,stree.fCrossx);
 	 
@@ -260,7 +316,10 @@ void AnaGenPartonAndFFNtuplizer(bool save=false){
 	    dNTrkdPtdPtHat->Fill(trkpt,stree.fPthat,stree.fCrossx);  // weighted by cross section
 	    dNTrkdPtdJetEt->Fill(trkpt,jpt,stree.fCrossx);
 	    dNTrkdZdJetEt->Fill(trkz,jpt,stree.fCrossx);
-	    dNTrkdPtdPhi->Fill(trkpt,trkphi,stree.fCrossx*(1.+applyCos(trkphi))); // ARTIFICAL V2
+	    dNTrkdPtdPhi->Fill(trkpt,trkphi,stree.fCrossx);
+	    //dNTrkdPtdPhi->Fill(trkpt,trkphi,stree.fCrossx*(1.+applyCos(trkphi))); // ARTIFICAL V2
+
+	    dNTrkdPtdJetEtdPhi->Fill(trkpt,jpt,trkphi,stree.fCrossx);
 
 	    dNTrkdPtdPtHatdJetEt->Fill(trkpt,stree.fPthat,jpt,stree.fCrossx);
 	    dNTrkdZdPtHatdJetEt->Fill(trkz,stree.fPthat,jpt,stree.fCrossx);
@@ -396,9 +455,15 @@ void prepareHist(){
 
    // phi bins
    double dphib;
-
    for(dphib = -3.2; dphib < 3.2-small; dphib += 0.05) dphiBins.push_back(dphib);
    dphiBins.push_back(3.2);
+
+   // cos2phibins
+   double cos2dphib; // fix it to -2 to 2!
+   for(cos2dphib = -2.0; cos2dphib < 2.0-small; cos2dphib += 0.02) cos2dphiBins.push_back(cos2dphib);
+   cos2dphiBins.push_back(2.0);
+
+
 
    // 1D      
    dPtHat = new TH1F("dPtHat","#hat{q} with no weight", ptHatBins.size()-1, &ptHatBins[0]);   
@@ -407,8 +472,34 @@ void prepareHist(){
    dNJetdEt = new TH1F("dNJetdEt","Parton/Jet E_{T}; E_{T} (GeV)",etBins.size()-1, &etBins[0]);
 
    dPar1stFracLogQ = new TH1F("dPar1stFracLogQ","Jet Quenching Parameter Distribution; PAR1",100, 0.0, 5.0);
+   dPathL = new TH1F("dPathL","Path length travled; L (fm)",200,0.0,20.0);
+   dJetPhi = new TH1F("dJetPhi","Jet Phi; #phi (rad)", 100, -3.2, 3.2);
+
+   dNJetdEtwCos2Phi = new TH1F("dNJetdEtwCos2Phi","Jet E_{T} with cos2 weight; E_{T} (GeV)",etBins.size()-1, &etBins[0]);
+   dNJetdEtwNonePhi = new TH1F("dNJetdEtwNonePhi","Jet E_{T} with unity weight; E_{T} (GeV)",etBins.size()-1, &etBins[0]);
+
 
    // 2D
+   dPhidPathL = new TH2F("dPhidPathL","Phi vs Path length travled; #phi (rad); L (fm)",
+			 100, -3.2,3.2, 200,0.0,20.0);
+   dPhidPathL2 = new TH2F("dPhidPathL2","Phi vs Path length travled^{2}; #phi (rad); L (fm)",
+			 100, -3.2,3.2, 200,0.0,200.0);
+   dPar1stdPhi = new TH2F("dPar1stdPhi","Jet Quenching Parameter vs Phi; PAR1; #phi (rad)", 
+			  100, 0.0, 5.0, 100, -3.2,3.2); 
+   dPar1stVsPhi = new TH2F("dPar1stVsPhi","JQ parameter in x-y coordinate; PAR; PAR",
+			   100, -5.0, 5.0, 100, -5.0, 5.0);
+   dPathLVsPhi = new TH2F("dPathLVsPhi","Path length travled in x-y coordinate; L_{x} (fm); L_{y} (fm)"
+			  ,100,-15.0,15.0, 100,-15.0,15.0);
+   dPathLVsPhiWPar1st = new TH2F("dPathLVsPhiWPar1st","Path length travled in x-y coordinate with W; L_{x} (fm); L_{y} (fm)"
+				 ,100,-15.0,15.0, 100,-15.0,15.0);
+
+   // 2D
+   dNJetdEtdPhi = new TH2F("dNJetdEtdPhi","Parton/Jet E_{T} vs Jet Phi; E_{T} (GeV); #phi (rad)",
+			   etBins.size()-1, &etBins[0], dphiBins.size()-1, &dphiBins[0]);
+
+   dNJetdEtdCos2Phi = new TH2F("dNJetdEtdCos2Phi","Parton/Jet E_{T} vs Cos2(Jet Phi); E_{T} (GeV); cos2(#phi-#psi)",
+			       etBins.size()-1, &etBins[0], cos2dphiBins.size()-1, &cos2dphiBins[0]);
+
    dNJetdEtdPtHat = new TH2F("dNJetdEtdPtHat","Parton/Jet E_{T} vs #hat{q}; E_{T} (GeV); #hat{q} (GeV)", 
 			  etBins.size()-1, &etBins[0], ptHatBins.size()-1, &ptHatBins[0]);
 
@@ -434,6 +525,10 @@ void prepareHist(){
 			      ptBins.size()-1, &ptBins[0], dphiBins.size()-1, &dphiBins[0]);
 
    // 3D
+   dNTrkdPtdJetEtdPhi = new TH3F("dNTrkdPtdJetEtdPhi",
+				 "Charged particle p_{T} vs Jet E_{T} vs #Delta#phi; p_{T} (GeV/c); Jet E_{T} (GeV); #Delta#phi (rad)",
+				 ptBins.size()-1, &ptBins[0], etFFBins.size()-1, &etFFBins[0], dphiBins.size()-1, &dphiBins[0]);
+
    dNTrkdPtdPtHatdJetEt = new TH3F("dNTrkdPtdPtHatdJetEt",
 				   "Charged particle p_{T} vs #hat{q} vs Jet E_{T} (GeV); p_{T} (GeV/c);#hat{q} (GeV);Jet E_{T} (GeV)",
 				   ptBins.size()-1, &ptBins[0], ptHatBins.size()-1, &ptHatBins[0], etFFBins.size()-1, &etFFBins[0]);
@@ -452,15 +547,29 @@ void saveHistRoot(){
    dNevtMinPtHat->Write();
    dNJetdEt->Write();
    dPar1stFracLogQ->Write();
+   dPathL->Write();
+   dJetPhi->Write();
+
+   dPhidPathL->Write();
+   dPhidPathL2->Write();
+   dPar1stdPhi->Write();
+   dPar1stVsPhi->Write();
+   dPathLVsPhi->Write();
+   dPathLVsPhiWPar1st->Write();
 
    if(!lightRAA){
       dNJetdEtdPtHat->Write();
       dNJetdEtdPtHat_FF->Write();
       dNAllTrkdPtdPtHat->Write();
    }
+   dNJetdEtdPhi->Write();
+   dNJetdEtdCos2Phi->Write();
+   dNJetdEtwCos2Phi->Write();
+   dNJetdEtwNonePhi->Write();
    dNTrkdPtdPtHat->Write();
 
    dNTrkdPtdJetEt->Write();
+   dNTrkdPtdJetEtdPhi->Write();
    if(!lightRAA) dNTrkdZdJetEt->Write();
 
    dNTrkdPtdPtHatdJetEt->Write();
@@ -484,27 +593,31 @@ float applyCos(float phi){
 
 }
 
-double getPathL(double phi, double a, double b){
-   return a*b/TMath::Sqrt( pow(a*sin(phi),2) + pow(b*cos(phi),2) );
+float getPathL(float phi, float a, float b){
+
+   /* Equation of radius in Ellipse */
+   float asin = a*a*sin(phi)*sin(phi);
+   float bcos = b*b*cos(phi)*cos(phi);
+
+   return a*b/TMath::Sqrt( asin + bcos );
+
 }
 
-/*
-double getPar1stPhi(double pathL, double a, double b){
-   return getPar1stLinearPathL(pathL,a,b);
-}
-*/
 
-double getPar1stLinearPathL(double pathL, double a, double b){
+float getPar1stLinearPathL(float pathL, float a, float b){
 
    // short path length --> p1stMin (e.g. 0.1)
    // long  path length --> p1stMax (e.g. 3.1)
-   double p1stMin = 0.1;
-   double p1stMax = 3.1;
-   
-   double c1 = (p1stMax-p1stMin)/(b-a);
-   double c2 = p1stMin + a*(p1stMax-p1stMin)/(b-a);
-   double par1 =  -1.*c1*pathL + c2;
+   // y = ax + b --> linear proportionality between parameter and L
 
+   float p1stMin = 0.1;
+   float p1stMax = 3.1;
+   
+   float c1 = (p1stMax-p1stMin)/(b-a);
+   //float c2 = p1stMax + a*c1;
+   //float par1 =  -1.*c1*pathL + c2;
+   float c2 = 0.5*((p1stMax+p1stMin)-c1*(a+b));
+   float par1 =  c1*pathL + c2;
    return par1;
 }
 
