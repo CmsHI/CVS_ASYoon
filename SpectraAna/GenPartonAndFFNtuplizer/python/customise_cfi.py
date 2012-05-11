@@ -47,7 +47,7 @@ def enableMinPtHatCut(process,genTypePtHatRange):
 # Check this values for various tunes!
 def getPy6ProcXsection(genTypePtHatRange):
     para = {
-        'NSD_0_to_5':4.130E+01,
+        'NSD_0_to_5':2.878E+01, # 4.130E+01-(1.155E+01+9.073E-01+....)
         'NSD_5_to_10':1.155E+01,
         'NSD_10_to_20':9.073E-01,
         'NSD_0_to_10':4.130E+01,
@@ -79,3 +79,19 @@ def getPy6ProcXsection(genTypePtHatRange):
     print 'PYTHIA process xsection = %s mb' % para[genTypePtHatRange]
     return para[genTypePtHatRange]
          
+
+# This is for 200 GeV 
+
+def getPy6ProcXsection200GeV(genTypePtHatRange):
+    para = {
+      'NSD_0_to_5':2.747E+01, # 2.764E+01-()
+      'NSD_5_to_10':1.626E-01,
+      'NSD_10_to_20':4.477E-03,
+      'NSD_20_to_30':5.572E-05,
+      'NSD_30_to_50':2.297E-06,
+      'NSD_50_to_80':6.899E-09,
+      'NSD_80_to_120':4.538E-14
+      }
+    print 'PYTHIA process xsection = %s mb' % para[genTypePtHatRange]
+    return para[genTypePtHatRange]
+    
